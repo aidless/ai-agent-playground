@@ -1,0 +1,9 @@
+Python is a high-level, interpreted programming language created by Guido van Rossum and first released in 1991. Its design philosophy emphasizes code readability through the use of significant indentation. Python is dynamically typed and garbage-collected.
+
+Python 3.0 was released in 2008. It was a major revision not completely backward-compatible with earlier versions. Python 2 was discontinued in 2020 with version 2.7.18 being the last release.
+
+Python is widely used in web development, data science, artificial intelligence, and automation. The language has a comprehensive standard library and a large ecosystem of third-party packages available through the Python Package Index (PyPI).
+
+Popular Python web frameworks include Django, Flask, and FastAPI. Django follows a batteries-included philosophy, while Flask is a micro-framework that gives developers more flexibility. FastAPI focuses on high performance and automatic API documentation.
+
+For data science, the most commonly used libraries are NumPy for numerical computing, Pandas for data manipulation, Matplotlib for plotting, and Scikit-learn for machine learning. Jupyter Notebook provides an interactive environment for data exploration.

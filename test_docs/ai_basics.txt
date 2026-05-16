@@ -1,0 +1,9 @@
+Artificial Intelligence (AI) is intelligence demonstrated by machines, as opposed to natural intelligence displayed by animals including humans. AI research has been defined as the study of intelligent agents: any system that perceives its environment and takes actions that maximize its chance of achieving its goals.
+
+Machine learning is a subset of AI that enables systems to learn and improve from experience without being explicitly programmed. Deep learning is a subset of machine learning that uses neural networks with many layers (deep neural networks) to analyze various factors of data.
+
+Large Language Models (LLMs) are a type of deep learning model trained on vast amounts of text data. They can generate human-like text, translate languages, write code, and answer questions. Notable examples include GPT-4, Claude, and DeepSeek.
+
+Retrieval-Augmented Generation (RAG) combines retrieval-based and generation-based AI. When a user asks a question, RAG first retrieves relevant documents from a knowledge base, then feeds those documents as context to a language model. This reduces hallucinations and allows the model to use up-to-date or proprietary information.
+
+Vector databases like ChromaDB, Pinecone, and Weaviate store embeddings — numerical representations of text that capture semantic meaning. When you search a vector database, it finds documents that are semantically similar to your query, not just matching keywords.
