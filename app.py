@@ -18,7 +18,7 @@ st.sidebar.markdown("---")
 
 page = st.sidebar.radio(
     "Choose an agent",
-    ["🏠 Home", "💬 Chat Agent", "📋 Code Review", "📚 RAG Q&A", "👥 Multi-Agent Crew", "📄 Resume Matcher"],
+    ["🏠 Home", "💬 Chat Agent", "📋 Code Review", "📚 RAG Q&A", "👥 Multi-Agent Crew", "📄 Resume Matcher", "🔧 MCP Tool Agent"],
 )
 
 st.sidebar.markdown("---")
@@ -198,6 +198,31 @@ elif page == "📄 Resume Matcher":
             report = agent.analyze(resume_text, jd_text)
         st.markdown("---")
         st.markdown(report)
+
+elif page == "🔧 MCP Tool Agent":
+    st.title("🔧 MCP Tool-Use Agent")
+    st.caption("AI agent with tools: web search, file read/write, command execution, calculator.")
+
+    st.markdown("**Available Tools**")
+    st.markdown("- `web_search` — Search the internet")
+    st.markdown("- `read_file` — Read local files")
+    st.markdown("- `write_file` — Write content to files")
+    st.markdown("- `run_command` — Execute shell commands")
+    st.markdown("- `calculator` — Evaluate math expressions")
+
+    question = st.text_area(
+        "What do you want to do?",
+        height=100,
+        placeholder="Read the file test_docs/ai_basics.txt and summarize it",
+    )
+
+    if st.button("Execute", type="primary") and question:
+        with st.spinner("Agent thinking and using tools..."):
+            from mcp_agent.agent import MCPToolAgent
+            agent = MCPToolAgent()
+            answer = agent.ask(question)
+        st.markdown("---")
+        st.markdown(answer)
 
 st.sidebar.markdown("---")
 st.sidebar.caption("Built with ❤️ using Streamlit + DeepSeek V4")
