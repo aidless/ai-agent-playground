@@ -12,7 +12,8 @@ class MCPAgentConfig(BaseAgentConfig):
 
     model: str = "deepseek-v4-pro[1m]"
     max_tokens: int = 2048
-    max_tool_rounds: int = 5  # Max rounds of tool calling before final answer
+    max_tool_rounds: int = 5
+    mcp_command: list[str] | None = None
 
     system_prompt: str = (
         "You are an AI assistant with access to tools. "
@@ -21,11 +22,5 @@ class MCPAgentConfig(BaseAgentConfig):
         "When you need to use a tool, respond with:\n"
         '{"tool": "tool_name", "args": {"arg1": "value1"}}\n\n'
         "After receiving tool results, continue with your answer.\n"
-        "Only use tools when necessary. For general questions, answer directly.\n\n"
-        "Available tools:\n"
-        "- web_search: Search the internet for current information\n"
-        "- read_file: Read a file from disk\n"
-        "- write_file: Write content to a file\n"
-        "- run_command: Execute a shell command and return output\n"
-        "- calculator: Evaluate a mathematical expression"
+        "Only use tools when necessary. For general questions, answer directly."
     )

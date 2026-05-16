@@ -1,0 +1,94 @@
+[
+  {
+    "id": "mcp_001",
+    "agent": "mcp-agent",
+    "name": "Simple calculation — should use calculator tool",
+    "input": "What is 15 * 15 + 12? Calculate it.",
+    "expected_keywords": ["237"],
+    "expected_tools": ["calculator"],
+    "judge_prompt": "The answer must contain the correct result 237 and indicate that calculation was performed."
+  },
+  {
+    "id": "mcp_002",
+    "agent": "mcp-agent",
+    "name": "Direct answer — no tool needed",
+    "input": "What is an AI agent? Explain in 2-3 sentences.",
+    "expected_keywords": ["AI", "agent", "autonomous"],
+    "expected_tools": [],
+    "judge_prompt": "The answer should define what an AI agent is clearly. Should NOT use any tools for this simple definition question."
+  },
+  {
+    "id": "mcp_003",
+    "agent": "mcp-agent",
+    "name": "File write and read — multi-step tool use",
+    "input": "Create a file called test_notes.txt with content 'AI agents are autonomous systems', then read it back and tell me what it contains.",
+    "expected_keywords": ["AI agents are autonomous systems", "test_notes"],
+    "expected_tools": ["write_file", "read_file"],
+    "judge_prompt": "The agent should write the file AND read it back, confirming the content. Multi-step tool use is the key evaluation criterion."
+  },
+  {
+    "id": "mcp_004",
+    "agent": "mcp-agent",
+    "name": "Math with function — sqrt and power",
+    "input": "Calculate sqrt(144) + 3^3. Use the calculator tool.",
+    "expected_keywords": ["39"],
+    "expected_tools": ["calculator"],
+    "judge_prompt": "The answer must contain the correct result: 12 + 27 = 39."
+  },
+  {
+    "id": "mcp_005",
+    "agent": "mcp-agent",
+    "name": "Complex calculation — compound expression",
+    "input": "What is (25 * 4) + (100 / 5) - 10? Calculate it step by step using the calculator.",
+    "expected_keywords": ["110"],
+    "expected_tools": ["calculator"],
+    "judge_prompt": "The answer must contain the correct result 110."
+  },
+  {
+    "id": "mcp_006",
+    "agent": "mcp-agent",
+    "name": "Nonsense question — should handle gracefully",
+    "input": "What color is the number 7?",
+    "expected_keywords": [],
+    "forbidden_keywords": ["error", "failed", "cannot"],
+    "expected_tools": [],
+    "judge_prompt": "This is a nonsense question. A good agent should explain that numbers don't have colors, NOT error out or call tools."
+  },
+  {
+    "id": "mcp_007",
+    "agent": "mcp-agent",
+    "name": "Read non-existent file — graceful error handling",
+    "input": "Read the file /nonexistent/file_that_does_not_exist.txt and tell me what's in it.",
+    "expected_keywords": ["not found", "exist"],
+    "expected_tools": ["read_file"],
+    "judge_prompt": "The agent should try to read the file, discover it doesn't exist, and report that clearly without crashing."
+  },
+  {
+    "id": "mcp_008",
+    "agent": "mcp-agent",
+    "name": "Tool discovery — agent lists available tools",
+    "input": "What tools do you have access to? List them all.",
+    "expected_keywords": ["calculator", "read_file", "web_search"],
+    "expected_tools": [],
+    "judge_prompt": "The agent should list at least 3 tools it has access to, including calculator, read_file, and web_search."
+  },
+  {
+    "id": "mcp_009",
+    "agent": "mcp-agent",
+    "name": "Multi-operation: calculate AND save result",
+    "input": "Calculate 256 / 8, then write the result to a file called division_result.txt.",
+    "expected_keywords": ["32", "division_result"],
+    "expected_tools": ["calculator", "write_file"],
+    "judge_prompt": "Two distinct tool calls required: calculator then write_file. Both must succeed."
+  },
+  {
+    "id": "mcp_010",
+    "agent": "mcp-agent",
+    "name": "Ambiguous tool choice — pick the right tool",
+    "input": "I need to know the value of pi times 100. Don't search the web, just calculate it.",
+    "expected_keywords": ["314"],
+    "expected_tools": ["calculator"],
+    "forbidden_keywords": ["web_search"],
+    "judge_prompt": "Agent should use calculator (NOT web_search). Result should be approximately 314.159..."
+  }
+]

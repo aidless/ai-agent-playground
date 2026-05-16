@@ -7,6 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "anthropic>=0.102.0",
     "chromadb>=1.5.9",
+    "mcp>=1.0.0",
     "pypdf>=6.11.0",
     "python-dotenv>=1.2.2",
     "streamlit>=1.57.0",

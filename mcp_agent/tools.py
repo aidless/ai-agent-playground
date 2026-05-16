@@ -1,7 +1,7 @@
 """Tool implementations for the MCP agent.
 
 Each tool is a standalone function — the agent can call them independently.
-This is the core of agentic AI: the LLM decides WHAT to call, the agent executes HOW.
+New tools are auto-discovered by the Agent via MCP protocol.
 """
 
 import json
@@ -11,6 +11,8 @@ import subprocess
 import urllib.request
 import urllib.error
 from pathlib import Path
+
+from .sandbox import get_sandbox, SandboxError
 
 
 def web_search(query: str, num_results: int = 3) -> str:
@@ -24,7 +26,6 @@ def web_search(query: str, num_results: int = 3) -> str:
         with urllib.request.urlopen(req, timeout=10) as resp:
             html = resp.read().decode("utf-8")
 
-        # Simple extraction of result snippets
         results = []
         for line in html.split("\n"):
             if 'class="result__snippet"' in line:
@@ -101,6 +102,28 @@ def calculator(expression: str) -> str:
         return f"Error: {e}"
 
 
+def sandbox_execute(code: str, language: str = "python") -> str:
+    """Execute code in a secure Docker sandbox.
+
+    The code runs in an isolated container with:
+      - No network access
+      - Memory limited to 256MB
+      - CPU limited to 1 core
+      - Read-only filesystem
+      - 30 second timeout
+      - Auto-cleanup after execution
+
+    Args:
+        code: Source code to execute
+        language: Programming language (currently only 'python')
+    """
+    try:
+        s = get_sandbox()
+        return s.execute(code, language)
+    except SandboxError as e:
+        return f"Sandbox error: {e}"
+
+
 # Tool registry — all available tools
 TOOLS = {
     "web_search": web_search,
@@ -108,6 +131,7 @@ TOOLS = {
     "write_file": write_file,
     "run_command": run_command,
     "calculator": calculator,
+    "sandbox_execute": sandbox_execute,
 }
 
 TOOL_DESCRIPTIONS = {
@@ -116,4 +140,5 @@ TOOL_DESCRIPTIONS = {
     "write_file": "Write to a file. Args: path (str), content (str)",
     "run_command": "Run a shell command. Args: command (str), timeout (int, optional)",
     "calculator": "Evaluate math. Args: expression (str)",
+    "sandbox_execute": "Safely execute Python code in an isolated Docker container. Args: code (str), language (str, optional, default='python')",
 }

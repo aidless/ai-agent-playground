@@ -10,6 +10,7 @@ Any MCP client (Claude Code, Cursor, VS Code, custom apps) can connect and use:
     - write_file:   Write to local files
     - run_command:  Execute shell commands
     - calculator:   Safe math evaluation
+    - sandbox_execute: Safely run Python code in isolated Docker container
 
 Run as:
   uv run python -m mcp_agent.mcp_server
@@ -33,8 +34,10 @@ from mcp.server import Server
 from mcp.server.stdio import stdio_server
 from mcp.types import Tool, TextContent
 
+from .sandbox import get_sandbox, SandboxError
 
-# ---- Tool Implementations (same as tools.py, adapted for MCP) ----
+
+# ---- Tool Implementations ----
 
 def _web_search(query: str, num_results: int = 3) -> str:
     """DuckDuckGo search — no API key needed."""
@@ -104,7 +107,7 @@ def _run_command(command: str, timeout: int = 30) -> str:
 
 def _calculator(expression: str) -> str:
     """Safely evaluate math."""
-    allowed = set("0123456789+-*/().%^ eEpπ ")
+    allowed = set("0123456789+-*/().%^ eEπ ")
     if not all(c in allowed for c in expression):
         return "Error: expression contains disallowed characters. Use only: digits, +, -, *, /, (, ), ., ^"
     safe = expression.replace("^", "**").replace("π", str(math.pi))
@@ -119,13 +122,24 @@ def _calculator(expression: str) -> str:
         return f"Error: {e}"
 
 
+def _sandbox_execute(code: str, language: str = "python") -> str:
+    """Execute Python code in a secure Docker sandbox.
+
+    The container has no network access, limited memory (256MB),
+    limited CPU (1 core), and a read-only filesystem.
+    """
+    try:
+        s = get_sandbox()
+        return s.execute(code, language)
+    except SandboxError as e:
+        return f"Sandbox error: {e}"
+
+
 # ---- MCP Server Setup ----
 
-# Create the MCP server
 server = Server("ai-agent-tools")
 
 
-# Register tools with descriptions (this is what MCP clients see)
 @server.list_tools()
 async def list_tools() -> list[Tool]:
     return [
@@ -213,10 +227,28 @@ async def list_tools() -> list[Tool]:
                 "required": ["expression"],
             },
         ),
+        Tool(
+            name="sandbox_execute",
+            description="Safely execute Python code in an isolated Docker container. The container has no network access, 256MB memory limit, 1 CPU core, read-only filesystem, and a 30-second timeout. Use this to run generated code safely without risking the host system.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "The Python source code to execute in the sandbox."
+                    },
+                    "language": {
+                        "type": "string",
+                        "description": "Programming language (currently only 'python' is supported)",
+                        "default": "python",
+                    },
+                },
+                "required": ["code"],
+            },
+        ),
     ]
 
 
-# Handle tool calls
 @server.call_tool()
 async def call_tool(name: str, arguments: dict) -> list[TextContent]:
     """Route tool calls to the right implementation."""
@@ -226,6 +258,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         "write_file": lambda: _write_file(**arguments),
         "run_command": lambda: _run_command(**arguments),
         "calculator": lambda: _calculator(**arguments),
+        "sandbox_execute": lambda: _sandbox_execute(**arguments),
     }
 
     if name not in tool_map:

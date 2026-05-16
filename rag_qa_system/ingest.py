@@ -1,6 +1,10 @@
-"""Document ingestion: load PDFs/TXTs → chunk → embed → store in ChromaDB.
+"""
+Document ingestion: load PDFs/TXTs → chunk (configurable strategy) → embed → ChromaDB.
 
-Like a tokenizer: raw documents → structured vectors ready for retrieval.
+Supports 3 chunking strategies (config.chunk_strategy):
+  - fixed_size: character windows with overlap
+  - sentence:    respects sentence boundaries (default, best for prose)
+  - semantic:    splits on topic shifts via embedding similarity
 """
 
 from dataclasses import dataclass
@@ -9,6 +13,7 @@ from pathlib import Path
 import chromadb
 from chromadb.config import Settings as ChromaSettings
 
+from .chunking import create_chunker
 from .config import RAGConfig
 
 
@@ -17,13 +22,11 @@ class IngestResult:
     files_processed: int
     chunks_created: int
     collection_name: str
+    strategy: str
 
 
 class DocumentIngester:
-    """Loads documents, chunks them, embeds with ChromaDB's built-in model.
-
-    ChromaDB uses all-MiniLM-L6-v2 (ONNX) by default — no API key, runs locally.
-    """
+    """Loads documents, chunks them with configurable strategy, embeds with ChromaDB."""
 
     def __init__(self, config: RAGConfig):
         self.config = config
@@ -38,16 +41,23 @@ class DocumentIngester:
         files = self._find_documents(dir_path)
         if not files:
             print("No PDF, TXT, or MD files found.")
-            return IngestResult(0, 0, self.config.collection)
+            return IngestResult(0, 0, self.config.collection, self.config.chunk_strategy)
 
-        print(f"Found {len(files)} document(s)\n")
+        strategy = self.config.chunk_strategy
+        chunker = create_chunker(
+            strategy, self.config.chunk_size, self.config.chunk_overlap
+        )
+
+        print(f"Found {len(files)} document(s)")
+        print(f"Chunking: {chunker.name()} (size={self.config.chunk_size}, "
+              f"overlap={self.config.chunk_overlap})")
+        print()
 
         client = chromadb.PersistentClient(
             path=str(self._db_dir),
             settings=ChromaSettings(anonymized_telemetry=False),
         )
 
-        # Get or create collection (ChromaDB's built-in all-MiniLM-L6-v2 for embeddings)
         try:
             coll = client.get_collection(self.config.collection)
             print(f"Adding to '{self.config.collection}' "
@@ -65,22 +75,26 @@ class DocumentIngester:
                 print(f"SKIP ({exc})")
                 continue
 
-            chunks = self._chunk_text(text)
+            chunks = chunker.split(text)
             if not chunks:
                 print("SKIP (empty)")
                 continue
 
-            ids = [f"{fp.stem}_{i}" for i in range(len(chunks))]
+            chunk_texts = [c.text for c in chunks]
+            ids = [f"{fp.stem}_{c.chunk_index}" for c in chunks]
             metadatas = [
-                {"source": str(fp), "chunk_index": i}
-                for i in range(len(chunks))
+                {"source": str(fp), "chunk_index": c.chunk_index,
+                 "start_char": c.start_char, "end_char": c.end_char}
+                for c in chunks
             ]
-            coll.add(ids=ids, documents=chunks, metadatas=metadatas)
+
+            coll.add(ids=ids, documents=chunk_texts, metadatas=metadatas)
             total += len(chunks)
             print(f"{len(chunks)} chunks")
 
-        print(f"\nDone. {total} chunks across {len(files)} file(s).")
-        return IngestResult(len(files), total, self.config.collection)
+        print(f"\nDone. {total} chunks across {len(files)} file(s) "
+              f"using [{chunker.name()}] strategy.")
+        return IngestResult(len(files), total, self.config.collection, chunker.name())
 
     def stats(self) -> dict:
         """Return collection stats."""
@@ -116,31 +130,3 @@ class DocumentIngester:
                     parts.append(f"[Page {i+1}]\n{t.strip()}")
             return "\n\n".join(parts)
         return path.read_text(encoding="utf-8")
-
-    def _chunk_text(self, text: str) -> list[str]:
-        """Split text into overlapping chunks at paragraph boundaries."""
-        paragraphs = text.split("\n\n")
-        chunks = []
-        current = ""
-
-        for para in paragraphs:
-            para = para.strip()
-            if not para:
-                continue
-
-            if len(current) + len(para) < self.config.chunk_size:
-                current = (current + "\n\n" + para).strip()
-            else:
-                if current:
-                    chunks.append(current)
-                    current = current[-self.config.chunk_overlap:] + "\n\n" + para
-                else:
-                    for i in range(0, len(para), self.config.chunk_size - self.config.chunk_overlap):
-                        chunk = para[i:i + self.config.chunk_size]
-                        if len(chunk) > 50:
-                            chunks.append(chunk)
-                    current = ""
-
-        if current and len(current) > 20:
-            chunks.append(current)
-        return chunks
