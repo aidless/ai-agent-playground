@@ -1,0 +1,26 @@
+[
+  {
+    "id": "cr_001",
+    "agent": "code-review",
+    "name": "Should detect missing return statement",
+    "input": "def divide(a, b):\n    result = a / b",
+    "expected_keywords": ["return", "None"],
+    "judge_prompt": "The review should flag that the function is missing a return statement. It computes 'result' but never returns it."
+  },
+  {
+    "id": "cr_002",
+    "agent": "code-review",
+    "name": "Should detect division by zero risk",
+    "input": "def divide(a, b):\n    return a / b",
+    "expected_keywords": ["zero", "ZeroDivision"],
+    "judge_prompt": "The review should mention the risk of division by zero when b=0. It should suggest adding a check for b == 0."
+  },
+  {
+    "id": "cr_003",
+    "agent": "code-review",
+    "name": "Should not flag clean code",
+    "input": "def add(a: int, b: int) -> int:\n    \"\"\"Return the sum of a and b.\"\"\"\n    return a + b",
+    "judge_prompt": "This code is clean and correct. The review should say 'no issues found' or give it a clean bill of health. Do NOT fabricate problems.",
+    "max_length": 500
+  }
+]
