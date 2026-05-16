@@ -12,6 +12,12 @@ wheels/
 # Secrets
 .env
 
+# Vector database (large binary files)
+chroma_db/
+
+# Generated reports
+reports/
+
 # OS files
 .DS_Store
 Thumbs.db
