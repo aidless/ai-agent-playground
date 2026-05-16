@@ -1,0 +1,41 @@
+Liu Zewen
+Software Engineering Student | Qilu Institute of Technology
+Email: lzw@example.com | GitHub: github.com/aidless
+
+EDUCATION
+Bachelor of Software Engineering, Qilu Institute of Technology (2024-2026)
+Associate Degree in Computer Science (2021-2024)
+
+TECHNICAL SKILLS
+Languages: Python, Java, SQL, JavaScript
+Frameworks: Spring Boot, FastAPI, MyBatis-Plus
+AI/ML: LangChain, ChromaDB, RAG, Anthropic SDK, DeepSeek API
+Tools: Git, MySQL, Docker, Maven, uv
+Web: HTML, CSS, React (basic), Streamlit
+
+PROJECTS
+AI Agent Playground (github.com/aidless/ai-agent-playground)
+- Built 4 AI agent projects using Pipeline design pattern inspired by HuggingFace Transformers
+- Implemented RAG knowledge base Q&A system with ChromaDB vector search
+- Created multi-agent collaboration system (PM → Dev → QA → DevOps)
+- Tech: Python, DeepSeek API, ChromaDB, Streamlit
+
+SpringBoot Ship Management System
+- Full-stack vessel and container management system
+- JWT authentication, RESTful API, MySQL database
+- Tech: Java, Spring Boot, MyBatis-Plus, MySQL
+
+AI Code Review Agent
+- Automated code quality analysis using LLM
+- Supports 15+ programming languages
+- Generates structured Markdown reports with severity classification
+- Tech: Python, Anthropic SDK, LangChain
+
+EXPERIENCE
+Software Development Intern (2025)
+- Developed and maintained Java web applications
+- Wrote unit tests and API documentation
+
+CERTIFICATIONS
+- Software Designer (中级) - in progress
+- CET-4 English

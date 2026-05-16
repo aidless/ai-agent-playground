@@ -1,0 +1,34 @@
+Junior AI Application Developer
+
+About Us:
+We are a fast-growing AI startup building next-generation enterprise AI solutions. Our team is looking for a passionate Junior AI Application Developer to join our engineering team.
+
+Requirements:
+- 1+ years of Python development experience
+- Experience with Large Language Models (LLM) APIs such as OpenAI, Anthropic, or DeepSeek
+- Familiar with RAG (Retrieval-Augmented Generation) and vector databases (Pinecone, ChromaDB, or Weaviate)
+- Understanding of prompt engineering and agent frameworks (LangChain, CrewAI, or AutoGen)
+- Experience building RESTful APIs with FastAPI or Flask
+- Familiar with Docker and containerized deployment
+- Version control with Git
+- Good English reading and writing skills
+
+Nice to Have:
+- Experience with Streamlit or Gradio for demo/prototyping
+- Knowledge of MLOps and model deployment
+- Open source contributions
+- Experience with Spring Boot / Java (our legacy systems)
+- Familiar with HuggingFace Transformers or other open-source ML libraries
+
+Responsibilities:
+- Develop and maintain AI-powered features using LLM APIs
+- Build RAG pipelines for enterprise knowledge bases
+- Write clean, tested, documented code
+- Collaborate with product and engineering teams
+- Participate in code reviews and technical discussions
+
+What We Offer:
+- Competitive salary (negotiable based on experience)
+- Remote work options
+- Learning budget for conferences and courses
+- Fast growth environment
