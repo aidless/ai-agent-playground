@@ -1,0 +1,10 @@
+[project]
+name = "ai-agent-playground"
+version = "0.1.0"
+description = "Building AI agents with Python, LangChain, and Claude API"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.102.0",
+    "python-dotenv>=1.2.2",
+]
