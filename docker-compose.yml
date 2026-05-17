@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # Main application
+  agent:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+    ports:
+      - "8501:8501"
+    networks:
+      - agent-network
+    restart: unless-stopped
+    depends_on:
+      - redis
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+networks:
+  agent-network:
+    driver: bridge
+
+volumes:
+  redis-data:
