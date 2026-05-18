@@ -19,6 +19,7 @@ applied to function-level tool optimization.
 import difflib
 import json
 import logging
+import re
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -165,6 +166,28 @@ EVOLUTION_PROMPT = (
     "Output ONLY the optimized function code, nothing else."
 )
 
+EVOLUTION_WITH_TEMPLATES_PROMPT = (
+    "You are a code optimizer. Given a tool function, its performance metrics, "
+    "and EXAMPLES of successful optimizations from similar tools, generate an "
+    "OPTIMIZED version. Learn from the patterns in the examples:\n"
+    "- What optimization strategies worked before?\n"
+    "- What patterns improved performance?\n"
+    "Apply these lessons to the current tool. Keep signature (params: dict) -> str.\n"
+    "Output ONLY the optimized function code, nothing else."
+)
+
+META_EVOLUTION_PROMPT = (
+    "You are a self-referential meta-programmer. You are optimizing the AGENT "
+    "SYSTEM ITSELF, not a tool function. The code below is part of the MetaAgent "
+    "or evolution engine. Analyze it, identify weaknesses, and generate an improved "
+    "version.\n"
+    "Focus on:\n"
+    "1. Better decision logic (when to evolve, when to rollback)\n"
+    "2. More efficient execution (parallelism, caching)\n"
+    "3. Stronger safety checks\n"
+    "Output ONLY the improved code, nothing else."
+)
+
 
 class EvolutionEngine:
     """Generates and applies optimizations to underperforming tools.
@@ -216,7 +239,11 @@ class EvolutionEngine:
         path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
     async def evolve(self, tool_name: str) -> EvolutionRecord:
-        """Analyze performance → generate optimization → validate → apply."""
+        """Analyze performance → generate optimization → validate → apply.
+
+        Uses the archive of past successful evolutions as templates — this is
+        the 'growing archive of stepping stones' from DGM-Hyperagents.
+        """
         metrics = self.tracker.get_metrics(tool_name)
         if not metrics:
             raise ValueError(f"No metrics for tool: {tool_name}")
@@ -235,7 +262,23 @@ class EvolutionEngine:
             f"Recent errors:\n{errors_summary}\n\n"
         )
 
-        prompt = f"{perf_context}\nCurrent code:\n```python\n{old_code}\n```"
+        # ── Template learning: find similar past evolutions as stepping stones ──
+        similar_templates = self._find_similar_templates(tool_name, max_templates=2)
+        if similar_templates:
+            template_context = "SUCCESSFUL OPTIMIZATION EXAMPLES FROM SIMILAR TOOLS:\n\n"
+            for tmpl in similar_templates:
+                template_context += (
+                    f"--- Example: {tmpl['tool']} v{tmpl['version']} ---\n"
+                    f"Diff applied:\n{tmpl['diff'][:800]}\n"
+                    f"Result: {tmpl['reason'][:200]}\n\n"
+                )
+            system_prompt = EVOLUTION_WITH_TEMPLATES_PROMPT
+            user_prompt = f"{template_context}\n\nNOW OPTIMIZE THIS TOOL:\n{perf_context}\nCurrent code:\n```python\n{old_code}\n```"
+        else:
+            system_prompt = EVOLUTION_PROMPT
+            user_prompt = f"{perf_context}\nCurrent code:\n```python\n{old_code}\n```"
+
+        prompt = user_prompt
 
         # Generate optimization
         optimized_code = ""
@@ -243,7 +286,7 @@ class EvolutionEngine:
             response = await self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": EVOLUTION_PROMPT},
+                    {"role": "system", "content": system_prompt},
                     {"role": "user", "content": prompt},
                 ],
                 max_tokens=2048,
@@ -261,13 +304,11 @@ class EvolutionEngine:
             self._add_record(tool_name, record)
             return record
 
-        # Clean code
-        import re
-        code_match = re.search(r"```(?:python)?\s*\n(.*?)```", optimized_code, re.DOTALL)
-        if code_match:
-            optimized_code = code_match.group(1).strip()
-        else:
-            optimized_code = optimized_code.strip()
+        # Clean markdown wrappers
+        optimized_code = optimized_code.strip()
+        optimized_code = re.sub(r'^```(?:python)?\s*\n', '', optimized_code)
+        optimized_code = re.sub(r'\n```\s*$', '', optimized_code)
+        optimized_code = re.sub(r'\n```(?:python)?\s*\n', '\n', optimized_code)
 
         # Diff
         diff = "\n".join(difflib.unified_diff(
@@ -337,7 +378,7 @@ class EvolutionEngine:
         except SyntaxError:
             return False
 
-        return "def " in code
+        return "def " in code or "class " in code or "import " in code
 
     def _apply_optimization(self, tool_name: str, new_code: str) -> bool:
         """Execute new code and register the optimized function in place."""
@@ -394,6 +435,103 @@ class EvolutionEngine:
             }
             for r in records
         ]
+
+    def _find_similar_templates(self, tool_name: str, max_templates: int = 2) -> list[dict]:
+        """Find past successful evolutions that can serve as templates."""
+        templates = []
+        # Collect successful evolutions from any tool
+        all_successful = []
+        for tname, records in self._history.items():
+            if tname == tool_name:
+                continue  # skip current tool's own history
+            for r in records:
+                if r.applied and r.validated:
+                    all_successful.append({
+                        "tool": tname,
+                        "version": r.version,
+                        "diff": r.diff,
+                        "reason": r.reason,
+                    })
+
+        # Simple similarity: prefer tools with similar names or patterns
+        def similarity(other_tool):
+            score = 0
+            # Name prefix match
+            for part in tool_name.split("_"):
+                if part in other_tool:
+                    score += 1
+            # Recently evolved = higher similarity
+            return score
+
+        sorted_templates = sorted(all_successful, key=lambda t: similarity(t["tool"]), reverse=True)
+        return sorted_templates[:max_templates]
+
+    async def evolve_meta_code(self, file_path: str, old_code: str) -> EvolutionRecord:
+        """Self-referential evolution — optimize the agent's OWN code.
+
+        This is the core of HYPERAGENTS: the meta agent modifies itself.
+        """
+        import uuid
+        tool_name = Path(file_path).stem
+        version = len(self._history.get(tool_name, [])) + 1
+
+        user_prompt = (
+            f"File: {file_path}\n"
+            f"This is the agent's own meta-level code. Analyze and improve it.\n\n"
+            f"Current code:\n```python\n{old_code[:3000]}\n```"
+        )
+
+        optimized_code = ""
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": META_EVOLUTION_PROMPT},
+                    {"role": "user", "content": user_prompt},
+                ],
+                max_tokens=4096,
+                temperature=0.2,
+            )
+            optimized_code = response.choices[0].message.content or ""
+        except Exception as e:
+            return EvolutionRecord(
+                tool_name=tool_name, version=version,
+                old_code=old_code, new_code="", diff="",
+                reason=f"Meta LLM call failed: {e}",
+                metrics_before={},
+                validated=False, applied=False, error=str(e),
+            )
+
+        # Clean markdown wrappers
+        optimized_code = optimized_code.strip()
+        # Remove leading/trailing ``` fences
+        optimized_code = re.sub(r'^```(?:python)?\s*\n', '', optimized_code)
+        optimized_code = re.sub(r'\n```\s*$', '', optimized_code)
+        # Remove any remaining single ``` lines
+        optimized_code = re.sub(r'\n```(?:python)?\s*\n', '\n', optimized_code)
+
+        diff = "\n".join(difflib.unified_diff(
+            old_code.splitlines(), optimized_code.splitlines(),
+            fromfile=f"{file_path}.old", tofile=f"{file_path}.new", lineterm="",
+        ))
+
+        validated = self._validate_safety(optimized_code, tool_name)
+
+        record = EvolutionRecord(
+            tool_name=f"meta:{file_path}", version=version,
+            old_code=old_code, new_code=optimized_code, diff=diff,
+            reason="Self-referential meta-evolution (HYPERAGENTS pattern)",
+            metrics_before={},
+            validated=validated, applied=False,  # Meta evolutions require human review
+        )
+        self._add_record(tool_name, record)
+        if validated:
+            # Save optimized version as proposal (requires human approval)
+            proposal_path = EVOLUTION_DIR / "meta_proposals" / f"{tool_name}_v{version}.py"
+            proposal_path.parent.mkdir(parents=True, exist_ok=True)
+            proposal_path.write_text(optimized_code, encoding="utf-8")
+            logger.info("Meta evolution proposal saved: %s", proposal_path)
+        return record
 
     def status(self) -> dict:
         return {

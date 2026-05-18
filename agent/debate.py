@@ -50,22 +50,58 @@ class DebateResult:
 DEBATE_SYSTEM_PROMPTS = {
     "primary": (
         "You are a skilled AI assistant. Propose a solution to the user's task. "
-        "Be thorough and precise. After your proposal, the challenger will critique it."
+        "Be thorough and precise. Show your reasoning step by step. "
+        "After your proposal, the challenger will critique it."
     ),
     "challenger": (
-        "You are a critical reviewer. Read the primary model's proposal and identify: "
-        "1) factual errors, 2) missing edge cases, 3) better alternative approaches, "
-        "4) unsafe or incorrect recommendations. Be constructive but rigorous."
+        "You are a collaborative reviewer — NOT an adversary. Read the primary model's "
+        "proposal and provide CONSTRUCTIVE step-by-step critique:\n"
+        "1) Which reasoning steps are correct? (acknowledge strengths)\n"
+        "2) Which steps have errors or gaps? (cite specific step)\n"
+        "3) What edge cases are missing?\n"
+        "4) What alternative approach could be better?\n"
+        "Be rigorous but supportive — the goal is truth, not winning."
     ),
     "primary_rebuttal": (
-        "The challenger has critiqued your proposal. Address each point: "
-        "accept valid critiques and refine your answer, rebut mistaken critiques. "
-        "Produce your improved final proposal."
+        "The challenger has critiqued your proposal step by step. Address each point:\n"
+        "1) Accept valid critiques and REFINE your reasoning\n"
+        "2) Rebut mistaken critiques with evidence\n"
+        "3) Integrate the challenger's good ideas into your improved proposal\n"
+        "Produce your final proposal incorporating all valid feedback."
     ),
     "arbitrator": (
-        "You are the final arbitrator. Review the debate and produce the best possible answer. "
-        "Adopt correct points from both sides. When they disagree, use your own judgment. "
-        "Output only the final answer — no meta-commentary about the debate process."
+        "You are the final arbitrator. Review the full debate record and synthesize "
+        "the best possible answer. Follow these rules:\n"
+        "1) Adopt correct points from both sides\n"
+        "2) When they agree, accept the consensus\n"
+        "3) When they disagree, use independent reasoning\n"
+        "4) Acknowledge uncertainty where it remains\n"
+        "Output only the final answer — no meta-commentary."
+    ),
+}
+
+# Process-centric debate (ColMAD/DynaDebate style) — focuses on step-by-step logic
+COLMAD_PROMPTS = {
+    "primary": (
+        "Solve the task by showing your reasoning STEP BY STEP. "
+        "Number each step. Be explicit about assumptions at each step. "
+        "End with a clear conclusion."
+    ),
+    "challenger": (
+        "Review the solution STEP BY STEP. For each step:\n"
+        "- [CORRECT] if the logic is sound\n"
+        "- [GAP] if something is missing\n"
+        "- [ERROR] if the logic is wrong, explain why\n"
+        "Also identify any MISSING steps that should have been included.\n"
+        "Do NOT just vote on the final answer — critique the process."
+    ),
+    "synthesis": (
+        "You have the original solution and a step-by-step critique. "
+        "Synthesize an improved solution that:\n"
+        "1. Keeps correct steps from the original\n"
+        "2. Fixes steps marked [ERROR] or [GAP]\n"
+        "3. Adds any MISSING steps identified\n"
+        "4. Produces the final answer"
     ),
 }
 
@@ -171,6 +207,60 @@ class DebateEngine:
         except Exception as e:
             result.error = str(e)
             logger.error("Debate %s failed: %s", debate_id, e)
+
+        result.total_latency_ms = (time.time() - start_time) * 1000
+        self._results[debate_id] = result
+        return result
+
+    async def debate_process_centric(self, task: str, primary_model: str, challenger_model: str) -> DebateResult:
+        """Process-centric debate (ColMAD/DynaDebate style).
+
+        Focuses on step-by-step logic critique instead of outcome voting.
+        Collaborative, not adversarial — the goal is truth, not winning.
+        """
+        import uuid
+        debate_id = f"coldmad-{uuid.uuid4().hex[:8]}"
+        result = DebateResult(
+            debate_id=debate_id, task=task,
+            primary_model=primary_model, challenger_model=challenger_model,
+        )
+        start_time = time.time()
+
+        try:
+            # Round 1: Primary shows step-by-step reasoning
+            step_by_step = await self._ask(
+                self.primary_client, primary_model,
+                COLMAD_PROMPTS["primary"], task,
+            )
+            result.rounds.append(DebateRound(1, "primary_steps", step_by_step, 0))
+
+            # Round 2: Challenger critiques each step
+            critique_context = f"TASK:\n{task}\n\nSOLUTION TO REVIEW (step by step):\n{step_by_step}"
+            critique = await self._ask(
+                self.challenger_client, challenger_model,
+                COLMAD_PROMPTS["challenger"], critique_context,
+            )
+            result.rounds.append(DebateRound(2, "challenger_critique", critique, 0))
+
+            # Round 3: Synthesis — incorporate corrections
+            synth_context = (
+                f"TASK:\n{task}\n\n"
+                f"ORIGINAL SOLUTION:\n{step_by_step}\n\n"
+                f"STEP-BY-STEP CRITIQUE:\n{critique}"
+            )
+            synthesis = await self._ask(
+                self.primary_client, primary_model,
+                COLMAD_PROMPTS["synthesis"], synth_context,
+            )
+            result.rounds.append(DebateRound(3, "synthesis", synthesis, 0))
+
+            result.total_rounds = 3
+            result.consensus = synthesis
+            result.completed = True
+
+        except Exception as e:
+            result.error = str(e)
+            logger.error("Process-centric debate %s failed: %s", debate_id, e)
 
         result.total_latency_ms = (time.time() - start_time) * 1000
         self._results[debate_id] = result
