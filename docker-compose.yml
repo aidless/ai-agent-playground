@@ -1,36 +1,83 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  # Main application
+  # ── Core Agent Service ──────────────────────────
   agent:
     build: .
+    container_name: ai-agent-gateway
     env_file:
       - .env
-    volumes:
-      - ./logs:/app/logs
-      - ./data:/app/data
+    environment:
+      - APP_ENV=production
     ports:
-      - "8501:8501"
-    networks:
-      - agent-network
-    restart: unless-stopped
-    depends_on:
-      - redis
-
-  # Redis for caching
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
+      - "8000:8000"
     volumes:
-      - redis-data:/data
-    networks:
-      - agent-network
+      - agent_logs:/app/logs
+      - sandbox_data:/app/sandbox_workspace
+      - tenant_data:/app/tenant_workspaces
+      - memory_data:/app/memory
     restart: unless-stopped
+    networks:
+      - agent-net
+    healthcheck:
+      test: ["CMD", "uv", "run", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
 
-networks:
-  agent-network:
-    driver: bridge
+  # ── Ollama (optional: cross-model review) ────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-agent-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    networks:
+      - agent-net
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+    profiles:
+      - full      # Only starts with: docker-compose --profile full up
+
+  # ── ChromaDB (optional: RAG vector storage) ──────
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: ai-agent-chromadb
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    restart: unless-stopped
+    networks:
+      - agent-net
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+    profiles:
+      - full
 
 volumes:
-  redis-data:
+  agent_logs:
+  sandbox_data:
+  tenant_data:
+  memory_data:
+  ollama_data:
+  chroma_data:
+
+networks:
+  agent-net:
+    driver: bridge

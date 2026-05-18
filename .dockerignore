@@ -1,0 +1,52 @@
+# Python
+__pycache__
+*.pyc
+*.pyo
+.venv
+*.egg-info
+dist
+build
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+credentials*
+
+# Test artifacts
+.pytest_cache
+.mypy_cache
+.ruff_cache
+test_docs
+
+# Docs
+*.md
+!README.md
+
+# Build
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+*.tmp
+*.log
+*.jsonl
+_logs/
+_temp/

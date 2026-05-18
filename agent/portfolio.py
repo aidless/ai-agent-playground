@@ -79,20 +79,39 @@ PROJECTS = [
         "run": 'uv run python -m multi_agent_crew.main "your requirement"',
         "status": "beta",
     },
+    {
+        "id": "super_agent",
+        "name": "SuperAgent",
+        "tagline": "Self-evolving agent: reflect-to-action, debate, tool bootstrapping",
+        "emoji": "S",
+        "description": "Pushes beyond enterprise reliability into agent self-improvement. Reflect-to-action closed loop auto-degrades failing tools. Multi-model debate with arbitration. Skills bootstrapping generates new tool code when capabilities are missing, validates via AST, and auto-registers.",
+        "tech": ["Python 3.11+", "DeepSeek API", "Ollama Qwen2.5", "AST Validator", "Multiprocessing"],
+        "highlights": [
+            "Reflect-to-Action: tool failure detection, auto-degradation, fallback chain",
+            "Multi-Model Debate: Primary vs Challenger, 4-round structured argument, Arbitrator consensus",
+            "Skills Bootstrapping: LLM generates tool code, compile() + AST safety check, auto-registers to ToolRegistry",
+            "Tool degradation engine with automatic alternative substitution",
+            "Debate engine: cross-model perspective diversity for higher quality outputs",
+        ],
+        "run": "POST /super/debate  |  GET /super/status  |  POST /super/degrade",
+        "status": "beta",
+    },
 ]
 
 
 ENTERPRISE_FEATURES = [
-    {"name": "Sandbox Execution", "icon": "S", "desc": "4-tier risk isolation"},
-    {"name": "CISO Approval Gate", "icon": "C", "desc": "Formal security review"},
-    {"name": "Multi-Tenant", "icon": "M", "desc": "Quota + namespace isolation"},
-    {"name": "Gray Release", "icon": "G", "desc": "Canary with auto-rollback"},
-    {"name": "SLOMonitor", "icon": "S", "desc": "Error budget tracking"},
-    {"name": "Circuit Breaker", "icon": "CB", "desc": "Auto-failure isolation"},
-    {"name": "Identity RBAC", "icon": "I", "desc": "4-role permission model"},
-    {"name": "Prometheus", "icon": "P", "desc": "Full observability stack"},
-    {"name": "CI/CD Pipeline", "icon": "CI", "desc": "GitHub Actions"},
-    {"name": "71 Tests", "icon": "T", "desc": "100% pass rate"},
+    {"name": "Sandbox Execution", "icon": "S", "desc": "Process isolation + terminate/kill"},
+    {"name": "CISO Approval Gate", "icon": "C", "desc": "Formal security review workflow"},
+    {"name": "Multi-Tenant", "icon": "M", "desc": "API Key binding + quota isolation"},
+    {"name": "Intrusion Detection", "icon": "ID", "desc": "5-type anomaly detection"},
+    {"name": "Prompt Injection Guard", "icon": "PI", "desc": "All endpoints protected"},
+    {"name": "Circuit Breaker", "icon": "CB", "desc": "Auto-failure isolation + recovery"},
+    {"name": "Identity RBAC", "icon": "I", "desc": "Resource-level fine-grained permissions"},
+    {"name": "Secret Scanner", "icon": "SS", "desc": "12-pattern regex key detection"},
+    {"name": "Reflect→Action", "icon": "RA", "desc": "Auto-degrade failing tools"},
+    {"name": "Multi-Model Debate", "icon": "DB", "desc": "4-round arbitration consensus"},
+    {"name": "Skills Bootstrap", "icon": "SB", "desc": "LLM generates + AST validates tools"},
+    {"name": "133 Tests", "icon": "T", "desc": "0 failures, zero regressions"},
 ]
 
 
@@ -206,9 +225,9 @@ body {{ background:#0a0e14; color:#c9d1d9; font:14px/1.6 -apple-system,BlinkMacS
     <h1>Liu Zewen 刘泽文</h1>
     <p class="sub">AI Application Developer | AI Agent Engineer | 2026 Graduate</p>
     <div class="badges">
-        <span class="badge green">71 Tests Passing</span>
+        <span class="badge green">133 Tests Passing</span>
         <span class="badge blue">Python + FastAPI + DeepSeek</span>
-        <span class="badge purple">Enterprise P1 78%</span>
+        <span class="badge purple">Security Score 8.5/10</span>
         <span class="badge orange">Qilu Institute of Technology</span>
     </div>
 </div>
@@ -217,13 +236,13 @@ body {{ background:#0a0e14; color:#c9d1d9; font:14px/1.6 -apple-system,BlinkMacS
 <div class="metrics" id="metrics">
     <div class="metric"><div class="val green" id="m-status">-</div><div class="lbl">System Status</div></div>
     <div class="metric"><div class="val blue" id="m-uptime">-</div><div class="lbl">Uptime</div></div>
-    <div class="metric"><div class="val green" id="m-tests">71/71</div><div class="lbl">Tests Passing</div></div>
+    <div class="metric"><div class="val green" id="m-tests">133/133</div><div class="lbl">Tests Passing</div></div>
     <div class="metric"><div class="val orange" id="m-cost">$0.02</div><div class="lbl">Cost Today</div></div>
     <div class="metric"><div class="val blue" id="m-efficacy">90%</div><div class="lbl">Efficacy</div></div>
     <div class="metric"><div class="val green" id="m-subsystems">8/8</div><div class="lbl">Subsystems Healthy</div></div>
 </div>
 
-<!-- 4 Projects -->
+<!-- 5 Projects -->
 <h2 class="section-title">Projects</h2>
 <div class="projects">
 {project_cards}
