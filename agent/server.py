@@ -43,6 +43,7 @@ from agent.intrusion import IntrusionDetector
 from agent.debate import DebateEngine
 from agent.unified_pipeline import UnifiedPipeline
 from agent.matrix import AgentMatrix, MatrixAgentProfile
+from agent.autopilot import AutoPilot
 from observability.clear_metrics import CLEARPanel
 
 logger = logging.getLogger(__name__)
@@ -128,6 +129,7 @@ uptime = get_uptime()
 intrusion = IntrusionDetector()
 unified_pipeline: Optional[UnifiedPipeline] = None
 agent_matrix: Optional[AgentMatrix] = None
+autopilot: Optional[AutoPilot] = None
 cross_reviewer: Optional[CrossReviewer] = None
 crew: Optional[Crew] = None
 rca_analyzer = RootCauseAnalyzer()
@@ -166,7 +168,7 @@ class OpenAIChatRequest(BaseModel):
 # --- 生命周期管理 ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global agent, orchestrator, unified_pipeline, agent_matrix, cross_reviewer, crew
+    global agent, orchestrator, unified_pipeline, agent_matrix, autopilot, cross_reviewer, crew
 
     llm_base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
     client = AsyncOpenAI(
@@ -258,6 +260,20 @@ async def lifespan(app: FastAPI):
                     confidence_weight=0.8,
                 ))
             print("Agent Matrix: 多模型专业化路由已就绪")
+
+            # Initialize AutoPilot (full autonomous loop)
+            autopilot = AutoPilot(
+                agent=agent,
+                matrix=agent_matrix,
+                debate_engine=debate_eng,
+                evolution_engine=agent.evolution if agent and agent.enable_super_agent else None,
+                bootstrap_engine=agent.bootstrap if agent and agent.enable_super_agent else None,
+                cross_reviewer=cross_reviewer,
+                meta_agent=agent.meta_agent if agent and agent.enable_super_agent else None,
+                quality_threshold=7.0,
+                max_iterations=3,
+            )
+            print("AutoPilot: 全自主进化回路已就绪")
         except Exception as e:
             print(f"Cross-Model Reviewer 不可用 (Ollama未启动): {e}")
             cross_reviewer = None
@@ -1189,6 +1205,36 @@ async def matrix_status():
     if not agent_matrix:
         raise HTTPException(status_code=503, detail="Agent Matrix not initialized")
     return agent_matrix.status()
+
+
+@app.post("/autopilot/solve")
+async def autopilot_solve(req: MatrixRequest):
+    """全自主回路 — 路由→执行→验证→反思→改进→重试，零人工干预"""
+    check_prompt_injection(req.task, request.client.host if request.client else "?")
+    if not autopilot:
+        raise HTTPException(status_code=503, detail="AutoPilot not initialized")
+    result = await autopilot.solve(req.task)
+    return {
+        "task": result.task[:200],
+        "completed": result.completed,
+        "quality_score": result.quality_score,
+        "iterations": len(result.iterations),
+        "improvements": result.improvements_applied,
+        "total_latency_ms": round(result.total_latency_ms),
+        "final_output": result.final_output[:3000],
+        "iteration_log": [
+            {"iter": i.iteration, "phase": i.phase, "detail": i.detail, "ms": round(i.latency_ms)}
+            for i in result.iterations
+        ],
+    }
+
+
+@app.get("/autopilot/status")
+async def autopilot_status():
+    """AutoPilot 会话历史"""
+    if not autopilot:
+        raise HTTPException(status_code=503, detail="AutoPilot not initialized")
+    return autopilot.status()
 
 
 @app.post("/super/meta/observe")
