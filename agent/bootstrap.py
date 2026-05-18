@@ -186,7 +186,11 @@ class BootstrapEngine:
         self._tools[tool.name] = tool
 
     def register_tool(self, tool: BootstrappedTool, registry) -> bool:
-        """Register a validated bootstrapped tool into the ToolRegistry."""
+        """Register a validated bootstrapped tool into the ToolRegistry.
+
+        Wraps the generated `func(params: dict)` callable to match
+        ToolRegistry's `func(**kwargs)` calling convention.
+        """
         if not tool.validated or not tool.code:
             return False
 
@@ -194,19 +198,30 @@ class BootstrapEngine:
             # Create a callable from the code string
             namespace = {}
             exec(tool.code, namespace)
-            func = None
+            raw_func = None
             for name, obj in namespace.items():
-                if callable(obj) and name != "__builtins__":
-                    func = obj
+                if callable(obj) and name != "__builtins__" and not name.startswith("_"):
+                    raw_func = obj
                     break
 
-            if func is None:
+            if raw_func is None:
                 tool.error = "No callable found in generated code"
                 return False
 
+            # Wrap: convert kwargs dict to the params dict the function expects
+            def _wrapped(**kwargs):
+                return raw_func(kwargs)
+
+            _wrapped.__name__ = tool.name
+
             # Register in the tool registry
             if hasattr(registry, "register"):
-                registry.register(tool.name, func)
+                registry.register(
+                    tool.name,
+                    tool.description,
+                    {"properties": {}, "required": []},
+                    _wrapped,
+                )
                 tool.registered = True
                 self._save_tool(tool)
                 logger.info("Tool registered: %s", tool.name)

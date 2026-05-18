@@ -40,6 +40,8 @@ from agent.orchestrator import Crew
 from agent.root_cause import RootCauseAnalyzer
 from agent.blue_green import BlueGreenDeployer
 from agent.intrusion import IntrusionDetector
+from agent.debate import DebateEngine
+from agent.unified_pipeline import UnifiedPipeline
 from observability.clear_metrics import CLEARPanel
 
 logger = logging.getLogger(__name__)
@@ -123,6 +125,7 @@ alert_mgr = AlertManager(DEFAULT_RULES)
 health_checker = HealthChecker()
 uptime = get_uptime()
 intrusion = IntrusionDetector()
+unified_pipeline: Optional[UnifiedPipeline] = None
 cross_reviewer: Optional[CrossReviewer] = None
 crew: Optional[Crew] = None
 rca_analyzer = RootCauseAnalyzer()
@@ -161,7 +164,7 @@ class OpenAIChatRequest(BaseModel):
 # --- 生命周期管理 ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global agent, orchestrator, cross_reviewer, crew
+    global agent, orchestrator, unified_pipeline, cross_reviewer, crew
 
     llm_base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
     client = AsyncOpenAI(
@@ -200,6 +203,22 @@ async def lifespan(app: FastAPI):
             )
             health_checker.register("cross-reviewer", lambda: {"status": "ok", "model": "qwen2.5:7b"})
             print("Cross-Model Reviewer: DeepSeek + Qwen2.5 校对已就绪")
+
+            # Initialize unified pipeline (Crew + Debate + CrossReview)
+            debate_eng = DebateEngine(
+                primary_client=client,
+                challenger_client=reviewer_client,
+                arbitrator_client=client,
+            )
+            unified_pipeline = UnifiedPipeline(
+                orchestrator=orchestrator,
+                debate_engine=debate_eng,
+                cross_reviewer=cross_reviewer,
+                crew=crew,
+                primary_model="deepseek-chat",
+                challenger_model="qwen2.5:7b",
+            )
+            print("Unified Pipeline: Crew → Debate → CrossReview 已就绪")
         except Exception as e:
             print(f"Cross-Model Reviewer 不可用 (Ollama未启动): {e}")
             cross_reviewer = None
@@ -1045,6 +1064,45 @@ async def super_degrade(req: DegradeRequest):
     if not agent:
         raise HTTPException(status_code=503, detail="Agent not initialized")
     return agent.degrade_tool(req.tool_name)
+
+
+class PipelineRequest(BaseModel):
+    task: str = Field(..., max_length=10_000, description="复杂任务描述")
+    enable_debate: bool = Field(True, description="是否在每个子任务上启用多模型辩论")
+    enable_review: bool = Field(True, description="是否对最终结果启用跨模型校对")
+
+
+@app.post("/super/pipeline")
+async def super_pipeline(req: PipelineRequest):
+    """统一流水线 — Crew拆解 → 每个子任务Debate → CrossReview校对"""
+    check_prompt_injection(req.task, request.client.host if request.client else "?")
+    if not unified_pipeline:
+        raise HTTPException(status_code=503, detail="Unified pipeline not available (Ollama not running)")
+
+    result = await unified_pipeline.execute(
+        task=req.task,
+        enable_debate=req.enable_debate,
+        enable_review=req.enable_review,
+    )
+    return {
+        "task": result.task,
+        "subtask_count": result.subtask_count,
+        "aggregated_final": result.aggregated_final[:5000],
+        "subtask_debates": [
+            {
+                "subtask_id": sd.subtask_id,
+                "description": sd.description[:200],
+                "consensus": sd.debate_result.consensus[:500] if sd.debate_result else "",
+                "rounds": sd.debate_result.total_rounds if sd.debate_result else 0,
+                "role": sd.assigned_role,
+                "latency_ms": sd.latency_ms,
+            }
+            for sd in result.subtask_debates
+        ],
+        "cross_review_findings": result.cross_review_findings[:20],
+        "total_latency_ms": result.total_latency_ms,
+        "completed": result.completed,
+    }
 
 
 if __name__ == "__main__":

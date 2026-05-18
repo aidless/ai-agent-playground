@@ -66,11 +66,12 @@ class ReflectActionEngine:
     def _degrade_tool(self, tool_name: str, reason: str):
         if tool_name in self._degraded:
             return
+        failures = self._tool_failures.get(tool_name, self.failure_threshold)
         alternatives = self.alternatives.get(tool_name, [])
         from datetime import datetime, timezone
         entry = DegradationEntry(
             tool_name=tool_name,
-            consecutive_failures=self._tool_failures[tool_name],
+            consecutive_failures=failures,
             alternatives=alternatives,
             degraded_at=datetime.now(timezone.utc).isoformat(),
             reason=reason,
