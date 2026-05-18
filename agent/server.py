@@ -365,12 +365,12 @@ app.add_middleware(
 async def tenant_middleware(request, call_next):
     # Try extracting tenant from identity token first (prevents header forgery)
     auth_header = request.headers.get("Authorization", "")
+    client_ip = request.client.host if request.client else "unknown"
     tenant_id = "default"
     identity = None
 
     if auth_header.startswith("Bearer "):
         token_value = auth_header.removeprefix("Bearer ")
-        client_ip = request.client.host if request.client else "unknown"
         # Check if this is an identity session token (sk-sess-*)
         if token_value.startswith("sk-sess-"):
             try:

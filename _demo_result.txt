@@ -1,0 +1,27 @@
+Tool degraded: web_search → alternatives: ['web_fetch'] (reason: timeout)
+Bootstrap blocked unsafe import: os
+============================================================
+SECURITY PENETRATION TEST — 14 attack scenarios
+============================================================
+[dev] 开发环境配置已加载：C:\Users\Administrator\Desktop\ai-agent-playground\.env
+[OK] 密钥校验通过 | 环境：development | 前缀：sk-44d7e...
+  [PASS] 1. Prompt Injection detection
+  [PASS] 2. Legitimate message allowed
+  [PASS] 3. Path traversal blocked
+  [PASS] 4. Case-insensitive path blocked
+  [PASS] 5. Token rate limiting
+  [PASS] 6. Token signature entropy (64 chars)
+  [PASS] 7. Tool auto-degradation
+  [PASS] 8. Bootstrap blocks os.system
+  [PASS] 9. Audit log redacts API keys
+  [PASS] 10. Resource-level permissions
+  [PASS] 11. Bootstrap validates safe code
+  [PASS] 12. Evolution blocks subprocess
+  [PASS] 13. API key production enforcement
+  [PASS] 14. Intrusion detection triggers
+
+============================================================
+RESULTS: 14/14 defenses passed
+============================================================
+
+[OK] ALL DEFENSES HOLD - System is penetration-test ready.

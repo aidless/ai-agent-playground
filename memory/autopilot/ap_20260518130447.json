@@ -1,0 +1,8 @@
+{
+  "task": "Explain what a Python decorator is and give a simple example.",
+  "quality_score": 10.0,
+  "iterations": 3,
+  "improvements": [],
+  "total_latency_ms": 17439,
+  "completed": true
+}

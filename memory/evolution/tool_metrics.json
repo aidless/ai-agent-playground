@@ -1,0 +1,38 @@
+{
+  "fibonacci": {
+    "call_count": 10,
+    "success_count": 10,
+    "error_count": 0,
+    "total_latency_ms": 1950.0,
+    "last_errors": [],
+    "last_10_latencies": [
+      150,
+      160,
+      170,
+      180,
+      190,
+      200,
+      210,
+      220,
+      230,
+      240
+    ]
+  },
+  "sort_numbers": {
+    "call_count": 8,
+    "success_count": 8,
+    "error_count": 0,
+    "total_latency_ms": 1880.0,
+    "last_errors": [],
+    "last_10_latencies": [
+      200,
+      210,
+      220,
+      230,
+      240,
+      250,
+      260,
+      270
+    ]
+  }
+}

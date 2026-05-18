@@ -268,5 +268,197 @@
     "context": "trace_id=req_1779096591, step=1",
     "success": true,
     "timestamp": "2026-05-18T17:30:17.244848"
+  },
+  {
+    "lesson": "When testing dual-purpose functions, always include explicit test cases for each intended usage pattern (decorator, context manager, and bare `@timed_retry` without parentheses) and verify error propagation behavior.",
+    "context": "trace_id=selfplay_1779109914, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T21:12:07.879525"
+  },
+  {
+    "lesson": "When using a version-based invalidation approach for distributed caches, always proactively set the TTL to match the application's consistency SLA (e.g., 30 seconds) rather than using a larger default, so that stale data is never served beyond the required window even if version synchronization fails.",
+    "context": "trace_id=selfplay_1779110252, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T21:17:40.564299"
+  },
+  {
+    "lesson": "When writing detection functions for security patterns, explicitly enumerate spacing variations (e.g., `attr='=', ' =', '= ', ' = '`) and quote types to prevent bypasses, rather than relying on simple substring matching.",
+    "context": "trace_id=selfplay_1779110264, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T21:18:08.260370"
+  },
+  {
+    "lesson": "Lesson 1: Prioritize complete and robust implementations over partial solutions—the highest score (10/10) came from a fully correct, well-documented solution with edge case handling, while lower scores resulted from incomplete or missing critical components like input validation and error handling.",
+    "context": "self-play training (3 rounds)",
+    "success": true,
+    "timestamp": "2026-05-18T21:18:15.692719"
+  },
+  {
+    "lesson": "Lesson 2: Always include explicit thread-safety mechanisms (e.g., locks, atomic operations) and comprehensive error handling in concurrent or multi-threaded designs, as the system_design task lost points for lacking these despite a solid conceptual understanding.",
+    "context": "self-play training (3 rounds)",
+    "success": true,
+    "timestamp": "2026-05-18T21:18:15.696059"
+  },
+  {
+    "lesson": "Lesson 3: For security-related tasks, go beyond basic pattern detection by incorporating context-aware validation, proper input sanitization, and defense-in-depth measures (e.g., output encoding, whitelisting) to avoid false positives and ensure robust protection.",
+    "context": "self-play training (3 rounds)",
+    "success": true,
+    "timestamp": "2026-05-18T21:18:15.698084"
+  },
+  {
+    "lesson": "One concrete lesson: When providing code solutions, include multiple implementations (basic, detailed, regex) and comprehensive test cases covering edge cases like None, empty strings, and wrong types—this mirrors the 10/10 pattern of robust, well-documented solutions with thorough edge case handling.",
+    "context": "trace_id=bench_bl_q1_code, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T21:45:29.488035"
+  },
+  {
+    "lesson": "When providing educational content, always include a concrete action item or follow-up question (like \"want me to implement slowapi?\") to drive the project forward rather than just delivering information.",
+    "context": "trace_id=bench_bl_q3_security, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T21:54:36.359011"
+  },
+  {
+    "lesson": "One concrete lesson: Follow the same pattern from this response—always end complex explanations with a clear next-step menu offering to implement, build, or test something specific to drive the project forward.",
+    "context": "trace_id=bench_bl_q4_design, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T21:57:23.170555"
+  },
+  {
+    "lesson": "One concrete lesson: End educational explanations with a specific next-step offer (like implementing and benchmarking the algorithms) to drive the project forward and engage the user.",
+    "context": "trace_id=bench_bl_q5_algo, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T21:59:55.339105"
+  },
+  {
+    "lesson": "One concrete lesson: When reviewing code, always categorize issues systematically (bugs, performance, style, architecture, testing) and provide a corrected version with clear justification for each change.",
+    "context": "trace_id=selfplay_1779113416, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:10:42.217046"
+  },
+  {
+    "lesson": "One concrete lesson: When providing a complex system design, always end with a clear next-step offer—such as implementing a prototype of a critical component (e.g., the OT function) or benchmarking the design—to drive the project forward.",
+    "context": "trace_id=selfplay_1779113465, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:12:17.883924"
+  },
+  {
+    "lesson": "Always implement timing-attack-safe string comparisons using `hmac.compare_digest` for security-sensitive role or permission checks.",
+    "context": "trace_id=selfplay_1779113545, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:12:41.714052"
+  },
+  {
+    "lesson": "One concrete lesson: When presenting a complex system design, always include a clear next-step offer—like implementing a prototype or benchmarking—to drive the project forward.",
+    "context": "trace_id=selfplay_1779113567, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:13:49.204260"
+  },
+  {
+    "lesson": "One concrete lesson: When demonstrating security exploits, always show both the attack and the defense in full working code, including exact payload syntax and the completely rewritten secure version, to make the lesson immediately actionable.",
+    "context": "trace_id=selfplay_1779113636, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:14:08.686174"
+  },
+  {
+    "lesson": "One concrete lesson: When crafting an XSS payload, always first check what filters exist and use an alternative HTML event handler like `<img onerror>` instead of `<script>` to bypass weak sanitization.",
+    "context": "trace_id=selfplay_1779113736, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:15:48.140670"
+  },
+  {
+    "lesson": "When designing a high-scale distributed system, always include explicit memory and throughput calculations to validate that your design can actually meet the stated requirements.",
+    "context": "trace_id=selfplay_1779113756, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:17:27.097427"
+  },
+  {
+    "lesson": "One concrete lesson: When a requirement asks for a fundamentally flawed approach (combined SQL/HTML escaping), implement it exactly as requested but clearly document why it's unsafe and what the correct production alternatives are.",
+    "context": "trace_id=selfplay_1779113856, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:18:06.559763"
+  },
+  {
+    "lesson": "One concrete lesson: When designing a distributed system, explicitly document trade-offs in a table and back design decisions with concrete memory/capacity calculations to justify feasibility.",
+    "context": "trace_id=selfplay_1779113897, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:18:41.124983"
+  },
+  {
+    "lesson": "One concrete lesson: When analyzing code for vulnerabilities, systematically apply multiple security layers (parameterized queries, input validation, output escaping, session management) and quantify severity with CVSS scores to prioritize fixes effectively.",
+    "context": "trace_id=selfplay_1779113931, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:19:41.172865"
+  },
+  {
+    "lesson": "When designing a thread-safe caching and rate-limiting system, use separate locks for cache and rate limiter state to minimize contention, and choose data structures (like OrderedDict for LRU) that provide O(1) operations for the required eviction policy.",
+    "context": "trace_id=selfplay_1779113990, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:20:23.089113"
+  },
+  {
+    "lesson": "One concrete lesson from this interaction is: when implementing security-critical features like RBAC and encryption, always systematically think through and document security considerations (key derivation, nonce management, input sanitization, access control, audit logging) before writing code, which ensures comprehensive coverage, no missed steps, and produces a clean, well-structured solution.",
+    "context": "trace_id=selfplay_1779114030, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:21:19.349571"
+  },
+  {
+    "lesson": "One concrete lesson: Even when answering a complex system design question, I should explicitly tie each technology choice back to the quantitative requirements (200ms latency, 100K users, 50 editors/doc) just like the assistant did with the comparison table for CRDT vs. OT and the precise TTL/capacity limits for caches.",
+    "context": "trace_id=selfplay_1779114085, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:22:18.228101"
+  },
+  {
+    "lesson": "One concrete lesson: When implementing security-critical features like SQL injection protection, always layer input validation on top of parameterized queries (defense in depth), because the input validation alone can be bypassed but the parameterized query remains the essential fallback.",
+    "context": "trace_id=selfplay_1779114144, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:22:57.356238"
+  },
+  {
+    "lesson": "One concrete lesson: When designing a large-scale system, always explicitly link each decision (e.g., consistent hashing, shard key choice) back to quantitative requirements (500K users, 200ms latency, 8 players/room) using a rationale table, just like the assistant did to justify every trade-off.",
+    "context": "trace_id=selfplay_1779114182, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:24:16.546171"
+  },
+  {
+    "lesson": "One concrete lesson: When implementing a pattern-matching function, I should include a clear complexity analysis (O(n*m)) and explicit assumptions (patterns ≤ 5 syscalls) to justify the design and avoid premature optimization.",
+    "context": "trace_id=selfplay_1779114260, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:24:32.864502"
+  },
+  {
+    "lesson": "When designing a large-scale system, always explicitly link each decision (e.g., SQL vs NoSQL, cache eviction policy, ID generation) back to quantitative requirements (100M URLs/month, 10K reads/sec, 5x peak) using a rationale table, just like the assistant did to justify every trade-off with clear why-we-chose-this reasoning.",
+    "context": "trace_id=selfplay_1779114278, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:25:05.109126"
+  },
+  {
+    "lesson": "Lesson 1: Always verify function signatures and API contracts match the exact specification before implementation, as mismatches (like incorrect parameter types or return formats) can significantly reduce scores even when the core logic is correct.",
+    "context": "self-play training (5 rounds)",
+    "success": true,
+    "timestamp": "2026-05-18T22:25:50.745704"
+  },
+  {
+    "lesson": "Lesson 2: Ensure responses are complete and not cut off mid-sentence or mid-analysis, as incomplete outputs (e.g., \"the response is inc...\") directly harm clarity and scoring, especially in security tasks where full details matter.",
+    "context": "self-play training (5 rounds)",
+    "success": true,
+    "timestamp": "2026-05-18T22:25:50.746707"
+  },
+  {
+    "lesson": "Lesson 3: Prioritize explicit, well-justified explanations for each design or security decision, as structured reasoning with clear justifications consistently yields higher scores (8.5+) compared to correct but less detailed responses (6.5).",
+    "context": "self-play training (5 rounds)",
+    "success": true,
+    "timestamp": "2026-05-18T22:25:50.747709"
+  },
+  {
+    "lesson": "For straightforward math problems without code execution, manually verifying each calculation step avoids reliance on potentially unavailable tools.",
+    "context": "trace_id=deb_800000, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:37:59.674211"
+  },
+  {
+    "lesson": "When analyzing code for bugs, always consider edge cases (empty input, even-length arrays) and side effects (in-place mutation) rather than just the main logic path.",
+    "context": "trace_id=deb_even l, step=1",
+    "success": true,
+    "timestamp": "2026-05-18T22:38:27.764267"
   }
 ]

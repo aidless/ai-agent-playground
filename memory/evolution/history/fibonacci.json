@@ -1,0 +1,22 @@
+{
+  "tool_name": "fibonacci",
+  "records": [
+    {
+      "tool_name": "fibonacci",
+      "version": 1,
+      "old_code": "    def slow_fibonacci(params: dict) -> str:\n        \"\"\"Calculate fibonacci. O(2^n) — intentionally slow.\"\"\"\n        n = int(params.get(\"n\", 0))\n        if n <= 1:\n            return str(n)\n        a, b = 0, 1\n        for _ in range(2, n + 1):\n            a, b = b, a + b\n        return str(b)\n",
+      "new_code": "def fibonacci(params: dict) -> str:\n    \"\"\"Calculate fibonacci using fast doubling method. O(log n).\"\"\"\n    try:\n        n = int(params.get(\"n\", 0))\n        if n < 0:\n            return \"0\"\n        if n <= 1:\n            return str(n)\n        \n        def fib_pair(k):\n            \"\"\"Return (F(k), F(k+1)) using fast doubling.\"\"\"\n            if k == 0:\n                return (0, 1)\n            a, b = fib_pair(k >> 1)\n            c = a * (2 * b - a)\n            d = a * a + b * b\n            if k & 1:\n                return (d, c + d)\n            else:\n                return (c, d)\n        \n        return str(fib_pair(n)[0])\n    except (ValueError, TypeError):\n        return \"0\"",
+      "diff": "--- fibonacci_v0\n+++ fibonacci_v1\n@@ -1,9 +1,24 @@\n-    def slow_fibonacci(params: dict) -> str:\n-        \"\"\"Calculate fibonacci. O(2^n) — intentionally slow.\"\"\"\n+def fibonacci(params: dict) -> str:\n+    \"\"\"Calculate fibonacci using fast doubling method. O(log n).\"\"\"\n+    try:\n         n = int(params.get(\"n\", 0))\n+        if n < 0:\n+            return \"0\"\n         if n <= 1:\n             return str(n)\n-        a, b = 0, 1\n-        for _ in range(2, n + 1):\n-            a, b = b, a + b\n-        return str(b)\n+        \n+        def fib_pair(k):\n+            \"\"\"Return (F(k), F(k+1)) using fast doubling.\"\"\"\n+            if k == 0:\n+                return (0, 1)\n+            a, b = fib_pair(k >> 1)\n+            c = a * (2 * b - a)\n+            d = a * a + b * b\n+            if k & 1:\n+                return (d, c + d)\n+            else:\n+                return (c, d)\n+        \n+        return str(fib_pair(n)[0])\n+    except (ValueError, TypeError):\n+        return \"0\"",
+      "reason": "Optimization — success_rate=100.0%, p95=240ms",
+      "metrics_before": {
+        "success_rate": 1.0,
+        "avg_latency_ms": 195.0,
+        "p95_latency_ms": 240
+      },
+      "validated": true,
+      "applied": true,
+      "error": "",
+      "created_at": "2026-05-18T12:22:11.906434+00:00"
+    }
+  ]
+}

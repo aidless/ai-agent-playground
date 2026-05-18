@@ -1,0 +1,10 @@
+{
+  "name": "hello_world",
+  "code": "def hello_world(params: dict) -> str:\n    \"\"\"Say hello.\"\"\"\n    name = params.get(\"name\", \"world\")\n    return f\"Hello, {name}!\"\n",
+  "description": "Says hello",
+  "created_at": "2026-05-18T00:00:00Z",
+  "source_reflection": "need a greeting tool",
+  "validated": true,
+  "registered": true,
+  "error": ""
+}

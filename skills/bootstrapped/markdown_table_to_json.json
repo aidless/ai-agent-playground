@@ -1,0 +1,10 @@
+{
+  "name": "markdown_table_to_json",
+  "code": "def markdown_table_to_json(params: dict) -> str:\n    \"\"\"Convert a markdown table string to a JSON array of objects.\"\"\"\n    import json\n    import re\n\n    table_text = params.get(\"table\", \"\")\n    if not table_text:\n        return json.dumps([])\n\n    lines = [line.strip() for line in table_text.split(\"\\n\") if line.strip()]\n    if len(lines) < 2:\n        return json.dumps([])\n\n    # Extract header row\n    headers = [h.strip() for h in lines[0].split(\"|\") if h.strip()]\n    if not headers:\n        return json.dumps([])\n\n    # Skip separator row (e.g., |---|---|)\n    data_lines = []\n    for line in lines[1:]:\n        if re.match(r\"^[\\s\\|:\\-]+$\", line):\n            continue\n        data_lines.append(line)\n\n    result = []\n    for line in data_lines:\n        cells = [c.strip() for c in line.split(\"|\") if c.strip()]\n        if len(cells) != len(headers):\n            continue\n        row = {}\n        for i, header in enumerate(headers):\n            row[header] = cells[i]\n        result.append(row)\n\n    return json.dumps(result, indent=2)",
+  "description": "I need to convert markdown tables to JSON format but don't have a parser",
+  "created_at": "2026-05-18T12:22:09.811160+00:00",
+  "source_reflection": "I need to convert markdown tables to JSON format but don't have a parser",
+  "validated": true,
+  "registered": true,
+  "error": ""
+}

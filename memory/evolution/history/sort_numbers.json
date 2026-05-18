@@ -1,0 +1,22 @@
+{
+  "tool_name": "sort_numbers",
+  "records": [
+    {
+      "tool_name": "sort_numbers",
+      "version": 1,
+      "old_code": "# Source unavailable for sort_numbers",
+      "new_code": "def sort_numbers(params: dict) -> str:\n    \"\"\"Sort numbers using optimized Timsort. O(n log n).\"\"\"\n    try:\n        numbers = params.get(\"numbers\", [])\n        if not numbers:\n            return \"[]\"\n        result = sorted(numbers)\n        return str(result)\n    except (TypeError, ValueError):\n        return \"[]\"",
+      "diff": "--- sort_numbers_v0\n+++ sort_numbers_v1\n@@ -1 +1,10 @@\n-# Source unavailable for sort_numbers\n+def sort_numbers(params: dict) -> str:\n+    \"\"\"Sort numbers using optimized Timsort. O(n log n).\"\"\"\n+    try:\n+        numbers = params.get(\"numbers\", [])\n+        if not numbers:\n+            return \"[]\"\n+        result = sorted(numbers)\n+        return str(result)\n+    except (TypeError, ValueError):\n+        return \"[]\"",
+      "reason": "Optimization — success_rate=100.0%, p95=270ms",
+      "metrics_before": {
+        "success_rate": 1.0,
+        "avg_latency_ms": 235.0,
+        "p95_latency_ms": 270
+      },
+      "validated": true,
+      "applied": true,
+      "error": "",
+      "created_at": "2026-05-18T12:51:42.887370+00:00"
+    }
+  ]
+}
