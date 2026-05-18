@@ -1,0 +1,72 @@
+{
+  "web_search_works_via_bing": {
+    "value": "在中国网络环境下，Bing (cn.bing.com) 搜索可用，DuckDuckGo 被墙",
+    "source": "scripts/search_web.py 测试验证",
+    "updated_at": "2026-05-17T23:07:00"
+  },
+  "bash_tool_limited": {
+    "value": "Bash 工具需要通过 'C:/Program Files/Git/bin/bash.exe' 来运行 Python/uv",
+    "source": "多次调试经验",
+    "updated_at": "2026-05-17T23:07:00"
+  },
+  "beautifulsoup4_installed": {
+    "value": "项目新增 beautifulsoup4 和 httpx 依赖用于网页搜索与抓取",
+    "source": "自主进化安装",
+    "updated_at": "2026-05-17T23:07:00"
+  },
+  "project_agent_upgraded": {
+    "value": "AsyncAgent 已升级为反思学习型：加入 REFLECT/LEARN 状态、持久化记忆、结构化追踪",
+    "source": "agent/async_core.py, agent/memory.py, agent/state.py",
+    "updated_at": "2026-05-17T23:07:00"
+  },
+  "user_name": {
+    "value": "刘泽文（Zewen），齐鲁理工学院软件工程 2026 届",
+    "source": "USER.md",
+    "updated_at": "2026-05-17T23:07:00"
+  },
+  "project_goal": {
+    "value": "AI Agent 作品集用于求职，目标 AI 应用开发岗",
+    "source": "CLAUDE.md, USER.md",
+    "updated_at": "2026-05-17T23:07:00"
+  },
+  "ollama_installed": {
+    "value": "Ollama 0.24.0 已安装于 C:\\Users\\Administrator\\AppData\\Local\\Programs\\Ollama",
+    "source": "自主安装验证",
+    "updated_at": "2026-05-17T23:08:00"
+  },
+  "local_llm_available": {
+    "value": "Qwen2.5 7B (qwen2.5:7b) 已通过 Ollama 安装，可在 7.1GB 内存上运行",
+    "source": "ollama pull + hermes.py 测试验证",
+    "updated_at": "2026-05-17T23:08:00"
+  },
+  "local_llm_command": {
+    "value": "Hermes('qwen2.5:7b', backend='ollama').chat(messages)",
+    "source": "agent/hermes.py",
+    "updated_at": "2026-05-17T23:08:00"
+  },
+  "last_task_tester-1": {
+    "value": "Test login endpoint -> Code: implemented feature with proper error handling",
+    "source": "crew_agent.tester-1",
+    "updated_at": "2026-05-18T19:21:16.137958"
+  },
+  "last_task_dev-1": {
+    "value": "Build a login feature -> Code: implemented feature with proper error handling",
+    "source": "crew_agent.dev-1",
+    "updated_at": "2026-05-18T19:21:16.148410"
+  },
+  "last_task_worker": {
+    "value": "Implement a login endpoint -> Code: implemented feature with proper error handling",
+    "source": "crew_agent.worker",
+    "updated_at": "2026-05-18T19:21:16.152454"
+  },
+  "last_task_developer-1": {
+    "value": "实现用户注册端点：接收username和password，使用bcrypt哈希密码，生成JWT token并返回 -> 我来实现用户注册端点，包含bcrypt密码哈希和JWT token生成。\n\n<｜｜DSML｜｜tool_calls>\n<｜｜DSML｜｜invoke name=\"read\">\n<｜｜DSML｜｜parameter name=\"filePath\" string=\"true\">C:\\Users\\Administrator\\Desktop\\hermes\\main.py</｜｜DSML｜｜paramete",
+    "source": "crew_agent.developer-1",
+    "updated_at": "2026-05-18T00:51:04.416854"
+  },
+  "last_task_reviewer-1": {
+    "value": "审查代码安全性（密码存储、JWT签名、输入验证）和API设计规范性 -> 我来审查用户注册API的代码安全性（密码存储、JWT签名、输入验证）和API设计规范性。\n\n<｜｜DSML｜｜tool_calls>\n<｜｜DSML｜｜invoke name=\"read\">\n<｜｜DSML｜｜parameter name=\"filePath\" string=\"true\">C:\\Users\\Administrator\\Desktop\\hermes\\main.py</｜｜DSML｜｜",
+    "source": "crew_agent.reviewer-1",
+    "updated_at": "2026-05-18T00:51:05.872905"
+  }
+}
