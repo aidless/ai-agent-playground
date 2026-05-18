@@ -45,6 +45,7 @@ from agent.unified_pipeline import UnifiedPipeline
 from agent.matrix import AgentMatrix, MatrixAgentProfile
 from agent.autopilot import AutoPilot
 from agent.self_play import SelfPlayEngine
+from agent.eval_gate import EvaluationGate
 from observability.clear_metrics import CLEARPanel
 
 logger = logging.getLogger(__name__)
@@ -132,6 +133,7 @@ unified_pipeline: Optional[UnifiedPipeline] = None
 agent_matrix: Optional[AgentMatrix] = None
 autopilot: Optional[AutoPilot] = None
 self_play: Optional[SelfPlayEngine] = None
+eval_gate: Optional[EvaluationGate] = None
 cross_reviewer: Optional[CrossReviewer] = None
 crew: Optional[Crew] = None
 rca_analyzer = RootCauseAnalyzer()
@@ -170,7 +172,7 @@ class OpenAIChatRequest(BaseModel):
 # --- 生命周期管理 ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global agent, orchestrator, unified_pipeline, agent_matrix, autopilot, self_play, cross_reviewer, crew
+    global agent, orchestrator, unified_pipeline, agent_matrix, autopilot, self_play, eval_gate, cross_reviewer, crew
 
     llm_base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
     client = AsyncOpenAI(
@@ -280,6 +282,10 @@ async def lifespan(app: FastAPI):
             # Initialize Self-Play engine
             self_play = SelfPlayEngine(agent=agent, client=client, model="deepseek-chat")
             print("Self-Play: 自主课程学习引擎已就绪")
+
+            # Initialize Evaluation Gate
+            eval_gate = EvaluationGate(client, model="deepseek-chat")
+            print("Evaluation Gate: 3D质量评估已就绪")
         except Exception as e:
             print(f"Cross-Model Reviewer 不可用 (Ollama未启动): {e}")
             cross_reviewer = None
@@ -1260,6 +1266,65 @@ async def selfplay_train(req: TrainRequest):
         "avg_score": round(sum(r.score for r in results) / len(results), 1) if results else 0,
         "status": self_play.status(),
     }
+
+
+class EvalRequest(BaseModel):
+    category: str = Field("test", description="评估类别")
+    output: str = Field(..., description="待评估输出")
+    task: str = Field("", description="原始任务")
+    baseline_output: str = Field("", description="对比基线（可选）")
+
+
+@app.post("/eval/gate")
+async def eval_gate_endpoint(req: EvalRequest):
+    """3D质量评估 — Interface + Functional + Utility"""
+    if not eval_gate:
+        raise HTTPException(status_code=503, detail="Evaluation Gate not initialized")
+    result = await eval_gate.evaluate(
+        category=req.category,
+        candidate_text=req.output,
+        task=req.task,
+        baseline_output=req.baseline_output or "",
+    )
+    return {
+        "passed": result.passed,
+        "dimensions": {
+            "interface": result.dimensions.interface_score if result.dimensions else 0,
+            "functional": result.dimensions.functional_score if result.dimensions else 0,
+            "utility": result.dimensions.utility_score if result.dimensions else 0,
+            "overall": result.dimensions.overall if result.dimensions else 0,
+        },
+        "baseline": {
+            "overall": result.baseline_dimensions.overall if result.baseline_dimensions else 0,
+        } if result.baseline_dimensions else None,
+        "delta": result.delta,
+        "confidence": result.confidence,
+    }
+
+
+@app.post("/eval/ab")
+async def eval_ab_endpoint(req: EvalRequest):
+    """A/B测试 — 候选 vs 对照，多轮统计"""
+    if not eval_gate:
+        raise HTTPException(status_code=503, detail="Evaluation Gate not initialized")
+    ab = await eval_gate.ab_test(
+        category=req.category,
+        candidate_output=req.output,
+        candidate_label="candidate",
+        control_output=req.baseline_output or req.output,
+        control_label="baseline",
+        task=req.task,
+        trials=2,
+    )
+    return ab
+
+
+@app.get("/eval/stats")
+async def eval_stats():
+    """评估统计 + 通过率 + 改进趋势"""
+    if not eval_gate:
+        raise HTTPException(status_code=503, detail="Evaluation Gate not initialized")
+    return eval_gate.stats()
 
 
 @app.get("/selfplay/status")
