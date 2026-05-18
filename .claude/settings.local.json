@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rtk ls *)",
+      "Bash(grep -v \"^\\\\.venv$\")",
+      "Bash(grep -v \"^\\\\.git$\")"
+    ]
+  }
+}

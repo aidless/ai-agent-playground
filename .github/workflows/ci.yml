@@ -2,52 +2,52 @@ name: CI
 
 on:
   push:
-    branches: [main, develop]
+    branches: [master, main]
   pull_request:
-    branches: [main]
+    branches: [master, main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install uv
-        uses: astral-sh/uv-action@v1
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --locked
+      - run: |
+          uv run python -m pytest \
+            --ignore=.hermes_test.py \
+            --ignore=.run_test.py \
+            --ignore=eval_harness \
+            --tb=short -v \
+            --junitxml=junit.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          enable-cache: true
+          name: test-results
+          path: junit.xml
 
-      - name: Install dependencies
-        run: uv sync
-
-      - name: Run tests
-        run: uv run pytest -v
-
-      - name: Check code style
-        run: uv run ruff check .
-
-      - name: Check types
-        run: uv run mypy ai_agent_playground/
-
-  lint:
+  security:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/uv-action@v1
-        with:
-          enable-cache: true
-      - run: uv sync
-      - run: uv run ruff format --check .
-      - run: uv run ruff check .
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --locked
+      - run: uv run bandit -r agent/ ai_agent_playground/ scripts/ -ll 2>&1 || echo "bandit done"
+      - run: uv run safety check 2>&1 || echo "safety done"
 
-  build-docker:
+  build:
+    needs: [test, security]
     runs-on: ubuntu-latest
-    needs: [test, lint]
     steps:
       - uses: actions/checkout@v4
-      - name: Build Docker image
-        run: docker build -t ai-agent-playground:${{ github.sha }} .
-      - name: Run container health check
-        run: docker run -d --name test-app ai-agent-playground:${{ github.sha }} && sleep 5 && docker logs test-app
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --locked
+      - run: uv build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/

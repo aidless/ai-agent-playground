@@ -1,0 +1,64 @@
+# Prometheus alert rules — maps to alerting.py AlertManager rules
+groups:
+  - name: agent_alerts
+    interval: 30s
+    rules:
+      - alert: HighErrorRate
+        expr: agent_traces_total > 0 and (agent_errors_total / agent_traces_total) > 0.10
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Error rate exceeds 10%"
+          description: "{{ $value | humanizePercentage }} error rate over last 2 minutes"
+
+      - alert: HighLatencyP95
+        expr: agent_latency_ms_p95 > 2000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "P95 latency exceeds 2000ms"
+          description: "Current P95: {{ $value }}ms"
+
+      - alert: HighLatencyP99
+        expr: agent_latency_ms_p99 > 5000
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "P99 latency exceeds 5000ms"
+          description: "Current P99: {{ $value }}ms"
+
+      - alert: LowSuccessRate
+        expr: agent_traces_total > 0 and (1 - agent_errors_total / agent_traces_total) < 0.90
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Success rate below 90%"
+          description: "Current rate: {{ $value | humanizePercentage }}"
+
+      - alert: HighToolErrorRate
+        expr: agent_tool_calls_total > 0 and (agent_tool_errors_total / agent_tool_calls_total) > 0.05
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Tool error rate exceeds 5%"
+
+      - alert: CostAnomaly
+        expr: rate(agent_cost_usd_total[1h]) > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Hourly cost exceeds $5.00"
+
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Agent service is down"

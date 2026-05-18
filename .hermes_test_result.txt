@@ -1,0 +1,5 @@
+PyTorch: 2.12.0+cpu
+CUDA available: False
+Running on CPU
+ERROR: tokenizers>=0.22.0,<=0.23.0 is required for a normal functioning of this module, but found tokenizers==0.23.1.
+Try: `pip install transformers -U` or `pip install -e '.[dev]'` if you're working with git main

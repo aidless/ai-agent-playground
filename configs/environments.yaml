@@ -1,0 +1,51 @@
+# Environment configuration — dev / staging / canary / production
+environments:
+  dev:
+    host: localhost
+    port: 8000
+    log_level: DEBUG
+    hot_reload: true
+    sandbox: permissive
+    audit_level: standard
+    rate_limit: 1000
+
+  staging:
+    host: staging
+    port: 8000
+    log_level: INFO
+    hot_reload: false
+    sandbox: strict
+    audit_level: verbose
+    rate_limit: 100
+
+  canary:
+    host: canary
+    port: 8000
+    log_level: INFO
+    hot_reload: false
+    sandbox: strict
+    audit_level: verbose
+    traffic_pct: 10
+    rate_limit: 100
+    auto_rollback: true
+    rollback_threshold: 5  # consecutive failures trigger rollback
+
+  production:
+    host: production
+    port: 8000
+    log_level: WARNING
+    hot_reload: false
+    sandbox: strict
+    audit_level: verbose
+    rate_limit: 500
+    sla:
+      uptime: "99.9%"
+      p95_latency_ms: 2000
+      error_budget: "0.05%"
+    compliance:
+      gdpr: true
+      data_residency: "CN"
+      audit_retention_days: 365
+    rollback:
+      enabled: true
+      max_versions: 5

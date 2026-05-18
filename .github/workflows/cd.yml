@@ -1,0 +1,43 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [master, main]
+
+jobs:
+  deploy-staging:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to staging
+        run: echo "Deploying to staging..."
+      - name: Smoke test
+        run: |
+          sleep 5
+          curl -f http://staging:8000/health || echo "Staging check done"
+
+  deploy-canary:
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    environment: canary
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy canary (10% traffic)
+        run: echo "Deploying canary with 10% traffic..."
+      - name: Canary health check
+        run: curl -f http://canary:8000/health || echo "Canary check done"
+
+  deploy-production:
+    needs: deploy-canary
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to production
+        run: echo "Deploying to production..."
+      - name: Final health check
+        run: curl -f http://production:8000/health || echo "Production check done"

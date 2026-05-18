@@ -1,0 +1,2 @@
+{"id": "9dd744ee", "question": "如何查询本周出港的货船列表？", "ground_truth": "调用 list_ships API，过滤 status='departed' 且 date 在本周", "agent_output": "Agent模拟回答: 如何查询本周出港的货船列表？", "latency_ms": 0.004199973773211241, "success": true, "error": "", "score": 0.0, "judge_reason": ""}
+{"id": "2da8591f", "question": "RAG 检索不到文档时 Agent 应如何降级？", "ground_truth": "返回预设兜底话术或触发人工接管，不应编造答案", "agent_output": "Agent模拟回答: RAG 检索不到文档时 Agent 应如何降级？", "latency_ms": 0.002400018274784088, "success": true, "error": "", "score": 0.0, "judge_reason": ""}

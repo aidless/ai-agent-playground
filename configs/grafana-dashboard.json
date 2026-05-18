@@ -1,0 +1,89 @@
+{
+  "dashboard": {
+    "title": "AI Agent Playground — SRE Dashboard",
+    "uid": "agent-playground-sre",
+    "panels": [
+      {
+        "title": "Uptime (SLO: 99.9%)",
+        "type": "stat",
+        "targets": [{"expr": "agent_uptime_pct * 100"}],
+        "fieldConfig": {"defaults": {"unit": "percent", "thresholds": {"steps": [{"value": 99.0, "color": "red"}, {"value": 99.9, "color": "green"}]}}},
+        "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4}
+      },
+      {
+        "title": "Requests / Second",
+        "type": "stat",
+        "targets": [{"expr": "rate(agent_traces_total[1m])"}],
+        "gridPos": {"x": 6, "y": 0, "w": 6, "h": 4}
+      },
+      {
+        "title": "P95 Latency",
+        "type": "stat",
+        "targets": [{"expr": "agent_latency_ms_p95"}],
+        "fieldConfig": {"defaults": {"unit": "ms", "thresholds": {"steps": [{"value": 3000, "color": "red"}, {"value": 2000, "color": "yellow"}, {"value": 1000, "color": "green"}]}}},
+        "gridPos": {"x": 12, "y": 0, "w": 6, "h": 4}
+      },
+      {
+        "title": "Success Rate (SLO: 95%)",
+        "type": "stat",
+        "targets": [{"expr": "agent_traces_total > 0 and (1 - agent_errors_total / agent_traces_total) * 100 or 100"}],
+        "fieldConfig": {"defaults": {"unit": "percent", "thresholds": {"steps": [{"value": 90, "color": "red"}, {"value": 95, "color": "green"}]}}},
+        "gridPos": {"x": 18, "y": 0, "w": 6, "h": 4}
+      },
+      {
+        "title": "Latency Distribution",
+        "type": "timeseries",
+        "targets": [
+          {"expr": "agent_latency_ms_avg", "legendFormat": "avg"},
+          {"expr": "agent_latency_ms_p50", "legendFormat": "p50"},
+          {"expr": "agent_latency_ms_p95", "legendFormat": "p95"},
+          {"expr": "agent_latency_ms_p99", "legendFormat": "p99"}
+        ],
+        "gridPos": {"x": 0, "y": 4, "w": 12, "h": 8}
+      },
+      {
+        "title": "Request Rate",
+        "type": "timeseries",
+        "targets": [{"expr": "rate(agent_traces_total[5m])", "legendFormat": "requests/s"}],
+        "gridPos": {"x": 12, "y": 4, "w": 12, "h": 8}
+      },
+      {
+        "title": "Token Consumption",
+        "type": "timeseries",
+        "targets": [{"expr": "agent_llm_tokens_total", "legendFormat": "tokens"}],
+        "gridPos": {"x": 0, "y": 12, "w": 12, "h": 6}
+      },
+      {
+        "title": "Tool Calls",
+        "type": "timeseries",
+        "targets": [
+          {"expr": "agent_tool_calls_total", "legendFormat": "total"},
+          {"expr": "agent_tool_errors_total", "legendFormat": "errors"}
+        ],
+        "gridPos": {"x": 12, "y": 12, "w": 12, "h": 6}
+      },
+      {
+        "title": "Error Budget Burn",
+        "type": "gauge",
+        "targets": [{"expr": "agent_error_budget_consumed_pct"}],
+        "fieldConfig": {"defaults": {"unit": "percent", "max": 100, "thresholds": {"steps": [{"value": 50, "color": "green"}, {"value": 80, "color": "yellow"}, {"value": 100, "color": "red"}]}}},
+        "gridPos": {"x": 0, "y": 18, "w": 8, "h": 6}
+      },
+      {
+        "title": "MTTR (minutes)",
+        "type": "stat",
+        "targets": [{"expr": "agent_mttr_minutes"}],
+        "fieldConfig": {"defaults": {"unit": "m", "thresholds": {"steps": [{"value": 30, "color": "green"}, {"value": 60, "color": "yellow"}, {"value": 120, "color": "red"}]}}},
+        "gridPos": {"x": 8, "y": 18, "w": 8, "h": 6}
+      },
+      {
+        "title": "Active Alerts",
+        "type": "table",
+        "targets": [{"expr": "ALERTS{alertstate=\"firing\"}"}],
+        "gridPos": {"x": 16, "y": 18, "w": 8, "h": 6}
+      }
+    ],
+    "refresh": "10s",
+    "time": {"from": "now-6h", "to": "now"}
+  }
+}

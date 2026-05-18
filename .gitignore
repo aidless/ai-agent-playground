@@ -18,6 +18,27 @@ chroma_db/
 # Generated reports
 reports/
 
+# Security: keys, certificates, credentials
+*.key
+*.pem
+*.crt
+*.p12
+credentials*
+*_credentials*
+
 # OS files
 .DS_Store
 Thumbs.db
+
+# Auto-generated trace files (LLM inference traces)
+traces.jsonl
+*.trace.json
+
+# Temporary scripts created during autonomous work sessions
+scripts/temp_*
+check_*.py
+search_test*.txt
+*_test.txt
+
+# Agent memory (structured, not committed)
+memory/traces/

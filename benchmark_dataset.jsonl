@@ -1,0 +1,2 @@
+{"question": "如何查询本周出港的货船列表？", "ground_truth": "调用 list_ships API，过滤 status='departed' 且 date 在本周", "keywords": ["list_ships", "departed"]}
+{"question": "RAG 检索不到文档时 Agent 应如何降级？", "ground_truth": "返回预设兜底话术或触发人工接管，不应编造答案", "keywords": ["兜底", "人工接管"]}
