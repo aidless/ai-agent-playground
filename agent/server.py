@@ -42,6 +42,7 @@ from agent.blue_green import BlueGreenDeployer
 from agent.intrusion import IntrusionDetector
 from agent.debate import DebateEngine
 from agent.unified_pipeline import UnifiedPipeline
+from agent.matrix import AgentMatrix, MatrixAgentProfile
 from observability.clear_metrics import CLEARPanel
 
 logger = logging.getLogger(__name__)
@@ -126,6 +127,7 @@ health_checker = HealthChecker()
 uptime = get_uptime()
 intrusion = IntrusionDetector()
 unified_pipeline: Optional[UnifiedPipeline] = None
+agent_matrix: Optional[AgentMatrix] = None
 cross_reviewer: Optional[CrossReviewer] = None
 crew: Optional[Crew] = None
 rca_analyzer = RootCauseAnalyzer()
@@ -164,7 +166,7 @@ class OpenAIChatRequest(BaseModel):
 # --- 生命周期管理 ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global agent, orchestrator, unified_pipeline, cross_reviewer, crew
+    global agent, orchestrator, unified_pipeline, agent_matrix, cross_reviewer, crew
 
     llm_base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
     client = AsyncOpenAI(
@@ -219,6 +221,43 @@ async def lifespan(app: FastAPI):
                 challenger_model="qwen2.5:7b",
             )
             print("Unified Pipeline: Crew → Debate → CrossReview 已就绪")
+
+            # Initialize Agent Matrix (multi-model specialization)
+            agent_matrix = AgentMatrix()
+            agent_matrix.add_agent(MatrixAgentProfile(
+                agent_id="deepseek-reasoner",
+                name="DeepSeek Reasoner",
+                role="reasoner",
+                model="deepseek-chat",
+                client=client,
+                confidence_weight=1.0,
+            ))
+            agent_matrix.add_agent(MatrixAgentProfile(
+                agent_id="deepseek-coder",
+                name="DeepSeek Coder",
+                role="coder",
+                model="deepseek-chat",
+                client=client,
+                confidence_weight=0.9,
+            ))
+            if reviewer_client:
+                agent_matrix.add_agent(MatrixAgentProfile(
+                    agent_id="qwen-reviewer",
+                    name="Qwen Reviewer",
+                    role="reviewer",
+                    model="qwen2.5:7b",
+                    client=reviewer_client,
+                    confidence_weight=0.85,
+                ))
+                agent_matrix.add_agent(MatrixAgentProfile(
+                    agent_id="qwen-coder",
+                    name="Qwen Coder",
+                    role="coder",
+                    model="qwen2.5:7b",
+                    client=reviewer_client,
+                    confidence_weight=0.8,
+                ))
+            print("Agent Matrix: 多模型专业化路由已就绪")
         except Exception as e:
             print(f"Cross-Model Reviewer 不可用 (Ollama未启动): {e}")
             cross_reviewer = None
@@ -1113,6 +1152,43 @@ async def super_meta():
     if not agent or not agent.meta_agent:
         raise HTTPException(status_code=503, detail="MetaAgent not available")
     return agent.meta_agent.status()
+
+
+class MatrixRequest(BaseModel):
+    task: str = Field(..., max_length=10_000, description="任务描述")
+
+
+@app.post("/matrix/solve")
+async def matrix_solve(req: MatrixRequest):
+    """多 Agent 矩阵 — 自动路由到最佳专业 Agent 并行求解"""
+    check_prompt_injection(req.task, request.client.host if request.client else "?")
+    if not agent_matrix:
+        raise HTTPException(status_code=503, detail="Agent Matrix not initialized")
+    result = await agent_matrix.solve(req.task)
+    return {
+        "task": result.task[:200],
+        "routing": result.routing_decision,
+        "agents_used": len(result.results),
+        "completed": result.completed,
+        "latency_ms": round(result.total_latency_ms),
+        "output": result.final_output[:5000],
+        "results": [
+            {
+                "agent": r.agent_name, "role": r.role, "model": r.model,
+                "confidence": r.confidence, "latency_ms": round(r.latency_ms),
+                "success": r.success, "output_preview": r.output[:300],
+            }
+            for r in result.results
+        ],
+    }
+
+
+@app.get("/matrix/status")
+async def matrix_status():
+    """Agent Matrix 状态"""
+    if not agent_matrix:
+        raise HTTPException(status_code=503, detail="Agent Matrix not initialized")
+    return agent_matrix.status()
 
 
 @app.post("/super/meta/observe")
