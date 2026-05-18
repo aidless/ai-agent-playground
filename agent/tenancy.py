@@ -183,3 +183,33 @@ class TenancyManager:
                 shutil.rmtree(str(tenant.work_dir), ignore_errors=True)
             self._save()
             return True
+
+    # ── API Key → Tenant binding ──────────────────
+
+    def bind_api_key(self, api_key_hash: str, tenant_id: str):
+        """Bind an API key hash to a tenant for authentication-based isolation."""
+        if tenant_id not in self._tenants:
+            raise ValueError(f"Tenant {tenant_id} not found")
+        key_file = self.store / "api_key_bindings.json"
+        bindings = {}
+        if key_file.exists():
+            bindings = json.loads(key_file.read_text(encoding="utf-8"))
+        bindings[api_key_hash] = tenant_id
+        key_file.write_text(json.dumps(bindings, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    def get_tenant_by_api_key(self, api_key_hash: str) -> str | None:
+        """Look up which tenant an API key hash belongs to."""
+        key_file = self.store / "api_key_bindings.json"
+        if not key_file.exists():
+            return None
+        bindings = json.loads(key_file.read_text(encoding="utf-8"))
+        return bindings.get(api_key_hash)
+
+    def unbind_api_key(self, api_key_hash: str):
+        """Remove API key to tenant binding."""
+        key_file = self.store / "api_key_bindings.json"
+        if not key_file.exists():
+            return
+        bindings = json.loads(key_file.read_text(encoding="utf-8"))
+        bindings.pop(api_key_hash, None)
+        key_file.write_text(json.dumps(bindings, indent=2, ensure_ascii=False), encoding="utf-8")

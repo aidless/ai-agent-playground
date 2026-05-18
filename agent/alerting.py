@@ -16,6 +16,7 @@ from typing import Any, Callable
 class AlertSeverity(str, Enum):
     INFO = "info"
     WARNING = "warning"
+    HIGH = "high"
     CRITICAL = "critical"
 
 
@@ -75,6 +76,15 @@ DEFAULT_RULES = [
               "Circuit breaker is OPEN", cooldown_seconds=30),
     AlertRule("audit_failure_rate", "audit_failure_rate", ">", 0.05, AlertSeverity.WARNING,
               "Audit trail failure rate > 5%", cooldown_seconds=600),
+    # Security intrusion rules
+    AlertRule("intrusion_auth_brute_force", "intrusion_auth_failures", ">", 10, AlertSeverity.CRITICAL,
+              "Brute force attack detected: >10 auth failures/min", cooldown_seconds=60),
+    AlertRule("intrusion_path_traversal", "intrusion_path_denials", ">", 5, AlertSeverity.HIGH,
+              "Path traversal attack detected: >5 denied paths/min", cooldown_seconds=60),
+    AlertRule("intrusion_injection_surge", "intrusion_injections", ">", 5, AlertSeverity.HIGH,
+              "Prompt injection surge: >5 blocked attempts/min", cooldown_seconds=60),
+    AlertRule("intrusion_active_threats_high", "intrusion_active_threats", ">", 0, AlertSeverity.CRITICAL,
+              "Active security threats detected", cooldown_seconds=30),
 ]
 
 

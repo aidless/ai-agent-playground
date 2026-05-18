@@ -1,4 +1,5 @@
-"""AsyncAgent with reflection, learning, governance, and sandbox integration."""
+"""AsyncAgent with reflection, learning, governance, sandbox integration,
+and SuperAgent capabilities: reflect→action, debate, bootstrapping."""
 
 import asyncio
 import json
@@ -11,6 +12,9 @@ from agent.async_llm_client import call_llm_stream_async
 from agent.memory import get_memory, AgentMemory
 from agent.governance import GovernancePanel
 from agent.sandbox import SandboxExecutor
+from agent.reflect_action import ReflectActionEngine
+from agent.debate import DebateEngine, DebateResult
+from agent.bootstrap import BootstrapEngine
 from observability.tracer import log_trace
 
 logger = logging.getLogger(__name__)
@@ -43,6 +47,11 @@ class AsyncAgent:
         sandbox: Optional[SandboxExecutor] = None,
         enable_reflection: bool = True,
         enable_learning: bool = True,
+        enable_super_agent: bool = False,
+        challenger_client=None,
+        challenger_model: str = "",
+        arbitrator_client=None,
+        arbitrator_model: str = "",
     ):
         self.client = client
         self.model = model
@@ -52,12 +61,79 @@ class AsyncAgent:
         self.sandbox = sandbox
         self.enable_reflection = enable_reflection
         self.enable_learning = enable_learning
+        self.enable_super_agent = enable_super_agent
+
+        # SuperAgent engines
+        self.reflect_action = ReflectActionEngine() if enable_super_agent else None
+        self.bootstrap = BootstrapEngine(client, model) if enable_super_agent else None
+        self.debate_engine = (
+            DebateEngine(client, challenger_client, arbitrator_client)
+            if enable_super_agent and challenger_client
+            else None
+        )
+        self.challenger_model = challenger_model
+        self.arbitrator_model = arbitrator_model or model
 
     async def run(self, ctx: AgentContext, user_input: str) -> AgentContext:
         """Non-streaming execution: aggregate all events, return final context."""
         async for _ in self.run_stream(ctx, user_input):
             pass
         return ctx
+
+    async def debate_run(self, task: str, context: str = "") -> DebateResult:
+        """SuperAgent: multi-model debate for complex tasks.
+
+        Requires enable_super_agent=True and a challenger_client at init.
+        Falls back to a simpler self-critique if only one model is available.
+        """
+        if self.debate_engine:
+            return await self.debate_engine.debate(
+                task=task,
+                primary_model=self.model,
+                challenger_model=self.challenger_model,
+                arbitrator_model=self.arbitrator_model,
+                context=context,
+            )
+
+        # Fallback: single-model self-critique
+        result = DebateResult(
+            debate_id=f"self-{id(task)}",
+            task=task,
+            primary_model=self.model,
+            challenger_model=self.model,
+        )
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": (
+                        "Solve this task. Then critique your own solution. "
+                        "Finally, provide the improved solution after addressing the critique."
+                    )},
+                    {"role": "user", "content": task},
+                ],
+                max_tokens=2048,
+            )
+            result.consensus = response.choices[0].message.content or ""
+            result.completed = True
+        except Exception as e:
+            result.error = str(e)
+        return result
+
+    def degrade_tool(self, tool_name: str) -> dict:
+        """Manually degrade a tool (for testing/admin)."""
+        if self.reflect_action:
+            self.reflect_action._degrade_tool(tool_name, "manual degradation")
+            return {"degraded": tool_name, "alternatives": self.reflect_action.get_alternatives(tool_name)}
+        return {"error": "SuperAgent not enabled"}
+
+    def get_super_status(self) -> dict:
+        """Return SuperAgent subsystem status."""
+        return {
+            "reflect_action": self.reflect_action.status() if self.reflect_action else None,
+            "debate": self.debate_engine.status() if self.debate_engine else None,
+            "bootstrap": self.bootstrap.list_bootstrapped() if self.bootstrap else None,
+        }
 
     async def run_stream(
         self, ctx: AgentContext, user_input: str
@@ -154,6 +230,11 @@ class AsyncAgent:
     async def _handle_tool_calls(self, ctx: AgentContext, tool_calls_buffer: list) -> AsyncGenerator[dict, None]:
         """Execute tool calls concurrently with governance wrapping."""
         ctx.state = AgentState.TOOL_CALL
+
+        # Apply tool degradation filter (SuperAgent)
+        if self.reflect_action:
+            tool_calls_buffer = self.reflect_action.filter_degraded_tools(tool_calls_buffer)
+
         tool_names = [tc["function"]["name"] for tc in tool_calls_buffer]
         ctx.record_step("tool_call", {"tools": tool_names})
         yield {"type": "tool_call", "content": tool_names}
@@ -177,6 +258,7 @@ class AsyncAgent:
                     tool_name, _raw_execute, args,
                     identity=getattr(ctx, "identity_id", "anonymous"),
                     session_id=ctx.trace_id,
+                    identity_obj=getattr(ctx, "identity", None),
                 )
                 if not sandbox_result.success:
                     raise RuntimeError(sandbox_result.error)
@@ -202,7 +284,7 @@ class AsyncAgent:
         })
 
     async def _reflect_step(self, ctx: AgentContext) -> AsyncGenerator[dict, None]:
-        """Self-reflection after tool calls."""
+        """Self-reflection after tool calls. Triggers Reflect→Action loop."""
         ctx.state = AgentState.REFLECT
         ctx.record_step("reflect_start", {})
 
@@ -224,11 +306,20 @@ class AsyncAgent:
                 ctx.reflections.append(reflection)
                 ctx.record_step("reflect_result", {"reflection": reflection})
                 yield {"type": "reflection", "content": reflection}
+
+                # Reflect→Action: evaluate and act on reflection
+                if self.reflect_action:
+                    actions = self.reflect_action.evaluate(reflection, ctx.tool_results)
+                    for action in actions:
+                        yield {"type": "action", "content": action}
+                        ctx.record_step("reflect_action", action)
+                        if action["type"] == "missing_tool" and self.bootstrap:
+                            yield {"type": "bootstrapping", "content": action["suggested_name"]}
         except Exception as e:
             logger.warning("Reflection step failed (non-critical): %s", e)
 
     async def _learn_step(self, ctx: AgentContext, final_response: str) -> AsyncGenerator[dict, None]:
-        """Extract lessons from execution and persist to memory."""
+        """Extract lessons from execution and persist to memory. Triggers bootstrapping."""
         ctx.state = AgentState.LEARN
         ctx.record_step("learn_start", {})
 
@@ -254,6 +345,22 @@ class AsyncAgent:
                     success=(ctx.state != AgentState.ERROR),
                 )
                 yield {"type": "lesson", "content": lesson}
+
+            # Skills bootstrapping: check for missing-tool actions from reflection
+            if self.bootstrap:
+                missing_actions = [
+                    a for a in ctx.trace_steps
+                    if a.get("event") == "reflect_action" and a.get("type") == "missing_tool"
+                ]
+                if missing_actions:
+                    for action in missing_actions[-1:]:  # Only bootstrap the latest
+                        suggested_name = action.get("suggested_name", "unknown_tool")
+                        description = action.get("description", "")
+                        yield {"type": "bootstrapping", "content": f"Generating tool: {suggested_name}"}
+                        tool = await self.bootstrap.generate_from_reflection(description, suggested_name)
+                        if tool.validated:
+                            success = self.bootstrap.register_tool(tool, self.registry)
+                            yield {"type": "tool_registered", "content": {"name": suggested_name, "success": success}}
         except Exception as e:
             logger.warning("Learn step failed (non-critical): %s", e)
 

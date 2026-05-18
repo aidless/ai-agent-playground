@@ -1,6 +1,9 @@
+import hashlib
 import os
+import re
 import time
 import json
+import logging
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator, List, Optional
 
@@ -9,7 +12,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from openai import AsyncOpenAI
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 from sse_starlette.sse import EventSourceResponse
 
 # --- 导入核心模块 ---
@@ -36,7 +39,51 @@ from agent.attn_router import AttnResRouter, AgentSignal
 from agent.orchestrator import Crew
 from agent.root_cause import RootCauseAnalyzer
 from agent.blue_green import BlueGreenDeployer
+from agent.intrusion import IntrusionDetector
 from observability.clear_metrics import CLEARPanel
+
+logger = logging.getLogger(__name__)
+
+
+# ── Prompt Injection 防护 ─────────────────────────
+
+class PromptSanitizer:
+    """Detects and blocks prompt injection attempts."""
+
+    INJECTION_PATTERNS = [
+        r"忽略.*指令", r"ignore.*instructions",
+        r"执行.*操作", r"execute.*operation",
+        r"调用.*工具", r"call.*tool",
+        r"替换.*规则", r"replace.*rules",
+        r"新.*身份", r"new.*identity",
+        r"system:", r"SYSTEM:",
+        r"忽略.*系统.*提示", r"ignore.*system.*prompt",
+        r"你.*现在.*是", r"you.*are.*now",
+        r"忘记.*之前", r"forget.*previous",
+        r"作为.*系统", r"act.*as.*system",
+    ]
+
+    @classmethod
+    def detect_injection(cls, text: str) -> tuple[bool, list[str]]:
+        """Detect prompt injection. Returns (is_injection, matched_patterns)."""
+        matches = []
+        for pattern in cls.INJECTION_PATTERNS:
+            if re.search(pattern, text, re.IGNORECASE):
+                matches.append(pattern)
+        return len(matches) > 0, matches
+
+
+def check_prompt_injection(text: str, client_ip: str = "unknown"):
+    """Shared guard: detect and block prompt injection on all endpoints."""
+    is_injection, patterns = PromptSanitizer.detect_injection(text)
+    if is_injection:
+        logger.warning("Prompt Injection detected from %s: %s", client_ip, patterns)
+        intrusion.record_injection_attempt(client_ip, str(patterns))
+        raise HTTPException(
+            status_code=400,
+            detail="Potential prompt injection detected. Your request has been logged.",
+        )
+
 
 # --- 🌟 环境感知 & 安全配置加载 ---
 APP_ENV = os.getenv("APP_ENV", "development").lower()
@@ -75,6 +122,7 @@ deploy_mgr = DeploymentManager()
 alert_mgr = AlertManager(DEFAULT_RULES)
 health_checker = HealthChecker()
 uptime = get_uptime()
+intrusion = IntrusionDetector()
 cross_reviewer: Optional[CrossReviewer] = None
 crew: Optional[Crew] = None
 rca_analyzer = RootCauseAnalyzer()
@@ -87,7 +135,7 @@ register_all(registry)
 # --- 数据模型 ---
 # 1. 原有简单模型 (保留兼容)
 class ChatRequest(BaseModel):
-    message: str = Field(..., description="用户输入")
+    message: str = Field(..., description="用户输入", max_length=100_000)
     trace_id: Optional[str] = Field(None, description="链路追踪 ID")
 
 
@@ -100,6 +148,13 @@ class Message(BaseModel):
 class OpenAIChatRequest(BaseModel):
     messages: List[Message]
     stream: Optional[bool] = False
+
+    @model_validator(mode="after")
+    def validate_message_length(self):
+        total_chars = sum(len(m.content) for m in self.messages)
+        if total_chars > 100_000:
+            raise ValueError(f"Message content too large: {total_chars} chars (max 100KB)")
+        return self
 
 
 # --- 生命周期管理 ---
@@ -153,6 +208,15 @@ async def lifespan(app: FastAPI):
         tenancy_mgr.register_tenant("default", "Default Tenant")
         # Register default identity
         identity_mgr.register_identity("agent-gateway", Role.ADMIN)
+        # Bind API key to default tenant (so server can start without manual config)
+        if APIKeyMiddleware:
+            api_key_value = os.getenv("GATEWAY_API_KEY", "")
+            if api_key_value:
+                api_key_hash = hashlib.sha256(api_key_value.encode()).hexdigest()
+                try:
+                    tenancy_mgr.bind_api_key(api_key_hash, "default")
+                except Exception:
+                    pass
         # Start health checker
         health_checker.register("sandbox", lambda: {"status": "ok", "audit_count": len(sandbox.get_audit_trail(hours=1))})
         health_checker.register("identity", lambda: {"status": "ok", "identities": len(identity_mgr.list_identities())})
@@ -160,6 +224,7 @@ async def lifespan(app: FastAPI):
         health_checker.register("slo", lambda: {"status": "ok", **governance.slo.get_compliance_report()})
         health_checker.register("deploy", lambda: {"status": "ok", **(deploy_mgr.deploy_status())})
         health_checker.register("alerting", lambda: {"status": "ok", "firing": len(alert_mgr.get_firing())})
+        health_checker.register("intrusion", lambda: {"status": "ok" if intrusion.status()["active_threats"] == 0 else "degraded", **intrusion.status()})
         health_checker.register("uptime", lambda: {"status": "ok" if uptime.healthy else "degraded", **uptime.status()})
         uptime.mark_healthy()
         print("Agent + Sandbox + Identity + Tenancy + Deploy + Uptime + Alerting 已就绪")
@@ -176,31 +241,78 @@ async def lifespan(app: FastAPI):
 # --- FastAPI 应用初始化 ---
 app = FastAPI(title="AI Agent Gateway", version="1.0.0", lifespan=lifespan)
 
-# CORS：允许浏览器跨域调用
+# CORS：根据环境动态配置
+ALLOWED_ORIGINS = os.getenv(
+    "CORS_ORIGINS",
+    "http://localhost:3000,http://localhost:8501" if APP_ENV != "production" else ""
+).split(",")
+ALLOWED_ORIGINS = [o.strip() for o in ALLOWED_ORIGINS if o.strip()]
+if not ALLOWED_ORIGINS and APP_ENV == "production":
+    raise RuntimeError("CORS_ORIGINS must be set in production (comma-separated origins)")
+
+# Middleware order: Prometheus → APIKey → CORS → App
+# CORS outermost so preflight (OPTIONS) is handled before auth
+# APIKeyMiddleware innermost so auth runs right before the endpoint
+app.add_middleware(PrometheusMiddleware)
+app.add_middleware(APIKeyMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-Tenant-ID"],
 )
 
-# API Key 鉴权（可选）
-app.add_middleware(APIKeyMiddleware)
 
-# Prometheus 监控
-app.add_middleware(PrometheusMiddleware)
-
-
-# --- Tenant 中间件 ---
+# --- Tenant 中间件（绑定至身份，防止伪造 Header）---
 @app.middleware("http")
 async def tenant_middleware(request, call_next):
-    tenant_id = request.headers.get("X-Tenant-ID", "default")
+    # Try extracting tenant from identity token first (prevents header forgery)
+    auth_header = request.headers.get("Authorization", "")
+    tenant_id = "default"
+    identity = None
+
+    if auth_header.startswith("Bearer "):
+        token_value = auth_header.removeprefix("Bearer ")
+        client_ip = request.client.host if request.client else "unknown"
+        # Check if this is an identity session token (sk-sess-*)
+        if token_value.startswith("sk-sess-"):
+            try:
+                identity = identity_mgr.validate_token(token_value, client_ip=client_ip)
+            except RuntimeError:
+                # Rate limit exceeded — record intrusion
+                intrusion.record_auth_failure(client_ip)
+                from fastapi.responses import JSONResponse
+                return JSONResponse(status_code=429, content={"error": "rate limit exceeded"})
+            if identity:
+                intrusion.record_auth_success(client_ip)
+                tenant_id = identity.metadata.get("tenant_id", "default")
+            else:
+                intrusion.record_auth_failure(client_ip)
+        else:
+            # API Key auth — look up tenant from key binding, not from header
+            api_key_hash = hashlib.sha256(token_value.encode()).hexdigest()
+            bound_tenant = tenancy_mgr.get_tenant_by_api_key(api_key_hash)
+            if bound_tenant:
+                tenant_id = bound_tenant
+            else:
+                raise HTTPException(status_code=401, detail="API key not bound to a tenant")
+
+    # Track tenant access for anomaly detection
+    intrusion.record_tenant_access(client_ip, tenant_id)
+
     tenant = tenancy_mgr.get_tenant(tenant_id)
     if not tenant:
+        # Don't auto-create tenants in production
+        if APP_ENV == "production":
+            from fastapi.responses import JSONResponse
+            return JSONResponse(status_code=403, content={"error": "Tenant not found"})
         tenant = tenancy_mgr.register_tenant(tenant_id, f"Auto-created: {tenant_id}")
+        logger.warning("Auto-created tenant: %s", tenant_id)
+
     request.state.tenant_id = tenant_id
     request.state.tenant = tenant
+    request.state.identity = identity
 
     quota_check = tenancy_mgr.check_quota(tenant_id, request.url.path)
     if not quota_check["allowed"]:
@@ -372,11 +484,14 @@ async def metrics():
 @app.post("/v1/chat/stream")
 async def chat_stream(req: ChatRequest):
     """原有流式接口"""
+    check_prompt_injection(req.message, request.client.host if request.client else "unknown")
     if not agent:
         raise HTTPException(status_code=503, detail="Agent not initialized")
+    if not cost_tracker.pre_check():
+        raise HTTPException(status_code=429, detail=f"Budget exceeded: daily=${cost_tracker.get_daily_total():.4f}")
 
     async def event_generator() -> AsyncGenerator[dict, None]:
-        ctx = AgentContext(trace_id=req.trace_id or f"req_{int(time.time())}")
+        ctx = AgentContext(trace_id=req.trace_id or f"req_{int(time.time())}", identity=request.state.identity)
         try:
             async for event in agent.run_stream(ctx, req.message):
                 yield event
@@ -391,11 +506,14 @@ async def chat_completions(req: OpenAIChatRequest):
     """新增：兼容 OpenAI 标准的接口 (修复 404 问题)"""
     if not agent:
         raise HTTPException(status_code=503, detail="Agent not initialized")
+    if not cost_tracker.pre_check():
+        raise HTTPException(status_code=429, detail=f"Budget exceeded: daily=${cost_tracker.get_daily_total():.4f}")
 
     # 简单处理：取最后一条用户消息
     user_message = ""
     for msg in req.messages:
         if msg.role == "user":
+            check_prompt_injection(msg.content, request.client.host if request.client else "unknown")
             user_message = msg.content
 
     if not user_message:
@@ -404,7 +522,7 @@ async def chat_completions(req: OpenAIChatRequest):
     if req.stream:
         # 流式响应
         async def event_generator():
-            ctx = AgentContext(trace_id=f"req_{int(time.time())}")
+            ctx = AgentContext(trace_id=f"req_{int(time.time())}", identity=request.state.identity)
             try:
                 async for event in agent.run_stream(ctx, user_message):
                     # 转换为 OpenAI 兼容格式
@@ -417,7 +535,7 @@ async def chat_completions(req: OpenAIChatRequest):
     else:
         # 非流式响应
         try:
-            ctx = AgentContext(trace_id=f"req_{int(time.time())}")
+            ctx = AgentContext(trace_id=f"req_{int(time.time())}", identity=request.state.identity)
             final_ctx = await agent.run(ctx, user_message)
             last_msg = final_ctx.messages[-1] if final_ctx.messages else {}
             return {
@@ -446,6 +564,7 @@ async def governance_audit(date: str = None, limit: int = 50):
 @app.post("/orchestrate")
 async def orchestrate_task(req: ChatRequest):
     """多 Agent 协作编排（方向一）"""
+    check_prompt_injection(req.message, request.client.host if request.client else "unknown")
     if not orchestrator:
         raise HTTPException(status_code=503, detail="Orchestrator not initialized")
 
@@ -562,6 +681,23 @@ async def alerts_firing():
     return {"firing": [{"rule": a.rule.name, "message": a.message} for a in alert_mgr.get_firing()]}
 
 
+# ── 入侵检测端点 ──────────────────────────────────
+
+@app.get("/security/intrusion")
+async def security_intrusion():
+    """入侵检测状态 + 最近事件"""
+    metrics = intrusion.get_metrics()
+    alert_mgr.evaluate(metrics)
+    return {
+        "status": intrusion.status(),
+        "recent_events": [
+            {"type": e.event_type, "severity": e.severity, "source": e.source_ip, "score": e.score, "details": e.details}
+            for e in intrusion.recent_events(20)
+        ],
+        "alerts": alert_mgr.status(),
+    }
+
+
 # ── 沙箱审计端点 ──────────────────────────────────
 
 @app.get("/sandbox/audit")
@@ -613,6 +749,15 @@ async def slo_budget():
 async def uptime_status():
     """服务可用性 + MTTR"""
     return uptime.status()
+
+
+@app.get("/cost/status")
+async def cost_status():
+    """成本追踪 + 预算状态"""
+    return {
+        "summary": cost_tracker.summary(),
+        "budget_ok": cost_tracker.pre_check(),
+    }
 
 
 @app.get("/portfolio", response_class=HTMLResponse)
@@ -728,13 +873,16 @@ async def review_resolve(review_id: str, finding_id: str, decision: str, resolut
 # ── AttnRes 路由端点 ────────────────────────────────
 
 class RouteRequest(BaseModel):
-    task: str = Field(..., description="任务描述")
-    signals: list[dict] = Field(..., description="Agent信号列表 [{agent_id, role, content}]")
+    task: str = Field(..., max_length=10_000, description="任务描述")
+    signals: list[dict] = Field(..., max_length=50, description="Agent信号列表 [{agent_id, role, content}]")
 
 
 @app.post("/route/compare")
 async def route_compare(req: RouteRequest):
     """对比三种路由模式 (residual vs block vs full)"""
+    check_prompt_injection(req.task, request.client.host if request.client else "?")
+    for signal in req.signals:
+        check_prompt_injection(signal.get("content", ""), request.client.host if request.client else "?")
     router = AttnResRouter()
     signals = [
         AgentSignal(
@@ -749,6 +897,9 @@ async def route_compare(req: RouteRequest):
 @app.post("/route/execute")
 async def route_execute(req: RouteRequest, mode: str = "full"):
     """执行选择性路由"""
+    check_prompt_injection(req.task, request.client.host if request.client else "?")
+    for signal in req.signals:
+        check_prompt_injection(signal.get("content", ""), request.client.host if request.client else "?")
     router = AttnResRouter()
     signals = [
         AgentSignal(
@@ -770,6 +921,7 @@ async def route_execute(req: RouteRequest, mode: str = "full"):
 @app.post("/orchestrate/routing")
 async def orchestrate_with_routing(req: ChatRequest, mode: str = "full"):
     """多Agent编排 + AttnRes路由"""
+    check_prompt_injection(req.message, request.client.host if request.client else "unknown")
     if not orchestrator or not crew:
         raise HTTPException(status_code=503, detail="Orchestrator or Crew not initialized")
     result = await orchestrator.execute_with_routing(req.message, crew, mode=mode)
@@ -836,6 +988,63 @@ async def blue_green_swap():
 async def blue_green_rollback():
     """紧急回滚（瞬间切回）"""
     return blue_green.rollback().__dict__
+
+
+# ── SuperAgent 端点 ───────────────────────────────
+
+class DebateRequest(BaseModel):
+    task: str = Field(..., max_length=10_000, description="待辩论的任务")
+    context: str = Field("", description="额外上下文")
+    challenger_model: str = Field("", description="挑战者模型，留空用默认")
+    arbitrator_model: str = Field("", description="仲裁者模型，留空用默认")
+
+
+@app.post("/super/debate")
+async def super_debate(req: DebateRequest):
+    """多模型辩论 — Primary vs Challenger → Arbitrator 裁决"""
+    check_prompt_injection(req.task, request.client.host if request.client else "?")
+    if not agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    if not agent.enable_super_agent:
+        raise HTTPException(status_code=400, detail="SuperAgent not enabled (set enable_super_agent=True)")
+
+    result = await agent.debate_run(
+        task=req.task,
+        context=req.context,
+    )
+    return {
+        "debate_id": result.debate_id,
+        "consensus": result.consensus,
+        "rounds": result.total_rounds,
+        "primary_model": result.primary_model,
+        "challenger_model": result.challenger_model,
+        "completed": result.completed,
+        "latency_ms": result.total_latency_ms,
+        "rounds_detail": [
+            {"round": r.round_num, "speaker": r.speaker, "content": r.content[:500]}
+            for r in result.rounds
+        ],
+    }
+
+
+@app.get("/super/status")
+async def super_status():
+    """SuperAgent 子系统状态"""
+    if not agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    return agent.get_super_status()
+
+
+class DegradeRequest(BaseModel):
+    tool_name: str = Field(..., description="要降级的工具名称")
+
+
+@app.post("/super/degrade")
+async def super_degrade(req: DegradeRequest):
+    """手动降级工具（测试/管理用）"""
+    if not agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    return agent.degrade_tool(req.tool_name)
 
 
 if __name__ == "__main__":

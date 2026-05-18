@@ -11,7 +11,10 @@ Implementation: process-level isolation via subprocess with restricted env.
 """
 
 import json
+import multiprocessing
 import os
+import pickle
+import re
 import signal
 import subprocess
 import tempfile
@@ -71,10 +74,10 @@ RISK_LEVELS = {
     "list_files": "low",
     "calculator": "low",
     "web_search": "low",
-    "run_python": "medium",
+    "run_python": "high",
     "web_fetch": "medium",
     "write_file": "high",
-    "code_exec": "high",
+    "code_exec": "critical",
     "run_command": "critical",
     "delete_file": "critical",
     "modify_system": "critical",
@@ -112,6 +115,14 @@ POLICIES_BY_RISK = {
 }
 
 
+def _subprocess_target(result_queue, func, params):
+    """Module-level target for multiprocessing. Must be picklable."""
+    try:
+        result_queue.put(("ok", func(params)))
+    except Exception as e:
+        result_queue.put(("err", f"{type(e).__name__}: {e}"))
+
+
 class SandboxExecutor:
     """Executes tool calls within a sandboxed environment.
 
@@ -135,6 +146,33 @@ class SandboxExecutor:
         """Determine risk level for a tool call."""
         return RISK_LEVELS.get(tool_name, "high")
 
+    @staticmethod
+    def _tool_to_permission(tool_name: str) -> Any:
+        from agent.identity import Permission
+        mapping = {
+            "read_file": Permission.READ_FILES,
+            "list_files": Permission.READ_FILES,
+            "web_search": Permission.NETWORK_OUT,
+            "web_fetch": Permission.NETWORK_OUT,
+            "write_file": Permission.WRITE_FILES,
+            "edit_file": Permission.WRITE_FILES,
+            "delete_file": Permission.WRITE_FILES,
+            "run_python": Permission.EXECUTE_CODE,
+            "code_exec": Permission.EXECUTE_CODE,
+            "run_command": Permission.EXECUTE_CODE,
+            "calculator": Permission.READ_FILES,
+        }
+        return mapping.get(tool_name, Permission.READ_FILES)
+
+    @staticmethod
+    def _tool_to_resource(tool_name: str) -> Any:
+        from agent.identity import Resource
+        if tool_name in ("run_command", "code_exec"):
+            return Resource.SYSTEM_FILES
+        if tool_name in ("web_search", "web_fetch"):
+            return Resource.NETWORK_EXTERNAL
+        return Resource.USER_FILES
+
     def execute(
         self,
         tool_name: str,
@@ -142,29 +180,55 @@ class SandboxExecutor:
         params: dict,
         identity: str = "anonymous",
         session_id: str = "",
+        identity_obj: Any = None,
     ) -> SandboxResult:
-        """Execute a tool call within sandbox constraints."""
+        """Execute a tool call within sandbox constraints.
+
+        If identity_obj is provided (Identity dataclass), fine-grained permission
+        checking via identity.can() is applied before execution.
+        """
         risk = self.evaluate_risk(tool_name, params)
         policy = POLICIES_BY_RISK[risk]
 
         self._call_counter += 1
         sandbox_id = f"snd-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}-{self._call_counter:04d}"
 
-        # Check filesystem constraints
-        for key, val in params.items():
-            if isinstance(val, str) and any(
-                val.startswith(d) or d in val
-                for d in policy.denied_dirs
-            ):
+        # Fine-grained permission check (if identity object is available)
+        if identity_obj is not None:
+            from agent.identity import Permission, Resource
+            perm = self._tool_to_permission(tool_name)
+            resource = self._tool_to_resource(tool_name)
+            if not identity_obj.can(perm, resource=resource):
                 result = SandboxResult(
                     tool_name=tool_name,
                     success=False,
-                    error=f"Access denied: path {val} is in denied directories",
+                    error=f"Permission denied: {perm.value} on {resource.value}",
                     policy_violation=True,
                     sandbox_id=sandbox_id,
                 )
                 self._audit(tool_name, params, result, identity, session_id, risk, policy)
                 return result
+
+        # Check filesystem constraints (normalized path traversal prevention)
+        for key, val in params.items():
+            if isinstance(val, str):
+                try:
+                    resolved = str(Path(val).resolve()).lower()
+                    if any(
+                        str(Path(d).resolve()).lower() in resolved
+                        for d in policy.denied_dirs
+                    ):
+                        result = SandboxResult(
+                            tool_name=tool_name,
+                            success=False,
+                            error=f"Access denied: path {val} is in denied directories",
+                            policy_violation=True,
+                            sandbox_id=sandbox_id,
+                        )
+                        self._audit(tool_name, params, result, identity, session_id, risk, policy)
+                        return result
+                except (OSError, ValueError):
+                    pass
 
         # Execute with time budget
         start = time.perf_counter()
@@ -204,22 +268,59 @@ class SandboxExecutor:
         self._audit(tool_name, params, result, identity, session_id, risk, policy)
         return result
 
-    def _run_with_timeout(self, func: Callable, timeout: float, *args, **kwargs):
-        """Run a function with a timeout using threading."""
+    def _run_with_timeout(self, func: Callable, params: dict, timeout: float):
+        """Run a function with a timeout using multiprocessing for true isolation.
+
+        Process-level isolation ensures a timeout truly kills the worker —
+        unlike threads which cannot be forcibly stopped.
+        Falls back to threading for non-picklable callables.
+        """
+        # Try multiprocessing first (true isolation); fall back to threading
+        try:
+            result_queue: multiprocessing.Queue = multiprocessing.Queue()
+            process = multiprocessing.Process(
+                target=_subprocess_target,
+                args=(result_queue, func, params),
+            )
+            process.start()
+            process.join(timeout=timeout)
+
+            if process.is_alive():
+                process.terminate()
+                process.join(timeout=3)
+                if process.is_alive():
+                    process.kill()
+                    process.join(timeout=1)
+                raise TimeBudgetExceeded(f"Timeout after {timeout}s")
+
+            if not result_queue.empty():
+                status, value = result_queue.get()
+                if status == "err":
+                    raise RuntimeError(value)
+                return value
+            return None
+        except (pickle.PicklingError, TypeError, AttributeError):
+            # Fallback to threading for non-picklable callables
+            return self._run_with_timeout_threaded(func, params, timeout)
+
+    def _run_with_timeout_threaded(self, func: Callable, params: dict, timeout: float):
+        """Thread-based fallback when multiprocessing is not available."""
         result = []
         error = []
+        stop_event = threading.Event()
 
         def target():
             try:
-                result.append(func(*args, **kwargs))
+                result.append(func(params))
             except Exception as e:
                 error.append(e)
 
-        thread = threading.Thread(target=target, daemon=True)
+        thread = threading.Thread(target=target, daemon=False)
         thread.start()
         thread.join(timeout=timeout)
 
         if thread.is_alive():
+            stop_event.set()
             raise TimeBudgetExceeded(f"Timeout after {timeout}s")
         if error:
             raise error[0]
@@ -255,14 +356,30 @@ class SandboxExecutor:
         return entry
 
     def _sanitize_params(self, params: dict) -> dict:
-        """Redact sensitive values from audit params."""
-        sensitive_keys = {"api_key", "password", "token", "secret", "credential"}
+        """Redact sensitive values from audit params — keys + regex patterns."""
+        sensitive_keys = {
+            "api_key", "password", "token", "secret", "credential",
+            "auth", "private", "session", "jwt", "bearer",
+        }
+        sensitive_patterns = [
+            r'sk-[a-zA-Z0-9]{20,}',                        # API Key format
+            r'sk-ant-[a-zA-Z0-9_\-]{20,}',                  # Anthropic key
+            r'Bearer\s+[a-zA-Z0-9\-._~+/]+=*',              # Bearer token
+            r'eyJ[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+',  # JWT
+        ]
+
+        def redact_value(v: str) -> str:
+            for pattern in sensitive_patterns:
+                v = re.sub(pattern, "***REDACTED***", v, flags=re.IGNORECASE)
+            return v
+
         sanitized = {}
         for k, v in params.items():
             if any(sk in k.lower() for sk in sensitive_keys):
                 sanitized[k] = "***REDACTED***"
-            elif isinstance(v, str) and len(v) > 200:
-                sanitized[k] = v[:197] + "..."
+            elif isinstance(v, str):
+                v = redact_value(v)
+                sanitized[k] = v[:197] + "..." if len(v) > 200 else v
             else:
                 sanitized[k] = v
         return sanitized
