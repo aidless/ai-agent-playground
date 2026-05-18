@@ -17,6 +17,7 @@ from agent.reflect_action import ReflectActionEngine
 from agent.debate import DebateEngine, DebateResult
 from agent.bootstrap import BootstrapEngine
 from agent.evolution import PerformanceTracker, EvolutionEngine
+from agent.meta_agent import MetaAgent
 from observability.tracer import log_trace
 
 logger = logging.getLogger(__name__)
@@ -70,6 +71,7 @@ class AsyncAgent:
         self.bootstrap = BootstrapEngine(client, model) if enable_super_agent else None
         self.perf_tracker = PerformanceTracker() if enable_super_agent else None
         self.evolution = EvolutionEngine(client, self.perf_tracker, registry, model) if enable_super_agent else None
+        self.meta_agent = MetaAgent(self, client, registry) if enable_super_agent else None
         self.debate_engine = (
             DebateEngine(client, challenger_client, arbitrator_client)
             if enable_super_agent and challenger_client
@@ -79,9 +81,16 @@ class AsyncAgent:
         self.arbitrator_model = arbitrator_model or model
 
     async def run(self, ctx: AgentContext, user_input: str) -> AgentContext:
-        """Non-streaming execution: aggregate all events, return final context."""
+        """Non-streaming execution: aggregate all events, return final context.
+
+        After execution, MetaAgent observes and autonomously decides whether
+        to evolve, bootstrap, degrade, or rollback tools.
+        """
         async for _ in self.run_stream(ctx, user_input):
             pass
+        # Autonomous self-improvement
+        if self.meta_agent:
+            await self.meta_agent.observe(ctx)
         return ctx
 
     async def debate_run(self, task: str, context: str = "") -> DebateResult:
@@ -139,6 +148,7 @@ class AsyncAgent:
             "bootstrap": self.bootstrap.list_bootstrapped() if self.bootstrap else None,
             "evolution": self.evolution.status() if self.evolution else None,
             "performance": self.perf_tracker.all_metrics() if self.perf_tracker else None,
+            "meta_agent": self.meta_agent.status() if self.meta_agent else None,
         }
 
     async def run_stream(

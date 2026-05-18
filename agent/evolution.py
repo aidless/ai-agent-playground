@@ -175,11 +175,12 @@ class EvolutionEngine:
         # If record.applied: tool is now optimized + registered
     """
 
-    def __init__(self, client, tracker: PerformanceTracker, registry, model: str = "deepseek-chat"):
+    def __init__(self, client, tracker: PerformanceTracker, registry, model: str = "deepseek-chat", meta_agent=None):
         self.client = client
         self.tracker = tracker
         self.registry = registry
         self.model = model
+        self.meta_agent = meta_agent
         self._history: dict[str, list[EvolutionRecord]] = {}
         self._load_history()
 
@@ -356,6 +357,10 @@ class EvolutionEngine:
             return func(kwargs)
 
         _wrapped.__name__ = tool_name
+
+        # Store rollback snapshot before replacing
+        if self.meta_agent:
+            self.meta_agent.store_for_rollback(tool_name)
 
         # Re-register with same name (overwrites)
         if hasattr(self.registry, "register"):

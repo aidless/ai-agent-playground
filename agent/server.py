@@ -1107,6 +1107,30 @@ async def super_evolution():
     return {"history": agent.evolution.get_evolution_history()}
 
 
+@app.get("/super/meta")
+async def super_meta():
+    """MetaAgent 自主决策日志"""
+    if not agent or not agent.meta_agent:
+        raise HTTPException(status_code=503, detail="MetaAgent not available")
+    return agent.meta_agent.status()
+
+
+@app.post("/super/meta/observe")
+async def super_meta_observe():
+    """手动触发 MetaAgent 全线观察和自主行动"""
+    if not agent or not agent.meta_agent:
+        raise HTTPException(status_code=503, detail="MetaAgent not available")
+    from agent.state import AgentContext
+    ctx = AgentContext(trace_id=f"meta_{int(time.time())}")
+    decisions = await agent.meta_agent.observe(ctx)
+    return {
+        "decisions": [
+            {"type": d.decision_type, "target": d.target, "action_taken": d.action_taken}
+            for d in decisions
+        ]
+    }
+
+
 class PipelineRequest(BaseModel):
     task: str = Field(..., max_length=10_000, description="复杂任务描述")
     enable_debate: bool = Field(True, description="是否在每个子任务上启用多模型辩论")
