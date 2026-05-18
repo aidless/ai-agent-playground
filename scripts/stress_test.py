@@ -81,9 +81,21 @@ async def main():
         print(f"  P99:   {sl[int(len(sl)*0.99)]:.0f}ms")
         print(f"  Min:   {min(sl):.0f}ms  Max: {max(sl):.0f}ms")
         jitter = statistics.stdev(all_lats) / statistics.mean(all_lats) * 100 if len(all_lats) > 1 else 0
-        print(f"  Jitter (stddev/avg): {jitter:.1f}%")
+        # Per-category jitter (P1 requirement should be per-type, not mixed)
+        by_label = {}
+        for r in all_ok:
+            lbl = "health" if "health" in r["path"] else "mixed"
+            by_label.setdefault(lbl, []).append(r["latency_ms"])
+        cat_jitters = {}
+        for lbl, lats in by_label.items():
+            if len(lats) > 2:
+                cat_jitters[lbl] = statistics.stdev(lats) / statistics.mean(lats) * 100
+
+        print(f"  Jitter (stddev/avg): {jitter:.1f}% [overall]")
+        for lbl, j in cat_jitters.items():
+            print(f"  Jitter ({lbl}): {j:.1f}% {'PASS' if j <= 30 else 'FAIL'}")
         print(f"  P1 target: p95<=3000ms {'PASS' if sl[int(len(sl)*0.95)] <= 3000 else 'FAIL'}")
-        print(f"  P1 target: jitter<=30% {'PASS' if jitter <= 30 else 'FAIL'}")
+        print(f"  P1 target: jitter<=30% {'PASS' if jitter <= 30 else 'FAIL (mixed types: ' + ' '.join(f'{l}={j:.0f}%' for l,j in cat_jitters.items()) + ')'}")
         print(f"  P2 target: p99<=5000ms {'PASS' if sl[int(len(sl)*0.99)] <= 5000 else 'FAIL'}")
 
 

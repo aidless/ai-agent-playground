@@ -1,11 +1,13 @@
-"""计算工具：加减乘除，供 ToolRegistry 注册使用"""
+"""计算工具：加减乘除"""
 
 import builtins
 import math
 import re
 from typing import Union
 
-TOOL_DEFINITION = {
+TOOLS = []
+
+CALC_DEF = {
     "name": "calculator",
     "description": "执行数学运算（加减乘除、幂、平方根等）",
     "parameters": {
@@ -46,3 +48,5 @@ def calculator(expression: str) -> Union[float, str]:
             return round(float(result), 6)
         except Exception as e:
             return f"计算错误: {e}"
+
+TOOLS.append((CALC_DEF, calculator))

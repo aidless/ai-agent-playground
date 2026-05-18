@@ -17,6 +17,8 @@ def call_llm_with_retry(client, messages, model, trace_id, step):
     except openai.BadRequestError as e:
         if "context_length" in str(e).lower():
             log_trace(trace_id, step, "context_overflow", {"action": "truncate_fallback"})
-            messages = [messages[0]] + messages[-3:]
+            truncated = [messages[0]] + messages[-3:]
+            messages.clear()
+            messages.extend(truncated)
             return client.chat.completions.create(model=model, messages=messages)
         raise

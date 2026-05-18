@@ -1,4 +1,6 @@
-"""Load testing for AI Agent Playground."""
+"""Load testing for AI Agent Playground — requires locust (optional)."""
+import pytest
+pytest.importorskip("locust", reason="locust not installed — install with: uv add --dev locust")
 
 from locust import HttpUser, task, between
 

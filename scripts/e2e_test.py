@@ -197,10 +197,10 @@ def test_observability():
     tracer = get_tracer(log_dir="logs/e2e_traces")
 
     with tracer.trace("e2e_test", test_id="observability_check") as trace:
-        with trace.span("llm_call", model="test-model"):
-            trace.spans[-1].attributes["output_tokens"] = 150
-        with trace.span("tool_call", tool="calculator"):
-            trace.spans[-1].attributes["tool"] = "calculator"
+        with trace.span("llm_call", model="test-model") as llm_span:
+            llm_span.attributes["output_tokens"] = 150
+        with trace.span("tool_call", tool="calculator") as tool_span:
+            tool_span.attributes["tool"] = "calculator"
 
     snap = tracer.snapshot()
     assert snap.total_traces == 1, f"Should have 1 trace, got {snap.total_traces}"
