@@ -1,0 +1,225 @@
+{
+  "timestamp": "2026-05-18T14:04:21.199292+00:00",
+  "questions": 5,
+  "engines_tested": [
+    "baseline",
+    "debate",
+    "matrix"
+  ],
+  "results": [
+    {
+      "question": {
+        "id": "q1_code",
+        "domain": "coding",
+        "task": "Write a Python function that checks if a string is a valid IPv4 address. Include test cases."
+      },
+      "baseline": {
+        "latency_ms": 29423,
+        "chars": 9999,
+        "overall": 10.0,
+        "dimensions": {
+          "interface": 10.0,
+          "functional": 10.0,
+          "utility": 10.0
+        }
+      },
+      "debate": {
+        "latency_ms": 229266,
+        "chars": 3669,
+        "rounds": 3,
+        "overall": 9.4,
+        "delta": 0.0,
+        "dimensions": {
+          "interface": 7.0,
+          "functional": 10.0,
+          "utility": 10.0
+        }
+      },
+      "matrix": {
+        "latency_ms": 83178,
+        "chars": 8468,
+        "agents_used": 2,
+        "overall": 10.0,
+        "delta": 0.0,
+        "dimensions": {
+          "interface": 10.0,
+          "functional": 10.0,
+          "utility": 10.0
+        }
+      }
+    },
+    {
+      "question": {
+        "id": "q2_reason",
+        "domain": "reasoning",
+        "task": "Explain why database indexes speed up queries but slow down writes. Be specific."
+      },
+      "baseline": {
+        "latency_ms": 19398,
+        "chars": 3726,
+        "overall": 9.0,
+        "dimensions": {
+          "interface": 10.0,
+          "functional": 8.0,
+          "utility": 10.0
+        }
+      },
+      "debate": {
+        "latency_ms": 152149,
+        "chars": 3907,
+        "rounds": 3,
+        "overall": 8.4,
+        "delta": 0.0,
+        "dimensions": {
+          "interface": 7.0,
+          "functional": 8.0,
+          "utility": 10.0
+        }
+      },
+      "matrix": {
+        "latency_ms": 26812,
+        "chars": 6835,
+        "agents_used": 1,
+        "overall": 9.0,
+        "delta": 0.0,
+        "dimensions": {
+          "interface": 10.0,
+          "functional": 8.0,
+          "utility": 10.0
+        }
+      }
+    },
+    {
+      "question": {
+        "id": "q3_security",
+        "domain": "security",
+        "task": "Explain three common authentication vulnerabilities in web apps and how to prevent each."
+      },
+      "baseline": {
+        "latency_ms": 16603,
+        "chars": 3559,
+        "overall": 8.4,
+        "dimensions": {
+          "interface": 10.0,
+          "functional": 8.0,
+          "utility": 8.0
+        }
+      },
+      "debate": {
+        "latency_ms": 105291,
+        "chars": 6114,
+        "rounds": 3,
+        "overall": 7.8,
+        "delta": 0.0,
+        "dimensions": {
+          "interface": 7.0,
+          "functional": 8.0,
+          "utility": 8.0
+        }
+      },
+      "matrix": {
+        "latency_ms": 22337,
+        "chars": 6696,
+        "agents_used": 1,
+        "overall": 8.4,
+        "delta": 0.0,
+        "dimensions": {
+          "interface": 10.0,
+          "functional": 8.0,
+          "utility": 8.0
+        }
+      }
+    },
+    {
+      "question": {
+        "id": "q4_design",
+        "domain": "system_design",
+        "task": "Design a URL shortener service. Describe the API, database schema, and scaling strategy."
+      },
+      "baseline": {
+        "latency_ms": 29306,
+        "chars": 8509,
+        "overall": 8.7,
+        "dimensions": {
+          "interface": 10.0,
+          "functional": 8.5,
+          "utility": 8.0
+        }
+      },
+      "debate": {
+        "latency_ms": 112157,
+        "chars": 7780,
+        "rounds": 3,
+        "overall": 8.1,
+        "delta": 0.0,
+        "dimensions": {
+          "interface": 7.0,
+          "functional": 8.5,
+          "utility": 8.0
+        }
+      },
+      "matrix": {
+        "latency_ms": 20545,
+        "chars": 5101,
+        "agents_used": 1,
+        "overall": 8.7,
+        "delta": 0.0,
+        "dimensions": {
+          "interface": 10.0,
+          "functional": 8.5,
+          "utility": 8.0
+        }
+      }
+    },
+    {
+      "question": {
+        "id": "q5_algo",
+        "domain": "algorithms",
+        "task": "Explain the difference between quicksort and mergesort. When would you use each?"
+      },
+      "baseline": {
+        "latency_ms": 10136,
+        "chars": 2130,
+        "overall": 8.4,
+        "dimensions": {
+          "interface": 10.0,
+          "functional": 8.0,
+          "utility": 8.0
+        }
+      },
+      "debate": {
+        "latency_ms": 243700,
+        "chars": 5899,
+        "rounds": 3,
+        "overall": 7.8,
+        "delta": 0.0,
+        "dimensions": {
+          "interface": 7.0,
+          "functional": 8.0,
+          "utility": 8.0
+        }
+      },
+      "matrix": {
+        "latency_ms": 13288,
+        "chars": 3177,
+        "agents_used": 1,
+        "overall": 8.4,
+        "delta": 0.0,
+        "dimensions": {
+          "interface": 10.0,
+          "functional": 8.0,
+          "utility": 8.0
+        }
+      }
+    }
+  ],
+  "summary": {
+    "baseline_avg": 8.9,
+    "debate_avg": 8.3,
+    "debate_delta": 0.0,
+    "matrix_avg": 8.9,
+    "matrix_delta": 0.0,
+    "best_engine": "Baseline",
+    "best_score": 8.9
+  }
+}
