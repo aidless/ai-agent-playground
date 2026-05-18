@@ -4,6 +4,7 @@ and SuperAgent capabilities: reflect→action, debate, bootstrapping."""
 import asyncio
 import json
 import logging
+import time
 from typing import AsyncGenerator, Optional
 
 from agent.state import AgentContext, AgentState
@@ -15,6 +16,7 @@ from agent.sandbox import SandboxExecutor
 from agent.reflect_action import ReflectActionEngine
 from agent.debate import DebateEngine, DebateResult
 from agent.bootstrap import BootstrapEngine
+from agent.evolution import PerformanceTracker, EvolutionEngine
 from observability.tracer import log_trace
 
 logger = logging.getLogger(__name__)
@@ -66,6 +68,8 @@ class AsyncAgent:
         # SuperAgent engines
         self.reflect_action = ReflectActionEngine() if enable_super_agent else None
         self.bootstrap = BootstrapEngine(client, model) if enable_super_agent else None
+        self.perf_tracker = PerformanceTracker() if enable_super_agent else None
+        self.evolution = EvolutionEngine(client, self.perf_tracker, registry, model) if enable_super_agent else None
         self.debate_engine = (
             DebateEngine(client, challenger_client, arbitrator_client)
             if enable_super_agent and challenger_client
@@ -133,6 +137,8 @@ class AsyncAgent:
             "reflect_action": self.reflect_action.status() if self.reflect_action else None,
             "debate": self.debate_engine.status() if self.debate_engine else None,
             "bootstrap": self.bootstrap.list_bootstrapped() if self.bootstrap else None,
+            "evolution": self.evolution.status() if self.evolution else None,
+            "performance": self.perf_tracker.all_metrics() if self.perf_tracker else None,
         }
 
     async def run_stream(
@@ -251,6 +257,7 @@ class AsyncAgent:
 
     async def _exec_tool_async(self, tool_call_id: str, tool_name: str, args: dict, ctx: AgentContext):
         """Execute tool via sandbox -> governance panel (permission -> circuit breaker -> audit)."""
+        tool_start = time.time()
 
         def _execute():
             if self.sandbox:
@@ -273,9 +280,15 @@ class AsyncAgent:
                 tool_name, args, _execute, ctx.trace_id,
             )
             ctx.tool_results.append({"tool": tool_name, "result": result, "status": "ok"})
+            if self.perf_tracker:
+                elapsed_ms = (time.time() - tool_start) * 1000
+                self.perf_tracker.record(tool_name, success=True, latency_ms=elapsed_ms)
         except Exception as e:
             result = f"Error: {e}"
             ctx.tool_results.append({"tool": tool_name, "result": result, "status": "error"})
+            if self.perf_tracker:
+                elapsed_ms = (time.time() - tool_start) * 1000
+                self.perf_tracker.record(tool_name, success=False, latency_ms=elapsed_ms, error=str(e))
 
         ctx.messages.append({
             "role": "tool",

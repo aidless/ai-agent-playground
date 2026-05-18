@@ -207,7 +207,71 @@ async def demo_bootstrap(deepseek):
     }
 
 
-# ── Demo 4: Full Agent Loop (LLM with SuperAgent) ──
+# ── Demo 4: Tool Evolution (LLM analyzes → optimizes) ──
+
+async def demo_evolution(deepseek):
+    print("\n" + "=" * 60)
+    print("DEMO 4: Tool Evolution (Performance → Optimize → Replace)")
+    print("=" * 60)
+
+    from agent.evolution import PerformanceTracker, EvolutionEngine
+    from agent.tools.registry import ToolRegistry
+
+    registry = ToolRegistry()
+
+    # Register an intentionally suboptimal tool
+    def slow_fibonacci(params: dict) -> str:
+        """Calculate fibonacci. O(2^n) — intentionally slow."""
+        n = int(params.get("n", 0))
+        if n <= 1:
+            return str(n)
+        a, b = 0, 1
+        for _ in range(2, n + 1):
+            a, b = b, a + b
+        return str(b)
+
+    registry.register("fibonacci", "Calculate Fibonacci number",
+                     {"properties": {"n": {"type": "int"}}, "required": ["n"]},
+                     slow_fibonacci)
+
+    tracker = PerformanceTracker()
+    # Simulate 10 calls with slow performance
+    for i in range(10):
+        tracker.record("fibonacci", success=True, latency_ms=150 + i * 10,
+                      error="" if i < 8 else "timeout")
+
+    print(f"Tool 'fibonacci' metrics before evolution:")
+    m = tracker.get_metrics("fibonacci")
+    print(f"  Calls: {m.call_count}, Avg latency: {m.avg_latency_ms:.0f}ms, Success: {m.success_rate:.1%}")
+
+    engine = EvolutionEngine(deepseek, tracker, registry, model="deepseek-chat")
+
+    print("\nEvolving 'fibonacci' — LLM analyzing and optimizing...")
+    t0 = time.time()
+    record = await engine.evolve("fibonacci")
+    elapsed = (time.time() - t0) * 1000
+
+    print(f"  Validated: {record.validated}")
+    print(f"  Applied: {record.applied}")
+    print(f"  Latency: {elapsed:.0f}ms")
+    print(f"  Diff ({record.diff.count(chr(10))} lines changed):")
+    for line in record.diff.split("\n")[:15]:
+        print(f"    {line}")
+
+    return {
+        "evolution": {
+            "tool_name": record.tool_name,
+            "version": record.version,
+            "validated": record.validated,
+            "applied": record.applied,
+            "diff_lines": record.diff.count("\n"),
+            "latency_ms": elapsed,
+            "diff_preview": record.diff[:500],
+        }
+    }
+
+
+# ── Demo 5: Full Agent Loop (LLM with SuperAgent) ──
 
 async def demo_agent_loop(deepseek):
     print("\n" + "=" * 60)
@@ -299,7 +363,14 @@ async def main():
         print(f"[SKIP] Bootstrap demo failed: {e}")
         report["results"]["bootstrap"] = {"error": str(e)}
 
-    # Demo 4: Agent Loop (uses DeepSeek)
+    # Demo 4: Evolution (uses DeepSeek)
+    try:
+        report["results"]["evolution"] = await demo_evolution(deepseek)
+    except Exception as e:
+        print(f"[SKIP] Evolution demo failed: {e}")
+        report["results"]["evolution"] = {"error": str(e)}
+
+    # Demo 5: Agent Loop (uses DeepSeek)
     try:
         report["results"]["agent_loop"] = await demo_agent_loop(deepseek)
     except Exception as e:

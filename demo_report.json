@@ -1,32 +1,32 @@
 {
-  "timestamp": "2026-05-18T12:03:58.172267+00:00",
+  "timestamp": "2026-05-18T12:18:51.971717+00:00",
   "results": {
     "debate": {
       "debate": {
         "rounds": 4,
-        "latency_ms": 233110.6960773468,
+        "latency_ms": 195314.03136253357,
         "completed": true,
-        "consensus_preview": "The best way to implement rate limiting in FastAPI is a **dependency-based approach using `slowapi`**, with optional middleware for a global safety net in production. This balances flexibility, testability, and production readiness.\n\n## Core Recommendation: Dependency-Based with `slowapi`\n\n### Why This Approach Wins\n- **Granular control** – Different limits per route, user, or HTTP method\n- **Native FastAPI integration** – Works with dependency injection, exception handling, and testing\n- **Production-ready** – Supports Redis backend, sliding windows, and headers\n- **Testable** – Dependencies can be mocked or overridden\n\n### Implementation\n\n```python\nfrom fastapi import FastAPI, Depends, Request\nfrom slowapi import Limiter, _rate_limit_exceeded_handler\nfrom slowapi.errors import RateLimitE",
+        "consensus_preview": "## Best Way to Implement Rate Limiting in FastAPI\n\nThe optimal approach is a **hybrid strategy** combining middleware for baseline protection with dependency-based decorators for granular control, using **slowapi** with Redis for distributed environments.\n\n### Core Implementation\n\n```python\nimport os\nfrom fastapi import FastAPI, Request\nfrom fastapi.responses import JSONResponse\nfrom slowapi import Limiter\nfrom slowapi.util import get_remote_address\nfrom slowapi.middleware import SlowAPIMiddleware\nfrom slowapi.errors import RateLimitExceeded\nfrom typing import Optional\n\n# Configuration from environment variables\nREDIS_URL = os.environ.get(\"REDIS_URL\", \"redis://localhost:6379\")\nIN_MEMORY_FALLBACK = os.environ.get(\"RATE_LIMIT_FALLBACK\", \"true\").lower() == \"true\"\n\n# Initialize limiter with Re",
         "round_details": [
           {
             "round": 1,
             "speaker": "primary",
-            "chars": 6495
+            "chars": 5553
           },
           {
             "round": 2,
             "speaker": "challenger",
-            "chars": 6942
+            "chars": 6191
           },
           {
             "round": 3,
             "speaker": "primary_rebuttal",
-            "chars": 8892
+            "chars": 8380
           },
           {
             "round": 4,
             "speaker": "arbitrator",
-            "chars": 5218
+            "chars": 5559
           }
         ]
       }
@@ -73,17 +73,28 @@
         "tool_name": "markdown_table_to_json",
         "validated": true,
         "registered": true,
-        "code_length": 1199,
-        "latency_ms": 2743.577480316162,
+        "code_length": 1043,
+        "latency_ms": 2498.8200664520264,
         "test_works": true,
-        "code_preview": "def markdown_table_to_json(params: dict) -> str:\n    \"\"\"Convert a markdown table string to JSON array of objects.\"\"\"\n    import json\n    import re\n    \n    table_text = params.get(\"table\", \"\")\n    if not table_text:\n        return json.dumps([])\n    \n    lines = table_text.strip().split('\\n')\n    if len(lines) < 2:\n        return json.dumps([])\n    \n    # Extract header row\n    header_line = lines[0].strip()\n    if not header_line.startswith('|'):\n        header_line = '|' + header_line\n    if n"
+        "code_preview": "def markdown_table_to_json(params: dict) -> str:\n    \"\"\"Convert a markdown table string to a JSON array of objects.\"\"\"\n    import json\n    import re\n\n    table_text = params.get(\"table\", \"\")\n    if not table_text:\n        return json.dumps([])\n\n    lines = [line.strip() for line in table_text.split(\"\\n\") if line.strip()]\n    if len(lines) < 2:\n        return json.dumps([])\n\n    # Extract header row\n    headers = [h.strip() for h in lines[0].split(\"|\") if h.strip()]\n    if not headers:\n        re"
+      }
+    },
+    "evolution": {
+      "evolution": {
+        "tool_name": "fibonacci",
+        "version": 1,
+        "validated": true,
+        "applied": true,
+        "diff_lines": 32,
+        "latency_ms": 2036.7214679718018,
+        "diff_preview": "--- fibonacci_v0\n+++ fibonacci_v1\n@@ -1,9 +1,24 @@\n-    def slow_fibonacci(params: dict) -> str:\n-        \"\"\"Calculate fibonacci. O(2^n) — intentionally slow.\"\"\"\n+def fibonacci(params: dict) -> str:\n+    \"\"\"Calculate fibonacci using fast doubling method. O(log n).\"\"\"\n+    try:\n         n = int(params.get(\"n\", 0))\n+        if n < 0:\n+            return \"0\"\n         if n <= 1:\n             return str(n)\n-        a, b = 0, 1\n-        for _ in range(2, n + 1):\n-            a, b = b, a + b\n-        r"
       }
     },
     "agent_loop": {
       "agent_loop": {
         "state": "done",
         "steps": 1,
-        "latency_ms": 1906.6736698150635,
+        "latency_ms": 1808.8414669036865,
         "response": "4",
         "reflections": [],
         "lessons": [],
@@ -97,11 +108,53 @@
           "debate": null,
           "bootstrap": [
             {
+              "name": "count_words",
+              "validated": true,
+              "registered": true
+            },
+            {
+              "name": "extract_urls",
+              "validated": true,
+              "registered": true
+            },
+            {
+              "name": "hello_world",
+              "validated": true,
+              "registered": true
+            },
+            {
               "name": "markdown_table_to_json",
               "validated": true,
               "registered": true
+            },
+            {
+              "name": "tool_a",
+              "validated": true,
+              "registered": false
             }
-          ]
+          ],
+          "evolution": {
+            "tools_tracked": 1,
+            "underperforming": [],
+            "evolutions_applied": 1,
+            "recent": [
+              {
+                "tool": "fibonacci",
+                "version": 1,
+                "applied": true,
+                "diff_preview": "--- fibonacci_v0\n+++ fibonacci_v1\n@@ -1,9 +1,24 @@\n-    def slow_fibonacci(params: dict) -> str:\n-        \"\"\"Calculate fibonacci. O(2^n) — intentionally slow.\"\"\"\n+def fibonacci(params: dict) -> str:\n+"
+              }
+            ]
+          },
+          "performance": {
+            "fibonacci": {
+              "calls": 10,
+              "success_rate": 1.0,
+              "avg_latency_ms": 195.0,
+              "p95_latency_ms": 240,
+              "underperforming": false
+            }
+          }
         }
       }
     }

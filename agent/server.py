@@ -1066,6 +1066,47 @@ async def super_degrade(req: DegradeRequest):
     return agent.degrade_tool(req.tool_name)
 
 
+class EvolveRequest(BaseModel):
+    tool_name: str = Field(..., description="要优化的工具名称")
+
+
+@app.post("/super/evolve")
+async def super_evolve(req: EvolveRequest):
+    """工具进化 — LLM 分析性能数据，生成优化补丁，验证后替换"""
+    if not agent or not agent.evolution:
+        raise HTTPException(status_code=503, detail="Evolution engine not available")
+
+    record = await agent.evolution.evolve(req.tool_name)
+    return {
+        "tool_name": record.tool_name,
+        "version": record.version,
+        "validated": record.validated,
+        "applied": record.applied,
+        "diff": record.diff[:3000],
+        "reason": record.reason,
+        "error": record.error,
+    }
+
+
+@app.get("/super/performance")
+async def super_performance():
+    """所有工具的性能指标"""
+    if not agent or not agent.perf_tracker:
+        raise HTTPException(status_code=503, detail="Performance tracker not available")
+    return {
+        "metrics": agent.perf_tracker.all_metrics(),
+        "underperforming": agent.perf_tracker.list_underperforming(),
+    }
+
+
+@app.get("/super/evolution")
+async def super_evolution():
+    """工具进化历史"""
+    if not agent or not agent.evolution:
+        raise HTTPException(status_code=503, detail="Evolution engine not available")
+    return {"history": agent.evolution.get_evolution_history()}
+
+
 class PipelineRequest(BaseModel):
     task: str = Field(..., max_length=10_000, description="复杂任务描述")
     enable_debate: bool = Field(True, description="是否在每个子任务上启用多模型辩论")
