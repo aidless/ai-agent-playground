@@ -1,0 +1,6 @@
+Sandbox Meta Experiment: agent/uptime.py...
+  Applied: True
+  Tests: 161 passed, 0 failed
+  Safety: True
+
+Status: {'total_experiments': 1, 'successful': 1, 'failed': 0, 'pending_proposals': 1, 'recent': [{'id': 'exp-c0c96ee4', 'target': 'agent/uptime.py', 'applied': True, 'tests': '161/161'}]}

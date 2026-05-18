@@ -1,0 +1,23 @@
+Phase 1: 50 concurrent to /health...
+  /health: 500/500 OK
+    avg=103ms p50=100ms p95=255ms p99=305ms
+
+Phase 2: 50 concurrent mixed endpoints...
+  Mixed: 500/500 OK
+    avg=71ms p50=68ms p95=117ms p99=123ms
+
+=======================================================
+  STRESS TEST RESULTS (50 concurrent)
+=======================================================
+  Total: 1000 | OK: 1000 (100%)
+  Avg:   87ms
+  P50:   78ms
+  P95:   150ms
+  P99:   300ms
+  Min:   27ms  Max: 316ms
+  Jitter (stddev/avg): 59.3% [overall]
+  Jitter (health): 61.4% FAIL
+  Jitter (mixed): 39.0% FAIL
+  P1 target: p95<=3000ms PASS
+  P1 target: jitter<=30% FAIL (mixed types: health=61% mixed=39%)
+  P2 target: p99<=5000ms PASS
