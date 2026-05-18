@@ -5,6 +5,7 @@ import time
 import json
 import logging
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import AsyncGenerator, List, Optional
 
 from dotenv import load_dotenv, find_dotenv
@@ -46,6 +47,7 @@ from agent.matrix import AgentMatrix, MatrixAgentProfile
 from agent.autopilot import AutoPilot
 from agent.self_play import SelfPlayEngine
 from agent.eval_gate import EvaluationGate
+from agent.sandbox_meta import SandboxMetaEvolution
 from observability.clear_metrics import CLEARPanel
 
 logger = logging.getLogger(__name__)
@@ -134,6 +136,7 @@ agent_matrix: Optional[AgentMatrix] = None
 autopilot: Optional[AutoPilot] = None
 self_play: Optional[SelfPlayEngine] = None
 eval_gate: Optional[EvaluationGate] = None
+sandbox_meta: Optional[SandboxMetaEvolution] = None
 cross_reviewer: Optional[CrossReviewer] = None
 crew: Optional[Crew] = None
 rca_analyzer = RootCauseAnalyzer()
@@ -172,7 +175,7 @@ class OpenAIChatRequest(BaseModel):
 # --- 生命周期管理 ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global agent, orchestrator, unified_pipeline, agent_matrix, autopilot, self_play, eval_gate, cross_reviewer, crew
+    global agent, orchestrator, unified_pipeline, agent_matrix, autopilot, self_play, eval_gate, sandbox_meta, cross_reviewer, crew
 
     llm_base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
     client = AsyncOpenAI(
@@ -286,6 +289,13 @@ async def lifespan(app: FastAPI):
             # Initialize Evaluation Gate
             eval_gate = EvaluationGate(client, model="deepseek-chat")
             print("Evaluation Gate: 3D质量评估已就绪")
+
+            # Initialize sandboxed meta evolution
+            sandbox_meta = SandboxMetaEvolution(
+                project_root=Path(__file__).resolve().parent.parent,
+                agent=agent,
+            )
+            print("SandboxMeta: 安全沙箱自进化已就绪")
         except Exception as e:
             print(f"Cross-Model Reviewer 不可用 (Ollama未启动): {e}")
             cross_reviewer = None
@@ -1317,6 +1327,37 @@ async def eval_ab_endpoint(req: EvalRequest):
         trials=2,
     )
     return ab
+
+
+class MetaExperimentRequest(BaseModel):
+    target_file: str = Field("agent/meta_agent.py", description="要实验性改进的目标文件")
+
+
+@app.post("/super/meta/experiment")
+async def super_meta_experiment(req: MetaExperimentRequest):
+    """沙箱化元自进化 — 在隔离环境中实验代码改进，测试通过才提案"""
+    if not sandbox_meta:
+        raise HTTPException(status_code=503, detail="SandboxMeta not initialized")
+
+    exp = await sandbox_meta.experiment(req.target_file)
+    return {
+        "experiment_id": exp.experiment_id,
+        "target_file": exp.target_file,
+        "applied": exp.applied,
+        "tests_passed": exp.tests_passed,
+        "tests_failed": exp.tests_failed,
+        "safety_check": exp.safety_check,
+        "diff_preview": exp.diff[:2000] if exp.diff else "",
+        "error": exp.error,
+    }
+
+
+@app.get("/super/meta/proposals")
+async def super_meta_proposals():
+    """待审查的元进化提案"""
+    if not sandbox_meta:
+        raise HTTPException(status_code=503, detail="SandboxMeta not initialized")
+    return sandbox_meta.status()
 
 
 @app.get("/eval/stats")
