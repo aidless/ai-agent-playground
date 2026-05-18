@@ -4,6 +4,7 @@ The Generator creates tasks at the Solver's competence frontier.
 The Solver attempts to solve them.
 The Evaluator scores the result.
 Feedback flows back to the Generator for better task selection.
+Results consolidate into persistent memory for cross-session transfer.
 
 This creates a natural curriculum: tasks get progressively harder
 as the agent improves, staying just beyond current ability.
@@ -13,7 +14,10 @@ Key insight from Tool-R0 (arXiv:2602.21320):
    with the Solver's evolving capabilities, while the Solver is trained
    to solve them with outcome-based rewards."
 
-No RL needed — we use simple scoring + LLM generation.
+v2 adds:
+  - Generator Learning: LLM analyzes results and improves task quality
+  - Memory Consolidation: self-play lessons persist as agent memories
+  - Strategy Adaptation: difficulty adjusts based on score patterns
 """
 
 import asyncio
@@ -111,6 +115,26 @@ GEN_TASK_PROMPT = (
     "2. Include specific instructions, not vague prompts\n"
     "3. For coding tasks, specify the function signature\n"
     "4. Output format: just the task instruction, nothing else"
+)
+
+GEN_LEARN_PROMPT = (
+    "You are improving a task generator. Review the past training results "
+    "and generate ONE INSIGHT about how to create better tasks.\n\n"
+    "Recent results (domain, difficulty, score, task_preview):\n{results_summary}\n\n"
+    "Analyze:\n"
+    "1. Which domains/topics need easier tasks (prerequisites)?\n"
+    "2. Which domains are ready for harder challenges?\n"
+    "3. What task formats produce the best scores?\n"
+    "Output: one actionable sentence starting with 'NEXT: '"
+)
+
+MEMORY_CONSOLIDATION_PROMPT = (
+    "Review these self-play training results. Extract 2-3 concrete LESSONS "
+    "that would help the agent perform better on real tasks.\n\n"
+    "Results: {results_summary}\n\n"
+    "Output format (one lesson per line):\n"
+    "- Lesson 1\n"
+    "- Lesson 2"
 )
 
 EVAL_PROMPT = (
@@ -211,9 +235,10 @@ class SelfPlayEngine:
         self.model = model
         self.competence = CompetenceTracker()
         self._history: list[PracticeResult] = []
+        self._strategy_insights: list[str] = []
 
-    async def train(self, rounds: int = 5) -> list[PracticeResult]:
-        """Run N rounds of self-play training."""
+    async def train(self, rounds: int = 5, consolidate: bool = True) -> list[PracticeResult]:
+        """Run N rounds of self-play training with Generator learning + memory consolidation."""
         results = []
         for i in range(rounds):
             logger.info("Self-play round %d/%d", i + 1, rounds)
@@ -221,7 +246,79 @@ class SelfPlayEngine:
             results.append(result)
             self.competence.record(result.task.domain, result.score)
             self._history.append(result)
+
+        # Generator Learning: analyze results, adjust strategy
+        if len(results) >= 2:
+            insight = await self._generator_learn(results)
+            if insight:
+                self._strategy_insights.append(insight)
+                logger.info("Generator insight: %s", insight)
+
+        # Memory Consolidation: persist lessons to agent memory
+        if consolidate and len(results) >= 2:
+            lessons = await self._consolidate_memory(results)
+            if lessons:
+                for lesson in lessons:
+                    self.agent.memory.add_lesson(
+                        lesson=lesson,
+                        context=f"self-play training ({len(results)} rounds)",
+                        success=True,
+                    )
+                logger.info("Consolidated %d lessons to agent memory", len(lessons))
+
         return results
+
+    async def _generator_learn(self, results: list[PracticeResult]) -> str:
+        """Analyze results and generate an insight for better task generation."""
+        summary_lines = []
+        for r in results:
+            summary_lines.append(
+                f"- {r.task.domain} (diff={r.task.difficulty}): score={r.score}/10 — {r.task.instruction[:80]}..."
+            )
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": GEN_LEARN_PROMPT.format(
+                        results_summary="\n".join(summary_lines),
+                    )},
+                ],
+                max_tokens=150,
+                temperature=0.5,
+            )
+            text = response.choices[0].message.content.strip()
+            if text.startswith("NEXT:"):
+                return text[5:].strip()
+            return text
+        except Exception as e:
+            logger.warning("Generator learning failed: %s", e)
+            return ""
+
+    async def _consolidate_memory(self, results: list[PracticeResult]) -> list[str]:
+        """Extract lessons from self-play and persist to agent memory."""
+        summary_lines = []
+        for r in results:
+            analysis_preview = r.analysis[:100] if r.analysis else "no analysis"
+            summary_lines.append(
+                f"- {r.task.domain} (diff={r.task.difficulty}): score={r.score}/10, analysis: {analysis_preview}"
+            )
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": MEMORY_CONSOLIDATION_PROMPT.format(
+                        results_summary="\n".join(summary_lines),
+                    )},
+                ],
+                max_tokens=300,
+                temperature=0.3,
+            )
+            text = response.choices[0].message.content.strip()
+            lessons = [l.strip("- ").strip() for l in text.split("\n") if l.strip().startswith("-")]
+            return lessons[:3]
+        except Exception as e:
+            logger.warning("Memory consolidation failed: %s", e)
+            return []
 
     async def _single_round(self) -> PracticeResult:
         """One round: generate task → solve → evaluate."""
@@ -319,6 +416,7 @@ class SelfPlayEngine:
         return {
             "competence": self.competence.status(),
             "total_rounds": len(self._history),
+            "strategy_insights": self._strategy_insights[-5:],
             "recent_scores": [
                 {"domain": r.task.domain, "difficulty": r.task.difficulty, "score": r.score}
                 for r in self._history[-10:]
