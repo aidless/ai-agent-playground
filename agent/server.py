@@ -44,6 +44,7 @@ from agent.debate import DebateEngine
 from agent.unified_pipeline import UnifiedPipeline
 from agent.matrix import AgentMatrix, MatrixAgentProfile
 from agent.autopilot import AutoPilot
+from agent.self_play import SelfPlayEngine
 from observability.clear_metrics import CLEARPanel
 
 logger = logging.getLogger(__name__)
@@ -130,6 +131,7 @@ intrusion = IntrusionDetector()
 unified_pipeline: Optional[UnifiedPipeline] = None
 agent_matrix: Optional[AgentMatrix] = None
 autopilot: Optional[AutoPilot] = None
+self_play: Optional[SelfPlayEngine] = None
 cross_reviewer: Optional[CrossReviewer] = None
 crew: Optional[Crew] = None
 rca_analyzer = RootCauseAnalyzer()
@@ -168,7 +170,7 @@ class OpenAIChatRequest(BaseModel):
 # --- 生命周期管理 ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global agent, orchestrator, unified_pipeline, agent_matrix, autopilot, cross_reviewer, crew
+    global agent, orchestrator, unified_pipeline, agent_matrix, autopilot, self_play, cross_reviewer, crew
 
     llm_base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
     client = AsyncOpenAI(
@@ -274,6 +276,10 @@ async def lifespan(app: FastAPI):
                 max_iterations=3,
             )
             print("AutoPilot: 全自主进化回路已就绪")
+
+            # Initialize Self-Play engine
+            self_play = SelfPlayEngine(agent=agent, client=client, model="deepseek-chat")
+            print("Self-Play: 自主课程学习引擎已就绪")
         except Exception as e:
             print(f"Cross-Model Reviewer 不可用 (Ollama未启动): {e}")
             cross_reviewer = None
@@ -1235,6 +1241,33 @@ async def autopilot_status():
     if not autopilot:
         raise HTTPException(status_code=503, detail="AutoPilot not initialized")
     return autopilot.status()
+
+
+class TrainRequest(BaseModel):
+    rounds: int = Field(5, ge=1, le=20, description="自博弈训练轮次")
+
+
+@app.post("/selfplay/train")
+async def selfplay_train(req: TrainRequest):
+    """自博弈训练 — Generator 出题 + Agent 解题 + Evaluator 打分，能力前沿推进"""
+    if not self_play:
+        raise HTTPException(status_code=503, detail="Self-Play engine not initialized")
+
+    results = await self_play.train(rounds=req.rounds)
+    return {
+        "rounds": len(results),
+        "scores": [{"domain": r.task.domain, "difficulty": r.task.difficulty, "score": r.score, "task": r.task.instruction[:150]} for r in results],
+        "avg_score": round(sum(r.score for r in results) / len(results), 1) if results else 0,
+        "status": self_play.status(),
+    }
+
+
+@app.get("/selfplay/status")
+async def selfplay_status():
+    """自博弈学习状态 + 能力评估 + 进步趋势"""
+    if not self_play:
+        raise HTTPException(status_code=503, detail="Self-Play engine not initialized")
+    return self_play.status()
 
 
 @app.post("/super/meta/observe")
