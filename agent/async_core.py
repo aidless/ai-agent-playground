@@ -23,6 +23,12 @@ from observability.tracer import log_trace
 
 logger = logging.getLogger(__name__)
 
+REACT_THOUGHT_PROMPT = (
+    "Before using a tool, think about what you need to do. "
+    "Keep it to 1 sentence. Be specific about what information you need.\n"
+    "Format: Thought: [your reasoning]"
+)
+
 TOOL_USAGE_GUIDANCE = (
     "## Available Research Tool\n"
     "You have a 'research_paper' tool that searches AI research papers on ArXiv. "
@@ -182,6 +188,13 @@ class AsyncAgent:
                 self._inject_memory_context(ctx)
                 self._inject_tool_guidance(ctx)
                 self._inject_episodic_memory(ctx)
+
+            # ReAct: inject thought prompt before planning (Thought before Action)
+            if ctx.state == AgentState.PLANNING and ctx.step > 1:
+                ctx.messages.insert(-2, {
+                    "role": "system",
+                    "content": REACT_THOUGHT_PROMPT,
+                })
 
             yield {"type": "status", "content": "thinking...", "step": ctx.step}
 
