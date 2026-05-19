@@ -1,6 +1,6 @@
 {
   "benchmark": "code_repair",
-  "timestamp": "2026-05-19T03:25:32.921163+00:00",
+  "timestamp": "2026-05-19T03:33:30.658703+00:00",
   "tasks": 10,
   "results": [
     {
@@ -9,9 +9,9 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 3753,
+      "attempt_1_ms": 3822,
       "attempt_2_ms": 0,
-      "quality_score": 5.7
+      "quality_score": 6.7
     },
     {
       "id": "bug_divide_zero",
@@ -19,19 +19,19 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2032,
+      "attempt_1_ms": 2112,
       "attempt_2_ms": 0,
-      "quality_score": 7.2
+      "quality_score": 5.7
     },
     {
       "id": "bug_off_by_one",
       "difficulty": "medium",
-      "bug_detected": false,
-      "fix_passed": false,
+      "bug_detected": true,
+      "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2510,
-      "attempt_2_ms": 2232,
-      "quality_score": 9.7
+      "attempt_1_ms": 2871,
+      "attempt_2_ms": 0,
+      "quality_score": 6.7
     },
     {
       "id": "bug_mutable_default",
@@ -39,18 +39,18 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2410,
+      "attempt_1_ms": 1983,
       "attempt_2_ms": 0,
-      "quality_score": 8.7
+      "quality_score": 9.7
     },
     {
       "id": "bug_race_condition",
       "difficulty": "hard",
-      "bug_detected": false,
+      "bug_detected": true,
       "fix_passed": true,
-      "self_corrected": true,
-      "attempt_1_ms": 1666,
-      "attempt_2_ms": 3109,
+      "self_corrected": false,
+      "attempt_1_ms": 1826,
+      "attempt_2_ms": 0,
       "quality_score": 9.7
     },
     {
@@ -59,9 +59,9 @@
       "bug_detected": false,
       "fix_passed": true,
       "self_corrected": true,
-      "attempt_1_ms": 1595,
-      "attempt_2_ms": 4478,
-      "quality_score": 8.7
+      "attempt_1_ms": 1869,
+      "attempt_2_ms": 3676,
+      "quality_score": 9.7
     },
     {
       "id": "bug_sql_injection",
@@ -69,19 +69,19 @@
       "bug_detected": false,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2423,
+      "attempt_1_ms": 2715,
       "attempt_2_ms": 0,
-      "quality_score": 4.7
+      "quality_score": 6.7
     },
     {
       "id": "bug_key_error",
       "difficulty": "easy",
       "bug_detected": false,
-      "fix_passed": true,
-      "self_corrected": true,
-      "attempt_1_ms": 2150,
-      "attempt_2_ms": 1744,
-      "quality_score": 5.7
+      "fix_passed": false,
+      "self_corrected": false,
+      "attempt_1_ms": 1922,
+      "attempt_2_ms": 2713,
+      "quality_score": 7.2
     },
     {
       "id": "bug_infinite_recursion",
@@ -89,9 +89,9 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2496,
+      "attempt_1_ms": 2359,
       "attempt_2_ms": 0,
-      "quality_score": 7.2
+      "quality_score": 9.7
     },
     {
       "id": "bug_file_not_closed",
@@ -99,15 +99,15 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 1617,
+      "attempt_1_ms": 2199,
       "attempt_2_ms": 0,
-      "quality_score": 5.7
+      "quality_score": 6.7
     }
   ],
   "summary": {
-    "detection_rate": 0.5,
+    "detection_rate": 0.7,
     "fix_rate": 0.9,
-    "self_correction_rate": 0.3,
-    "avg_quality": 7.3
+    "self_correction_rate": 0.1,
+    "avg_quality": 7.9
   }
 }

@@ -1,23 +1,5 @@
 [
   {
-    "lesson": "When answering an explanatory question, provide a comprehensive and well-structured response with definitions, comparisons, and concrete examples to maximize the user's understanding in one go.",
-    "context": "trace_id=req_1779084595, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:10:11.550713"
-  },
-  {
-    "lesson": "When explaining complex concepts like sandboxing, I can be more efficient by first assessing the user's context and needs (e.g., their current setup is Level 1) to avoid covering all levels in depth, and instead tailor the response to their specific situation and provide a concrete, immediately actionable recommendation earlier.",
-    "context": "trace_id=req_1779084595, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:10:23.926367"
-  },
-  {
-    "lesson": "When asked a straightforward coding question, provide a complete, well-documented solution with multiple variations and test cases in a single response to maximize usefulness without needing follow-up.",
-    "context": "trace_id=req_1779084623, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:10:33.053550"
-  },
-  {
     "lesson": "When writing example code like a decorator, I should include an actual usage demonstration or test case so the user can immediately see it in action, rather than just providing the implementation and expected output.",
     "context": "trace_id=req_1779084623, step=1",
     "success": true,
@@ -598,5 +580,23 @@
     "context": "trace_id=code_bug_file_not_closed_1, step=1",
     "success": true,
     "timestamp": "2026-05-19T11:25:29.968193"
+  },
+  {
+    "lesson": "One concrete lesson: When the user asks for both the design and the security review, provide both in a single structured response without needing to be reminded.",
+    "context": "trace_id=mab_bl_mab_design_review, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:32:49.847696"
+  },
+  {
+    "lesson": "One concrete lesson: When auditing code with SQL injection and plaintext passwords, use parameterized queries and a proper password hashing library like bcrypt instead of SHA-256 (which is too fast and not designed for passwords).",
+    "context": "trace_id=mab_bl_mab_security_audit, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:34:58.670634"
+  },
+  {
+    "lesson": "When asked for a step-by-step scaling plan, I can provide a comprehensive, structured answer with clear implementation order, concrete tools, and a prioritization table to make the advice actionable immediately.",
+    "context": "trace_id=mab_bl_mab_scale_plan, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:35:45.908783"
   }
 ]

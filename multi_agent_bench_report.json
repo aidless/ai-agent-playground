@@ -1,0 +1,79 @@
+{
+  "benchmark": "multi_agent",
+  "timestamp": "2026-05-19T03:36:24.236724+00:00",
+  "tasks": 5,
+  "results": [
+    {
+      "id": "mab_design_review",
+      "roles_needed": [
+        "designer",
+        "reviewer"
+      ],
+      "baseline_score": 7.2,
+      "matrix_score": 7.2,
+      "matrix_delta": 0.0,
+      "agents_used": 1,
+      "baseline_ms": 19166,
+      "matrix_ms": 25486
+    },
+    {
+      "id": "mab_code_and_test",
+      "roles_needed": [
+        "developer",
+        "tester"
+      ],
+      "baseline_score": 7.2,
+      "matrix_score": 7.2,
+      "matrix_delta": 0.0,
+      "agents_used": 1,
+      "baseline_ms": 16020,
+      "matrix_ms": 22536
+    },
+    {
+      "id": "mab_arch_decision",
+      "roles_needed": [
+        "architect",
+        "reasoner"
+      ],
+      "baseline_score": 8.3,
+      "matrix_score": 8.3,
+      "matrix_delta": 0.0,
+      "agents_used": 1,
+      "baseline_ms": 13337,
+      "matrix_ms": 29439
+    },
+    {
+      "id": "mab_security_audit",
+      "roles_needed": [
+        "reviewer",
+        "developer"
+      ],
+      "baseline_score": 7.5,
+      "matrix_score": 7.5,
+      "matrix_delta": 0.0,
+      "agents_used": 2,
+      "baseline_ms": 4177,
+      "matrix_ms": 13829
+    },
+    {
+      "id": "mab_scale_plan",
+      "roles_needed": [
+        "architect",
+        "developer"
+      ],
+      "baseline_score": 8.5,
+      "matrix_score": 8.5,
+      "matrix_delta": 0.0,
+      "agents_used": 1,
+      "baseline_ms": 27667,
+      "matrix_ms": 32526
+    }
+  ],
+  "summary": {
+    "baseline_avg": 7.7,
+    "matrix_avg": 7.7,
+    "delta": 0.0,
+    "matrix_wins": 0,
+    "total_tasks": 5
+  }
+}

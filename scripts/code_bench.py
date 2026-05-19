@@ -292,7 +292,9 @@ async def run_code_benchmark():
 
         task_prompt = (
             f"Find and fix the bug in this Python code. Output ONLY the corrected code, "
-            f"nothing else.\n\n```python\n{t['buggy_code']}\n```"
+            f"nothing else.\n\n"
+            f"The code should pass these tests:\n```python\n{t['test']}\n```\n"
+            f"Current (buggy) code:\n```python\n{t['buggy_code']}\n```"
         )
 
         entry = {"id": t["id"], "difficulty": t["difficulty"]}
@@ -343,8 +345,9 @@ async def run_code_benchmark():
                 feedback = "The fix doesn't correctly address the bug."
 
             correction_prompt = (
-                f"Your previous fix was incorrect. Here's the feedback: {feedback}\n\n"
-                f"Now fix the bug in this code. Output ONLY the corrected code.\n\n"
+                f"Your previous fix was incorrect. Feedback: {feedback}\n\n"
+                f"The code must pass these tests:\n```python\n{t['test']}\n```\n"
+                f"Fix the buggy code. Output ONLY the corrected code.\n\n"
                 f"```python\n{t['buggy_code']}\n```"
             )
             t0 = time.time()
