@@ -1,11 +1,5 @@
 [
   {
-    "lesson": "When asked for a code generation task, I should always include docstrings, type hints, and usage examples to make the solution immediately practical and easy to understand.",
-    "context": "trace_id=req_1779084623, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:10:42.962891"
-  },
-  {
     "lesson": "When asked for a concise explanation (like \"in 3 sentences\"), deliver a clear, well-structured answer immediately without extra commentary or follow-up.",
     "context": "trace_id=req_1779084642, step=1",
     "success": true,
@@ -598,5 +592,11 @@
     "context": "trace_id=pipeline_demo, step=1",
     "success": true,
     "timestamp": "2026-05-19T11:40:34.778085"
+  },
+  {
+    "lesson": "One concrete lesson: When the user gives a simple, direct request like \"Say hello in one word,\" I should respond concisely without adding extra details.",
+    "context": "trace_id=e2e_test, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T18:37:05.003466"
   }
 ]
