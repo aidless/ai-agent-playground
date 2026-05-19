@@ -48,6 +48,7 @@ from agent.autopilot import AutoPilot
 from agent.self_play import SelfPlayEngine
 from agent.eval_gate import EvaluationGate
 from agent.sandbox_meta import SandboxMetaEvolution
+from agent.knowledge import KnowledgeEngine
 from observability.clear_metrics import CLEARPanel
 
 logger = logging.getLogger(__name__)
@@ -154,6 +155,7 @@ autopilot: Optional[AutoPilot] = None
 self_play: Optional[SelfPlayEngine] = None
 eval_gate: Optional[EvaluationGate] = None
 sandbox_meta: Optional[SandboxMetaEvolution] = None
+knowledge_engine: Optional[KnowledgeEngine] = None
 cross_reviewer: Optional[CrossReviewer] = None
 crew: Optional[Crew] = None
 rca_analyzer = RootCauseAnalyzer()
@@ -192,7 +194,7 @@ class OpenAIChatRequest(BaseModel):
 # --- 生命周期管理 ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global agent, orchestrator, unified_pipeline, agent_matrix, autopilot, self_play, eval_gate, sandbox_meta, cross_reviewer, crew
+    global agent, orchestrator, unified_pipeline, agent_matrix, autopilot, self_play, eval_gate, sandbox_meta, knowledge_engine, cross_reviewer, crew
 
     llm_base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
     client = AsyncOpenAI(
@@ -313,6 +315,10 @@ async def lifespan(app: FastAPI):
                 agent=agent,
             )
             print("SandboxMeta: 安全沙箱自进化已就绪")
+
+            # Initialize Knowledge Engine
+            knowledge_engine = KnowledgeEngine(llm_client=client, llm_model="deepseek-chat")
+            print("KnowledgeEngine: AI论文知识库已就绪")
         except Exception as e:
             print(f"Cross-Model Reviewer 不可用 (Ollama未启动): {e}")
             cross_reviewer = None
@@ -1367,6 +1373,46 @@ async def super_meta_experiment(req: MetaExperimentRequest):
         "diff_preview": exp.diff[:2000] if exp.diff else "",
         "error": exp.error,
     }
+
+
+class KnowledgeRequest(BaseModel):
+    question: str = Field(..., max_length=2000, description="研究问题")
+
+
+@app.post("/knowledge/search")
+async def knowledge_search(req: KnowledgeRequest):
+    """搜索AI Agent研究论文"""
+    if not knowledge_engine:
+        raise HTTPException(status_code=503, detail="KnowledgeEngine not initialized")
+    papers = knowledge_engine.search(req.question, k=5)
+    return {"question": req.question, "papers": papers, "total": len(papers)}
+
+
+@app.post("/knowledge/query")
+async def knowledge_query(req: KnowledgeRequest):
+    """RAG问答 — 搜索论文 + LLM综合回答"""
+    if not knowledge_engine:
+        raise HTTPException(status_code=503, detail="KnowledgeEngine not initialized")
+    result = await knowledge_engine.query(req.question)
+    return {"question": req.question, "answer": result["answer"], "sources": result["sources"]}
+
+
+@app.post("/knowledge/collect")
+async def knowledge_collect(max_per_topic: int = 5):
+    """收集AI Agent领域最新论文"""
+    if not knowledge_engine:
+        raise HTTPException(status_code=503, detail="KnowledgeEngine not initialized")
+    collected = await knowledge_engine.collect_papers(max_per_topic=max_per_topic)
+    knowledge_engine.build_index()
+    return {"collected": collected, "total_cached": knowledge_engine.collector.cached_count, "indexed": knowledge_engine.status()["index_built"]}
+
+
+@app.get("/knowledge/status")
+async def knowledge_status():
+    """知识库状态"""
+    if not knowledge_engine:
+        raise HTTPException(status_code=503, detail="KnowledgeEngine not initialized")
+    return knowledge_engine.status()
 
 
 @app.get("/super/meta/proposals")

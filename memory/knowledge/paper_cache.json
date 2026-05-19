@@ -1,0 +1,68 @@
+{
+  "2506.06962v3": {
+    "arxiv_id": "2506.06962v3",
+    "title": "AR-RAG: Autoregressive Retrieval Augmentation for Image Generation",
+    "abstract": "We introduce Autoregressive Retrieval Augmentation (AR-RAG), a novel paradigm that enhances image generation by autoregressively incorporating knearest neighbor retrievals at the patch level. Unlike prior methods that perform a single, static retrieval before generation and condition the entire generation on fixed reference images, AR-RAG performs context-aware retrievals at each generation step, using prior-generated patches as queries to retrieve and incorporate the most relevant patch-level visual references, enabling the model to respond to evolving generation needs while avoiding limitations (e.g., over-copying, stylistic bias, etc.) prevalent in existing methods. To realize AR-RAG, we propose two parallel frameworks: (1) Distribution-Augmentation in Decoding (DAiD), a training-free plug-and-use decoding strategy that directly merges the distribution of model-predicted patches with the distribution of retrieved patches, and (2) Feature-Augmentation in Decoding (FAiD), a parameter-efficient fine-tuning method that progressively smooths the features of retrieved patches via multi-scale convolution operations and leverages them to augment the image generation process. We validate the effectiveness of AR-RAG on widely adopted benchmarks, including Midjourney-30K, GenEval and DPG-Bench, demonstrating significant performance gains over state-of-the-art image generation models.",
+    "authors": [
+      "Jingyuan Qi",
+      "Zhiyang Xu",
+      "Qifan Wang",
+      "Lifu Huang"
+    ],
+    "published": "2025-06-08T01:33:05Z",
+    "categories": [
+      "cs.CV"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2506.06962v3.pdf"
+  },
+  "2504.13684v1": {
+    "arxiv_id": "2504.13684v1",
+    "title": "Intelligent Interaction Strategies for Context-Aware Cognitive Augmentation",
+    "abstract": "Human cognition is constrained by processing limitations, leading to cognitive overload and inefficiencies in knowledge synthesis and decision-making. Large Language Models (LLMs) present an opportunity for cognitive augmentation, but their current reactive nature limits their real-world applicability. This position paper explores the potential of context-aware cognitive augmentation, where LLMs dynamically adapt to users' cognitive states and task environments to provide appropriate support. Through a think-aloud study in an exhibition setting, we examine how individuals interact with multi-modal information and identify key cognitive challenges in structuring, retrieving, and applying knowledge. Our findings highlight the need for AI-driven cognitive support systems that integrate real-time contextual awareness, personalized reasoning assistance, and socially adaptive interactions. We propose a framework for AI augmentation that seamlessly transitions between real-time cognitive support and post-experience knowledge organization, contributing to the design of more effective human-centered AI systems.",
+    "authors": [
+      " Xiangrong",
+      " Zhu",
+      "Yuan Xu",
+      "Tianjian Liu",
+      "Jingwei Sun",
+      "Yu Zhang",
+      "Xin Tong"
+    ],
+    "published": "2025-04-18T13:35:21Z",
+    "categories": [
+      "cs.HC"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2504.13684v1.pdf"
+  },
+  "2406.04710v2": {
+    "arxiv_id": "2406.04710v2",
+    "title": "Morescient GAI for Software Engineering (Extended Version)",
+    "abstract": "The ability of Generative AI (GAI) technology to automatically check, synthesize and modify software engineering artifacts promises to revolutionize all aspects of software engineering. Using GAI for software engineering tasks is consequently one of the most rapidly expanding fields of software engineering research, with over a hundred LLM-based code models having been published since 2021. However, the overwhelming majority of existing code models share a major weakness - they are exclusively trained on the syntactic facet of software, significantly lowering their trustworthiness in tasks dependent on software semantics. To address this problem, a new class of \"Morescient\" GAI is needed that is \"aware\" of (i.e., trained on) both the semantic and static facets of software. This, in turn, will require a new generation of software observation platforms capable of generating large quantities of execution observations in a structured and readily analyzable way. In this paper, we present a vision and roadmap for how such \"Morescient\" GAI models can be engineered, evolved and disseminated according to the principles of open science.",
+    "authors": [
+      "Marcus Kessel",
+      "Colin Atkinson"
+    ],
+    "published": "2024-06-07T07:38:33Z",
+    "categories": [
+      "cs.SE",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2406.04710v2.pdf"
+  },
+  "1904.04104v1": {
+    "arxiv_id": "1904.04104v1",
+    "title": "Software Engineering in Civic Tech: A Case Study about Code for Ireland",
+    "abstract": "Civic grassroots have proven their ability to create useful and scalable software that addresses pressing social needs. Although software engineering plays a fundamental role in the process of creating civic technology, academic literature that analyses the software development processes of civic tech grassroots is scarce. This paper aims to advance the understanding of how civic grassroots tackle the different activities in their software development processes. In this study, we followed the formation of two projects in a civic tech group (Code for Ireland) seeking to understand how their development processes evolved over time, and how the group carried out their work in creating new technology. Our preliminary findings show that such groups are capable of setting up systematic software engineering processes that address software specification, development, validation, and evolution. While they were able to deliver software according to self-specified quality standards, the group has challenges in requirements specification, stakeholder engagement, and reorienting from development to product delivery. Software engineering methods and tools can effectively support the future of civic technologies and potentially improve their management, quality, and durability.",
+    "authors": [
+      "Antti Knutas",
+      "Victoria Palacin",
+      "Giovanni Maccani",
+      "Markus Helfert"
+    ],
+    "published": "2019-04-08T14:53:37Z",
+    "categories": [
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1904.04104v1.pdf"
+  }
+}
