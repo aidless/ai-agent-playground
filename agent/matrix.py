@@ -229,7 +229,7 @@ class AgentMatrix:
         if len(agg.results) == 1:
             agg.final_output = agg.results[0].output
         else:
-            agg.final_output = self._aggregate(task, agg.results)
+            agg.final_output = self._aggregate_voting(agg.results)
 
         agg.total_latency_ms = (time.time() - start) * 1000
         agg.completed = any(r.success for r in agg.results)
@@ -292,6 +292,28 @@ class AgentMatrix:
         if "```" in output or "## " in output:
             score += 0.1
         return max(0.1, min(1.0, score))
+
+    def _aggregate_voting(self, results: list[MatrixResult]) -> str:
+        """Majority voting aggregation (More Agents Is All You Need — Li et al., 2024).
+
+        With N agents, picks the answer with the most confidence-weighted votes.
+        Even simple majority voting improves with more agents.
+        """
+        if len(results) <= 1:
+            return results[0].output if results else ""
+
+        # Weight votes by confidence
+        votes = {}
+        for r in results:
+            if not r.success or not r.output:
+                continue
+            key = r.output[:500]
+            votes[key] = votes.get(key, 0) + r.confidence * r.confidence_weight
+
+        if votes:
+            best = max(votes, key=votes.get)
+            return best
+        return results[0].output if results else ""
 
     def _aggregate(self, task: str, results: list[MatrixResult]) -> str:
         """Aggregate multiple agent results into one output."""

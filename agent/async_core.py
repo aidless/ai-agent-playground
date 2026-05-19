@@ -335,7 +335,7 @@ class AsyncAgent:
         })
 
     async def _reflect_step(self, ctx: AgentContext) -> AsyncGenerator[dict, None]:
-        """Self-reflection after tool calls. Triggers Reflect→Action loop + ReAct correction."""
+        """Self-reflection after tool calls. Triggers Reflect→Action loop + ReAct correction + Voyager retry."""
         ctx.state = AgentState.REFLECT
         ctx.record_step("reflect_start", {})
 
@@ -345,6 +345,20 @@ class AsyncAgent:
             if last_result.get("status") == "error":
                 ctx.record_step("react_correction", {"result": str(last_result)})
                 yield {"type": "correction", "content": f"Noticed error: {str(last_result.get('result', ''))[:100]}"}
+
+                # Voyager-style iterative self-verification
+                last_tool = last_result.get("tool", "")
+                last_error = str(last_result.get("result", ""))
+                retry_count = getattr(ctx, "_voyager_retries", 0)
+                if retry_count < 2 and last_tool:  # Max 2 retries
+                    ctx._voyager_retries = retry_count + 1
+                    ctx.record_step("voyager_retry", {"tool": last_tool, "attempt": retry_count + 1})
+                    yield {
+                        "type": "retry",
+                        "content": f"Retrying {last_tool} with error feedback (attempt {retry_count + 1}/2)",
+                        "tool": last_tool,
+                        "error": last_error,
+                    }
 
         reflect_msgs = [
             {"role": "system", "content": REFLECT_PROMPT},

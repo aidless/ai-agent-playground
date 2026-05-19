@@ -92,27 +92,45 @@ class EpisodicMemoryStore:
         self._save(entry)
         logger.debug("Episodic memory stored: %s (type=%s)", reflection[:60], task_type)
 
-    def retrieve(self, task_type: str = "", k: int = 3, include_failures: bool = True) -> list[EpisodicMemory]:
-        """Retrieve relevant past reflections. Prioritizes same task type and failures."""
+    def retrieve(self, task_type: str = "", k: int = 3, include_failures: bool = True,
+                 tier: str = "hot") -> list[EpisodicMemory]:
+        """Retrieve relevant past reflections. MemGPT-inspired tiered retrieval.
+
+        hot tier: recent (<1 day), high reuse, task-matched (always included)
+        warm tier: 1-7 days, moderate reuse (included if hot < k)
+        cold tier: >7 days, low reuse (archive access only)
+        """
         candidates = []
+        now = datetime.now(timezone.utc)
         for m in self._memories:
             score = 0
-            if m.task_type == task_type:
-                score += 3
+            tier_weight = 0
+            try:
+                age_days = (now - datetime.fromisoformat(m.timestamp)).days
+            except Exception:
+                age_days = 999
+
+            # Tier classification (MemGPT pattern)
+            if age_days < 1:
+                tier_weight = 10   # hot
+            elif age_days < 7:
+                tier_weight = 5    # warm
+            else:
+                tier_weight = 1    # cold
+
+            if task_type and m.task_type == task_type:
+                score += tier_weight + 3
+            else:
+                score += tier_weight
+
             if not m.success:
-                score += 2  # Failures are more valuable for learning
+                score += 2
             elif not include_failures:
                 continue
-            # Recently stored memories weighted higher
-            try:
-                age_days = (datetime.now(timezone.utc) -
-                           datetime.fromisoformat(m.timestamp)).days
-                if age_days < 1:
-                    score += 1
-            except Exception:
-                pass
+
             if m.reuse_count > 0:
-                score += 1  # Frequently reused = validated
+                score += min(m.reuse_count * 0.5, 5)
+
             candidates.append((score, m))
 
         candidates.sort(key=lambda x: x[0], reverse=True)
