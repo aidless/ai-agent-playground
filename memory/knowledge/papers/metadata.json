@@ -921,5 +921,1524 @@
       "cs.MA"
     ],
     "pdf_url": "https://arxiv.org/pdf/1807.02648v1.pdf"
+  },
+  "2111.06318v2": {
+    "arxiv_id": "2111.06318v2",
+    "title": "Multi-agent Reinforcement Learning for Cooperative Lane Changing of Connected and Autonomous Vehicles in Mixed Traffic",
+    "abstract": "Autonomous driving has attracted significant research interests in the past two decades as it offers many potential benefits, including releasing drivers from exhausting driving and mitigating traffic congestion, among others. Despite promising progress, lane-changing remains a great challenge for autonomous vehicles (AV), especially in mixed and dynamic traffic scenarios. Recently, reinforcement learning (RL), a powerful data-driven control method, has been widely explored for lane-changing decision makings in AVs with encouraging results demonstrated. However, the majority of those studies are focused on a single-vehicle setting, and lane-changing in the context of multiple AVs coexisting with human-driven vehicles (HDVs) have received scarce attention. In this paper, we formulate the lane-changing decision making of multiple AVs in a mixed-traffic highway environment as a multi-agent reinforcement learning (MARL) problem, where each AV makes lane-changing decisions based on the motions of both neighboring AVs and HDVs. Specifically, a multi-agent advantage actor-critic network (MA2C) is developed with a novel local reward design and a parameter sharing scheme. In particular, a multi-objective reward function is proposed to incorporate fuel efficiency, driving comfort, and safety of autonomous driving. Comprehensive experimental results, conducted under three different traffic densities and various levels of human driver aggressiveness, show that our proposed MARL framework consistently outperforms several state-of-the-art benchmarks in terms of efficiency, safety and driver comfort.",
+    "authors": [
+      "Wei Zhou",
+      "Dong Chen",
+      "Jun Yan",
+      "Zhaojian Li",
+      "Huilin Yin",
+      "Wanchen Ge"
+    ],
+    "published": "2021-11-11T17:17:24Z",
+    "categories": [
+      "cs.LG",
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2111.06318v2.pdf"
+  },
+  "2502.11355v3": {
+    "arxiv_id": "2502.11355v3",
+    "title": "Nuclear Deployed: Analyzing Catastrophic Risks in Decision-making of Autonomous LLM Agents",
+    "abstract": "Large language models (LLMs) are evolving into autonomous decision-makers, raising concerns about catastrophic risks in high-stakes scenarios, particularly in Chemical, Biological, Radiological and Nuclear (CBRN) domains. Based on the insight that such risks can originate from trade-offs between the agent's Helpful, Harmlessness and Honest (HHH) goals, we build a novel three-stage evaluation framework, which is carefully constructed to effectively and naturally expose such risks. We conduct 14,400 agentic simulations across 12 advanced LLMs, with extensive experiments and analysis. Results reveal that LLM agents can autonomously engage in catastrophic behaviors and deception, without being deliberately induced. Furthermore, stronger reasoning abilities often increase, rather than mitigate, these risks. We also show that these agents can violate instructions and superior commands. On the whole, we empirically prove the existence of catastrophic risks in autonomous LLM agents. We release our code to foster further research.",
+    "authors": [
+      "Rongwu Xu",
+      "Xiaojian Li",
+      "Shuo Chen",
+      "Wei Xu"
+    ],
+    "published": "2025-02-17T02:11:17Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI",
+      "cs.CR",
+      "cs.CY"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2502.11355v3.pdf"
+  },
+  "2505.20725v1": {
+    "arxiv_id": "2505.20725v1",
+    "title": "A reinforcement learning agent for maintenance of deteriorating systems with increasingly imperfect repairs",
+    "abstract": "Efficient maintenance has always been essential for the successful application of engineering systems. However, the challenges to be overcome in the implementation of Industry 4.0 necessitate new paradigms of maintenance optimization. Machine learning techniques are becoming increasingly used in engineering and maintenance, with reinforcement learning being one of the most promising. In this paper, we propose a gamma degradation process together with a novel maintenance model in which repairs are increasingly imperfect, i.e., the beneficial effect of system repairs decreases as more repairs are performed, reflecting the degradational behavior of real-world systems. To generate maintenance policies for this system, we developed a reinforcement-learning-based agent using a Double Deep Q-Network architecture. This agent presents two important advantages: it works without a predefined preventive threshold, and it can operate in a continuous degradation state space. Our agent learns to behave in different scenarios, showing great flexibility. In addition, we performed an analysis of how changes in the main parameters of the environment affect the maintenance policy proposed by the agent. The proposed approach is demonstrated to be appropriate and to significatively improve long-run cost as compared with other common maintenance strategies.",
+    "authors": [
+      "Alberto Pliego Marugán",
+      "Jesús M. Pinar-Pérez",
+      "Fausto Pedro García Márquez"
+    ],
+    "published": "2025-05-27T05:14:29Z",
+    "categories": [
+      "cs.LG",
+      "math.OC"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2505.20725v1.pdf"
+  },
+  "2503.12687v1": {
+    "arxiv_id": "2503.12687v1",
+    "title": "AI Agents: Evolution, Architecture, and Real-World Applications",
+    "abstract": "This paper examines the evolution, architecture, and practical applications of AI agents from their early, rule-based incarnations to modern sophisticated systems that integrate large language models with dedicated modules for perception, planning, and tool use. Emphasizing both theoretical foundations and real-world deployments, the paper reviews key agent paradigms, discusses limitations of current evaluation benchmarks, and proposes a holistic evaluation framework that balances task effectiveness, efficiency, robustness, and safety. Applications across enterprise, personal assistance, and specialized domains are analyzed, with insights into future research directions for more resilient and adaptive AI agent systems.",
+    "authors": [
+      "Naveen Krishnan"
+    ],
+    "published": "2025-03-16T23:07:48Z",
+    "categories": [
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2503.12687v1.pdf"
+  },
+  "2510.27051v1": {
+    "arxiv_id": "2510.27051v1",
+    "title": "Adaptive Data Flywheel: Applying MAPE Control Loops to AI Agent Improvement",
+    "abstract": "Enterprise AI agents must continuously adapt to maintain accuracy, reduce latency, and remain aligned with user needs. We present a practical implementation of a data flywheel in NVInfo AI, NVIDIA's Mixture-of-Experts (MoE) Knowledge Assistant serving over 30,000 employees. By operationalizing a MAPE-driven data flywheel, we built a closed-loop system that systematically addresses failures in retrieval-augmented generation (RAG) pipelines and enables continuous learning. Over a 3-month post-deployment period, we monitored feedback and collected 495 negative samples. Analysis revealed two major failure modes: routing errors (5.25\\%) and query rephrasal errors (3.2\\%). Using NVIDIA NeMo microservices, we implemented targeted improvements through fine-tuning. For routing, we replaced a Llama 3.1 70B model with a fine-tuned 8B variant, achieving 96\\% accuracy, a 10x reduction in model size, and 70\\% latency improvement. For query rephrasal, fine-tuning yielded a 3.7\\% gain in accuracy and a 40\\% latency reduction. Our approach demonstrates how human-in-the-loop (HITL) feedback, when structured within a data flywheel, transforms enterprise AI agents into self-improving systems. Key learnings include approaches to ensure agent robustness despite limited user feedback, navigating privacy constraints, and executing staged rollouts in production. This work offers a repeatable blueprint for building robust, adaptive enterprise AI agents capable of learning from real-world usage at scale.",
+    "authors": [
+      "Aaditya Shukla",
+      "Sidney Knowles",
+      "Meenakshi Madugula",
+      "Dave Farris",
+      "Ryan Angilly",
+      "Santiago Pombo",
+      "Anbang Xu",
+      "Lu An",
+      "Abhinav Balasubramanian",
+      "Tan Yu",
+      "Jiaxiang Ren",
+      "Rama Akkiraju"
+    ],
+    "published": "2025-10-30T23:41:06Z",
+    "categories": [
+      "cs.AI",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2510.27051v1.pdf"
+  },
+  "2501.02842v1": {
+    "arxiv_id": "2501.02842v1",
+    "title": "Foundations of GenIR",
+    "abstract": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with immediate, relevant outputs. Information synthesis leverages the ability of generative AI to integrate and reorganize existing information, providing grounded responses and mitigating issues like model hallucination, which is particularly valuable in scenarios requiring precision and external knowledge. This chapter delves into the foundational aspects of generative models, including architecture, scaling, and training, and discusses their applications in multi-modal scenarios. Additionally, it examines the retrieval-augmented generation paradigm and other methods for corpus modeling and understanding, demonstrating how generative AI can enhance information access systems. It also summarizes potential challenges and fruitful directions for future studies.",
+    "authors": [
+      "Qingyao Ai",
+      "Jingtao Zhan",
+      "Yiqun Liu"
+    ],
+    "published": "2025-01-06T08:38:29Z",
+    "categories": [
+      "cs.IR",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2501.02842v1.pdf"
+  },
+  "2603.28944v1": {
+    "arxiv_id": "2603.28944v1",
+    "title": "AI prediction leads people to forgo guaranteed rewards",
+    "abstract": "Artificial intelligence (AI) is understood to affect the content of people's decisions. Here, using a behavioral implementation of the classic Newcomb's paradox in 1,305 participants, we show that AI can also change how people decide. In this paradigm, belief in predictive authority can lead individuals to constrain decision-making, forgoing a guaranteed reward. Over 40% of participants treated AI as such a predictive authority. This significantly increased the odds of forgoing the guaranteed reward by a factor of 3.39 (95% CI: 2.45-4.70) compared with random framing, and reduced earnings by 10.7-42.9%. The effect appeared across AI presentations and decision contexts and persisted even when predictions failed. When people believe AI can predict their behavior, they may self-constrain it in anticipation of that prediction.",
+    "authors": [
+      "Aoi Naito",
+      "Hirokazu Shirado"
+    ],
+    "published": "2026-03-30T19:36:10Z",
+    "categories": [
+      "cs.HC"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2603.28944v1.pdf"
+  },
+  "2601.16513v1": {
+    "arxiv_id": "2601.16513v1",
+    "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+    "abstract": "Introduction. AI Ethics is framed distinctly across actors and stakeholder groups. We report results from a case study of OpenAI analysing ethical AI discourse. Method. Research addressed: How has OpenAI's public discourse leveraged 'ethics', 'safety', 'alignment' and adjacent related concepts over time, and what does discourse signal about framing in practice? A structured corpus, differentiating between communication for a general audience and communication with an academic audience, was assembled from public documentation. Analysis. Qualitative content analysis of ethical themes combined inductively derived and deductively applied codes. Quantitative analysis leveraged computational content analysis methods via NLP to model topics and quantify changes in rhetoric over time. Visualizations report aggregate results. For reproducible results, we have released our code at https://github.com/famous-blue-raincoat/AI_Ethics_Discourse. Results. Results indicate that safety and risk discourse dominate OpenAI's public communication and documentation, without applying academic and advocacy ethics frameworks or vocabularies. Conclusions. Implications for governance are presented, along with discussion of ethics-washing practices in industry.",
+    "authors": [
+      "Melissa Wilfley",
+      "Mengting Ai",
+      "Madelyn Rose Sanfilippo"
+    ],
+    "published": "2026-01-23T07:26:45Z",
+    "categories": [
+      "cs.CY"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2601.16513v1.pdf"
+  },
+  "1501.03632v2": {
+    "arxiv_id": "1501.03632v2",
+    "title": "Fixation probability of rare nonmutator and evolution of mutation rates",
+    "abstract": "Although mutations drive the evolutionary process, the rates at which the mutations occur are themselves subject to evolutionary forces. Our purpose here is to understand the role of selection and random genetic drift in the evolution of mutation rates, and we address this question in asexual populations at mutation-selection equilibrium neglecting selective sweeps. Using a multitype branching process, we calculate the fixation probability of a rare nonmutator in a large asexual population of mutators, and find that a nonmutator is more likely to fix when the deleterious mutation rate of the mutator population is high. Compensatory mutations in the mutator population are found to decrease the fixation probability of a nonmutator when the selection coefficient is large. But, surprisingly, the fixation probability changes nonmonotonically with increasing compensatory mutation rate when the selection is mild. Using these results for the fixation probability and a drift-barrier argument, we find a novel relationship between the mutation rates and the population size. We also discuss the time to fix the nonmutator in an adapted population of asexual mutators, and compare our results with experiments.",
+    "authors": [
+      "Ananthu James",
+      "Kavita Jain"
+    ],
+    "published": "2015-01-15T11:10:11Z",
+    "categories": [
+      "q-bio.PE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1501.03632v2.pdf"
+  },
+  "2601.00360v3": {
+    "arxiv_id": "2601.00360v3",
+    "title": "Mapping Human Anti-collusion Mechanisms to Multi-agent AI Systems",
+    "abstract": "As multi-agent AI systems become increasingly autonomous, evidence shows they can develop collusive strategies similar to those long observed in human markets and institutions. While human domains have accumulated centuries of anti-collusion mechanisms, it remains unclear how these can be adapted to AI settings. This paper addresses that gap by (i) developing a taxonomy of human anti-collusion mechanisms, including sanctions, leniency & whistleblowing, monitoring & auditing, market design, and governance and (ii) mapping them to potential interventions for multi-agent AI systems. For each mechanism, we propose implementation approaches. We also highlight open challenges, such as the attribution problem (difficulty attributing emergent coordination to specific agents), identity fluidity (agents being easily forked or modified), the boundary problem (distinguishing beneficial cooperation from harmful collusion), and adversarial adaptation (agents learning to evade detection).",
+    "authors": [
+      "Jamiu Idowu",
+      "Ahmed Almasoud",
+      "Ayman Alfahid"
+    ],
+    "published": "2026-01-01T14:30:37Z",
+    "categories": [
+      "cs.MA",
+      "cs.AI",
+      "cs.CY"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2601.00360v3.pdf"
+  },
+  "2112.01298v2": {
+    "arxiv_id": "2112.01298v2",
+    "title": "Meaningful human control: actionable properties for AI system development",
+    "abstract": "How can humans remain in control of artificial intelligence (AI)-based systems designed to perform tasks autonomously? Such systems are increasingly ubiquitous, creating benefits - but also undesirable situations where moral responsibility for their actions cannot be properly attributed to any particular person or group. The concept of meaningful human control has been proposed to address responsibility gaps and mitigate them by establishing conditions that enable a proper attribution of responsibility for humans; however, clear requirements for researchers, designers, and engineers are yet inexistent, making the development of AI-based systems that remain under meaningful human control challenging. In this paper, we address the gap between philosophical theory and engineering practice by identifying, through an iterative process of abductive thinking, four actionable properties for AI-based systems under meaningful human control, which we discuss making use of two applications scenarios: automated vehicles and AI-based hiring. First, a system in which humans and AI algorithms interact should have an explicitly defined domain of morally loaded situations within which the system ought to operate. Second, humans and AI agents within the system should have appropriate and mutually compatible representations. Third, responsibility attributed to a human should be commensurate with that human's ability and authority to control the system. Fourth, there should be explicit links between the actions of the AI agents and actions of humans who are aware of their moral responsibility. We argue that these four properties will support practically-minded professionals to take concrete steps toward designing and engineering for AI systems that facilitate meaningful human control.",
+    "authors": [
+      "Luciano Cavalcante Siebert",
+      "Maria Luce Lupetti",
+      "Evgeni Aizenberg",
+      "Niek Beckers",
+      "Arkady Zgonnikov",
+      "Herman Veluwenkamp",
+      "David Abbink",
+      "Elisa Giaccardi",
+      "Geert-Jan Houben",
+      "Catholijn M. Jonker",
+      "Jeroen van den Hoven",
+      "Deborah Forster",
+      "Reginald L. Lagendijk"
+    ],
+    "published": "2021-11-25T11:05:37Z",
+    "categories": [
+      "cs.CY",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2112.01298v2.pdf"
+  },
+  "2508.08544v1": {
+    "arxiv_id": "2508.08544v1",
+    "title": "AI Agents and the Law",
+    "abstract": "As AI becomes more \"agentic,\" it faces technical and socio-legal issues it must address if it is to fulfill its promise of increased economic productivity and efficiency. This paper uses technical and legal perspectives to explain how things change when AI systems start being able to directly execute tasks on behalf of a user. We show how technical conceptions of agents track some, but not all, socio-legal conceptions of agency. That is, both computer science and the law recognize the problems of under-specification for an agent, and both disciplines have robust conceptions of how to address ensuring an agent does what the programmer, or in the law, the principal desires and no more. However, to date, computer science has under-theorized issues related to questions of loyalty and to third parties that interact with an agent, both of which are central parts of the law of agency. First, we examine the correlations between implied authority in agency law and the principle of value-alignment in AI, wherein AI systems must operate under imperfect objective specification. Second, we reveal gaps in the current computer science view of agents pertaining to the legal concepts of disclosure and loyalty, and how failure to account for them can result in unintended effects in AI ecommerce agents. In surfacing these gaps, we show a path forward for responsible AI agent development and deployment.",
+    "authors": [
+      "Mark O. Riedl",
+      "Deven R. Desai"
+    ],
+    "published": "2025-08-12T01:18:48Z",
+    "categories": [
+      "cs.CY",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2508.08544v1.pdf"
+  },
+  "2605.18747v1": {
+    "arxiv_id": "2605.18747v1",
+    "title": "Code as Agent Harness",
+    "abstract": "Recent large language models (LLMs) have demonstrated strong capabilities in understanding and generating code, from competitive programming to repository-level software engineering. In emerging agentic systems, code is no longer only a target output. It increasingly serves as an operational substrate for agent reasoning, acting, environment modeling, and execution-based verification. We frame this shift through the lens of agent harnesses and introduce code as agent harness: a unified view that centers code as the basis for agent infrastructure. To systematically study this perspective, we organize the survey around three connected layers. First, we study the harness interface, where code connects agents to reasoning, action, and environment modeling. Second, we examine harness mechanisms: planning, memory, and tool use for long-horizon execution, together with feedback-driven control and optimization that make harness reliable and adaptive. Third, we discuss scaling the harness from single-agent systems to multi-agent settings, where shared code artifacts support multi-agent coordination, review, and verification. Across these layers, we summarize representative methods and practical applications of code as agent harness, spanning coding assistants, GUI/OS automation, embodied agents, scientific discovery, personalization and recommendation, DevOps, and enterprise workflows. We further outline open challenges for harness engineering, including evaluation beyond final task success, verification under incomplete feedback, regression-free harness improvement, consistent shared state across multiple agents, human oversight for safety-critical actions, and extensions to multimodal environments. By centering code as the harness of agentic AI, this survey provides a unified roadmap toward executable, verifiable, and stateful AI agent systems.",
+    "authors": [
+      "Xuying Ning",
+      "Katherine Tieu",
+      "Dongqi Fu",
+      "Tianxin Wei",
+      "Zihao Li",
+      "Yuanchen Bei",
+      "Jiaru Zou",
+      "Mengting Ai",
+      "Zhining Liu",
+      "Ting-Wei Li",
+      "Lingjie Chen",
+      "Yanjun Zhao",
+      "Ke Yang",
+      "Bingxuan Li",
+      "Cheng Qian",
+      "Gaotang Li",
+      "Xiao Lin",
+      "Zhichen Zeng",
+      "Ruizhong Qiu",
+      "Sirui Chen",
+      "Yifan Sun",
+      "Xiyuan Yang",
+      "Ruida Wang",
+      "Rui Pan",
+      "Chenyuan Yang",
+      "Dylan Zhang",
+      "Liri Fang",
+      "Zikun Cui",
+      "Yang Cao",
+      "Pan Chen",
+      "Dorothy Sun",
+      "Ren Chen",
+      "Mahesh Srinivasan",
+      "Nipun Mathur",
+      "Yinglong Xia",
+      "Hong Li",
+      "Hong Yan",
+      "Pan Lu",
+      "Lingming Zhang",
+      "Tong Zhang",
+      "Hanghang Tong",
+      "Jingrui He"
+    ],
+    "published": "2026-05-18T17:59:03Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2605.18747v1.pdf"
+  },
+  "2410.03595v1": {
+    "arxiv_id": "2410.03595v1",
+    "title": "Understanding Reasoning in Chain-of-Thought from the Hopfieldian View",
+    "abstract": "Large Language Models have demonstrated remarkable abilities across various tasks, with Chain-of-Thought (CoT) prompting emerging as a key technique to enhance reasoning capabilities. However, existing research primarily focuses on improving performance, lacking a comprehensive framework to explain and understand the fundamental factors behind CoT's success. To bridge this gap, we introduce a novel perspective grounded in the Hopfieldian view of cognition in cognitive neuroscience. We establish a connection between CoT reasoning and key cognitive elements such as stimuli, actions, neural populations, and representation spaces. From our view, we can understand the reasoning process as the movement between these representation spaces. Building on this insight, we develop a method for localizing reasoning errors in the response of CoTs. Moreover, we propose the Representation-of-Thought (RoT) framework, which leverages the robustness of low-dimensional representation spaces to enhance the robustness of the reasoning process in CoTs. Experimental results demonstrate that RoT improves the robustness and interpretability of CoT reasoning while offering fine-grained control over the reasoning process.",
+    "authors": [
+      "Lijie Hu",
+      "Liang Liu",
+      "Shu Yang",
+      "Xin Chen",
+      "Zhen Tan",
+      "Muhammad Asif Ali",
+      "Mengdi Li",
+      "Di Wang"
+    ],
+    "published": "2024-10-04T16:55:30Z",
+    "categories": [
+      "cs.AI",
+      "cs.CL",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2410.03595v1.pdf"
+  },
+  "2601.03559v2": {
+    "arxiv_id": "2601.03559v2",
+    "title": "DiffCoT: Diffusion-styled Chain-of-Thought Reasoning in LLMs",
+    "abstract": "Chain-of-Thought (CoT) reasoning improves multi-step mathematical problem solving in large language models but remains vulnerable to exposure bias and error accumulation, as early mistakes propagate irreversibly through autoregressive decoding. In this work, we propose DiffCoT, a diffusion-styled CoT framework that reformulates CoT reasoning as an iterative denoising process. DiffCoT integrates diffusion principles at the reasoning-step level via a sliding-window mechanism, enabling unified generation and retrospective correction of intermediate steps while preserving token-level autoregression. To maintain causal consistency, we further introduce a causal diffusion noise schedule that respects the temporal structure of reasoning chains. Extensive experiments on three multi-step CoT reasoning benchmarks across diverse model backbones demonstrate that DiffCoT consistently outperforms existing CoT preference optimization methods, yielding improved robustness and error-correction capability in CoT reasoning.",
+    "authors": [
+      "Shidong Cao",
+      "Hongzhan Lin",
+      "Yuxuan Gu",
+      "Ziyang Luo",
+      "Jing Ma"
+    ],
+    "published": "2026-01-07T03:58:42Z",
+    "categories": [
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2601.03559v2.pdf"
+  },
+  "2503.09567v5": {
+    "arxiv_id": "2503.09567v5",
+    "title": "Towards Reasoning Era: A Survey of Long Chain-of-Thought for Reasoning Large Language Models",
+    "abstract": "Recent advancements in reasoning with large language models (RLLMs), such as OpenAI-O1 and DeepSeek-R1, have demonstrated their impressive capabilities in complex domains like mathematics and coding. A central factor in their success lies in the application of long chain-of-thought (Long CoT) characteristics, which enhance reasoning abilities and enable the solution of intricate problems. However, despite these developments, a comprehensive survey on Long CoT is still lacking, limiting our understanding of its distinctions from traditional short chain-of-thought (Short CoT) and complicating ongoing debates on issues like \"overthinking\" and \"inference-time scaling.\" This survey seeks to fill this gap by offering a unified perspective on Long CoT. (1) We first distinguish Long CoT from Short CoT and introduce a novel taxonomy to categorize current reasoning paradigms. (2) Next, we explore the key characteristics of Long CoT: deep reasoning, extensive exploration, and feasible reflection, which enable models to handle more complex tasks and produce more efficient, coherent outcomes compared to the shallower Short CoT. (3) We then investigate key phenomena such as the emergence of Long CoT with these characteristics, including overthinking, and inference-time scaling, offering insights into how these processes manifest in practice. (4) Finally, we identify significant research gaps and highlight promising future directions, including the integration of multi-modal reasoning, efficiency improvements, and enhanced knowledge frameworks. By providing a structured overview, this survey aims to inspire future research and further the development of logical reasoning in artificial intelligence.",
+    "authors": [
+      "Qiguang Chen",
+      "Libo Qin",
+      "Jinhao Liu",
+      "Dengyun Peng",
+      "Jiannan Guan",
+      "Peng Wang",
+      "Mengkang Hu",
+      "Yuhang Zhou",
+      "Te Gao",
+      "Wanxiang Che"
+    ],
+    "published": "2025-03-12T17:35:03Z",
+    "categories": [
+      "cs.AI",
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2503.09567v5.pdf"
+  },
+  "2504.16021v1": {
+    "arxiv_id": "2504.16021v1",
+    "title": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+    "abstract": "Flow theory describes an optimal cognitive state where individuals experience deep focus and intrinsic motivation when a task's difficulty aligns with their skill level. In AI-augmented reasoning, interventions that disrupt the state of cognitive flow can hinder rather than enhance decision-making. This paper proposes a context-aware cognitive augmentation framework that adapts interventions based on three key contextual factors: type, timing, and scale. By leveraging multimodal behavioral cues (e.g., gaze behavior, typing hesitation, interaction speed), AI can dynamically adjust cognitive support to maintain or restore flow. We introduce the concept of cognitive flow, an extension of flow theory in AI-augmented reasoning, where interventions are personalized, adaptive, and minimally intrusive. By shifting from static interventions to context-aware augmentation, our approach ensures that AI systems support deep engagement in complex decision-making and reasoning without disrupting cognitive immersion.",
+    "authors": [
+      "Dinithi Dissanayake",
+      "Suranga Nanayakkara"
+    ],
+    "published": "2025-04-22T16:35:39Z",
+    "categories": [
+      "cs.HC",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2504.16021v1.pdf"
+  },
+  "2604.14140v1": {
+    "arxiv_id": "2604.14140v1",
+    "title": "LongCoT: Benchmarking Long-Horizon Chain-of-Thought Reasoning",
+    "abstract": "As language models are increasingly deployed for complex autonomous tasks, their ability to reason accurately over longer horizons becomes critical. An essential component of this ability is planning and managing a long, complex chain-of-thought (CoT). We introduce LongCoT, a scalable benchmark of 2,500 expert-designed problems spanning chemistry, mathematics, computer science, chess, and logic to isolate and directly measure the long-horizon CoT reasoning capabilities of frontier models. Problems consist of a short input with a verifiable answer; solving them requires navigating a graph of interdependent steps that span tens to hundreds of thousands of reasoning tokens. Each local step is individually tractable for frontier models, so failures reflect long-horizon reasoning limitations. At release, the best models achieve <10% accuracy (GPT 5.2: 9.8%; Gemini 3 Pro: 6.1%) on LongCoT, revealing a substantial gap in current capabilities. Overall, LongCoT provides a rigorous measure of long-horizon reasoning, tracking the ability of frontier models to reason reliably over extended periods.",
+    "authors": [
+      "Sumeet Ramesh Motwani",
+      "Daniel Nichols",
+      "Charles London",
+      "Peggy Li",
+      "Fabio Pizzati",
+      "Acer Blake",
+      "Hasan Hammoud",
+      "Tavish McDonald",
+      "Akshat Naik",
+      "Alesia Ivanova",
+      "Vignesh Baskaran",
+      "Ivan Laptev",
+      "Ruben Glatt",
+      "Tal Ben-Nun",
+      "Philip Torr",
+      "Natasha Jaques",
+      "Ameya Prabhu",
+      "Brian Bartoldson",
+      "Bhavya Kailkhura",
+      "Christian Schroeder de Witt"
+    ],
+    "published": "2026-04-15T17:58:05Z",
+    "categories": [
+      "cs.LG",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2604.14140v1.pdf"
+  },
+  "2306.14308v1": {
+    "arxiv_id": "2306.14308v1",
+    "title": "Let's Do a Thought Experiment: Using Counterfactuals to Improve Moral Reasoning",
+    "abstract": "Language models still struggle on moral reasoning, despite their impressive performance in many other tasks. In particular, the Moral Scenarios task in MMLU (Multi-task Language Understanding) is among the worst performing tasks for many language models, including GPT-3. In this work, we propose a new prompting framework, Thought Experiments, to teach language models to do better moral reasoning using counterfactuals. Experiment results show that our framework elicits counterfactual questions and answers from the model, which in turn helps improve the accuracy on Moral Scenarios task by 9-16% compared to other zero-shot baselines. Interestingly, unlike math reasoning tasks, zero-shot Chain-of-Thought (CoT) reasoning doesn't work out of the box, and even reduces accuracy by around 4% compared to direct zero-shot. We further observed that with minimal human supervision in the form of 5 few-shot examples, the accuracy of the task can be improved to as much as 80%.",
+    "authors": [
+      "Xiao Ma",
+      "Swaroop Mishra",
+      "Ahmad Beirami",
+      "Alex Beutel",
+      "Jilin Chen"
+    ],
+    "published": "2023-06-25T18:40:43Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2306.14308v1.pdf"
+  },
+  "2305.17306v1": {
+    "arxiv_id": "2305.17306v1",
+    "title": "Chain-of-Thought Hub: A Continuous Effort to Measure Large Language Models' Reasoning Performance",
+    "abstract": "As large language models (LLMs) are continuously being developed, their evaluation becomes increasingly important yet challenging. This work proposes Chain-of-Thought Hub, an open-source evaluation suite on the multi-step reasoning capabilities of large language models. We are interested in this setting for two reasons: (1) from the behavior of GPT and PaLM model family, we observe that complex reasoning is likely to be a key differentiator between weaker and stronger LLMs; (2) we envisage large language models to become the next-generation computational platform and foster an ecosystem of LLM-based new applications, this naturally requires the foundation models to perform complex tasks that often involve the composition of linguistic and logical operations. Our approach is to compile a suite of challenging reasoning benchmarks to track the progress of LLMs. Our current results show that: (1) model scale clearly correlates with reasoning capabilities; (2) As of May 2023, Claude-v1.3 and PaLM-2 are the only two models that are comparable with GPT-4, while open-sourced models still lag behind; (3) LLaMA-65B performs closely to code-davinci-002, indicating that with successful further development such as reinforcement learning from human feedback (RLHF), it has great potential to be close to GPT-3.5-Turbo. Our results also suggest that for the open-source efforts to catch up, the community may focus more on building better base models and exploring RLHF.",
+    "authors": [
+      "Yao Fu",
+      "Litu Ou",
+      "Mingyu Chen",
+      "Yuhao Wan",
+      "Hao Peng",
+      "Tushar Khot"
+    ],
+    "published": "2023-05-26T23:46:42Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2305.17306v1.pdf"
+  },
+  "2602.14224v1": {
+    "arxiv_id": "2602.14224v1",
+    "title": "The Interspeech 2026 Audio Reasoning Challenge: Evaluating Reasoning Process Quality for Audio Reasoning Models and Agents",
+    "abstract": "Recent Large Audio Language Models (LALMs) excel in understanding but often lack transparent reasoning. To address this \"black-box\" limitation, we organized the Audio Reasoning Challenge at Interspeech 2026, the first shared task dedicated to evaluating Chain-of-Thought (CoT) quality in the audio domain. The challenge introduced MMAR-Rubrics, a novel instance-level protocol assessing the factuality and logic of reasoning chains. Featured Single Model and Agent tracks, the competition attracting 156 teams from 18 countries and regions. Results show agent systems currently lead in reasoning quality, utilizing iterative tool orchestration and cross-modal analysis. Besides, single models are rapidly advancing via reinforcement learning and sophisticated data pipeline. We details the challenge design, methodology, and a comprehensive analysis of state-of-the-art systems, providing new insights for explainable audio intelligence.",
+    "authors": [
+      "Ziyang Ma",
+      "Ruiyang Xu",
+      "Yinghao Ma",
+      "Chao-Han Huck Yang",
+      "Bohan Li",
+      "Jaeyeon Kim",
+      "Jin Xu",
+      "Jinyu Li",
+      "Carlos Busso",
+      "Kai Yu",
+      "Eng Siong Chng",
+      "Xie Chen"
+    ],
+    "published": "2026-02-15T16:38:09Z",
+    "categories": [
+      "cs.SD",
+      "cs.CL",
+      "cs.MM"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2602.14224v1.pdf"
+  },
+  "2506.06962v3": {
+    "arxiv_id": "2506.06962v3",
+    "title": "AR-RAG: Autoregressive Retrieval Augmentation for Image Generation",
+    "abstract": "We introduce Autoregressive Retrieval Augmentation (AR-RAG), a novel paradigm that enhances image generation by autoregressively incorporating knearest neighbor retrievals at the patch level. Unlike prior methods that perform a single, static retrieval before generation and condition the entire generation on fixed reference images, AR-RAG performs context-aware retrievals at each generation step, using prior-generated patches as queries to retrieve and incorporate the most relevant patch-level visual references, enabling the model to respond to evolving generation needs while avoiding limitations (e.g., over-copying, stylistic bias, etc.) prevalent in existing methods. To realize AR-RAG, we propose two parallel frameworks: (1) Distribution-Augmentation in Decoding (DAiD), a training-free plug-and-use decoding strategy that directly merges the distribution of model-predicted patches with the distribution of retrieved patches, and (2) Feature-Augmentation in Decoding (FAiD), a parameter-efficient fine-tuning method that progressively smooths the features of retrieved patches via multi-scale convolution operations and leverages them to augment the image generation process. We validate the effectiveness of AR-RAG on widely adopted benchmarks, including Midjourney-30K, GenEval and DPG-Bench, demonstrating significant performance gains over state-of-the-art image generation models.",
+    "authors": [
+      "Jingyuan Qi",
+      "Zhiyang Xu",
+      "Qifan Wang",
+      "Lifu Huang"
+    ],
+    "published": "2025-06-08T01:33:05Z",
+    "categories": [
+      "cs.CV"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2506.06962v3.pdf"
+  },
+  "2504.13684v1": {
+    "arxiv_id": "2504.13684v1",
+    "title": "Intelligent Interaction Strategies for Context-Aware Cognitive Augmentation",
+    "abstract": "Human cognition is constrained by processing limitations, leading to cognitive overload and inefficiencies in knowledge synthesis and decision-making. Large Language Models (LLMs) present an opportunity for cognitive augmentation, but their current reactive nature limits their real-world applicability. This position paper explores the potential of context-aware cognitive augmentation, where LLMs dynamically adapt to users' cognitive states and task environments to provide appropriate support. Through a think-aloud study in an exhibition setting, we examine how individuals interact with multi-modal information and identify key cognitive challenges in structuring, retrieving, and applying knowledge. Our findings highlight the need for AI-driven cognitive support systems that integrate real-time contextual awareness, personalized reasoning assistance, and socially adaptive interactions. We propose a framework for AI augmentation that seamlessly transitions between real-time cognitive support and post-experience knowledge organization, contributing to the design of more effective human-centered AI systems.",
+    "authors": [
+      " Xiangrong",
+      " Zhu",
+      "Yuan Xu",
+      "Tianjian Liu",
+      "Jingwei Sun",
+      "Yu Zhang",
+      "Xin Tong"
+    ],
+    "published": "2025-04-18T13:35:21Z",
+    "categories": [
+      "cs.HC"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2504.13684v1.pdf"
+  },
+  "2504.17204v1": {
+    "arxiv_id": "2504.17204v1",
+    "title": "Factually: Exploring Wearable Fact-Checking for Augmented Truth Discernment",
+    "abstract": "Wearable devices are transforming human capabilities by seamlessly augmenting cognitive functions. In this position paper, we propose a voice-based, interactive learning companion designed to amplify and extend cognitive abilities through informal learning. Our vision is threefold: (1) to enable users to discover new knowledge on-the-go through contextual interactive quizzes, fostering critical thinking and mindfulness, (2) to proactively detect misinformation, empowering users to critically assess information in real time, and (3) to provide spoken language correction and prompting hints for second language learning and effective communication. As an initial step toward this vision, we present Factually - a proactive, wearable fact-checking system integrated into devices like smartwatches or rings. Factually discreetly alerts users to potential falsehoods via vibrotactile feedback, helping them assess information critically. We demonstrate its utility through three illustrative scenarios, highlighting its potential to extend cognitive abilities for real-time misinformation detection. Early qualitative feedback suggests that Factually can enhance users' fact-checking capabilities, offering both practical and experiential benefits.",
+    "authors": [
+      "Chitralekha Gupta",
+      "Hanjun Wu",
+      "Praveen Sasikumar",
+      "Shreyas Sridhar",
+      "Priambudi Bagaskara",
+      "Suranga Nanayakkara"
+    ],
+    "published": "2025-04-24T02:29:50Z",
+    "categories": [
+      "cs.HC",
+      "cs.ET"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2504.17204v1.pdf"
+  },
+  "2412.05838v1": {
+    "arxiv_id": "2412.05838v1",
+    "title": "A Collaborative Multi-Agent Approach to Retrieval-Augmented Generation Across Diverse Data",
+    "abstract": "Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) by incorporating external, domain-specific data into the generative process. While LLMs are highly capable, they often rely on static, pre-trained datasets, limiting their ability to integrate dynamic or private data. Traditional RAG systems typically use a single-agent architecture to handle query generation, data retrieval, and response synthesis. However, this approach becomes inefficient when dealing with diverse data sources, such as relational databases, document stores, and graph databases, often leading to performance bottlenecks and reduced accuracy. This paper proposes a multi-agent RAG system to address these limitations. Specialized agents, each optimized for a specific data source, handle query generation for relational, NoSQL, and document-based systems. These agents collaborate within a modular framework, with query execution delegated to an environment designed for compatibility across various database types. This distributed approach enhances query efficiency, reduces token overhead, and improves response accuracy by ensuring that each agent focuses on its specialized task. The proposed system is scalable and adaptable, making it ideal for generative AI workflows that require integration with diverse, dynamic, or private data sources. By leveraging specialized agents and a modular execution environment, the system provides an efficient and robust solution for handling complex, heterogeneous data environments in generative AI applications.",
+    "authors": [
+      "Aniruddha Salve",
+      "Saba Attar",
+      "Mahesh Deshmukh",
+      "Sayali Shivpuje",
+      "Arnab Mitra Utsab"
+    ],
+    "published": "2024-12-08T07:18:19Z",
+    "categories": [
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2412.05838v1.pdf"
+  },
+  "2504.14689v1": {
+    "arxiv_id": "2504.14689v1",
+    "title": "Designing AI Systems that Augment Human Performed vs. Demonstrated Critical Thinking",
+    "abstract": "The recent rapid advancement of LLM-based AI systems has accelerated our search and production of information. While the advantages brought by these systems seemingly improve the performance or efficiency of human activities, they do not necessarily enhance human capabilities. Recent research has started to examine the impact of generative AI on individuals' cognitive abilities, especially critical thinking. Based on definitions of critical thinking across psychology and education, this position paper proposes the distinction between demonstrated and performed critical thinking in the era of generative AI and discusses the implication of this distinction in research and development of AI systems that aim to augment human critical thinking.",
+    "authors": [
+      "Katelyn Xiaoying Mei",
+      "Nic Weber"
+    ],
+    "published": "2025-04-20T17:40:28Z",
+    "categories": [
+      "cs.HC"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2504.14689v1.pdf"
+  },
+  "2411.18583v1": {
+    "arxiv_id": "2411.18583v1",
+    "title": "Automated Literature Review Using NLP Techniques and LLM-Based Retrieval-Augmented Generation",
+    "abstract": "This research presents and compares multiple approaches to automate the generation of literature reviews using several Natural Language Processing (NLP) techniques and retrieval-augmented generation (RAG) with a Large Language Model (LLM). The ever-increasing number of research articles provides a huge challenge for manual literature review. It has resulted in an increased demand for automation. Developing a system capable of automatically generating the literature reviews from only the PDF files as input is the primary objective of this research work. The effectiveness of several Natural Language Processing (NLP) strategies, such as the frequency-based method (spaCy), the transformer model (Simple T5), and retrieval-augmented generation (RAG) with Large Language Model (GPT-3.5-turbo), is evaluated to meet the primary objective. The SciTLDR dataset is chosen for this research experiment and three distinct techniques are utilized to implement three different systems for auto-generating the literature reviews. The ROUGE scores are used for the evaluation of all three systems. Based on the evaluation, the Large Language Model GPT-3.5-turbo achieved the highest ROUGE-1 score, 0.364. The transformer model comes in second place and spaCy is at the last position. Finally, a graphical user interface is created for the best system based on the large language model.",
+    "authors": [
+      "Nurshat Fateh Ali",
+      "Md. Mahdi Mohtasim",
+      "Shakil Mosharrof",
+      "T. Gopi Krishna"
+    ],
+    "published": "2024-11-27T18:27:07Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI",
+      "cs.IR",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2411.18583v1.pdf"
+  },
+  "2605.12335v1": {
+    "arxiv_id": "2605.12335v1",
+    "title": "EHR-RAGp: Retrieval-Augmented Prototype-Guided Foundation Model for Electronic Health Records",
+    "abstract": "Electronic Health Records (EHR) contain rich longitudinal patient information and are widely used in predictive modeling applications. However, effectively leveraging historical data remains challenging due to long trajectories, heterogeneous events, temporal irregularity, and the varying relevance of past clinical context. Existing approaches often rely on fixed windows or uniform aggregation, which can obscure clinically important signals. In this work, we introduce EHR-RAGp, a retrieval-augmented foundation model that dynamically integrates the most relevant patient history across diverse clinical event types. We propose a prototype-guided retrieval module that acts as an alignment mechanism and estimates the relevance of retrieved historical chunks with respect to a given prediction task, guiding the model towards the most informative context. Across multiple clinical prediction tasks, EHR-RAGp consistently outperforms state-of-the-art EHR foundation models and transformer-based baselines. Furthermore, integrating EHR-RAGp with existing clinical foundation models yields substantial performance gains. Overall, EHR-RAGp provides a scalable and efficient framework for leveraging long-range clinical context to improve downstream performance.",
+    "authors": [
+      "Saeed Shurrab",
+      "Mariam Al-Omari",
+      "Dana El Samad",
+      "Farah E. Shamout"
+    ],
+    "published": "2026-05-12T16:17:03Z",
+    "categories": [
+      "cs.IR",
+      "cs.AI",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2605.12335v1.pdf"
+  },
+  "2402.12317v2": {
+    "arxiv_id": "2402.12317v2",
+    "title": "EVOR: Evolving Retrieval for Code Generation",
+    "abstract": "Recently the retrieval-augmented generation (RAG) has been successfully applied in code generation. However, existing pipelines for retrieval-augmented code generation (RACG) employ static knowledge bases with a single source, limiting the adaptation capabilities of Large Language Models (LLMs) to domains they have insufficient knowledge of. In this work, we develop a novel pipeline, EVOR, that employs the synchronous evolution of both queries and diverse knowledge bases. On two realistic settings where the external knowledge is required to solve code generation tasks, we compile four new datasets associated with frequently updated libraries and long-tail programming languages, named EVOR-BENCH. Extensive experiments demonstrate that EVOR achieves two to four times of execution accuracy compared to other methods such as Reflexion (Shinn et al., 2024), DocPrompting (Zhou et al., 2023), etc. We demonstrate that EVOR is flexible and can be easily combined with them to achieve further improvement. Further analysis reveals that EVOR benefits from the synchronous evolution of queries and documents and the diverse information sources in the knowledge base. We hope that our studies will inspire more insights into the design of advanced RACG pipelines in future research. Our model, code, and data are available at https://arks-codegen.github.io.",
+    "authors": [
+      "Hongjin Su",
+      "Shuyang Jiang",
+      "Yuhang Lai",
+      "Haoyuan Wu",
+      "Boao Shi",
+      "Che Liu",
+      "Qian Liu",
+      "Tao Yu"
+    ],
+    "published": "2024-02-19T17:37:28Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2402.12317v2.pdf"
+  },
+  "2502.00306v2": {
+    "arxiv_id": "2502.00306v2",
+    "title": "Riddle Me This! Stealthy Membership Inference for Retrieval-Augmented Generation",
+    "abstract": "Retrieval-Augmented Generation (RAG) enables Large Language Models (LLMs) to generate grounded responses by leveraging external knowledge databases without altering model parameters. Although the absence of weight tuning prevents leakage via model parameters, it introduces the risk of inference adversaries exploiting retrieved documents in the model's context. Existing methods for membership inference and data extraction often rely on jailbreaking or carefully crafted unnatural queries, which can be easily detected or thwarted with query rewriting techniques common in RAG systems. In this work, we present Interrogation Attack (IA), a membership inference technique targeting documents in the RAG datastore. By crafting natural-text queries that are answerable only with the target document's presence, our approach demonstrates successful inference with just 30 queries while remaining stealthy; straightforward detectors identify adversarial prompts from existing methods up to ~76x more frequently than those generated by our attack. We observe a 2x improvement in TPR@1%FPR over prior inference attacks across diverse RAG configurations, all while costing less than $0.02 per document inference.",
+    "authors": [
+      "Ali Naseh",
+      "Yuefeng Peng",
+      "Anshuman Suri",
+      "Harsh Chaudhari",
+      "Alina Oprea",
+      "Amir Houmansadr"
+    ],
+    "published": "2025-02-01T04:01:18Z",
+    "categories": [
+      "cs.CR",
+      "cs.AI",
+      "cs.CL",
+      "cs.IR",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2502.00306v2.pdf"
+  },
+  "2510.22344v1": {
+    "arxiv_id": "2510.22344v1",
+    "title": "FAIR-RAG: Faithful Adaptive Iterative Refinement for Retrieval-Augmented Generation",
+    "abstract": "While Retrieval-Augmented Generation (RAG) mitigates hallucination and knowledge staleness in Large Language Models (LLMs), existing frameworks often falter on complex, multi-hop queries that require synthesizing information from disparate sources. Current advanced RAG methods, employing iterative or adaptive strategies, lack a robust mechanism to systematically identify and fill evidence gaps, often propagating noise or failing to gather a comprehensive context. We introduce FAIR-RAG, a novel agentic framework that transforms the standard RAG pipeline into a dynamic, evidence-driven reasoning process. At its core is an Iterative Refinement Cycle governed by a module we term Structured Evidence Assessment (SEA). The SEA acts as an analytical gating mechanism: it deconstructs the initial query into a checklist of required findings and audits the aggregated evidence to identify confirmed facts and, critically, explicit informational gaps. These gaps provide a precise signal to an Adaptive Query Refinement agent, which generates new, targeted sub-queries to retrieve missing information. This cycle repeats until the evidence is verified as sufficient, ensuring a comprehensive context for a final, strictly faithful generation. We conducted experiments on challenging multi-hop QA benchmarks, including HotpotQA, 2WikiMultiHopQA, and MusiQue. In a unified experimental setup, FAIR-RAG significantly outperforms strong baselines. On HotpotQA, it achieves an F1-score of 0.453 -- an absolute improvement of 8.3 points over the strongest iterative baseline -- establishing a new state-of-the-art for this class of methods on these benchmarks. Our work demonstrates that a structured, evidence-driven refinement process with explicit gap analysis is crucial for unlocking reliable and accurate reasoning in advanced RAG systems for complex, knowledge-intensive tasks.",
+    "authors": [
+      "Mohammad Aghajani Asl",
+      "Majid Asgari-Bidhendi",
+      "Behrooz Minaei-Bidgoli"
+    ],
+    "published": "2025-10-25T15:59:33Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI",
+      "cs.IR"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2510.22344v1.pdf"
+  },
+  "2406.04710v2": {
+    "arxiv_id": "2406.04710v2",
+    "title": "Morescient GAI for Software Engineering (Extended Version)",
+    "abstract": "The ability of Generative AI (GAI) technology to automatically check, synthesize and modify software engineering artifacts promises to revolutionize all aspects of software engineering. Using GAI for software engineering tasks is consequently one of the most rapidly expanding fields of software engineering research, with over a hundred LLM-based code models having been published since 2021. However, the overwhelming majority of existing code models share a major weakness - they are exclusively trained on the syntactic facet of software, significantly lowering their trustworthiness in tasks dependent on software semantics. To address this problem, a new class of \"Morescient\" GAI is needed that is \"aware\" of (i.e., trained on) both the semantic and static facets of software. This, in turn, will require a new generation of software observation platforms capable of generating large quantities of execution observations in a structured and readily analyzable way. In this paper, we present a vision and roadmap for how such \"Morescient\" GAI models can be engineered, evolved and disseminated according to the principles of open science.",
+    "authors": [
+      "Marcus Kessel",
+      "Colin Atkinson"
+    ],
+    "published": "2024-06-07T07:38:33Z",
+    "categories": [
+      "cs.SE",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2406.04710v2.pdf"
+  },
+  "1904.04104v1": {
+    "arxiv_id": "1904.04104v1",
+    "title": "Software Engineering in Civic Tech: A Case Study about Code for Ireland",
+    "abstract": "Civic grassroots have proven their ability to create useful and scalable software that addresses pressing social needs. Although software engineering plays a fundamental role in the process of creating civic technology, academic literature that analyses the software development processes of civic tech grassroots is scarce. This paper aims to advance the understanding of how civic grassroots tackle the different activities in their software development processes. In this study, we followed the formation of two projects in a civic tech group (Code for Ireland) seeking to understand how their development processes evolved over time, and how the group carried out their work in creating new technology. Our preliminary findings show that such groups are capable of setting up systematic software engineering processes that address software specification, development, validation, and evolution. While they were able to deliver software according to self-specified quality standards, the group has challenges in requirements specification, stakeholder engagement, and reorienting from development to product delivery. Software engineering methods and tools can effectively support the future of civic technologies and potentially improve their management, quality, and durability.",
+    "authors": [
+      "Antti Knutas",
+      "Victoria Palacin",
+      "Giovanni Maccani",
+      "Markus Helfert"
+    ],
+    "published": "2019-04-08T14:53:37Z",
+    "categories": [
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1904.04104v1.pdf"
+  },
+  "1707.03869v3": {
+    "arxiv_id": "1707.03869v3",
+    "title": "Cognitive Biases in Software Engineering: A Systematic Mapping Study",
+    "abstract": "One source of software project challenges and failures is the systematic errors introduced by human cognitive biases. Although extensively explored in cognitive psychology, investigations concerning cognitive biases have only recently gained popularity in software engineering (SE) research. This paper therefore systematically maps, aggregates and synthesizes the literature on cognitive biases in software engineering to generate a comprehensive body of knowledge, understand state of the art research and provide guidelines for future research and practise. Focusing on bias antecedents, effects and mitigation techniques, we identified 65 articles, which investigate 37 cognitive biases, published between 1990 and 2016. Despite strong and increasing interest, the results reveal a scarcity of research on mitigation techniques and poor theoretical foundations in understanding and interpreting cognitive biases. Although bias-related research has generated many new insights in the software engineering community, specific bias mitigation techniques are still needed for software professionals to overcome the deleterious effects of cognitive biases on their work.",
+    "authors": [
+      "Rahul Mohanani",
+      "Iflaah Salman",
+      "Burak Turhan",
+      "Pilar Rodriguez",
+      "Paul Ralph"
+    ],
+    "published": "2017-07-12T19:05:19Z",
+    "categories": [
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1707.03869v3.pdf"
+  },
+  "2406.07737v2": {
+    "arxiv_id": "2406.07737v2",
+    "title": "The Future of AI-Driven Software Engineering",
+    "abstract": "A paradigm shift is underway in Software Engineering, with AI systems such as LLMs playing an increasingly important role in boosting software development productivity. This trend is anticipated to persist. In the next years, we expect a growing symbiotic partnership between human software developers and AI. The Software Engineering research community cannot afford to overlook this trend; we must address the key research challenges posed by the integration of AI into the software development process. In this paper, we present our vision of the future of software development in an AI-driven world and explore the key challenges that our research community should address to realize this vision.",
+    "authors": [
+      "Valerio Terragni",
+      "Annie Vella",
+      "Partha Roop",
+      "Kelly Blincoe"
+    ],
+    "published": "2024-06-11T21:46:19Z",
+    "categories": [
+      "cs.SE",
+      "cs.AI",
+      "cs.LG",
+      "cs.PL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2406.07737v2.pdf"
+  },
+  "2109.10971v1": {
+    "arxiv_id": "2109.10971v1",
+    "title": "Developers Perception of Peer Code Review in Research Software Development",
+    "abstract": "Background: Research software is software developed by and/or used by researchers, across a wide variety of domains, to perform their research. Because of the complexity of research software, developers cannot conduct exhaustive testing. As a result, researchers have lower confidence in the correctness of the output of the software. Peer code review, a standard software engineering practice, has helped address this problem in other types of software. Aims: Peer code review is less prevalent in research software than it is in other types of software. In addition, the literature does not contain any studies about the use of peer code review in research software. Therefore, through analyzing developers perceptions, the goal of this work is to understand the current practice of peer code review in the development of research software, identify challenges and barriers associated with peer code review in research software, and present approaches to improve the peer code review in research software. Method: We conducted interviews and a community survey of research software developers to collect information about their current peer code review practices, difficulties they face, and how they address those difficulties. Results: We received 84 unique responses from the interviews and surveys. The results show that while research software teams review a large amount of their code, they lack formal process, proper organization, and adequate people to perform the reviews. Conclusions: Use of peer code review is promising for improving the quality of research software and thereby improving the trustworthiness of the underlying research results. In addition, by using peer code review, research software developers produce more readable and understandable code, which will be easier to maintain.",
+    "authors": [
+      "Nasir U. Eisty",
+      "Jeffrey C. Carver"
+    ],
+    "published": "2021-09-22T18:40:05Z",
+    "categories": [
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2109.10971v1.pdf"
+  },
+  "1601.07392v2": {
+    "arxiv_id": "1601.07392v2",
+    "title": "Nmag micromagnetic simulation tool - software engineering lessons learned",
+    "abstract": "We review design and development decisions and their impact for the open source code Nmag from a software engineering in computational science point of view. We summarise lessons learned and recommendations for future computational science projects. Key lessons include that encapsulating the simulation functionality in a library of a general purpose language, here Python, provides great flexibility in using the software. The choice of Python for the top-level user interface was very well received by users from the science and engineering community. The from-source installation in which required external libraries and dependencies are compiled from a tarball was remarkably robust. In places, the code is a lot more ambitious than necessary, which introduces unnecessary complexity and reduces main- tainability. Tests distributed with the package are useful, although more unit tests and continuous integration would have been desirable. The detailed documentation, together with a tutorial for the usage of the system, was perceived as one of its main strengths by the community.",
+    "authors": [
+      "Hans Fangohr",
+      "Maximilian Albert",
+      "Matteo Franchin"
+    ],
+    "published": "2016-01-27T14:46:56Z",
+    "categories": [
+      "cs.SE",
+      "physics.comp-ph"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1601.07392v2.pdf"
+  },
+  "2204.06033v1": {
+    "arxiv_id": "2204.06033v1",
+    "title": "Text and Team: What Article Metadata Characteristics Drive Citations in Software Engineering?",
+    "abstract": "Context: Citations are a key measure of scientific performance in most fields, including software engineering. However, there is limited research that studies which characteristics of articles' metadata (title, abstract, keywords, and author list) are driving citations in this field. Objective: In this study, we propose a simple theoretical model for how citations come to be with respect to article metadata, we hypothesize theoretical linkages between metadata characteristics and citations of articles, and we empirically test these hypotheses. Method: We use multiple regression analyses to examine a data set comprising the titles, abstracts, keywords, and authors of 16,131 software engineering articles published between 1990 and 2020 in 20 highly influential software engineering venues. Results: We find that number of authors, number of keywords, number of question marks and dividers in the title, number of acronyms, abstract length, abstract propositional idea density, and corresponding authors in the core Anglosphere are significantly related to citations. Conclusion: Various characteristics of articles' metadata are linked to the frequency with which the corresponding articles are cited. These results partially confirm and partially go counter to prior findings in software engineering and other disciplines.",
+    "authors": [
+      "Lorenz Graf-Vlachy",
+      "Daniel Graziotin",
+      "Stefan Wagner"
+    ],
+    "published": "2022-04-12T18:39:11Z",
+    "categories": [
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2204.06033v1.pdf"
+  },
+  "2406.04780v1": {
+    "arxiv_id": "2406.04780v1",
+    "title": "Software Engineering for Collective Cyber-Physical Ecosystems",
+    "abstract": "Today's distributed and pervasive computing addresses large-scale cyber-physical ecosystems, characterised by dense and large networks of devices capable of computation, communication and interaction with the environment and people. While most research focusses on treating these systems as \"composites\" (i.e., heterogeneous functional complexes), recent developments in fields such as self-organising systems and swarm robotics have opened up a complementary perspective: treating systems as \"collectives\" (i.e., uniform, collaborative, and self-organising groups of entities). This article explores the motivations, state of the art, and implications of this \"collective computing paradigm\" in software engineering, discusses its peculiar challenges, and outlines a path for future research, touching on aspects such as macroprogramming, collective intelligence, self-adaptive middleware, learning, synthesis, and experimentation of collective behaviour.",
+    "authors": [
+      "Roberto Casadei",
+      "Gianluca Aguzzi",
+      "Giorgio Audrito",
+      "Ferruccio Damiani",
+      "Danilo Pianini",
+      "Giordano Scarso",
+      "Gianluca Torta",
+      "Mirko Viroli"
+    ],
+    "published": "2024-06-07T09:28:22Z",
+    "categories": [
+      "cs.SE",
+      "cs.AI",
+      "cs.DC",
+      "cs.MA",
+      "eess.SY"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2406.04780v1.pdf"
+  },
+  "2308.05381v4": {
+    "arxiv_id": "2308.05381v4",
+    "title": "An Exploratory Study of V-Model in Building ML-Enabled Software: A Systems Engineering Perspective",
+    "abstract": "Machine learning (ML) components are being added to more and more critical and impactful software systems, but the software development process of real-world production systems from prototyped ML models remains challenging with additional complexity and interdisciplinary collaboration challenges. This poses difficulties in using traditional software lifecycle models such as waterfall, spiral, or agile models when building ML-enabled systems. In this research, we apply a Systems Engineering lens to investigate the use of V-Model in addressing the interdisciplinary collaboration challenges when building ML-enabled systems. By interviewing practitioners from software companies, we established a set of 8 propositions for using V-Model to manage interdisciplinary collaborations when building products with ML components. Based on the propositions, we found that despite requiring additional efforts, the characteristics of V-Model align effectively with several collaboration challenges encountered by practitioners when building ML-enabled systems. We recommend future research to investigate new process models, frameworks and tools that leverage the characteristics of V-Model such as the system decomposition, clear system boundary, and consistency of Validation & Verification (V&V) for building ML-enabled systems.",
+    "authors": [
+      "Jie JW Wu"
+    ],
+    "published": "2023-08-10T06:53:32Z",
+    "categories": [
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2308.05381v4.pdf"
+  },
+  "2501.03569v1": {
+    "arxiv_id": "2501.03569v1",
+    "title": "What Does a Software Engineer Look Like? Exploring Societal Stereotypes in LLMs",
+    "abstract": "Large language models (LLMs) have rapidly gained popularity and are being embedded into professional applications due to their capabilities in generating human-like content. However, unquestioned reliance on their outputs and recommendations can be problematic as LLMs can reinforce societal biases and stereotypes. This study investigates how LLMs, specifically OpenAI's GPT-4 and Microsoft Copilot, can reinforce gender and racial stereotypes within the software engineering (SE) profession through both textual and graphical outputs. We used each LLM to generate 300 profiles, consisting of 100 gender-based and 50 gender-neutral profiles, for a recruitment scenario in SE roles. Recommendations were generated for each profile and evaluated against the job requirements for four distinct SE positions. Each LLM was asked to select the top 5 candidates and subsequently the best candidate for each role. Each LLM was also asked to generate images for the top 5 candidates, providing a dataset for analysing potential biases in both text-based selections and visual representations. Our analysis reveals that both models preferred male and Caucasian profiles, particularly for senior roles, and favoured images featuring traits such as lighter skin tones, slimmer body types, and younger appearances. These findings highlight underlying societal biases influence the outputs of LLMs, contributing to narrow, exclusionary stereotypes that can further limit diversity and perpetuate inequities in the SE field. As LLMs are increasingly adopted within SE research and professional practices, awareness of these biases is crucial to prevent the reinforcement of discriminatory norms and to ensure that AI tools are leveraged to promote an inclusive and equitable engineering culture rather than hinder it.",
+    "authors": [
+      "Muneera Bano",
+      "Hashini Gunatilake",
+      "Rashina Hoda"
+    ],
+    "published": "2025-01-07T06:44:41Z",
+    "categories": [
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2501.03569v1.pdf"
+  },
+  "2412.09645v3": {
+    "arxiv_id": "2412.09645v3",
+    "title": "Evaluation Agent: Efficient and Promptable Evaluation Framework for Visual Generative Models",
+    "abstract": "Recent advancements in visual generative models have enabled high-quality image and video generation, opening diverse applications. However, evaluating these models often demands sampling hundreds or thousands of images or videos, making the process computationally expensive, especially for diffusion-based models with inherently slow sampling. Moreover, existing evaluation methods rely on rigid pipelines that overlook specific user needs and provide numerical results without clear explanations. In contrast, humans can quickly form impressions of a model's capabilities by observing only a few samples. To mimic this, we propose the Evaluation Agent framework, which employs human-like strategies for efficient, dynamic, multi-round evaluations using only a few samples per round, while offering detailed, user-tailored analyses. It offers four key advantages: 1) efficiency, 2) promptable evaluation tailored to diverse user needs, 3) explainability beyond single numerical scores, and 4) scalability across various models and tools. Experiments show that Evaluation Agent reduces evaluation time to 10% of traditional methods while delivering comparable results. The Evaluation Agent framework is fully open-sourced to advance research in visual generative models and their efficient evaluation.",
+    "authors": [
+      "Fan Zhang",
+      "Shulin Tian",
+      "Ziqi Huang",
+      "Yu Qiao",
+      "Ziwei Liu"
+    ],
+    "published": "2024-12-10T18:52:39Z",
+    "categories": [
+      "cs.CV",
+      "cs.AI",
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2412.09645v3.pdf"
+  },
+  "1801.05075v2": {
+    "arxiv_id": "1801.05075v2",
+    "title": "A Human-Grounded Evaluation Benchmark for Local Explanations of Machine Learning",
+    "abstract": "Research in interpretable machine learning proposes different computational and human subject approaches to evaluate model saliency explanations. These approaches measure different qualities of explanations to achieve diverse goals in designing interpretable machine learning systems. In this paper, we propose a human attention benchmark for image and text domains using multi-layer human attention masks aggregated from multiple human annotators. We then present an evaluation study to evaluate model saliency explanations obtained using Grad-cam and LIME techniques. We demonstrate our benchmark's utility for quantitative evaluation of model explanations by comparing it with human subjective ratings and ground-truth single-layer segmentation masks evaluations. Our study results show that our threshold agnostic evaluation method with the human attention baseline is more effective than single-layer object segmentation masks to ground truth. Our experiments also reveal user biases in the subjective rating of model saliency explanations.",
+    "authors": [
+      "Sina Mohseni",
+      "Jeremy E. Block",
+      "Eric D. Ragan"
+    ],
+    "published": "2018-01-16T00:14:43Z",
+    "categories": [
+      "cs.HC",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1801.05075v2.pdf"
+  },
+  "2410.10934v2": {
+    "arxiv_id": "2410.10934v2",
+    "title": "Agent-as-a-Judge: Evaluate Agents with Agents",
+    "abstract": "Contemporary evaluation techniques are inadequate for agentic systems. These approaches either focus exclusively on final outcomes -- ignoring the step-by-step nature of agentic systems, or require excessive manual labour. To address this, we introduce the Agent-as-a-Judge framework, wherein agentic systems are used to evaluate agentic systems. This is an organic extension of the LLM-as-a-Judge framework, incorporating agentic features that enable intermediate feedback for the entire task-solving process. We apply the Agent-as-a-Judge to the task of code generation. To overcome issues with existing benchmarks and provide a proof-of-concept testbed for Agent-as-a-Judge, we present DevAI, a new benchmark of 55 realistic automated AI development tasks. It includes rich manual annotations, like a total of 365 hierarchical user requirements. We benchmark three of the popular agentic systems using Agent-as-a-Judge and find it dramatically outperforms LLM-as-a-Judge and is as reliable as our human evaluation baseline. Altogether, we believe that Agent-as-a-Judge marks a concrete step forward for modern agentic systems -- by providing rich and reliable reward signals necessary for dynamic and scalable self-improvement.",
+    "authors": [
+      "Mingchen Zhuge",
+      "Changsheng Zhao",
+      "Dylan Ashley",
+      "Wenyi Wang",
+      "Dmitrii Khizbullin",
+      "Yunyang Xiong",
+      "Zechun Liu",
+      "Ernie Chang",
+      "Raghuraman Krishnamoorthi",
+      "Yuandong Tian",
+      "Yangyang Shi",
+      "Vikas Chandra",
+      "Jürgen Schmidhuber"
+    ],
+    "published": "2024-10-14T17:57:02Z",
+    "categories": [
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2410.10934v2.pdf"
+  },
+  "2601.07880v1": {
+    "arxiv_id": "2601.07880v1",
+    "title": "Sola-Visibility-ISPM: Benchmarking Agentic AI for Identity Security Posture Management Visibility",
+    "abstract": "Identity Security Posture Management (ISPM) is a core challenge for modern enterprises operating across cloud and SaaS environments. Answering basic ISPM visibility questions, such as understanding identity inventory and configuration hygiene, requires interpreting complex identity data, motivating growing interest in agentic AI systems. Despite this interest, there is currently no standardized way to evaluate how well such systems perform ISPM visibility tasks on real enterprise data. We introduce the Sola Visibility ISPM Benchmark, the first benchmark designed to evaluate agentic AI systems on foundational ISPM visibility tasks using a live, production-grade identity environment spanning AWS, Okta, and Google Workspace. The benchmark focuses on identity inventory and hygiene questions and is accompanied by the Sola AI Agent, a tool-using agent that translates natural-language queries into executable data exploration steps and produces verifiable, evidence-backed answers. Across 77 benchmark questions, the agent achieves strong overall performance, with an expert accuracy of 0.84 and a strict success rate of 0.77. Performance is highest on AWS hygiene tasks, where expert accuracy reaches 0.94, while results on Google Workspace and Okta hygiene tasks are more moderate, yet competitive. Overall, this work provides a practical and reproducible benchmark for evaluating agentic AI systems in identity security and establishes a foundation for future ISPM benchmarks covering more advanced identity analysis and governance tasks.",
+    "authors": [
+      "Gal Engelberg",
+      "Konstantin Koutsyi",
+      "Leon Goldberg",
+      "Reuven Elezra",
+      "Idan Pinto",
+      "Tal Moalem",
+      "Shmuel Cohen",
+      "Yoni Weintrob"
+    ],
+    "published": "2026-01-11T18:36:33Z",
+    "categories": [
+      "cs.CR",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2601.07880v1.pdf"
+  },
+  "2310.05208v3": {
+    "arxiv_id": "2310.05208v3",
+    "title": "ZSC-Eval: An Evaluation Toolkit and Benchmark for Multi-agent Zero-shot Coordination",
+    "abstract": "Zero-shot coordination (ZSC) is a new cooperative multi-agent reinforcement learning (MARL) challenge that aims to train an ego agent to work with diverse, unseen partners during deployment. The significant difference between the deployment-time partners' distribution and the training partners' distribution determined by the training algorithm makes ZSC a unique out-of-distribution (OOD) generalization challenge. The potential distribution gap between evaluation and deployment-time partners leads to inadequate evaluation, which is exacerbated by the lack of appropriate evaluation metrics. In this paper, we present ZSC-Eval, the first evaluation toolkit and benchmark for ZSC algorithms. ZSC-Eval consists of: 1) Generation of evaluation partner candidates through behavior-preferring rewards to approximate deployment-time partners' distribution; 2) Selection of evaluation partners by Best-Response Diversity (BR-Div); 3) Measurement of generalization performance with various evaluation partners via the Best-Response Proximity (BR-Prox) metric. We use ZSC-Eval to benchmark ZSC algorithms in Overcooked and Google Research Football environments and get novel empirical findings. We also conduct a human experiment of current ZSC algorithms to verify the ZSC-Eval's consistency with human evaluation. ZSC-Eval is now available at https://github.com/sjtu-marl/ZSC-Eval.",
+    "authors": [
+      "Xihuai Wang",
+      "Shao Zhang",
+      "Wenhao Zhang",
+      "Wentao Dong",
+      "Jingxiao Chen",
+      "Ying Wen",
+      "Weinan Zhang"
+    ],
+    "published": "2023-10-08T15:49:36Z",
+    "categories": [
+      "cs.AI",
+      "cs.HC",
+      "cs.LG",
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2310.05208v3.pdf"
+  },
+  "2504.04596v1": {
+    "arxiv_id": "2504.04596v1",
+    "title": "SECQUE: A Benchmark for Evaluating Real-World Financial Analysis Capabilities",
+    "abstract": "We introduce SECQUE, a comprehensive benchmark for evaluating large language models (LLMs) in financial analysis tasks. SECQUE comprises 565 expert-written questions covering SEC filings analysis across four key categories: comparison analysis, ratio calculation, risk assessment, and financial insight generation. To assess model performance, we develop SECQUE-Judge, an evaluation mechanism leveraging multiple LLM-based judges, which demonstrates strong alignment with human evaluations. Additionally, we provide an extensive analysis of various models' performance on our benchmark. By making SECQUE publicly available, we aim to facilitate further research and advancements in financial AI.",
+    "authors": [
+      "Noga Ben Yoash",
+      "Meni Brief",
+      "Oded Ovadia",
+      "Gil Shenderovitz",
+      "Moshik Mishaeli",
+      "Rachel Lemberg",
+      "Eitam Sheetrit"
+    ],
+    "published": "2025-04-06T19:59:41Z",
+    "categories": [
+      "cs.AI",
+      "cs.CE",
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2504.04596v1.pdf"
+  },
+  "2403.03788v1": {
+    "arxiv_id": "2403.03788v1",
+    "title": "PPTC-R benchmark: Towards Evaluating the Robustness of Large Language Models for PowerPoint Task Completion",
+    "abstract": "The growing dependence on Large Language Models (LLMs) for finishing user instructions necessitates a comprehensive understanding of their robustness to complex task completion in real-world situations. To address this critical need, we propose the PowerPoint Task Completion Robustness benchmark (PPTC-R) to measure LLMs' robustness to the user PPT task instruction and software version. Specifically, we construct adversarial user instructions by attacking user instructions at sentence, semantic, and multi-language levels. To assess the robustness of Language Models to software versions, we vary the number of provided APIs to simulate both the newest version and earlier version settings. Subsequently, we test 3 closed-source and 4 open-source LLMs using a benchmark that incorporates these robustness settings, aiming to evaluate how deviations impact LLMs' API calls for task completion. We find that GPT-4 exhibits the highest performance and strong robustness in our benchmark, particularly in the version update and the multilingual settings. However, we find that all LLMs lose their robustness when confronted with multiple challenges (e.g., multi-turn) simultaneously, leading to significant performance drops. We further analyze the robustness behavior and error reasons of LLMs in our benchmark, which provide valuable insights for researchers to understand the LLM's robustness in task completion and develop more robust LLMs and agents. We release the code and data at \\url{https://github.com/ZekaiGalaxy/PPTCR}.",
+    "authors": [
+      "Zekai Zhang",
+      "Yiduo Guo",
+      "Yaobo Liang",
+      "Dongyan Zhao",
+      "Nan Duan"
+    ],
+    "published": "2024-03-06T15:33:32Z",
+    "categories": [
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2403.03788v1.pdf"
+  },
+  "2602.03128v1": {
+    "arxiv_id": "2602.03128v1",
+    "title": "Understanding Multi-Agent LLM Frameworks: A Unified Benchmark and Experimental Analysis",
+    "abstract": "Multi-agent LLM frameworks are widely used to accelerate the development of agent systems powered by large language models (LLMs). These frameworks impose distinct architectural structures that govern how agents interact, store information, and coordinate tasks. However, their impact on system performance remains poorly understood. This gap is critical, as architectural choices alone can induce order-of-magnitude differences in latency and throughput, as well as substantial variation in accuracy and scalability. Addressing this challenge requires (i) jointly evaluating multiple capabilities, such as orchestration overhead, memory behavior, planning, specialization, and coordination, and (ii) conducting these evaluations under controlled, framework-level conditions to isolate architectural effects. Existing benchmarks focus on individual capabilities and lack standardized framework-level evaluation. We address these limitations by (i) introducing an architectural taxonomy for systematically comparing multi-agent LLM frameworks along fundamental dimensions, and (ii) developing MAFBench, a unified evaluation suite that integrates existing benchmarks under a standardized execution pipeline. Using MAFBench, we conduct a controlled empirical study across several widely used frameworks. Our results show that framework-level design choices alone can increase latency by over 100x, reduce planning accuracy by up to 30%, and lower coordination success from above 90% to below 30%. Finally, we translate our findings into concrete architectural design principles and framework selection guidance, and outline promising future research directions.",
+    "authors": [
+      "Abdelghny Orogat",
+      "Ana Rostam",
+      "Essam Mansour"
+    ],
+    "published": "2026-02-03T05:37:56Z",
+    "categories": [
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2602.03128v1.pdf"
+  },
+  "1407.6255v1": {
+    "arxiv_id": "1407.6255v1",
+    "title": "Adaptive Fault Diagnosis using Self-Referential Reasoning",
+    "abstract": "The problem is to determine which processors are reliable in a remote location by asking \"Yes or No\" questions. The processors are of three types: those that always tell the truth, those that always lie, and those the sometimes tell the truth and sometimes lie. Using self-referential reasoning, along with earlier techniques, we can regard both the truth-tellers and liars as reliable and thus the tackle situations when fewer than half the processors are truth-tellers.",
+    "authors": [
+      "Robert Cowen"
+    ],
+    "published": "2014-07-17T19:27:03Z",
+    "categories": [
+      "cs.OH"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1407.6255v1.pdf"
+  },
+  "2409.11363v1": {
+    "arxiv_id": "2409.11363v1",
+    "title": "CORE-Bench: Fostering the Credibility of Published Research Through a Computational Reproducibility Agent Benchmark",
+    "abstract": "AI agents have the potential to aid users on a variety of consequential tasks, including conducting scientific research. To spur the development of useful agents, we need benchmarks that are challenging, but more crucially, directly correspond to real-world tasks of interest. This paper introduces such a benchmark, designed to measure the accuracy of AI agents in tackling a crucial yet surprisingly challenging aspect of scientific research: computational reproducibility. This task, fundamental to the scientific process, involves reproducing the results of a study using the provided code and data. We introduce CORE-Bench (Computational Reproducibility Agent Benchmark), a benchmark consisting of 270 tasks based on 90 scientific papers across three disciplines (computer science, social science, and medicine). Tasks in CORE-Bench consist of three difficulty levels and include both language-only and vision-language tasks. We provide an evaluation system to measure the accuracy of agents in a fast and parallelizable way, saving days of evaluation time for each run compared to a sequential implementation. We evaluated two baseline agents: the general-purpose AutoGPT and a task-specific agent called CORE-Agent. We tested both variants using two underlying language models: GPT-4o and GPT-4o-mini. The best agent achieved an accuracy of 21% on the hardest task, showing the vast scope for improvement in automating routine scientific tasks. Having agents that can reproduce existing work is a necessary step towards building agents that can conduct novel research and could verify and improve the performance of other research agents. We hope that CORE-Bench can improve the state of reproducibility and spur the development of future research agents.",
+    "authors": [
+      "Zachary S. Siegel",
+      "Sayash Kapoor",
+      "Nitya Nagdir",
+      "Benedikt Stroebl",
+      "Arvind Narayanan"
+    ],
+    "published": "2024-09-17T17:13:19Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI",
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2409.11363v1.pdf"
+  },
+  "2301.08028v4": {
+    "arxiv_id": "2301.08028v4",
+    "title": "A Tutorial on Meta-Reinforcement Learning",
+    "abstract": "While deep reinforcement learning (RL) has fueled multiple high-profile successes in machine learning, it is held back from more widespread adoption by its often poor data efficiency and the limited generality of the policies it produces. A promising approach for alleviating these limitations is to cast the development of better RL algorithms as a machine learning problem itself in a process called meta-RL. Meta-RL is most commonly studied in a problem setting where, given a distribution of tasks, the goal is to learn a policy that is capable of adapting to any new task from the task distribution with as little data as possible. In this survey, we describe the meta-RL problem setting in detail as well as its major variations. We discuss how, at a high level, meta-RL research can be clustered based on the presence of a task distribution and the learning budget available for each individual task. Using these clusters, we then survey meta-RL algorithms and applications. We conclude by presenting the open problems on the path to making meta-RL part of the standard toolbox for a deep RL practitioner.",
+    "authors": [
+      "Jacob Beck",
+      "Risto Vuorio",
+      "Evan Zheran Liu",
+      "Zheng Xiong",
+      "Luisa Zintgraf",
+      "Chelsea Finn",
+      "Shimon Whiteson"
+    ],
+    "published": "2023-01-19T12:01:41Z",
+    "categories": [
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2301.08028v4.pdf"
+  },
+  "2002.00573v1": {
+    "arxiv_id": "2002.00573v1",
+    "title": "Revisiting Meta-Learning as Supervised Learning",
+    "abstract": "Recent years have witnessed an abundance of new publications and approaches on meta-learning. This community-wide enthusiasm has sparked great insights but has also created a plethora of seemingly different frameworks, which can be hard to compare and evaluate. In this paper, we aim to provide a principled, unifying framework by revisiting and strengthening the connection between meta-learning and traditional supervised learning. By treating pairs of task-specific data sets and target models as (feature, label) samples, we can reduce many meta-learning algorithms to instances of supervised learning. This view not only unifies meta-learning into an intuitive and practical framework but also allows us to transfer insights from supervised learning directly to improve meta-learning. For example, we obtain a better understanding of generalization properties, and we can readily transfer well-understood techniques, such as model ensemble, pre-training, joint training, data augmentation, and even nearest neighbor based methods. We provide an intuitive analogy of these methods in the context of meta-learning and show that they give rise to significant improvements in model performance on few-shot learning.",
+    "authors": [
+      "Wei-Lun Chao",
+      "Han-Jia Ye",
+      "De-Chuan Zhan",
+      "Mark Campbell",
+      "Kilian Q. Weinberger"
+    ],
+    "published": "2020-02-03T06:13:01Z",
+    "categories": [
+      "cs.LG",
+      "cs.CV",
+      "stat.ML"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2002.00573v1.pdf"
+  },
+  "1901.09890v1": {
+    "arxiv_id": "1901.09890v1",
+    "title": "Few-shot Learning with Meta Metric Learners",
+    "abstract": "Few-shot Learning aims to learn classifiers for new classes with only a few training examples per class. Existing meta-learning or metric-learning based few-shot learning approaches are limited in handling diverse domains with various number of labels. The meta-learning approaches train a meta learner to predict weights of homogeneous-structured task-specific networks, requiring a uniform number of classes across tasks. The metric-learning approaches learn one task-invariant metric for all the tasks, and they fail if the tasks diverge. We propose to deal with these limitations with meta metric learning. Our meta metric learning approach consists of task-specific learners, that exploit metric learning to handle flexible labels, and a meta learner, that discovers good parameters and gradient decent to specify the metrics in task-specific learners. Thus the proposed model is able to handle unbalanced classes as well as to generate task-specific metrics. We test our approach in the `$k$-shot $N$-way' few-shot learning setting used in previous work and new realistic few-shot setting with diverse multi-domain tasks and flexible label numbers. Experiments show that our approach attains superior performances in both settings.",
+    "authors": [
+      "Yu Cheng",
+      "Mo Yu",
+      "Xiaoxiao Guo",
+      "Bowen Zhou"
+    ],
+    "published": "2019-01-26T01:55:33Z",
+    "categories": [
+      "cs.LG",
+      "cs.AI",
+      "stat.ML"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1901.09890v1.pdf"
+  },
+  "2009.01672v1": {
+    "arxiv_id": "2009.01672v1",
+    "title": "Yet Meta Learning Can Adapt Fast, It Can Also Break Easily",
+    "abstract": "Meta learning algorithms have been widely applied in many tasks for efficient learning, such as few-shot image classification and fast reinforcement learning. During meta training, the meta learner develops a common learning strategy, or experience, from a variety of learning tasks. Therefore, during meta test, the meta learner can use the learned strategy to quickly adapt to new tasks even with a few training samples. However, there is still a dark side about meta learning in terms of reliability and robustness. In particular, is meta learning vulnerable to adversarial attacks? In other words, would a well-trained meta learner utilize its learned experience to build wrong or likely useless knowledge, if an adversary unnoticeably manipulates the given training set? Without the understanding of this problem, it is extremely risky to apply meta learning in safety-critical applications. Thus, in this paper, we perform the initial study about adversarial attacks on meta learning under the few-shot classification problem. In particular, we formally define key elements of adversarial attacks unique to meta learning and propose the first attacking algorithm against meta learning under various settings. We evaluate the effectiveness of the proposed attacking strategy as well as the robustness of several representative meta learning algorithms. Experimental results demonstrate that the proposed attacking strategy can easily break the meta learner and meta learning is vulnerable to adversarial attacks. The implementation of the proposed framework will be released upon the acceptance of this paper.",
+    "authors": [
+      "Han Xu",
+      "Yaxin Li",
+      "Xiaorui Liu",
+      "Hui Liu",
+      "Jiliang Tang"
+    ],
+    "published": "2020-09-02T15:03:14Z",
+    "categories": [
+      "cs.LG",
+      "stat.ML"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2009.01672v1.pdf"
+  },
+  "1806.06207v1": {
+    "arxiv_id": "1806.06207v1",
+    "title": "Meta-learning: searching in the model space",
+    "abstract": "There is no free lunch, no single learning algorithm that will outperform other algorithms on all data. In practice different approaches are tried and the best algorithm selected. An alternative solution is to build new algorithms on demand by creating a framework that accommodates many algorithms. The best combination of parameters and procedures is searched here in the space of all possible models belonging to the framework of Similarity-Based Methods (SBMs). Such meta-learning approach gives a chance to find the best method in all cases. Issues related to the meta-learning and first tests of this approach are presented.",
+    "authors": [
+      "Włodzisław Duch",
+      "Karol Grudzińsk"
+    ],
+    "published": "2018-06-16T08:24:35Z",
+    "categories": [
+      "cs.LG",
+      "cs.AI",
+      "stat.ML"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1806.06207v1.pdf"
+  },
+  "2212.14392v1": {
+    "arxiv_id": "2212.14392v1",
+    "title": "Eliminating Meta Optimization Through Self-Referential Meta Learning",
+    "abstract": "Meta Learning automates the search for learning algorithms. At the same time, it creates a dependency on human engineering on the meta-level, where meta learning algorithms need to be designed. In this paper, we investigate self-referential meta learning systems that modify themselves without the need for explicit meta optimization. We discuss the relationship of such systems to in-context and memory-based meta learning and show that self-referential neural networks require functionality to be reused in the form of parameter sharing. Finally, we propose fitness monotonic execution (FME), a simple approach to avoid explicit meta optimization. A neural network self-modifies to solve bandit and classic control tasks, improves its self-modifications, and learns how to learn, purely by assigning more computational resources to better performing solutions.",
+    "authors": [
+      "Louis Kirsch",
+      "Jürgen Schmidhuber"
+    ],
+    "published": "2022-12-29T17:53:40Z",
+    "categories": [
+      "cs.LG",
+      "cs.AI",
+      "cs.NE",
+      "stat.ML"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2212.14392v1.pdf"
+  },
+  "1812.07768v1": {
+    "arxiv_id": "1812.07768v1",
+    "title": "Modular meta-learning in abstract graph networks for combinatorial generalization",
+    "abstract": "Modular meta-learning is a new framework that generalizes to unseen datasets by combining a small set of neural modules in different ways. In this work we propose abstract graph networks: using graphs as abstractions of a system's subparts without a fixed assignment of nodes to system subparts, for which we would need supervision. We combine this idea with modular meta-learning to get a flexible framework with combinatorial generalization to new tasks built in. We then use it to model the pushing of arbitrarily shaped objects from little or no training data.",
+    "authors": [
+      "Ferran Alet",
+      "Maria Bauza",
+      "Alberto Rodriguez",
+      "Tomas Lozano-Perez",
+      "Leslie P. Kaelbling"
+    ],
+    "published": "2018-12-19T06:07:51Z",
+    "categories": [
+      "cs.LG",
+      "stat.ML"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1812.07768v1.pdf"
+  },
+  "2212.04458v2": {
+    "arxiv_id": "2212.04458v2",
+    "title": "General-Purpose In-Context Learning by Meta-Learning Transformers",
+    "abstract": "Modern machine learning requires system designers to specify aspects of the learning pipeline, such as losses, architectures, and optimizers. Meta-learning, or learning-to-learn, instead aims to learn those aspects, and promises to unlock greater capabilities with less manual effort. One particularly ambitious goal of meta-learning is to train general-purpose in-context learning algorithms from scratch, using only black-box models with minimal inductive bias. Such a model takes in training data, and produces test-set predictions across a wide range of problems, without any explicit definition of an inference model, training loss, or optimization algorithm. In this paper we show that Transformers and other black-box models can be meta-trained to act as general-purpose in-context learners. We characterize transitions between algorithms that generalize, algorithms that memorize, and algorithms that fail to meta-train at all, induced by changes in model size, number of tasks, and meta-optimization. We further show that the capabilities of meta-trained algorithms are bottlenecked by the accessible state size (memory) determining the next prediction, unlike standard models which are thought to be bottlenecked by parameter count. Finally, we propose practical interventions such as biasing the training distribution that improve the meta-training and meta-generalization of general-purpose in-context learning algorithms.",
+    "authors": [
+      "Louis Kirsch",
+      "James Harrison",
+      "Jascha Sohl-Dickstein",
+      "Luke Metz"
+    ],
+    "published": "2022-12-08T18:30:22Z",
+    "categories": [
+      "cs.LG",
+      "cs.AI",
+      "cs.NE",
+      "stat.ML"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2212.04458v2.pdf"
+  },
+  "2410.08355v3": {
+    "arxiv_id": "2410.08355v3",
+    "title": "Metalic: Meta-Learning In-Context with Protein Language Models",
+    "abstract": "Predicting the biophysical and functional properties of proteins is essential for in silico protein design. Machine learning has emerged as a promising technique for such prediction tasks. However, the relative scarcity of in vitro annotations means that these models often have little, or no, specific data on the desired fitness prediction task. As a result of limited data, protein language models (PLMs) are typically trained on general protein sequence modeling tasks, and then fine-tuned, or applied zero-shot, to protein fitness prediction. When no task data is available, the models make strong assumptions about the correlation between the protein sequence likelihood and fitness scores. In contrast, we propose meta-learning over a distribution of standard fitness prediction tasks, and demonstrate positive transfer to unseen fitness prediction tasks. Our method, called Metalic (Meta-Learning In-Context), uses in-context learning and fine-tuning, when data is available, to adapt to new tasks. Crucially, fine-tuning enables considerable generalization, even though it is not accounted for during meta-training. Our fine-tuned models achieve strong results with 18 times fewer parameters than state-of-the-art models. Moreover, our method sets a new state-of-the-art in low-data settings on ProteinGym, an established fitness-prediction benchmark. Due to data scarcity, we believe meta-learning will play a pivotal role in advancing protein engineering.",
+    "authors": [
+      "Jacob Beck",
+      "Shikha Surana",
+      "Manus McAuliffe",
+      "Oliver Bent",
+      "Thomas D. Barrett",
+      "Juan Jose Garau Luis",
+      "Paul Duckworth"
+    ],
+    "published": "2024-10-10T20:19:35Z",
+    "categories": [
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2410.08355v3.pdf"
+  },
+  "2507.23348v1": {
+    "arxiv_id": "2507.23348v1",
+    "title": "SWE-Debate: Competitive Multi-Agent Debate for Software Issue Resolution",
+    "abstract": "Issue resolution has made remarkable progress thanks to the advanced reasoning capabilities of large language models (LLMs). Recently, agent-based frameworks such as SWE-agent have further advanced this progress by enabling autonomous, tool-using agents to tackle complex software engineering tasks. While existing agent-based issue resolution approaches are primarily based on agents' independent explorations, they often get stuck in local solutions and fail to identify issue patterns that span across different parts of the codebase. To address this limitation, we propose SWE-Debate, a competitive multi-agent debate framework that encourages diverse reasoning paths and achieves more consolidated issue localization. SWE-Debate first creates multiple fault propagation traces as localization proposals by traversing a code dependency graph. Then, it organizes a three-round debate among specialized agents, each embodying distinct reasoning perspectives along the fault propagation trace. This structured competition enables agents to collaboratively converge on a consolidated fix plan. Finally, this consolidated fix plan is integrated into an MCTS-based code modification agent for patch generation. Experiments on the SWE-bench benchmark show that SWE-Debate achieves new state-of-the-art results in open-source agent frameworks and outperforms baselines by a large margin.",
+    "authors": [
+      "Han Li",
+      "Yuling Shi",
+      "Shaoxin Lin",
+      "Xiaodong Gu",
+      "Heng Lian",
+      "Xin Wang",
+      "Yantao Jia",
+      "Tao Huang",
+      "Qianxiang Wang"
+    ],
+    "published": "2025-07-31T08:54:46Z",
+    "categories": [
+      "cs.SE",
+      "cs.CL",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2507.23348v1.pdf"
+  },
+  "2512.10918v2": {
+    "arxiv_id": "2512.10918v2",
+    "title": "CompanionCast: Toward Social Collaboration with Multi-Agent Systems in Shared Experiences",
+    "abstract": "Shared experiences are fundamental to social connection, yet media consumption is increasingly solitary. While AI companions offer real-time reactions and emotional regulation, existing systems either rely on single-agent designs or lack the social awareness and multi-party interaction required to replicate authentic group dynamics. We present CompanionCast, a general framework for orchestrating multiple specialized AI agents as social collaborators within a live shared context. CompanionCast integrates multimodal event detection, rolling context caching for improved grounding, and spatial audio to enhance co-presence. We validate CompanionCast through sports viewing, a domain with rich dynamics and strong social traditions. Pilot studies with soccer fans demonstrate that CompanionCast significantly improves perceived social presence and emotional sharing compared to solitary viewing. We conclude by discussing implications and open challenges for multi-agent systems as social collaborators in shared experiences.",
+    "authors": [
+      "Yiyang Wang",
+      "Chen Chen",
+      "Tica Lin",
+      "Vishnu Raj",
+      "Josh Kimball",
+      "Alex Cabral",
+      "Josiah Hester"
+    ],
+    "published": "2025-12-11T18:44:44Z",
+    "categories": [
+      "cs.HC",
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2512.10918v2.pdf"
+  },
+  "2601.19151v1": {
+    "arxiv_id": "2601.19151v1",
+    "title": "TS-Debate: Multimodal Collaborative Debate for Zero-Shot Time Series Reasoning",
+    "abstract": "Recent progress at the intersection of large language models (LLMs) and time series (TS) analysis has revealed both promise and fragility. While LLMs can reason over temporal structure given carefully engineered context, they often struggle with numeric fidelity, modality interference, and principled cross-modal integration. We present TS-Debate, a modality-specialized, collaborative multi-agent debate framework for zero-shot time series reasoning. TS-Debate assigns dedicated expert agents to textual context, visual patterns, and numerical signals, preceded by explicit domain knowledge elicitation, and coordinates their interaction via a structured debate protocol. Reviewer agents evaluate agent claims using a verification-conflict-calibration mechanism, supported by lightweight code execution and numerical lookup for programmatic verification. This architecture preserves modality fidelity, exposes conflicting evidence, and mitigates numeric hallucinations without task-specific fine-tuning. Across 20 tasks spanning three public benchmarks, TS-Debate achieves consistent and significant performance improvements over strong baselines, including standard multimodal debate in which all agents observe all inputs.",
+    "authors": [
+      "Patara Trirat",
+      "Jin Myung Kwak",
+      "Jay Heo",
+      "Heejun Lee",
+      "Sung Ju Hwang"
+    ],
+    "published": "2026-01-27T03:29:22Z",
+    "categories": [
+      "cs.AI",
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2601.19151v1.pdf"
+  },
+  "2111.01762v1": {
+    "arxiv_id": "2111.01762v1",
+    "title": "AIRCC-Clim: a user-friendly tool for generating regional probabilistic climate change scenarios and risk measures",
+    "abstract": "Complex physical models are the most advanced tools available for producing realistic simulations of the climate system. However, such levels of realism imply high computational cost and restrictions on their use for policymaking and risk assessment. Two central characteristics of climate change are uncertainty and that it is a dynamic problem in which international actions can significantly alter climate projections and information needs, including partial and full compliance of global climate goals. Here we present AIRCC-Clim, a simple climate model emulator that produces regional probabilistic climate change projections of monthly and annual temperature and precipitation, as well as risk measures, based both on standard and user-defined emissions scenarios for six greenhouse gases. AIRCC-Clim emulates 37 atmosphere-ocean coupled general circulation models with low computational and technical requirements for the user. This standalone, user-friendly software is designed for a variety of applications including impact assessments, climate policy evaluation and integrated assessment modelling.",
+    "authors": [
+      "Francisco Estrada",
+      "Oscar Calderón-Bustamante",
+      "Wouter Botzen",
+      "Julián A. Velasco",
+      "Richard S. J. Tol"
+    ],
+    "published": "2021-10-30T11:09:03Z",
+    "categories": [
+      "physics.ao-ph",
+      "econ.GN",
+      "stat.AP"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2111.01762v1.pdf"
+  },
+  "1705.05172v1": {
+    "arxiv_id": "1705.05172v1",
+    "title": "Emotion in Reinforcement Learning Agents and Robots: A Survey",
+    "abstract": "This article provides the first survey of computational models of emotion in reinforcement learning (RL) agents. The survey focuses on agent/robot emotions, and mostly ignores human user emotions. Emotions are recognized as functional in decision-making by influencing motivation and action selection. Therefore, computational emotion models are usually grounded in the agent's decision making architecture, of which RL is an important subclass. Studying emotions in RL-based agents is useful for three research fields. For machine learning (ML) researchers, emotion models may improve learning efficiency. For the interactive ML and human-robot interaction (HRI) community, emotions can communicate state and enhance user investment. Lastly, it allows affective modelling (AM) researchers to investigate their emotion theories in a successful AI agent class. This survey provides background on emotion theory and RL. It systematically addresses 1) from what underlying dimensions (e.g., homeostasis, appraisal) emotions can be derived and how these can be modelled in RL-agents, 2) what types of emotions have been derived from these dimensions, and 3) how these emotions may either influence the learning efficiency of the agent or be useful as social signals. We also systematically compare evaluation criteria, and draw connections to important RL sub-domains like (intrinsic) motivation and model-based RL. In short, this survey provides both a practical overview for engineers wanting to implement emotions in their RL agents, and identifies challenges and directions for future emotion-RL research.",
+    "authors": [
+      "Thomas M. Moerland",
+      "Joost Broekens",
+      "Catholijn M. Jonker"
+    ],
+    "published": "2017-05-15T11:49:56Z",
+    "categories": [
+      "cs.LG",
+      "cs.AI",
+      "cs.HC",
+      "cs.RO",
+      "stat.ML"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1705.05172v1.pdf"
+  },
+  "2107.12808v2": {
+    "arxiv_id": "2107.12808v2",
+    "title": "Open-Ended Learning Leads to Generally Capable Agents",
+    "abstract": "In this work we create agents that can perform well beyond a single, individual task, that exhibit much wider generalisation of behaviour to a massive, rich space of challenges. We define a universe of tasks within an environment domain and demonstrate the ability to train agents that are generally capable across this vast space and beyond. The environment is natively multi-agent, spanning the continuum of competitive, cooperative, and independent games, which are situated within procedurally generated physical 3D worlds. The resulting space is exceptionally diverse in terms of the challenges posed to agents, and as such, even measuring the learning progress of an agent is an open research problem. We propose an iterative notion of improvement between successive generations of agents, rather than seeking to maximise a singular objective, allowing us to quantify progress despite tasks being incomparable in terms of achievable rewards. We show that through constructing an open-ended learning process, which dynamically changes the training task distributions and training objectives such that the agent never stops learning, we achieve consistent learning of new behaviours. The resulting agent is able to score reward in every one of our humanly solvable evaluation levels, with behaviour generalising to many held-out points in the universe of tasks. Examples of this zero-shot generalisation include good performance on Hide and Seek, Capture the Flag, and Tag. Through analysis and hand-authored probe tasks we characterise the behaviour of our agent, and find interesting emergent heuristic behaviours such as trial-and-error experimentation, simple tool use, option switching, and cooperation. Finally, we demonstrate that the general capabilities of this agent could unlock larger scale transfer of behaviour through cheap finetuning.",
+    "authors": [
+      " Open Ended Learning Team",
+      "Adam Stooke",
+      "Anuj Mahajan",
+      "Catarina Barros",
+      "Charlie Deck",
+      "Jakob Bauer",
+      "Jakub Sygnowski",
+      "Maja Trebacz",
+      "Max Jaderberg",
+      "Michael Mathieu",
+      "Nat McAleese",
+      "Nathalie Bradley-Schmieg",
+      "Nathaniel Wong",
+      "Nicolas Porcel",
+      "Roberta Raileanu",
+      "Steph Hughes-Fitt",
+      "Valentin Dalibard",
+      "Wojciech Marian Czarnecki"
+    ],
+    "published": "2021-07-27T13:30:07Z",
+    "categories": [
+      "cs.LG",
+      "cs.AI",
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2107.12808v2.pdf"
+  },
+  "2312.11768v1": {
+    "arxiv_id": "2312.11768v1",
+    "title": "Curriculum Learning for Cooperation in Multi-Agent Reinforcement Learning",
+    "abstract": "While there has been significant progress in curriculum learning and continuous learning for training agents to generalize across a wide variety of environments in the context of single-agent reinforcement learning, it is unclear if these algorithms would still be valid in a multi-agent setting. In a competitive setting, a learning agent can be trained by making it compete with a curriculum of increasingly skilled opponents. However, a general intelligent agent should also be able to learn to act around other agents and cooperate with them to achieve common goals. When cooperating with other agents, the learning agent must (a) learn how to perform the task (or subtask), and (b) increase the overall team reward. In this paper, we aim to answer the question of what kind of cooperative teammate, and a curriculum of teammates should a learning agent be trained with to achieve these two objectives. Our results on the game Overcooked show that a pre-trained teammate who is less skilled is the best teammate for overall team reward but the worst for the learning of the agent. Moreover, somewhat surprisingly, a curriculum of teammates with decreasing skill levels performs better than other types of curricula.",
+    "authors": [
+      "Rupali Bhati",
+      "Sai Krishna Gottipati",
+      "Clodéric Mars",
+      "Matthew E. Taylor"
+    ],
+    "published": "2023-12-19T00:59:16Z",
+    "categories": [
+      "cs.AI",
+      "cs.LG",
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2312.11768v1.pdf"
+  },
+  "2508.19506v1": {
+    "arxiv_id": "2508.19506v1",
+    "title": "Learning Game-Playing Agents with Generative Code Optimization",
+    "abstract": "We present a generative optimization approach for learning game-playing agents, where policies are represented as Python programs and refined using large language models (LLMs). Our method treats decision-making policies as self-evolving code, with current observation as input and an in-game action as output, enabling agents to self-improve through execution traces and natural language feedback with minimal human intervention. Applied to Atari games, our game-playing Python program achieves performance competitive with deep reinforcement learning (RL) baselines while using significantly less training time and much fewer environment interactions. This work highlights the promise of programmatic policy representations for building efficient, adaptable agents capable of complex, long-horizon reasoning.",
+    "authors": [
+      "Zhiyi Kuang",
+      "Ryan Rong",
+      "YuCheng Yuan",
+      "Allen Nie"
+    ],
+    "published": "2025-08-27T01:30:20Z",
+    "categories": [
+      "cs.LG",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2508.19506v1.pdf"
+  },
+  "1510.08231v3": {
+    "arxiv_id": "1510.08231v3",
+    "title": "Operator-valued Kernels for Learning from Functional Response Data",
+    "abstract": "In this paper we consider the problems of supervised classification and regression in the case where attributes and labels are functions: a data is represented by a set of functions, and the label is also a function. We focus on the use of reproducing kernel Hilbert space theory to learn from such functional data. Basic concepts and properties of kernel-based learning are extended to include the estimation of function-valued functions. In this setting, the representer theorem is restated, a set of rigorously defined infinite-dimensional operator-valued kernels that can be valuably applied when the data are functions is described, and a learning algorithm for nonlinear functional data analysis is introduced. The methodology is illustrated through speech and audio signal processing experiments.",
+    "authors": [
+      "Hachem Kadri",
+      "Emmanuel Duflos",
+      "Philippe Preux",
+      "Stéphane Canu",
+      "Alain Rakotomamonjy",
+      "Julien Audiffren"
+    ],
+    "published": "2015-10-28T09:18:50Z",
+    "categories": [
+      "cs.LG",
+      "stat.ML"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1510.08231v3.pdf"
+  },
+  "2004.08883v4": {
+    "arxiv_id": "2004.08883v4",
+    "title": "Variational Policy Propagation for Multi-agent Reinforcement Learning",
+    "abstract": "We propose a \\emph{collaborative} multi-agent reinforcement learning algorithm named variational policy propagation (VPP) to learn a \\emph{joint} policy through the interactions over agents. We prove that the joint policy is a Markov Random Field under some mild conditions, which in turn reduces the policy space effectively. We integrate the variational inference as special differentiable layers in policy such that the actions can be efficiently sampled from the Markov Random Field and the overall policy is differentiable. We evaluate our algorithm on several large scale challenging tasks and demonstrate that it outperforms previous state-of-the-arts.",
+    "authors": [
+      "Chao Qu",
+      "Hui Li",
+      "Chang Liu",
+      "Junwu Xiong",
+      "James Zhang",
+      "Wei Chu",
+      "Weiqiang Wang",
+      "Yuan Qi",
+      "Le Song"
+    ],
+    "published": "2020-04-19T15:42:55Z",
+    "categories": [
+      "cs.LG",
+      "cs.MA",
+      "stat.ML"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2004.08883v4.pdf"
+  },
+  "1810.04866v2": {
+    "arxiv_id": "1810.04866v2",
+    "title": "Model-Based Safety and Security Engineering",
+    "abstract": "By exploiting the increasing surface attack of systems, cyber-attacks can cause catastrophic events, such as, remotely disable safety mechanisms. This means that in order to avoid hazards, safety and security need to be integrated, exchanging information, such as, key hazards/threats, risk evaluations, mechanisms used. This white paper describes some steps towards this integration by using models. We start by identifying some key technical challenges. Then we demonstrate how models, such as Goal Structured Notation (GSN) for safety and Attack Defense Trees (ADT) for security, can address these challenges. In particular, (1) we demonstrate how to extract in an automated fashion security relevant information from safety assessments by translating GSN-Models into ADTs; (2) We show how security results can impact the confidence of safety assessments; (3) We propose a collaborative development process where safety and security assessments are built by incrementally taking into account safety and security analysis; (4) We describe how to carry out trade-off analysis in an automated fashion, such as identifying when safety and security arguments contradict each other and how to solve such contradictions. We conclude pointing out that these are the first steps towards a wide range of techniques to support Safety and Security Engineering. As a white paper, we avoid being too technical, preferring to illustrate features by using examples and thus being more accessible.",
+    "authors": [
+      "Vivek Nigam",
+      "Alexander Pretschner",
+      "Harald Ruess"
+    ],
+    "published": "2018-10-11T07:09:28Z",
+    "categories": [
+      "cs.LO",
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1810.04866v2.pdf"
+  },
+  "2106.13499v1": {
+    "arxiv_id": "2106.13499v1",
+    "title": "SaSeVAL: A Safety/Security-Aware Approach for Validation of Safety-Critical Systems",
+    "abstract": "Increasing communication and self-driving capabilities for road vehicles lead to threats imposed by attackers. Especially attacks leading to safety violations have to be identified to address them by appropriate measures. The impact of an attack depends on the threat exploited, potential countermeasures and the traffic situation. In order to identify such attacks and to use them for testing, we propose the systematic approach SaSeVAL for deriving attacks of autonomous vehicles. SaSeVAL is based on threats identification and safety-security analysis. The impact of automotive use cases to attacks is considered. The threat identification considers the attack interface of vehicles and classifies threat scenarios according to threat types, which are then mapped to attack types. The safety-security analysis identifies the necessary requirements which have to be tested based on the architecture of the system under test. lt determines which safety impact a security violation may have, and in which traffic situations the highest impact is expected. Finally, the results of threat identification and safety-security analysis are used to describe attacks. The goal of SaSeVAL is to achieve safety validation of the vehicle w.r.t. security concerns. lt traces safety goals to threats and to attacks explicitly. Hence, the coverage of safety concerns by security testing is assured. Two use cases of vehicle communication and autonomous driving are investigated to prove the applicability of the approach.",
+    "authors": [
+      "Christian Wolschke",
+      "Behrooz Sangchoolie",
+      "Jacob Simon",
+      "Stefan Marksteiner",
+      "Tobias Braun",
+      "Hayk Hamazaryan"
+    ],
+    "published": "2021-06-25T08:36:07Z",
+    "categories": [
+      "cs.CR"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2106.13499v1.pdf"
+  },
+  "2404.04289v1": {
+    "arxiv_id": "2404.04289v1",
+    "title": "Designing for Human-Agent Alignment: Understanding what humans want from their agents",
+    "abstract": "Our ability to build autonomous agents that leverage Generative AI continues to increase by the day. As builders and users of such agents it is unclear what parameters we need to align on before the agents start performing tasks on our behalf. To discover these parameters, we ran a qualitative empirical research study about designing agents that can negotiate during a fictional yet relatable task of selling a camera online. We found that for an agent to perform the task successfully, humans/users and agents need to align over 6 dimensions: 1) Knowledge Schema Alignment 2) Autonomy and Agency Alignment 3) Operational Alignment and Training 4) Reputational Heuristics Alignment 5) Ethics Alignment and 6) Human Engagement Alignment. These empirical findings expand previous work related to process and specification alignment and the need for values and safety in Human-AI interactions. Subsequently we discuss three design directions for designers who are imagining a world filled with Human-Agent collaborations.",
+    "authors": [
+      "Nitesh Goyal",
+      "Minsuk Chang",
+      "Michael Terry"
+    ],
+    "published": "2024-04-04T03:01:57Z",
+    "categories": [
+      "cs.AI",
+      "cs.HC",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2404.04289v1.pdf"
+  },
+  "2408.17003v5": {
+    "arxiv_id": "2408.17003v5",
+    "title": "Safety Layers in Aligned Large Language Models: The Key to LLM Security",
+    "abstract": "Aligned LLMs are secure, capable of recognizing and refusing to answer malicious questions. However, the role of internal parameters in maintaining such security is not well understood yet, further these models can be vulnerable to security degradation when subjected to fine-tuning attacks. To address these challenges, our work uncovers the mechanism behind security in aligned LLMs at the parameter level, identifying a small set of contiguous layers in the middle of the model that are crucial for distinguishing malicious queries from normal ones, referred to as ``safety layers\". We first confirm the existence of these safety layers by analyzing variations in input vectors within the model's internal layers. Additionally, we leverage the over-rejection phenomenon and parameters scaling analysis to precisely locate the safety layers. Building on these findings, we propose a novel fine-tuning approach, Safely Partial-Parameter Fine-Tuning (SPPFT), that fixes the gradient of the safety layers during fine-tuning to address the security degradation. Our experiments demonstrate that the proposed approach can significantly preserve LLM security while maintaining performance and reducing computational resources compared to full fine-tuning.",
+    "authors": [
+      "Shen Li",
+      "Liuyi Yao",
+      "Lan Zhang",
+      "Yaliang Li"
+    ],
+    "published": "2024-08-30T04:35:59Z",
+    "categories": [
+      "cs.CR",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2408.17003v5.pdf"
+  },
+  "2503.14006v2": {
+    "arxiv_id": "2503.14006v2",
+    "title": "Securing Automated Insulin Delivery Systems: A Review of Security Threats and Protective Strategies",
+    "abstract": "Automated Insulin Delivery (AID) systems represent a significant advancement in diabetes care and wearable physiological closed-loop control technologies, integrating continuous glucose monitoring, control algorithms, and insulin pumps to improve blood glucose level control and reduce the burden of patient self-management. However, their increasing dependence on wireless communication and automatic control introduces security risks that may compromise patient privacy or result in life-threatening treatment errors. This paper presents a comprehensive survey of the AID system security landscape, covering technical vulnerabilities, regulatory frameworks, and commercial security measures. In addition, we conduct a systematic review of attack vectors and defence mechanisms proposed in the literature, following the PRISMA framework. Our findings highlight critical gaps, including the lack of specific security evaluation frameworks, insufficient protections in real-world deployments, and the need for comprehensive, lightweight, and adaptive defence mechanisms. We further investigate available research resources and outline open research challenges and future directions to guide the development of more secure and reliable AID systems. By focusing on AID systems, this review offers a representative case study for examining and improving the cybersecurity of safety-critical medical wearable systems.",
+    "authors": [
+      "Yuchen Niu",
+      "Siew-Kei Lam"
+    ],
+    "published": "2025-03-18T08:11:19Z",
+    "categories": [
+      "cs.CR"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2503.14006v2.pdf"
+  },
+  "2402.07744v2": {
+    "arxiv_id": "2402.07744v2",
+    "title": "Towards Unified Alignment Between Agents, Humans, and Environment",
+    "abstract": "The rapid progress of foundation models has led to the prosperity of autonomous agents, which leverage the universal capabilities of foundation models to conduct reasoning, decision-making, and environmental interaction. However, the efficacy of agents remains limited when operating in intricate, realistic environments. In this work, we introduce the principles of $\\mathbf{U}$nified $\\mathbf{A}$lignment for $\\mathbf{A}$gents ($\\mathbf{UA}^2$), which advocate for the simultaneous alignment of agents with human intentions, environmental dynamics, and self-constraints such as the limitation of monetary budgets. From the perspective of $\\mathbf{UA}^2$, we review the current agent research and highlight the neglected factors in existing agent benchmarks and method candidates. We also conduct proof-of-concept studies by introducing realistic features to WebShop, including user profiles to demonstrate intentions, personalized reranking for complex environmental dynamics, and runtime cost statistics to reflect self-constraints. We then follow the principles of $\\mathbf{UA}^2$ to propose an initial design of our agent, and benchmark its performance with several candidate baselines in the retrofitted WebShop. The extensive experimental results further prove the importance of the principles of $\\mathbf{UA}^2$. Our research sheds light on the next steps of autonomous agent research with improved general problem-solving abilities.",
+    "authors": [
+      "Zonghan Yang",
+      "An Liu",
+      "Zijun Liu",
+      "Kaiming Liu",
+      "Fangzhou Xiong",
+      "Yile Wang",
+      "Zeyuan Yang",
+      "Qingyuan Hu",
+      "Xinrui Chen",
+      "Zhenhe Zhang",
+      "Fuwen Luo",
+      "Zhicheng Guo",
+      "Peng Li",
+      "Yang Liu"
+    ],
+    "published": "2024-02-12T16:14:22Z",
+    "categories": [
+      "cs.AI",
+      "cs.CL",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2402.07744v2.pdf"
+  },
+  "2506.09580v1": {
+    "arxiv_id": "2506.09580v1",
+    "title": "The Everyday Security of Living with Conflict",
+    "abstract": "When `cyber' is used as a prefix, attention is typically drawn to the technological and spectacular aspects of war and conflict -- and, by extension, security. We offer a different approach to engaging with and understanding security in such contexts, by foregrounding the everyday -- mundane -- experiences of security within communities living with and fleeing from war. We do so through three vignettes from our field research in Colombia, Lebanon and Sweden, respectively, and by highlighting the significance of ethnography for security research with communities living in regions afflicted by war. We conclude by setting out a call to action for security researchers and practitioners to consider such lived experiences in the design of security technology that aims to cater to the needs of communities in `global conflict and disaster regions'.",
+    "authors": [
+      "Jessica McClearn",
+      "Reem Talhouk",
+      "Rikke Bjerg Jensen"
+    ],
+    "published": "2025-06-11T10:18:21Z",
+    "categories": [
+      "cs.CR"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2506.09580v1.pdf"
+  },
+  "2511.15479v1": {
+    "arxiv_id": "2511.15479v1",
+    "title": "Towards a Formal Verification of Secure Vehicle Software Updates",
+    "abstract": "With the rise of software-defined vehicles (SDVs), where software governs most vehicle functions alongside enhanced connectivity, the need for secure software updates has become increasingly critical. Software vulnerabilities can severely impact safety, the economy, and society. In response to this challenge, Strandberg et al. [escar Europe, 2021] introduced the Unified Software Update Framework (UniSUF), designed to provide a secure update framework that integrates seamlessly with existing vehicular infrastructures. Although UniSUF has previously been evaluated regarding cybersecurity, these assessments have not employed formal verification methods. To bridge this gap, we perform a formal security analysis of UniSUF. We model UniSUF's architecture and assumptions to reflect real-world automotive systems and develop a ProVerif-based framework that formally verifies UniSUF's compliance with essential security requirements - confidentiality, integrity, authenticity, freshness, order, and liveness - demonstrating their satisfiability through symbolic execution. Our results demonstrate that UniSUF adheres to the specified security guarantees, ensuring the correctness and reliability of its security framework.",
+    "authors": [
+      "Martin Slind Hagen",
+      "Emil Lundqvist",
+      "Alex Phu",
+      "Yenan Wang",
+      "Kim Strandberg",
+      "Elad Michael Schiller"
+    ],
+    "published": "2025-11-19T14:35:30Z",
+    "categories": [
+      "cs.CR",
+      "cs.DC",
+      "cs.LO"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2511.15479v1.pdf"
+  },
+  "2103.08436v1": {
+    "arxiv_id": "2103.08436v1",
+    "title": "Formal Modelling and Security Analysis of Bitcoin's Payment Protocol",
+    "abstract": "The Payment Protocol standard BIP70, specifying how payments in Bitcoin are performed by merchants and customers, is supported by the largest payment processors and most widely-used wallets. The protocol has been shown to be vulnerable to refund attacks due to lack of authentication of the refund addresses. In this paper, we give the first formal model of the protocol and formalise the refund address security goals for the protocol, namely refund address authentication and secrecy. The formal model utilises communication channels as abstractions conveying security goals on which the protocol modeller and verifier can rely. We analyse the Payment Protocol confirming that it is vulnerable to an attack violating the refund address authentication security goal. Moreover, we present a concrete protocol revision proposal supporting the merchant with publicly verifiable evidence that can mitigate the attack. We verify that the revised protocol meets the security goals defined for the refund address. Hence, we demonstrate that the revised protocol is secure, not only against the existing attacks, but also against any further attacks violating the formalised security goals.",
+    "authors": [
+      "Paolo Modesti",
+      "Siamak F. Shahandashti",
+      "Patrick McCorry",
+      "Feng Hao"
+    ],
+    "published": "2021-03-15T15:05:01Z",
+    "categories": [
+      "cs.CR",
+      "cs.FL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2103.08436v1.pdf"
+  },
+  "1805.07570v1": {
+    "arxiv_id": "1805.07570v1",
+    "title": "Physical and Mechatronic Security, Technologies and Future Trends for Vehicular Environment",
+    "abstract": "Cloning spare parts and entities of mass products is an old and serious unsolved problem for the automotive industry. The economic losses in addition to a loss of know-how and IP theft as well as security and safety threats are huge in all dimensions. This presentation gives an overview of the traditional state of the art on producing clone resistant electronic units in the last two decades. A survey is attempting to demonstrate the techniques so far known as Physically Unclonable Functions PUFs showing their advantages and drawbacks. The necessity for fabricating mechatronic-security in the vehicular environment is emerging to become a vital requirement for new automotive security regulations (legal regulations) in the near future. The automotive industry is facing a challenge to produce low-cost and highly safe and secure networked automotive systems. The emerging networked smart traffic environment is offering new safety services and creating at the same time new needs and threats in a highly networked world. There is a crying need for automotive security that approaches the level of the robust biological security for cars as dominating mobility actors in the modern smart life environment. Possible emerging technologies allowing embedding practical mechatronic-security modules as a low-cost digital alternative are presented. Such digital clone-resistant mechatronic-units (as Electronic Control Units ECUs) may serve as smart security anchors for the automotive environment in the near future. First promising initial results are also presented.",
+    "authors": [
+      "Wael Adi",
+      "Ayoub Mars"
+    ],
+    "published": "2018-05-19T11:20:19Z",
+    "categories": [
+      "cs.CR"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1805.07570v1.pdf"
   }
 }
