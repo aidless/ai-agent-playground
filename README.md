@@ -12,7 +12,7 @@
 
 **Live Demo**: http://47.98.106.182:8080
 
-A self-evolving AI agent system with 9 autonomous engines, 100% security benchmark compliance, and 90% code repair rate. Runs 24/7 on Alibaba Cloud.
+A self-evolving AI agent system with 11 autonomous engines (including TTRL test-time learning), 100% security benchmark compliance, 90% code repair rate, and 20 AI research papers analyzed with insights applied. Runs 24/7 on Alibaba Cloud.
 
 ---
 
