@@ -1,0 +1,925 @@
+{
+  "2402.11163v1": {
+    "arxiv_id": "2402.11163v1",
+    "title": "KG-Agent: An Efficient Autonomous Agent Framework for Complex Reasoning over Knowledge Graph",
+    "abstract": "In this paper, we aim to improve the reasoning ability of large language models (LLMs) over knowledge graphs (KGs) to answer complex questions. Inspired by existing methods that design the interaction strategy between LLMs and KG, we propose an autonomous LLM-based agent framework, called KG-Agent, which enables a small LLM to actively make decisions until finishing the reasoning process over KGs. In KG-Agent, we integrate the LLM, multifunctional toolbox, KG-based executor, and knowledge memory, and develop an iteration mechanism that autonomously selects the tool then updates the memory for reasoning over KG. To guarantee the effectiveness, we leverage program language to formulate the multi-hop reasoning process over the KG, and synthesize a code-based instruction dataset to fine-tune the base LLM. Extensive experiments demonstrate that only using 10K samples for tuning LLaMA-7B can outperform state-of-the-art methods using larger LLMs or more data, on both in-domain and out-domain datasets. Our code and data will be publicly released.",
+    "authors": [
+      "Jinhao Jiang",
+      "Kun Zhou",
+      "Wayne Xin Zhao",
+      "Yang Song",
+      "Chen Zhu",
+      "Hengshu Zhu",
+      "Ji-Rong Wen"
+    ],
+    "published": "2024-02-17T02:07:49Z",
+    "categories": [
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2402.11163v1.pdf"
+  },
+  "2409.01907v1": {
+    "arxiv_id": "2409.01907v1",
+    "title": "Focus Agent: LLM-Powered Virtual Focus Group",
+    "abstract": "In the domain of Human-Computer Interaction, focus groups represent a widely utilised yet resource-intensive methodology, often demanding the expertise of skilled moderators and meticulous preparatory efforts. This study introduces the ``Focus Agent,'' a Large Language Model (LLM) powered framework that simulates both the focus group (for data collection) and acts as a moderator in a focus group setting with human participants. To assess the data quality derived from the Focus Agent, we ran five focus group sessions with a total of 23 human participants as well as deploying the Focus Agent to simulate these discussions with AI participants. Quantitative analysis indicates that Focus Agent can generate opinions similar to those of human participants. Furthermore, the research exposes some improvements associated with LLMs acting as moderators in focus group discussions that include human participants.",
+    "authors": [
+      "Taiyu Zhang",
+      "Xuesong Zhang",
+      "Robbe Cools",
+      "Adalberto L. Simeone"
+    ],
+    "published": "2024-09-03T13:56:14Z",
+    "categories": [
+      "cs.HC"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2409.01907v1.pdf"
+  },
+  "2602.04518v1": {
+    "arxiv_id": "2602.04518v1",
+    "title": "Learning the Value Systems of Agents with Preference-based and Inverse Reinforcement Learning",
+    "abstract": "Agreement Technologies refer to open computer systems in which autonomous software agents interact with one another, typically on behalf of humans, in order to come to mutually acceptable agreements. With the advance of AI systems in recent years, it has become apparent that such agreements, in order to be acceptable to the involved parties, must remain aligned with ethical principles and moral values. However, this is notoriously difficult to ensure, especially as different human users (and their software agents) may hold different value systems, i.e. they may differently weigh the importance of individual moral values. Furthermore, it is often hard to specify the precise meaning of a value in a particular context in a computational manner. Methods to estimate value systems based on human-engineered specifications, e.g. based on value surveys, are limited in scale due to the need for intense human moderation. In this article, we propose a novel method to automatically \\emph{learn} value systems from observations and human demonstrations. In particular, we propose a formal model of the \\emph{value system learning} problem, its instantiation to sequential decision-making domains based on multi-objective Markov decision processes, as well as tailored preference-based and inverse reinforcement learning algorithms to infer value grounding functions and value systems. The approach is illustrated and evaluated by two simulated use cases.",
+    "authors": [
+      "Andrés Holgado-Sánchez",
+      "Holger Billhardt",
+      "Alberto Fernández",
+      "Sascha Ossowski"
+    ],
+    "published": "2026-02-04T13:07:15Z",
+    "categories": [
+      "cs.CY",
+      "cs.AI",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2602.04518v1.pdf"
+  },
+  "2512.21309v2": {
+    "arxiv_id": "2512.21309v2",
+    "title": "A Plan Reuse Mechanism for LLM-Driven Agent",
+    "abstract": "Integrating large language models (LLMs) into personal assistants, like Xiao Ai and Blue Heart V, effectively enhances their ability to interact with humans, solve complex tasks, and manage IoT devices. Such assistants are also termed LLM-driven agents. Upon receiving user requests, the LLM-driven agent generates plans using an LLM, executes these plans through various tools, and then returns the response to the user. During this process, the latency for generating a plan with an LLM can reach tens of seconds, significantly degrading user experience. Real-world dataset analysis shows that about 30% of the requests received by LLM-driven agents are identical or similar, which allows the reuse of previously generated plans to reduce latency. However, it is difficult to accurately define the similarity between the request texts received by the LLM-driven agent through directly evaluating the original request texts. Moreover, the diverse expressions of natural language and the unstructured format of plan texts make implementing plan reuse challenging. To address these issues, we present and implement a plan reuse mechanism for LLM-driven agents called AgentReuse. AgentReuse leverages the similarities and differences among requests' semantics and uses intent classification to evaluate the similarities between requests and enable the reuse of plans. Experimental results based on a real-world dataset demonstrate that AgentReuse achieves a 93% effective plan reuse rate, an F1 score of 0.9718, and an accuracy of 0.9459 in evaluating request similarities, reducing latency by 93.12% compared with baselines without using the reuse mechanism.",
+    "authors": [
+      "Guopeng Li",
+      "Ruiqi Wu",
+      "Haisheng Tan"
+    ],
+    "published": "2025-12-24T18:08:03Z",
+    "categories": [
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2512.21309v2.pdf"
+  },
+  "2410.12532v3": {
+    "arxiv_id": "2410.12532v3",
+    "title": "MedAide: Information Fusion and Anatomy of Medical Intents via LLM-based Agent Collaboration",
+    "abstract": "In healthcare intelligence, the ability to fuse heterogeneous, multi-intent information from diverse clinical sources is fundamental to building reliable decision-making systems. Large Language Model (LLM)-driven information interaction systems currently showing potential promise in the healthcare domain. Nevertheless, they often suffer from information redundancy and coupling when dealing with complex medical intents, leading to severe hallucinations and performance bottlenecks. To this end, we propose MedAide, an LLM-based medical multi-agent collaboration framework designed to enable intent-aware information fusion and coordinated reasoning across specialized healthcare domains. Specifically, we introduce a regularization-guided module that combines syntactic constraints with retrieval augmented generation to decompose complex queries into structured representations, facilitating fine-grained clinical information fusion and intent resolution. Additionally, a dynamic intent prototype matching module is proposed to utilize dynamic prototype representation with a semantic similarity matching mechanism to achieve adaptive recognition and updating of the agent's intent in multi-round healthcare dialogues. Ultimately, we design a rotation agent collaboration mechanism that introduces dynamic role rotation and decision-level information fusion across specialized medical agents. Extensive experiments are conducted on four medical benchmarks with composite intents. Experimental results from automated metrics and expert doctor evaluations show that MedAide outperforms current LLMs and improves their medical proficiency and strategic reasoning.",
+    "authors": [
+      "Dingkang Yang",
+      "Jinjie Wei",
+      "Mingcheng Li",
+      "Jiyao Liu",
+      "Lihao Liu",
+      "Ming Hu",
+      "Junjun He",
+      "Yakun Ju",
+      "Wei Zhou",
+      "Yang Liu",
+      "Lihua Zhang"
+    ],
+    "published": "2024-10-16T13:10:27Z",
+    "categories": [
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2410.12532v3.pdf"
+  },
+  "2401.07324v3": {
+    "arxiv_id": "2401.07324v3",
+    "title": "Small LLMs Are Weak Tool Learners: A Multi-LLM Agent",
+    "abstract": "Large Language Model (LLM) agents significantly extend the capabilities of standalone LLMs, empowering them to interact with external tools (e.g., APIs, functions) and complete various tasks in a self-directed fashion. The challenge of tool use demands that LLMs not only understand user queries and generate answers accurately but also excel in task planning, tool invocation, and result summarization. While traditional works focus on training a single LLM with all these capabilities, performance limitations become apparent, particularly with smaller models. To overcome these challenges, we propose a novel approach that decomposes the aforementioned capabilities into a planner, caller, and summarizer. Each component is implemented by a single LLM that focuses on a specific capability and collaborates with others to accomplish the task. This modular framework facilitates individual updates and the potential use of smaller LLMs for building each capability. To effectively train this framework, we introduce a two-stage training paradigm. First, we fine-tune a backbone LLM on the entire dataset without discriminating sub-tasks, providing the model with a comprehensive understanding of the task. Second, the fine-tuned LLM is used to instantiate the planner, caller, and summarizer respectively, which are continually fine-tuned on respective sub-tasks. Evaluation across various tool-use benchmarks illustrates that our proposed multi-LLM framework surpasses the traditional single-LLM approach, highlighting its efficacy and advantages in tool learning.",
+    "authors": [
+      "Weizhou Shen",
+      "Chenliang Li",
+      "Hongzhan Chen",
+      "Ming Yan",
+      "Xiaojun Quan",
+      "Hehong Chen",
+      "Ji Zhang",
+      "Fei Huang"
+    ],
+    "published": "2024-01-14T16:17:07Z",
+    "categories": [
+      "cs.AI",
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2401.07324v3.pdf"
+  },
+  "2508.08322v1": {
+    "arxiv_id": "2508.08322v1",
+    "title": "Context Engineering for Multi-Agent LLM Code Assistants Using Elicit, NotebookLM, ChatGPT, and Claude Code",
+    "abstract": "Large Language Models (LLMs) have shown promise in automating code generation and software engineering tasks, yet they often struggle with complex, multi-file projects due to context limitations and knowledge gaps. We propose a novel context engineering workflow that combines multiple AI components: an Intent Translator (GPT-5) for clarifying user requirements, an Elicit-powered semantic literature retrieval for injecting domain knowledge, NotebookLM-based document synthesis for contextual understanding, and a Claude Code multi-agent system for code generation and validation. Our integrated approach leverages intent clarification, retrieval-augmented generation, and specialized sub-agents orchestrated via Claude's agent framework. We demonstrate that this method significantly improves the accuracy and reliability of code assistants in real-world repositories, yielding higher single-shot success rates and better adherence to project context than baseline single-agent approaches. Qualitative results on a large Next.js codebase show the multi-agent system effectively plans, edits, and tests complex features with minimal human intervention. We compare our system with recent frameworks like CodePlan, MASAI, and HyperAgent, highlighting how targeted context injection and agent role decomposition lead to state-of-the-art performance. Finally, we discuss the implications for deploying LLM-based coding assistants in production, along with lessons learned on context management and future research directions.",
+    "authors": [
+      "Muhammad Haseeb"
+    ],
+    "published": "2025-08-09T14:45:53Z",
+    "categories": [
+      "cs.SE",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2508.08322v1.pdf"
+  },
+  "2511.14460v1": {
+    "arxiv_id": "2511.14460v1",
+    "title": "Agent-R1: Training Powerful LLM Agents with End-to-End Reinforcement Learning",
+    "abstract": "Large Language Models (LLMs) are increasingly being explored for building Agents capable of active environmental interaction (e.g., via tool use) to solve complex problems. Reinforcement Learning (RL) is considered a key technology with significant potential for training such Agents; however, the effective application of RL to LLM Agents is still in its nascent stages and faces considerable challenges. Currently, this emerging field lacks in-depth exploration into RL approaches specifically tailored for the LLM Agent context, alongside a scarcity of flexible and easily extensible training frameworks designed for this purpose. To help advance this area, this paper first revisits and clarifies Reinforcement Learning methodologies for LLM Agents by systematically extending the Markov Decision Process (MDP) framework to comprehensively define the key components of an LLM Agent. Secondly, we introduce Agent-R1, a modular, flexible, and user-friendly training framework for RL-based LLM Agents, designed for straightforward adaptation across diverse task scenarios and interactive environments. We conducted experiments on Multihop QA benchmark tasks, providing initial validation for the effectiveness of our proposed methods and framework.",
+    "authors": [
+      "Mingyue Cheng",
+      "Jie Ouyang",
+      "Shuo Yu",
+      "Ruiran Yan",
+      "Yucong Luo",
+      "Zirui Liu",
+      "Daoyu Wang",
+      "Qi Liu",
+      "Enhong Chen"
+    ],
+    "published": "2025-11-18T13:03:15Z",
+    "categories": [
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2511.14460v1.pdf"
+  },
+  "2510.05158v1": {
+    "arxiv_id": "2510.05158v1",
+    "title": "Lang-PINN: From Language to Physics-Informed Neural Networks via a Multi-Agent Framework",
+    "abstract": "Physics-informed neural networks (PINNs) provide a powerful approach for solving partial differential equations (PDEs), but constructing a usable PINN remains labor-intensive and error-prone. Scientists must interpret problems as PDE formulations, design architectures and loss functions, and implement stable training pipelines. Existing large language model (LLM) based approaches address isolated steps such as code generation or architecture suggestion, but typically assume a formal PDE is already specified and therefore lack an end-to-end perspective. We present Lang-PINN, an LLM-driven multi-agent system that builds trainable PINNs directly from natural language task descriptions. Lang-PINN coordinates four complementary agents: a PDE Agent that parses task descriptions into symbolic PDEs, a PINN Agent that selects architectures, a Code Agent that generates modular implementations, and a Feedback Agent that executes and diagnoses errors for iterative refinement. This design transforms informal task statements into executable and verifiable PINN code. Experiments show that Lang-PINN achieves substantially lower errors and greater robustness than competitive baselines: mean squared error (MSE) is reduced by up to 3--5 orders of magnitude, end-to-end execution success improves by more than 50\\%, and reduces time overhead by up to 74\\%.",
+    "authors": [
+      "Xin He",
+      "Liangliang You",
+      "Hongduan Tian",
+      "Bo Han",
+      "Ivor Tsang",
+      "Yew-Soon Ong"
+    ],
+    "published": "2025-10-03T08:20:02Z",
+    "categories": [
+      "cs.AI",
+      "cs.CE",
+      "cs.LG",
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2510.05158v1.pdf"
+  },
+  "2203.08975v2": {
+    "arxiv_id": "2203.08975v2",
+    "title": "A Survey of Multi-Agent Deep Reinforcement Learning with Communication",
+    "abstract": "Communication is an effective mechanism for coordinating the behaviors of multiple agents, broadening their views of the environment, and to support their collaborations. In the field of multi-agent deep reinforcement learning (MADRL), agents can improve the overall learning performance and achieve their objectives by communication. Agents can communicate various types of messages, either to all agents or to specific agent groups, or conditioned on specific constraints. With the growing body of research work in MADRL with communication (Comm-MADRL), there is a lack of a systematic and structural approach to distinguish and classify existing Comm-MADRL approaches. In this paper, we survey recent works in the Comm-MADRL field and consider various aspects of communication that can play a role in designing and developing multi-agent reinforcement learning systems. With these aspects in mind, we propose 9 dimensions along which Comm-MADRL approaches can be analyzed, developed, and compared. By projecting existing works into the multi-dimensional space, we discover interesting trends. We also propose some novel directions for designing future Comm-MADRL systems through exploring possible combinations of the dimensions.",
+    "authors": [
+      "Changxi Zhu",
+      "Mehdi Dastani",
+      "Shihan Wang"
+    ],
+    "published": "2022-03-16T22:39:46Z",
+    "categories": [
+      "cs.MA",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2203.08975v2.pdf"
+  },
+  "2511.09710v3": {
+    "arxiv_id": "2511.09710v3",
+    "title": "Echoing: Identity Failures when LLM Agents Talk to Each Other",
+    "abstract": "As large language model (LLM) based agents interact autonomously with one another, a new class of failures emerges that cannot be predicted from single agent performance: behavioral drifts in agent-agent conversations (AxA). Unlike human-agent interactions, where humans ground and steer conversations, AxA lacks such stabilizing signals, making these failures unique. We investigate one such failure, echoing, where agents abandon their assigned roles and instead mirror their conversational partners, undermining their intended objectives. Through experiments across $66$ AxA configurations, $4$ domains (3 transactional, 1 advisory), and $2500+$ conversations (over $250000$ LLM inferences), we show that echoing occurs across major LLM providers, with echoing rates as high as $70\\%$ depending on the model and domain. Moreover, we find that echoing is persistent even in advanced reasoning models with substantial rates ($32.8\\%$) that are not reduced by reasoning efforts. We analyze prompt, conversation dynamics, showing that echoing arises as interaction grows longer ($7+$ agent turns) and is not merely an artifact of sub-optimal experiment design. Finally, we introduce a protocol-level mitigation where targeted use of structured response reduces echoing to $9\\%$.",
+    "authors": [
+      "Sarath Shekkizhar",
+      "Romain Cosentino",
+      "Adam Earle",
+      "Silvio Savarese"
+    ],
+    "published": "2025-11-12T20:17:10Z",
+    "categories": [
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2511.09710v3.pdf"
+  },
+  "2005.12184v2": {
+    "arxiv_id": "2005.12184v2",
+    "title": "On the road to percent accuracy IV: ReACT -- computing the non-linear power spectrum beyond $Λ$CDM",
+    "abstract": "To effectively exploit large-scale structure surveys, we depend on accurate and reliable predictions of non-linear cosmological structure formation. Tools for efficient and comprehensive computational modelling are therefore essential to perform cosmological parameter inference analyses. We present the public software package ReACT, demonstrating its capability for the fast and accurate calculation of non-linear power spectra from non-standard physics. We showcase ReACT through a series of analyses on the DGP and $f(R)$ gravity models, adopting LSST-like cosmic shear power spectra. Accurate non-linear modelling with ReACT has the potential to more than double LSST's constraining power on the $f(R)$ parameter, in contrast to an analysis that is limited to the quasi-linear regime. We find that ReACT is sufficiently robust for the inference of consistent constraints on theories beyond $Λ$CDM for current and ongoing surveys. With further improvement, particularly in terms of the accuracy of the non-linear $Λ$CDM power spectrum, ReACT can, in principle, meet the accuracy requirements for future surveys such as Euclid and LSST.",
+    "authors": [
+      "Benjamin Bose",
+      "Matteo Cataneo",
+      "Tilman Tröster",
+      "Qianli Xia",
+      "Catherine Heymans",
+      "Lucas Lombriser"
+    ],
+    "published": "2020-05-25T15:57:04Z",
+    "categories": [
+      "astro-ph.CO"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2005.12184v2.pdf"
+  },
+  "2210.03629v3": {
+    "arxiv_id": "2210.03629v3",
+    "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+    "abstract": "While large language models (LLMs) have demonstrated impressive capabilities across tasks in language understanding and interactive decision making, their abilities for reasoning (e.g. chain-of-thought prompting) and acting (e.g. action plan generation) have primarily been studied as separate topics. In this paper, we explore the use of LLMs to generate both reasoning traces and task-specific actions in an interleaved manner, allowing for greater synergy between the two: reasoning traces help the model induce, track, and update action plans as well as handle exceptions, while actions allow it to interface with external sources, such as knowledge bases or environments, to gather additional information. We apply our approach, named ReAct, to a diverse set of language and decision making tasks and demonstrate its effectiveness over state-of-the-art baselines, as well as improved human interpretability and trustworthiness over methods without reasoning or acting components. Concretely, on question answering (HotpotQA) and fact verification (Fever), ReAct overcomes issues of hallucination and error propagation prevalent in chain-of-thought reasoning by interacting with a simple Wikipedia API, and generates human-like task-solving trajectories that are more interpretable than baselines without reasoning traces. On two interactive decision making benchmarks (ALFWorld and WebShop), ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34% and 10% respectively, while being prompted with only one or two in-context examples. Project site with code: https://react-lm.github.io",
+    "authors": [
+      "Shunyu Yao",
+      "Jeffrey Zhao",
+      "Dian Yu",
+      "Nan Du",
+      "Izhak Shafran",
+      "Karthik Narasimhan",
+      "Yuan Cao"
+    ],
+    "published": "2022-10-06T01:00:32Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2210.03629v3.pdf"
+  },
+  "2605.04449v1": {
+    "arxiv_id": "2605.04449v1",
+    "title": "GEM: Graph-Enhanced Mixture-of-Experts with ReAct Agents for Dialogue State Tracking",
+    "abstract": "Dialogue State Tracking (DST) requires precise extraction of structured information from multi-domain conversations, a task where Large Language Models (LLMs) struggle despite their impressive general capabilities. We present GEM (Graph-Enhanced Mixture-of-Experts), a novel framework that combines language models and graph-structured dialogue understanding with ReAct agent-based reasoning for superior DST performance. Our approach dynamically routes between specialized experts: a Graph Neural Network that captures dialogue structure and turn-level dependencies, and a finetuned T5-Small encoder-decoder for sequence modeling, coordinated by an intelligent router. For complex value generation tasks, we integrate ReAct agents that perform structured reasoning over dialogue context. On MultiWOZ 2.2, GEM achieves 65.19% Joint Goal Accuracy, substantially outperforming end-to-end LLM approaches (best: 38.43%) and surpassing state-of-the-art (SOTA) methods including TOATOD (63.79%), D3ST (58.70%), and Diable (56.48%). Our graph-enhanced mixture-of-experts architecture with ReAct integration demonstrates that combining structured dialogue representation with dynamic expert routing and agent-based reasoning provides a powerful paradigm for dialogue state tracking, achieving superior accuracy while maintaining computational efficiency through selective expert activation.",
+    "authors": [
+      "Ziqi Zhu",
+      "Adithya Suresh",
+      "Tomal Deb",
+      "Iman Abbasnejad"
+    ],
+    "published": "2026-05-06T03:25:04Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2605.04449v1.pdf"
+  },
+  "2507.05234v2": {
+    "arxiv_id": "2507.05234v2",
+    "title": "React-tRace: A Semantics for Understanding React Hooks",
+    "abstract": "React has become the most widely used web front-end framework, enabling the creation of user interfaces in a declarative and compositional manner. Hooks are a set of APIs that manage side effects in function components in React. However, their semantics are often seen as opaque to developers, leading to UI bugs. We introduce React-tRace, a formalization of the semantics of the essence of React Hooks, providing a semantics that clarifies their behavior. We demonstrate that our model captures the behavior of React, by theoretically showing that it embodies essential properties of Hooks and empirically comparing our React-tRace-definitional interpreter against a test suite. Furthermore, we showcase a practical visualization tool based on the formalization to demonstrate how developers can better understand the semantics of Hooks.",
+    "authors": [
+      "Jay Lee",
+      "Joongwon Ahn",
+      "Kwangkeun Yi"
+    ],
+    "published": "2025-07-07T17:42:17Z",
+    "categories": [
+      "cs.PL",
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2507.05234v2.pdf"
+  },
+  "2410.10779v1": {
+    "arxiv_id": "2410.10779v1",
+    "title": "Focused ReAct: Improving ReAct through Reiterate and Early Stop",
+    "abstract": "Large language models (LLMs) have significantly improved their reasoning and decision-making capabilities, as seen in methods like ReAct. However, despite its effectiveness in tackling complex tasks, ReAct faces two main challenges: losing focus on the original question and becoming stuck in action loops. To address these issues, we introduce Focused ReAct, an enhanced version of the ReAct paradigm that incorporates reiteration and early stop mechanisms. These improvements help the model stay focused on the original query and avoid repetitive behaviors. Experimental results show accuracy gains of 18% to 530% and a runtime reduction of up to 34% compared to the original ReAct method.",
+    "authors": [
+      "Shuoqiu Li",
+      "Han Xu",
+      "Haipeng Chen"
+    ],
+    "published": "2024-10-14T17:49:54Z",
+    "categories": [
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2410.10779v1.pdf"
+  },
+  "2601.06367v1": {
+    "arxiv_id": "2601.06367v1",
+    "title": "ReAct: Reflection Attack Mitigation For Asymmetric Routing",
+    "abstract": "Amplification Reflection Distributed Denial-of-Service (AR-DDoS) attacks remain a formidable threat, exploiting stateless protocols to flood victims with illegitimate traffic. Recent advances have enabled data-plane defenses against such attacks, but existing solutions typically assume symmetric routing and are limited to a single switch. These assumptions fail in modern networks where asymmetry is common, resulting in dropped legitimate responses and persistent connectivity issues. This paper presents ReAct, an in-network defense for AR-DDoS that is robust to asymmetry. ReAct performs request-response correlation across switches using programmable data planes and a sliding-window of Bloom filters. To handle asymmetric traffic, ReAct introduces a data-plane-based request forwarding mechanism, enabling switches to validate responses even when paths differ. ReAct can automatically adapt to routing changes with minimal intervention, ensuring continued protection even in dynamic network environments. We implemented ReAct on both a P4 interpreter and NVIDIAs Bluefield-3, demonstrating its applicability across multiple platforms. Evaluation results show that ReAct filters nearly all attack traffic without dropping legitimate responses-even under high-volume attacks and asymmetry. Compared to state-of-the-art approaches, ReAct achieves significantly lower false positives. To our knowledge, ReAct is the first data-plane AR-DDoS defense that supports dynamic, cross-switch collaboration, making it uniquely suitable for deployment in networks with asymmetry.",
+    "authors": [
+      "David Hay",
+      "Mary Hogan",
+      "Shir Landau Feibish"
+    ],
+    "published": "2026-01-10T00:36:45Z",
+    "categories": [
+      "cs.NI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2601.06367v1.pdf"
+  },
+  "2405.13966v1": {
+    "arxiv_id": "2405.13966v1",
+    "title": "On the Brittle Foundations of ReAct Prompting for Agentic Large Language Models",
+    "abstract": "The reasoning abilities of Large Language Models (LLMs) remain a topic of debate. Some methods such as ReAct-based prompting, have gained popularity for claiming to enhance sequential decision-making abilities of agentic LLMs. However, it is unclear what is the source of improvement in LLM reasoning with ReAct based prompting. In this paper we examine these claims of ReAct based prompting in improving agentic LLMs for sequential decision-making. By introducing systematic variations to the input prompt we perform a sensitivity analysis along the claims of ReAct and find that the performance is minimally influenced by the \"interleaving reasoning trace with action execution\" or the content of the generated reasoning traces in ReAct, contrary to original claims and common usage. Instead, the performance of LLMs is driven by the similarity between input example tasks and queries, implicitly forcing the prompt designer to provide instance-specific examples which significantly increases the cognitive burden on the human. Our investigation shows that the perceived reasoning abilities of LLMs stem from the exemplar-query similarity and approximate retrieval rather than any inherent reasoning abilities.",
+    "authors": [
+      "Mudit Verma",
+      "Siddhant Bhambri",
+      "Subbarao Kambhampati"
+    ],
+    "published": "2024-05-22T20:05:49Z",
+    "categories": [
+      "cs.AI",
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2405.13966v1.pdf"
+  },
+  "2512.03560v1": {
+    "arxiv_id": "2512.03560v1",
+    "title": "Reason-Plan-ReAct: A Reasoner-Planner Supervising a ReAct Executor for Complex Enterprise Tasks",
+    "abstract": "Despite recent advances, autonomous agents often struggle to solve complex tasks in enterprise domains that require coordinating multiple tools and processing diverse data sources. This struggle is driven by two main limitations. First, single-agent architectures enforce a monolithic plan-execute loop, which directly causes trajectory instability. Second, the requirement to use local open-weight models for data privacy introduces smaller context windows leading to the rapid consumption of context from large tool outputs. To solve this problem we introduce RP-ReAct (Reasoner Planner-ReAct), a novel multi-agent approach that fundamentally decouples strategic planning from low-level execution to achieve superior reliability and efficiency. RP-ReAct consists of a Reasoner Planner Agent (RPA), responsible for planning each sub-step, continuously analysing the execution results using the strong reasoning capabilities of a Large Reasoning Model, and one or multiple Proxy-Execution Agent (PEA) that translates sub-steps into concrete tool interactions using a ReAct approach. Crucially, we incorporate a context-saving strategy within the PEA to mitigate context window overflow by managing large tool outputs via external storage and on-demand access. We evaluate RP-ReAct, on the challenging, multi-domain ToolQA benchmark using a diverse set of six open-weight reasoning models. Our empirical results show that RP-ReAct achieves superior performance and improved generalization ability over state-of-the-art baselines when addressing diverse complex tasks across the evaluated domains. Furthermore we establish the enhanced robustness and stability of our approach across different model scales, paving the way for effective and deployable agentic solutions for enterprises.",
+    "authors": [
+      "Gianni Molinari",
+      "Fabio Ciravegna"
+    ],
+    "published": "2025-12-03T08:28:40Z",
+    "categories": [
+      "cs.AI",
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2512.03560v1.pdf"
+  },
+  "2602.17891v2": {
+    "arxiv_id": "2602.17891v2",
+    "title": "HookLens: Visual Analytics for Understanding React Hooks Structures",
+    "abstract": "Maintaining and refactoring React web applications is challenging, as React code often becomes complex due to its core API called Hooks. For example, Hooks often lead developers to create complex dependencies among components, making code behavior unpredictable and reducing maintainability, i.e., anti-patterns. To address this challenge, we present HookLens, an interactive visual analytics system that helps developers understand howHooks define dependencies and data flows between components. Informed by an iterative design process with experienced React developers, HookLens supports users to efficiently understand the structure and dependencies between components and to identify anti-patterns. A quantitative user study with 12 React developers demonstrates that HookLens significantly improves participants' accuracy in detecting anti-patterns compared to conventional code editors. Moreover, a comparative study with state-of-the-art LLM-based coding assistants confirms that these improvements even surpass the capabilities of such coding assistants on the same task.",
+    "authors": [
+      "Suyeon Hwang",
+      "Minkyu Kweon",
+      "Jeongmin Rhee",
+      "Soohyun Lee",
+      "Seokhyeon Park",
+      "Seokweon Jung",
+      "Hyeon Jeon",
+      "Jinwook Seo"
+    ],
+    "published": "2026-02-19T23:11:39Z",
+    "categories": [
+      "cs.HC",
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2602.17891v2.pdf"
+  },
+  "2309.03524v1": {
+    "arxiv_id": "2309.03524v1",
+    "title": "ReuNify: A Step Towards Whole Program Analysis for React Native Android Apps",
+    "abstract": "React Native is a widely-used open-source framework that facilitates the development of cross-platform mobile apps. The framework enables JavaScript code to interact with native-side code, such as Objective-C/Swift for iOS and Java/Kotlin for Android, via a communication mechanism provided by React Native. However, previous research and tools have overlooked this mechanism, resulting in incomplete analysis of React Native app code. To address this limitation, we have developed REUNIFY, a prototype tool that integrates the JavaScript and native-side code of React Native apps into an intermediate language that can be processed by the Soot static analysis framework. By doing so, REUNIFY enables the generation of a comprehensive model of the app's behavior. Our evaluation indicates that, by leveraging REUNIFY, the Soot-based framework can improve its coverage of static analysis for the 1,007 most popular React Native Android apps, augmenting the number of lines of Jimple code by 70%. Additionally, we observed an average increase of 84% in new nodes reached in the callgraph for these apps, after integrating REUNIFY. When REUNIFY is used for taint flow analysis, an average of two additional privacy leaks were identified. Overall, our results demonstrate that REUNIFY significantly enhances the Soot-based framework's capability to analyze React Native Android apps.",
+    "authors": [
+      "Yonghui Liu",
+      "Xiao Chen",
+      "Pei Liu",
+      "John Grundy",
+      "Chunyang Chen",
+      "Li Li"
+    ],
+    "published": "2023-09-07T07:13:22Z",
+    "categories": [
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2309.03524v1.pdf"
+  },
+  "2302.04761v1": {
+    "arxiv_id": "2302.04761v1",
+    "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+    "abstract": "Language models (LMs) exhibit remarkable abilities to solve new tasks from just a few examples or textual instructions, especially at scale. They also, paradoxically, struggle with basic functionality, such as arithmetic or factual lookup, where much simpler and smaller models excel. In this paper, we show that LMs can teach themselves to use external tools via simple APIs and achieve the best of both worlds. We introduce Toolformer, a model trained to decide which APIs to call, when to call them, what arguments to pass, and how to best incorporate the results into future token prediction. This is done in a self-supervised way, requiring nothing more than a handful of demonstrations for each API. We incorporate a range of tools, including a calculator, a Q\\&A system, two different search engines, a translation system, and a calendar. Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much larger models, without sacrificing its core language modeling abilities.",
+    "authors": [
+      "Timo Schick",
+      "Jane Dwivedi-Yu",
+      "Roberto Dessì",
+      "Roberta Raileanu",
+      "Maria Lomeli",
+      "Luke Zettlemoyer",
+      "Nicola Cancedda",
+      "Thomas Scialom"
+    ],
+    "published": "2023-02-09T16:49:57Z",
+    "categories": [
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2302.04761v1.pdf"
+  },
+  "2304.11116v3": {
+    "arxiv_id": "2304.11116v3",
+    "title": "Graph-ToolFormer: To Empower LLMs with Graph Reasoning Ability via Prompt Augmented by ChatGPT",
+    "abstract": "In this paper, we aim to develop a large language model (LLM) with the reasoning ability on complex graph data. Currently, LLMs have achieved very impressive performance on various natural language learning tasks, extensions of which have also been applied to study the vision tasks with multi-modal data. However, when it comes to the graph learning tasks, existing LLMs present very serious flaws due to their several inherited weaknesses in performing {multi-step logic reasoning}, {precise mathematical calculation} and {perception about the spatial and temporal factors}. To address such challenges, in this paper, we will investigate the principles, methodologies and algorithms to empower existing LLMs with graph reasoning ability, which will have tremendous impacts on the current research of both LLMs and graph learning. Inspired by the latest ChatGPT and Toolformer models, we propose the Graph-ToolFormer (Graph Reasoning oriented Toolformer) framework to teach LLMs themselves with prompts augmented by ChatGPT to use external graph reasoning API tools. Specifically, we will investigate to teach Graph-ToolFormer to handle various graph data reasoning tasks in this paper, including both (1) very basic graph data loading and graph property reasoning tasks, ranging from simple graph order and size to the graph diameter and periphery, and (2) more advanced reasoning tasks on real-world graph data, such as bibliographic networks, protein molecules, sequential recommender systems, social networks and knowledge graphs.",
+    "authors": [
+      "Jiawei Zhang"
+    ],
+    "published": "2023-04-10T05:25:54Z",
+    "categories": [
+      "cs.AI",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2304.11116v3.pdf"
+  },
+  "2510.01253v1": {
+    "arxiv_id": "2510.01253v1",
+    "title": "OR-Toolformer: Modeling and Solving Operations Research Problems with Tool Augmented Large Language Models",
+    "abstract": "Large language models (LLMs) demonstrate strong mathematical reasoning, but reliance on closed-source APIs for OR tasks raises privacy concerns, and training open-source models from scratch incurs high compute costs. We introduce OR-Toolformer, which fine-tunes Llama-3.1-8B-Instruct with a semi-automatic data synthesis pipeline that generates diverse OR problem-answer pairs and augments the model with external solvers to produce API calls. On three of four standard benchmarks, OR-Toolformer achieves up to 80.1% execution accuracy, exceeding size-matched baselines by over 4.3%. In zero-shot evaluation on two unseen OR problem types, it attains 54% average accuracy, a 21 percentage-point improvement over the strongest baseline. These findings validate the efficacy of tool-augmented fine-tuning LLMs for accurate and generalizable OR problem modeling and solving.",
+    "authors": [
+      "Jianzhang Zhang",
+      "Jialong Zhou",
+      "Chuang Liu"
+    ],
+    "published": "2025-09-24T14:42:40Z",
+    "categories": [
+      "cs.AI",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2510.01253v1.pdf"
+  },
+  "2511.17840v1": {
+    "arxiv_id": "2511.17840v1",
+    "title": "Internalizing Tools as Morphisms in Graded Transformers",
+    "abstract": "We introduce a graded formulation of internal symbolic computation for transformers. The hidden space is endowed with a grading $V=\\bigoplus_{g\\in G}V_g$, and symbolic operations are realized as typed block maps (morphisms) $φ_{h\\leftarrow g}:V_g\\to V_h$ that are activated selectively by a differentiable routing policy. A self-supervised \\emph{graded utility functional}, defined as the loss reduction induced by a candidate morphism, governs activation and yields sparse, interpretable behavior. We develop the algebraic and geometric foundations: an internal model category whose objects are homogeneous components and whose morphisms are admissible grade transitions; adjoint pairs encoding typed round trips; and information-geometric interpretations in terms of KL gain, mirror descent with Bregman divergences, and Fisher natural gradients. Methodologically, we specify a utility--aware routing mechanism and objective that remain fully end-to-end differentiable. Analytic case studies and lightweight sanity checks illustrate selective morphic activation on hybrid symbolic-linguistic tasks. The framework unifies symbolic computation, geometry, and self--supervised learning within the \\emph{graded transformer} formalism \\cite{sh-89,sh-95}, while subsuming prior external-tool paradigms (e.g., Toolformer \\cite{toolformer2023}) as a special case via functorial internalization.",
+    "authors": [
+      "Tony Shaska"
+    ],
+    "published": "2025-11-21T23:27:53Z",
+    "categories": [
+      "cs.LG",
+      "math.CT"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2511.17840v1.pdf"
+  },
+  "2401.17464v3": {
+    "arxiv_id": "2401.17464v3",
+    "title": "Efficient Tool Use with Chain-of-Abstraction Reasoning",
+    "abstract": "To achieve faithful reasoning that aligns with human expectations, large language models (LLMs) need to ground their reasoning to real-world knowledge (e.g., web facts, math and physical rules). Tools help LLMs access this external knowledge, but there remains challenges for fine-tuning LLM agents (e.g., Toolformer) to invoke tools in multi-step reasoning problems, where inter-connected tool calls require holistic and efficient tool usage planning. In this work, we propose a new method for LLMs to better leverage tools in multi-step reasoning. Our method, Chain-of-Abstraction (CoA), trains LLMs to first decode reasoning chains with abstract placeholders, and then call domain tools to reify each reasoning chain by filling in specific knowledge. This planning with abstract chains enables LLMs to learn more general reasoning strategies, which are robust to shifts of domain knowledge (e.g., math results) relevant to different reasoning questions. It also allows LLMs to perform decoding and calling of external tools in parallel, which avoids the inference delay caused by waiting for tool responses. In mathematical reasoning and Wiki QA domains, we show that our method consistently outperforms previous chain-of-thought and tool-augmented baselines on both in-distribution and out-of-distribution test sets, with an average ~6% absolute QA accuracy improvement. LLM agents trained with our method also show more efficient tool use, with inference speed being on average ~1.4x faster than baseline tool-augmented LLMs.",
+    "authors": [
+      "Silin Gao",
+      "Jane Dwivedi-Yu",
+      "Ping Yu",
+      "Xiaoqing Ellen Tan",
+      "Ramakanth Pasunuru",
+      "Olga Golovneva",
+      "Koustuv Sinha",
+      "Asli Celikyilmaz",
+      "Antoine Bosselut",
+      "Tianlu Wang"
+    ],
+    "published": "2024-01-30T21:53:30Z",
+    "categories": [
+      "cs.CL"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2401.17464v3.pdf"
+  },
+  "2408.08435v2": {
+    "arxiv_id": "2408.08435v2",
+    "title": "Automated Design of Agentic Systems",
+    "abstract": "Researchers are investing substantial effort in developing powerful general-purpose agents, wherein Foundation Models are used as modules within agentic systems (e.g. Chain-of-Thought, Self-Reflection, Toolformer). However, the history of machine learning teaches us that hand-designed solutions are eventually replaced by learned solutions. We describe a newly forming research area, Automated Design of Agentic Systems (ADAS), which aims to automatically create powerful agentic system designs, including inventing novel building blocks and/or combining them in new ways. We further demonstrate that there is an unexplored yet promising approach within ADAS where agents can be defined in code and new agents can be automatically discovered by a meta agent programming ever better ones in code. Given that programming languages are Turing Complete, this approach theoretically enables the learning of any possible agentic system: including novel prompts, tool use, workflows, and combinations thereof. We present a simple yet effective algorithm named Meta Agent Search to demonstrate this idea, where a meta agent iteratively programs interesting new agents based on an ever-growing archive of previous discoveries. Through extensive experiments across multiple domains including coding, science, and math, we show that our algorithm can progressively invent agents with novel designs that greatly outperform state-of-the-art hand-designed agents. Importantly, we consistently observe the surprising result that agents invented by Meta Agent Search maintain superior performance even when transferred across domains and models, demonstrating their robustness and generality. Provided we develop it safely, our work illustrates the potential of an exciting new research direction toward automatically designing ever-more powerful agentic systems to benefit humanity.",
+    "authors": [
+      "Shengran Hu",
+      "Cong Lu",
+      "Jeff Clune"
+    ],
+    "published": "2024-08-15T21:59:23Z",
+    "categories": [
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2408.08435v2.pdf"
+  },
+  "1207.0189v1": {
+    "arxiv_id": "1207.0189v1",
+    "title": "Local reflexion spaces",
+    "abstract": "A reflexion space is generalization of a symmetric space introduced by O. Loos. We generalize locally symmetric spaces to local reflexion spaces in the similar way. We investigate, when local reflexion spaces are equivalently given by a locally flat Cartan connection of certain type.",
+    "authors": [
+      "Jan Gregorovič"
+    ],
+    "published": "2012-07-01T08:39:21Z",
+    "categories": [
+      "math.DG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1207.0189v1.pdf"
+  },
+  "2303.11366v4": {
+    "arxiv_id": "2303.11366v4",
+    "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+    "abstract": "Large language models (LLMs) have been increasingly used to interact with external environments (e.g., games, compilers, APIs) as goal-driven agents. However, it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning. We propose Reflexion, a novel framework to reinforce language agents not by updating weights, but instead through linguistic feedback. Concretely, Reflexion agents verbally reflect on task feedback signals, then maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials. Reflexion is flexible enough to incorporate various types (scalar values or free-form language) and sources (external or internally simulated) of feedback signals, and obtains significant improvements over a baseline agent across diverse tasks (sequential decision-making, coding, language reasoning). For example, Reflexion achieves a 91% pass@1 accuracy on the HumanEval coding benchmark, surpassing the previous state-of-the-art GPT-4 that achieves 80%. We also conduct ablation and analysis studies using different feedback signals, feedback incorporation methods, and agent types, and provide insights into how they affect performance.",
+    "authors": [
+      "Noah Shinn",
+      "Federico Cassano",
+      "Edward Berman",
+      "Ashwin Gopinath",
+      "Karthik Narasimhan",
+      "Shunyu Yao"
+    ],
+    "published": "2023-03-20T18:08:50Z",
+    "categories": [
+      "cs.AI",
+      "cs.CL",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2303.11366v4.pdf"
+  },
+  "1801.07121v1": {
+    "arxiv_id": "1801.07121v1",
+    "title": "Reflexion in mathematical models of decision-making",
+    "abstract": "The paper is devoted to a generalization of static and dynamic mathematical models of behavior with explicitly stated reflexive models of agents' decision-making. Reflexion is considered as agent's beliefs about nature, opponents' beliefs and opponents' decision-making principles in the framework of game theory, collective behavior theory and learning models.",
+    "authors": [
+      "Dmitry Novikov",
+      "Vsevolod Korepanov",
+      "Alexander Chkhartishvili"
+    ],
+    "published": "2018-01-22T14:31:46Z",
+    "categories": [
+      "cs.GT"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1801.07121v1.pdf"
+  },
+  "1510.05463v2": {
+    "arxiv_id": "1510.05463v2",
+    "title": "Euler reflexion formulas for motivic multiple zeta functions",
+    "abstract": "We introduce a new notion of $\\boxast$-product of two integrable series with coefficients in distinct Grothendieck rings of algebraic varieties, preserving the integrability and commuting with the limit of rational series. In the same context, we define a motivic multiple zeta function with respect to an ordered family of regular functions, which is integrable and connects closely to Denef-Loeser's motivic zeta functions. We also show that the $\\boxast$-product is associative in the class of motivic multiple zeta functions. Furthermore, a version of the Euler reflexion formula for motivic zeta functions is nicely formulated to deal with the $\\boxast$-product and motivic multiple zeta functions, and it is proved using the theory of arc spaces. As an application, taking the limit for the motivic Euler reflexion formula we recover the well known motivic Thom-Sebastiani theorem.",
+    "authors": [
+      "Quy Thuong Le",
+      "Hong Duc Nguyen"
+    ],
+    "published": "2015-10-19T13:23:02Z",
+    "categories": [
+      "math.AG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1510.05463v2.pdf"
+  },
+  "2511.03898v1": {
+    "arxiv_id": "2511.03898v1",
+    "title": "Secure Code Generation at Scale with Reflexion",
+    "abstract": "Large language models (LLMs) are now widely used to draft and refactor code, but code that works is not necessarily secure. We evaluate secure code generation using the Instruct Prime, which eliminated compliance-required prompts and cue contamination, and evaluate five instruction-tuned code LLMs using a zero-shot baseline and a three-round reflexion prompting approach. Security is measured using the Insecure Code Detector (ICD), and results are reported by measuring Repair, Regression, and NetGain metrics, considering the programming language and CWE family. Our findings show that insecurity remains common at the first round: roughly 25-33% of programs are insecure at a zero-shot baseline (t0 ). Weak cryptography/config-dependent bugs are the hardest to avoid while templated ones like XSS, code injection, and hard-coded secrets are handled more reliably. Python yields the highest secure rates; C and C# are the lowest, with Java, JS, PHP, and C++ in the middle. Reflexion prompting improves security for all models, improving average accuracy from 70.74% at t0 to 79.43% at t3 , with the largest gains in the first round followed by diminishing returns. The trends with Repair, Regression, and NetGain metrics show that applying one to two rounds produces most of the benefits. A replication package is available at https://doi.org/10.5281/zenodo.17065846.",
+    "authors": [
+      "Arup Datta",
+      "Ahmed Aljohani",
+      "Hyunsook Do"
+    ],
+    "published": "2025-11-05T22:46:24Z",
+    "categories": [
+      "cs.CR",
+      "cs.AI",
+      "cs.CE",
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2511.03898v1.pdf"
+  },
+  "1709.09842v1": {
+    "arxiv_id": "1709.09842v1",
+    "title": "Poor Peering: a reflexion about a RIXP",
+    "abstract": "Since more than twenty years, Internet evolves as well as users' needs. and the users' needs too. The need of bandwidth growths every day with the new usages. In this context, with megabit per second count. There is a real business behind our free access to web site. From a group of island, the economy of bandwidth can be a major challenge. Installing a Regional Internet eXchange Point (RIXP) can be a solution to keep regional Internet traffic. This paper brings a reflexion about where to install a RIXP in the Indian Ocean Area (IOA). As there is a lot of different countries and stakes, we (stay) only on an scientist approach.",
+    "authors": [
+      "Rehan Noordally",
+      "Xavier Nicolay",
+      "Pascal Anelli",
+      "Richard Lorion",
+      "Tahiry Razafindralambo"
+    ],
+    "published": "2017-09-28T08:07:12Z",
+    "categories": [
+      "cs.NI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1709.09842v1.pdf"
+  },
+  "2001.09172v1": {
+    "arxiv_id": "2001.09172v1",
+    "title": "Reflexion maps and geometry of surfaces in R^4",
+    "abstract": "In this article we introduce new affinely invariant points---`special parabolic points'---on the parabolic set of a generic surface $M$ in real 4-space, associated with symmetries in the 2-parameter family of reflexions of $M$ in points of itself. The parabolic set itself is detected in this way, and each arc is given a sign, which changes at the special points, where the family has an additional degree of symmetry. Other points of $M$ which are detected by the family of reflexions include inflexion points of real and imaginary type, and the first of these is also associated with sign changes on the parabolic set. We show how to compute the special points globally for the case where $M$ is given in Monge form and give some examples illustrating the birth of special parbolic points in a 1-parameter family of surfaces. The tool we use from singularity theory is the contact classification of certain symmetric maps from the plane to the plane and we give the beginning of this classification, including versal unfoldings which we relate to the geometry of $M$.",
+    "authors": [
+      "Peter Giblin",
+      "Stanislaw Janeczko",
+      "Maria Aparecida Soares Ruas"
+    ],
+    "published": "2020-01-24T19:34:47Z",
+    "categories": [
+      "math.DG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2001.09172v1.pdf"
+  },
+  "2509.03990v2": {
+    "arxiv_id": "2509.03990v2",
+    "title": "Meta-Policy Reflexion: Reusable Reflective Memory and Rule Admissibility for Resource-Efficient LLM Agent",
+    "abstract": "Large language model (LLM) agents achieve impressive single-task performance but commonly exhibit repeated failures, inefficient exploration, and limited cross-task adaptability. Existing reflective strategies (e.g., Reflexion, ReAct) improve per-episode behavior but typically produce ephemeral, task-specific traces that are not reused across tasks. Reinforcement-learning based alternatives can produce transferable policies but require substantial parameter updates and compute. In this work we introduce Meta-Policy Reflexion (MPR): a hybrid framework that consolidates LLM-generated reflections into a structured, predicate-like Meta-Policy Memory (MPM) and applies that memory at inference time through two complementary mechanisms soft memory-guided decoding and hard rule admissibility checks(HAC). MPR (i) externalizes reusable corrective knowledge without model weight updates, (ii) enforces domain constraints to reduce unsafe or invalid actions, and (iii) retains the adaptability of language-based reflection. We formalize the MPM representation, present algorithms for update and decoding, and validate the approach in a text-based agent environment following the experimental protocol described in the provided implementation (AlfWorld-based). Empirical results reported in the supplied material indicate consistent gains in execution accuracy and robustness when compared to Reflexion baselines; rule admissibility further improves stability. We analyze mechanisms that explain these gains, discuss scalability and failure modes, and outline future directions for multimodal and multi-agent extensions.",
+    "authors": [
+      "Chunlong Wu",
+      "Ye Luo",
+      "Zhibo Qu",
+      "Min Wang"
+    ],
+    "published": "2025-09-04T08:18:39Z",
+    "categories": [
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2509.03990v2.pdf"
+  },
+  "2501.16024v1": {
+    "arxiv_id": "2501.16024v1",
+    "title": "Superstructure reflexions in tilted perovskites part 2",
+    "abstract": "In a previous article (Beanland & Sjokvist, 2024), we derived Boolean conditions for the appearance of superstructure reflexions in diffraction patterns from perovskites with tilted oxygen octahedra, using the structure factor equation. Assuming that the deviation from the untilted prototype perovskite structure was infinitesimally small, we expanded the structure factor as a Taylor series, truncated at the first term. This gave an elegant and simple method giving conditions on the presence or absence of superstructure reflexions. However, in real perovskite materials these distortions are sufficiently large for higher order terms to become significant, giving an additional set of superstructure reflexions. Here, we consider the second term in the expansion and show that it gives rise to second order reflexions with indices of the form half-even-even-odd. Boolean conditions for their presence are given.",
+    "authors": [
+      "Richard Beanland",
+      "Robin Sjokvist"
+    ],
+    "published": "2025-01-27T13:09:14Z",
+    "categories": [
+      "cond-mat.mtrl-sci"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2501.16024v1.pdf"
+  },
+  "2403.05326v4": {
+    "arxiv_id": "2403.05326v4",
+    "title": "ChatASU: Evoking LLM's Reflexion to Truly Understand Aspect Sentiment in Dialogues",
+    "abstract": "Aspect Sentiment Understanding (ASU) in interactive scenarios (e.g., Question-Answering and Dialogue) has attracted ever-more interest in recent years and achieved important progresses. However, existing studies on interactive ASU largely ignore the coreference issue for opinion targets (i.e., aspects), while this phenomenon is ubiquitous in interactive scenarios especially dialogues, limiting the ASU performance. Recently, large language models (LLMs) shows the powerful ability to integrate various NLP tasks with the chat paradigm. In this way, this paper proposes a new Chat-based Aspect Sentiment Understanding (ChatASU) task, aiming to explore LLMs' ability in understanding aspect sentiments in dialogue scenarios. Particularly, this ChatASU task introduces a sub-task, i.e., Aspect Chain Reasoning (ACR) task, to address the aspect coreference issue. On this basis, we propose a Trusted Self-reflexion Approach (TSA) with ChatGLM as backbone to ChatASU. Specifically, this TSA treats the ACR task as an auxiliary task to boost the performance of the primary ASU task, and further integrates trusted learning into reflexion mechanisms to alleviate the LLMs-intrinsic factual hallucination problem in TSA. Furthermore, a high-quality ChatASU dataset is annotated to evaluate TSA, and extensive experiments show that our proposed TSA can significantly outperform several state-of-the-art baselines, justifying the effectiveness of TSA to ChatASU and the importance of considering the coreference and hallucination issues in ChatASU.",
+    "authors": [
+      "Yiding Liu",
+      "Jingjing Wang",
+      "Jiamin Luo",
+      "Tao Zeng",
+      "Guodong Zhou"
+    ],
+    "published": "2024-03-08T14:05:36Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2403.05326v4.pdf"
+  },
+  "1311.5108v1": {
+    "arxiv_id": "1311.5108v1",
+    "title": "A Methodology to Engineer and Validate Dynamic Multi-level Multi-agent Based Simulations",
+    "abstract": "This article proposes a methodology to model and simulate complex systems, based on IRM4MLS, a generic agent-based meta-model able to deal with multi-level systems. This methodology permits the engineering of dynamic multi-level agent-based models, to represent complex systems over several scales and domains of interest. Its goal is to simulate a phenomenon using dynamically the lightest representation to save computer resources without loss of information. This methodology is based on two mechanisms: (1) the activation or deactivation of agents representing different domain parts of the same phenomenon and (2) the aggregation or disaggregation of agents representing the same phenomenon at different scales.",
+    "authors": [
+      "Jean-Baptiste Soyez",
+      "Gildas Morvan",
+      "Daniel Dupont",
+      "Rochdi Merzouki"
+    ],
+    "published": "2013-11-20T15:44:26Z",
+    "categories": [
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1311.5108v1.pdf"
+  },
+  "2412.06333v3": {
+    "arxiv_id": "2412.06333v3",
+    "title": "Augmenting the action space with conventions to improve multi-agent cooperation in Hanabi",
+    "abstract": "The card game Hanabi is considered a strong medium for the testing and development of multi-agent reinforcement learning (MARL) algorithms, due to its cooperative nature, partial observability, limited communication and remarkable complexity. Previous research efforts have explored the capabilities of MARL algorithms within Hanabi, focusing largely on advanced architecture design and algorithmic manipulations to achieve state-of-the-art performance for various number of cooperators. However, this often leads to complex solution strategies with high computational cost and requiring large amounts of training data. For humans to solve the Hanabi game effectively, they require the use of conventions, which often allows for a means to implicitly convey ideas or knowledge based on a predefined, and mutually agreed upon, set of \"rules\" or principles. Multi-agent problems containing partial observability, especially when limited communication is present, can benefit greatly from the use of implicit knowledge sharing. In this paper, we propose a novel approach to augmenting an agent's action space using conventions, which act as a sequence of special cooperative actions that span over and include multiple time steps and multiple agents, requiring agents to actively opt in for it to reach fruition. These conventions are based on existing human conventions, and result in a significant improvement on the performance of existing techniques for self-play and cross-play for various number of cooperators within Hanabi.",
+    "authors": [
+      "F. Bredell",
+      "H. A. Engelbrecht",
+      "J. C. Schoeman"
+    ],
+    "published": "2024-12-09T09:34:40Z",
+    "categories": [
+      "cs.MA",
+      "cs.AI",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2412.06333v3.pdf"
+  },
+  "2510.13343v1": {
+    "arxiv_id": "2510.13343v1",
+    "title": "AOAD-MAT: Transformer-based multi-agent deep reinforcement learning model considering agents' order of action decisions",
+    "abstract": "Multi-agent reinforcement learning focuses on training the behaviors of multiple learning agents that coexist in a shared environment. Recently, MARL models, such as the Multi-Agent Transformer (MAT) and ACtion dEpendent deep Q-learning (ACE), have significantly improved performance by leveraging sequential decision-making processes. Although these models can enhance performance, they do not explicitly consider the importance of the order in which agents make decisions. In this paper, we propose an Agent Order of Action Decisions-MAT (AOAD-MAT), a novel MAT model that considers the order in which agents make decisions. The proposed model explicitly incorporates the sequence of action decisions into the learning process, allowing the model to learn and predict the optimal order of agent actions. The AOAD-MAT model leverages a Transformer-based actor-critic architecture that dynamically adjusts the sequence of agent actions. To achieve this, we introduce a novel MARL architecture that cooperates with a subtask focused on predicting the next agent to act, integrated into a Proximal Policy Optimization based loss function to synergistically maximize the advantage of the sequential decision-making. The proposed method was validated through extensive experiments on the StarCraft Multi-Agent Challenge and Multi-Agent MuJoCo benchmarks. The experimental results show that the proposed AOAD-MAT model outperforms existing MAT and other baseline models, demonstrating the effectiveness of adjusting the AOAD order in MARL.",
+    "authors": [
+      "Shota Takayama",
+      "Katsuhide Fujita"
+    ],
+    "published": "2025-10-15T09:29:36Z",
+    "categories": [
+      "cs.MA",
+      "cs.AI",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2510.13343v1.pdf"
+  },
+  "2604.03350v1": {
+    "arxiv_id": "2604.03350v1",
+    "title": "From Model-Based Screening to Data-Driven Surrogates: A Multi-Stage Workflow for Exploring Stochastic Agent-Based Models",
+    "abstract": "Systematic exploration of Agent-Based Models (ABMs) is challenged by the curse of dimensionality and their inherent stochasticity. We present a multi-stage pipeline integrating the systematic design of experiments with machine learning surrogates. Using a predator-prey case study, our methodology proceeds in two steps. First, an automated model-based screening identifies dominant variables, assesses outcome variability, and segments the parameter space. Second, we train Machine Learning models to map the remaining nonlinear interaction effects. This approach automates the discovery of unstable regions where system outcomes are highly dependent on nonlinear interactions between many variables. Thus, this work provides modelers with a rigorous, hands-off framework for sensitivity analysis and policy testing, even when dealing with high-dimensional stochastic simulators.",
+    "authors": [
+      "Paul Saves",
+      "Matthieu Mastio",
+      "Nicolas Verstaevel",
+      "Benoit Gaudou"
+    ],
+    "published": "2026-04-03T15:32:49Z",
+    "categories": [
+      "cs.LG",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2604.03350v1.pdf"
+  },
+  "1809.07124v2": {
+    "arxiv_id": "1809.07124v2",
+    "title": "Pommerman: A Multi-Agent Playground",
+    "abstract": "We present Pommerman, a multi-agent environment based on the classic console game Bomberman. Pommerman consists of a set of scenarios, each having at least four players and containing both cooperative and competitive aspects. We believe that success in Pommerman will require a diverse set of tools and methods, including planning, opponent/teammate modeling, game theory, and communication, and consequently can serve well as a multi-agent benchmark. To date, we have already hosted one competition, and our next one will be featured in the NIPS 2018 competition track.",
+    "authors": [
+      "Cinjon Resnick",
+      "Wes Eldridge",
+      "David Ha",
+      "Denny Britz",
+      "Jakob Foerster",
+      "Julian Togelius",
+      "Kyunghyun Cho",
+      "Joan Bruna"
+    ],
+    "published": "2018-09-19T11:27:25Z",
+    "categories": [
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1809.07124v2.pdf"
+  },
+  "2102.08370v2": {
+    "arxiv_id": "2102.08370v2",
+    "title": "Quantifying the effects of environment and population diversity in multi-agent reinforcement learning",
+    "abstract": "Generalization is a major challenge for multi-agent reinforcement learning. How well does an agent perform when placed in novel environments and in interactions with new co-players? In this paper, we investigate and quantify the relationship between generalization and diversity in the multi-agent domain. Across the range of multi-agent environments considered here, procedurally generating training levels significantly improves agent performance on held-out levels. However, agent performance on the specific levels used in training sometimes declines as a result. To better understand the effects of co-player variation, our experiments introduce a new environment-agnostic measure of behavioral diversity. Results demonstrate that population size and intrinsic motivation are both effective methods of generating greater population diversity. In turn, training with a diverse set of co-players strengthens agent performance in some (but not all) cases.",
+    "authors": [
+      "Kevin R. McKee",
+      "Joel Z. Leibo",
+      "Charlie Beattie",
+      "Richard Everett"
+    ],
+    "published": "2021-02-16T18:54:39Z",
+    "categories": [
+      "cs.MA",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2102.08370v2.pdf"
+  },
+  "2303.14061v4": {
+    "arxiv_id": "2303.14061v4",
+    "title": "Learning Reward Machines in Cooperative Multi-Agent Tasks",
+    "abstract": "This paper presents a novel approach to Multi-Agent Reinforcement Learning (MARL) that combines cooperative task decomposition with the learning of reward machines (RMs) encoding the structure of the sub-tasks. The proposed method helps deal with the non-Markovian nature of the rewards in partially observable environments and improves the interpretability of the learnt policies required to complete the cooperative task. The RMs associated with each sub-task are learnt in a decentralised manner and then used to guide the behaviour of each agent. By doing so, the complexity of a cooperative multi-agent problem is reduced, allowing for more effective learning. The results suggest that our approach is a promising direction for future research in MARL, especially in complex environments with large state spaces and multiple agents.",
+    "authors": [
+      "Leo Ardon",
+      "Daniel Furelos-Blanco",
+      "Alessandra Russo"
+    ],
+    "published": "2023-03-24T15:12:28Z",
+    "categories": [
+      "cs.AI",
+      "cs.MA",
+      "cs.SC"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2303.14061v4.pdf"
+  },
+  "2412.05449v1": {
+    "arxiv_id": "2412.05449v1",
+    "title": "Towards Effective GenAI Multi-Agent Collaboration: Design and Evaluation for Enterprise Applications",
+    "abstract": "AI agents powered by large language models (LLMs) have shown strong capabilities in problem solving. Through combining many intelligent agents, multi-agent collaboration has emerged as a promising approach to tackle complex, multi-faceted problems that exceed the capabilities of single AI agents. However, designing the collaboration protocols and evaluating the effectiveness of these systems remains a significant challenge, especially for enterprise applications. This report addresses these challenges by presenting a comprehensive evaluation of coordination and routing capabilities in a novel multi-agent collaboration framework. We evaluate two key operational modes: (1) a coordination mode enabling complex task completion through parallel communication and payload referencing, and (2) a routing mode for efficient message forwarding between agents. We benchmark on a set of handcrafted scenarios from three enterprise domains, which are publicly released with the report. For coordination capabilities, we demonstrate the effectiveness of inter-agent communication and payload referencing mechanisms, achieving end-to-end goal success rates of 90%. Our analysis yields several key findings: multi-agent collaboration enhances goal success rates by up to 70% compared to single-agent approaches in our benchmarks; payload referencing improves performance on code-intensive tasks by 23%; latency can be substantially reduced with a routing mechanism that selectively bypasses agent orchestration. These findings offer valuable guidance for enterprise deployments of multi-agent systems and advance the development of scalable, efficient multi-agent collaboration frameworks.",
+    "authors": [
+      "Raphael Shu",
+      "Nilaksh Das",
+      "Michelle Yuan",
+      "Monica Sunkara",
+      "Yi Zhang"
+    ],
+    "published": "2024-12-06T22:14:17Z",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2412.05449v1.pdf"
+  },
+  "2110.08172v2": {
+    "arxiv_id": "2110.08172v2",
+    "title": "MLFC: From 10 to 50 Planners in the Multi-Agent Programming Contest",
+    "abstract": "In this paper, we describe the strategies used by our team, MLFC, that led us to achieve the 2nd place in the 15th edition of the Multi-Agent Programming Contest. The scenario used in the contest is an extension of the previous edition (14th) \"Agents Assemble\" wherein two teams of agents move around a 2D grid and compete to assemble complex block structures. We discuss the languages and tools used during the development of our team. Then, we summarise the main strategies that were carried over from our previous participation in the 14th edition and list the limitations (if any) of using these strategies in the latest contest edition. We also developed new strategies that were made specifically for the extended scenario: cartography (determining the size of the map); formal verification of the map merging protocol (to provide assurances that it works when increasing the number of agents); plan cache (efficiently scaling the number of planners); task achievement (forming groups of agents to achieve tasks); and bullies (agents that focus on stopping agents from the opposing team). Finally, we give a brief overview of our performance in the contest and discuss what we believe were our shortcomings.",
+    "authors": [
+      "Rafael C. Cardoso",
+      "Angelo Ferrando",
+      "Fabio Papacchini",
+      "Matt Luckcuck",
+      "Sven Linker",
+      "Terry R. Payne"
+    ],
+    "published": "2021-10-15T15:59:08Z",
+    "categories": [
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2110.08172v2.pdf"
+  },
+  "2603.25111v2": {
+    "arxiv_id": "2603.25111v2",
+    "title": "SEVerA: Verified Synthesis of Self-Evolving Agents",
+    "abstract": "Recent advances have shown the effectiveness of self-evolving LLM agents on tasks such as program repair and scientific discovery. In this paradigm, a planner LLM synthesizes an agent program that invokes parametric models, including LLMs, which are then tuned per task to improve performance. However, existing self-evolving agent frameworks provide no formal guarantees of safety or correctness. Because such programs are often executed autonomously on unseen inputs, this lack of guarantees raises reliability and security concerns. We formulate agentic code generation as a constrained learning problem, combining hard formal specifications with soft objectives capturing task utility. We introduce Formally Guarded Generative Models (FGGM), which allow the planner LLM to specify a formal output contract for each generative model call using first-order logic. Each FGGM call wraps the underlying model in a rejection sampler with a verified fallback, ensuring every returned output satisfies the contract for any input and parameter setting. Building on FGGM, we present SEVerA (Self-Evolving Verified Agents), a three-stage framework: Search synthesizes candidate parametric programs containing FGGM calls; Verification proves correctness with respect to hard constraints for all parameter values, reducing the problem to unconstrained learning; and Learning applies scalable gradient-based optimization, including GRPO-style fine-tuning, to improve the soft objective while preserving correctness. We evaluate SEVerA on Dafny program verification, symbolic math synthesis, and policy-compliant agentic tool use ($τ^2$-bench). Across tasks, SEVerA achieves zero constraint violations while improving performance over unconstrained and SOTA baselines, showing that formal behavioral constraints not only guarantee correctness but also steer synthesis toward higher-quality agents.",
+    "authors": [
+      "Debangshu Banerjee",
+      "Changming Xu",
+      "Eugene Ie",
+      "Ming Zhang",
+      "Daiyi Peng",
+      "Chu-Cheng Lin",
+      "Gagandeep Singh"
+    ],
+    "published": "2026-03-26T07:32:20Z",
+    "categories": [
+      "cs.LG",
+      "cs.PL",
+      "cs.SE"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2603.25111v2.pdf"
+  },
+  "2508.07407v2": {
+    "arxiv_id": "2508.07407v2",
+    "title": "A Comprehensive Survey of Self-Evolving AI Agents: A New Paradigm Bridging Foundation Models and Lifelong Agentic Systems",
+    "abstract": "Recent advances in large language models have sparked growing interest in AI agents capable of solving complex, real-world tasks. However, most existing agent systems rely on manually crafted configurations that remain static after deployment, limiting their ability to adapt to dynamic and evolving environments. To this end, recent research has explored agent evolution techniques that aim to automatically enhance agent systems based on interaction data and environmental feedback. This emerging direction lays the foundation for self-evolving AI agents, which bridge the static capabilities of foundation models with the continuous adaptability required by lifelong agentic systems. In this survey, we provide a comprehensive review of existing techniques for self-evolving agentic systems. Specifically, we first introduce a unified conceptual framework that abstracts the feedback loop underlying the design of self-evolving agentic systems. The framework highlights four key components: System Inputs, Agent System, Environment, and Optimisers, serving as a foundation for understanding and comparing different strategies. Based on this framework, we systematically review a wide range of self-evolving techniques that target different components of the agent system. We also investigate domain-specific evolution strategies developed for specialised fields such as biomedicine, programming, and finance, where optimisation objectives are tightly coupled with domain constraints. In addition, we provide a dedicated discussion on the evaluation, safety, and ethical considerations for self-evolving agentic systems, which are critical to ensuring their effectiveness and reliability. This survey aims to provide researchers and practitioners with a systematic understanding of self-evolving AI agents, laying the foundation for the development of more adaptive, autonomous, and lifelong agentic systems.",
+    "authors": [
+      "Jinyuan Fang",
+      "Yanwen Peng",
+      "Xi Zhang",
+      "Yingxu Wang",
+      "Xinhao Yi",
+      "Guibin Zhang",
+      "Yi Xu",
+      "Bin Wu",
+      "Siwei Liu",
+      "Zihao Li",
+      "Zhaochun Ren",
+      "Nikos Aletras",
+      "Xi Wang",
+      "Han Zhou",
+      "Zaiqiao Meng"
+    ],
+    "published": "2025-08-10T16:07:32Z",
+    "categories": [
+      "cs.AI",
+      "cs.CL",
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2508.07407v2.pdf"
+  },
+  "2602.15654v2": {
+    "arxiv_id": "2602.15654v2",
+    "title": "Zombie Agents: Persistent Control of Self-Evolving LLM Agents via Self-Reinforcing Injections",
+    "abstract": "Self-evolving LLM agents update their internal state across sessions, often by writing and reusing long-term memory. This design improves performance on long-horizon tasks but creates a security risk: untrusted external content observed during a benign session can be stored as memory and later treated as instruction. We study this risk and formalize a persistent attack we call a Zombie Agent, where an attacker covertly implants a payload that survives across sessions, effectively turning the agent into a puppet of the attacker. We present a black-box attack framework that uses only indirect exposure through attacker-controlled web content. The attack has two phases. During infection, the agent reads a poisoned source while completing a benign task and writes the payload into long-term memory through its normal update process. During trigger, the payload is retrieved or carried forward and causes unauthorized tool behavior. We design mechanism-specific persistence strategies for common memory implementations, including sliding-window and retrieval-augmented memory, to resist truncation and relevance filtering. We evaluate the attack on representative agent setups and tasks, measuring both persistence over time and the ability to induce unauthorized actions while preserving benign task quality. Our results show that memory evolution can convert one-time indirect injection into persistent compromise, which suggests that defenses focused only on per-session prompt filtering are not sufficient for self-evolving agents.",
+    "authors": [
+      "Xianglin Yang",
+      "Yufei He",
+      "Shuo Ji",
+      "Bryan Hooi",
+      "Jin Song Dong"
+    ],
+    "published": "2026-02-17T15:28:24Z",
+    "categories": [
+      "cs.CR",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2602.15654v2.pdf"
+  },
+  "1106.6186v1": {
+    "arxiv_id": "1106.6186v1",
+    "title": "IBSEAD: - A Self-Evolving Self-Obsessed Learning Algorithm for Machine Learning",
+    "abstract": "We present IBSEAD or distributed autonomous entity systems based Interaction - a learning algorithm for the computer to self-evolve in a self-obsessed manner. This learning algorithm will present the computer to look at the internal and external environment in series of independent entities, which will interact with each other, with and/or without knowledge of the computer's brain. When a learning algorithm interacts, it does so by detecting and understanding the entities in the human algorithm. However, the problem with this approach is that the algorithm does not consider the interaction of the third party or unknown entities, which may be interacting with each other. These unknown entities in their interaction with the non-computer entities make an effect in the environment that influences the information and the behaviour of the computer brain. Such details and the ability to process the dynamic and unsettling nature of these interactions are absent in the current learning algorithm such as the decision tree learning algorithm. IBSEAD is able to evaluate and consider such algorithms and thus give us a better accuracy in simulation of the highly evolved nature of the human brain. Processes such as dreams, imagination and novelty, that exist in humans are not fully simulated by the existing learning algorithms. Also, Hidden Markov models (HMM) are useful in finding \"hidden\" entities, which may be known or unknown. However, this model fails to consider the case of unknown entities which maybe unclear or unknown. IBSEAD is better because it considers three types of entities- known, unknown and invisible. We present our case with a comparison of existing algorithms in known environments and cases and present the results of the experiments using dry run of the simulated runs of the existing machine learning algorithms versus IBSEAD.",
+    "authors": [
+      "Jitesh Dundas",
+      "David Chik"
+    ],
+    "published": "2011-06-30T11:08:35Z",
+    "categories": [
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1106.6186v1.pdf"
+  },
+  "0205016v1": {
+    "arxiv_id": "0205016v1",
+    "title": "From Alife Agents to a Kingdom of N Queens",
+    "abstract": "This paper presents a new approach to solving N-queen problems, which involves a model of distributed autonomous agents with artificial life (ALife) and a method of representing N-queen constraints in an agent environment. The distributed agents locally interact with their living environment, i.e., a chessboard, and execute their reactive behaviors by applying their behavioral rules for randomized motion, least-conflict position searching, and cooperating with other agents etc. The agent-based N-queen problem solving system evolves through selection and contest according to the rule of Survival of the Fittest, in which some agents will die or be eaten if their moving strategies are less efficient than others. The experimental results have shown that this system is capable of solving large-scale N-queen problems. This paper also provides a model of ALife agents for solving general CSPs.",
+    "authors": [
+      "Jing Han",
+      "Jiming Liu",
+      "Qingsheng Cai"
+    ],
+    "published": "2002-05-13T10:49:48Z",
+    "categories": [
+      "cs.AI",
+      "cs.DS",
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/0205016v1.pdf"
+  },
+  "2605.17721v1": {
+    "arxiv_id": "2605.17721v1",
+    "title": "EXG: Self-Evolving Agents with Experience Graphs",
+    "abstract": "Large language model (LLM)-based agents have demonstrated strong capabilities in complex reasoning and problem solving through multi-step interactions, yet most deployed agents remain behaviorally static, with knowledge acquired during execution rarely translating into systematic improvement over time. In response, a growing line of work on self-evolving agents explores how agents can improve through experience during deployment, but most existing approaches either rely on ad hoc reflection limited to single-task correction or adopt unstructured memory that accumulates fragmented experience with delayed usability. To address this limitation, we introduce EXG, an experience graph framework for self-evolving agents that explicitly organizes accumulated successes and failures into a structured, relational representation. EXG is the first experience graph designed for self-evolving agents, supporting both online, real-time graph growth during execution for immediate cross-task experience reuse, and offline reuse of a consolidated experience graph as an external memory module. This design also enables EXG to serve as a plug-and-play component for existing self-evolving agents, organizing prior experience into a unified experience graph and improving both solution quality and resource efficiency as deployment progresses. Extensive experiments across code generation and reasoning benchmarks show that EXG attains more favorable performance-efficiency trade-offs than reflection- and memory-based baselines in both online and offline evaluations. Our results suggest that structuring experience as a graph provides a principled foundation for scalable and transferable self-evolving agent behavior.",
+    "authors": [
+      "Yuxin Jin",
+      "Siyuan Zhang",
+      "Hanchen Wang",
+      "Lu Qin",
+      "Ying Zhang",
+      "Wenjie Zhang"
+    ],
+    "published": "2026-05-18T00:50:23Z",
+    "categories": [
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2605.17721v1.pdf"
+  },
+  "1807.02648v1": {
+    "arxiv_id": "1807.02648v1",
+    "title": "How game complexity affects the playing behavior of synthetic agents",
+    "abstract": "Agent based simulation of social organizations, via the investigation of agents' training and learning tactics and strategies, has been inspired by the ability of humans to learn from social environments which are rich in agents, interactions and partial or hidden information. Such richness is a source of complexity that an effective learner has to be able to navigate. This paper focuses on the investigation of the impact of the environmental complexity on the game playing-and-learning behavior of synthetic agents. We demonstrate our approach using two independent turn-based zero-sum games as the basis of forming social events which are characterized both by competition and cooperation. The paper's key highlight is that as the complexity of a social environment changes, an effective player has to adapt its learning and playing profile to maintain a given performance profile",
+    "authors": [
+      "Chairi Kiourt",
+      "Dimitris Kalles",
+      "Panagiotis Kanellopoulos"
+    ],
+    "published": "2018-07-07T11:57:21Z",
+    "categories": [
+      "cs.AI",
+      "cs.CC",
+      "cs.MA"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/1807.02648v1.pdf"
+  }
+}

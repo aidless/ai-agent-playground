@@ -50,6 +50,7 @@ from agent.eval_gate import EvaluationGate
 from agent.sandbox_meta import SandboxMetaEvolution
 from agent.knowledge.routes import router as knowledge_router, init_knowledge_module
 from agent.chat_ui import chat_html
+from agent.tools.research import research_tool
 from observability.clear_metrics import CLEARPanel
 
 logger = logging.getLogger(__name__)
@@ -318,7 +319,12 @@ async def lifespan(app: FastAPI):
 
             # Initialize Knowledge Engine
             init_knowledge_module(llm_client=client, llm_model="deepseek-chat")
-            print("KnowledgeEngine: AI论文知识库已就绪")
+            from agent.knowledge.query_engine import query_engine
+            research_tool.set_engine(query_engine)
+            registry.register("research_paper", "Query AI research papers from ArXiv. Use this to find the latest research on any AI/ML topic.",
+                            {"properties": {"query": {"type": "str", "description": "Research question to search papers for"}, "top_k": {"type": "int", "description": "Number of papers to retrieve (default 5)"}}, "required": ["query"]},
+                            research_tool)
+            print("KnowledgeEngine: AI论文知识库 + research_paper工具已就绪")
         except Exception as e:
             print(f"Cross-Model Reviewer 不可用 (Ollama未启动): {e}")
             cross_reviewer = None

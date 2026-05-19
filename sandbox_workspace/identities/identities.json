@@ -1957,6 +1957,170 @@
       "created_by": "test",
       "updated_by": "",
       "permission_grants": []
+    },
+    {
+      "id": "id-966449a48d29",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:41:43.189544+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-59a051b92843",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:50:39.041429+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-1d005e7618a1",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:50:53.102203+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-50d8ff5d2920",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:51:07.242308+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-1cc7aff8c066",
+      "name": "test-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:51:53.571350+00:00",
+      "last_seen": "2026-05-19T06:51:53.574429+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-9409e9712364",
+      "name": "test-agent2",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:51:53.578944+00:00",
+      "last_seen": "2026-05-19T06:51:53.580951+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-b900c4044c72",
+      "name": "reset-test",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:51:53.590734+00:00",
+      "last_seen": "2026-05-19T06:51:53.593175+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-8b379440ec52",
+      "name": "tracked-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:51:53.597228+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "admin-user",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-f30573e32732",
+      "name": "agent-x",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:51:53.601759+00:00",
+      "last_seen": "",
+      "active": false,
+      "created_by": "admin",
+      "updated_by": "security-auditor",
+      "permission_grants": []
+    },
+    {
+      "id": "id-40852ddf4905",
+      "name": "default-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:51:53.608308+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-2dc057d9d54c",
+      "name": "dev",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:51:53.613012+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-3fa1c6cb3b4c",
+      "name": "viewer",
+      "role": "viewer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:51:53.617586+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": [
+        {
+          "permission": "write_files",
+          "resource": "user_files",
+          "conditions": {
+            "ip": "192.168.1.*"
+          }
+        }
+      ]
+    },
+    {
+      "id": "id-14cc5f0ee019",
+      "name": "dev2",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:51:53.624182+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
     }
   ]
 }

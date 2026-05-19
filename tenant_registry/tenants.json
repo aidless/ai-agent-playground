@@ -1,0 +1,18 @@
+{
+  "tenants": [
+    {
+      "id": "default",
+      "name": "Default Tenant",
+      "namespace": "default",
+      "quota": {
+        "requests_per_minute": 100,
+        "requests_per_hour": 1000,
+        "max_concurrent_sessions": 5,
+        "max_tokens_per_day": 1000000,
+        "storage_mb": 100
+      },
+      "active": true,
+      "created_at": "2026-05-19T06:51:07.241287+00:00"
+    }
+  ]
+}
