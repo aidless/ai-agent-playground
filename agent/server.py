@@ -51,6 +51,7 @@ from agent.sandbox_meta import SandboxMetaEvolution
 from agent.knowledge.routes import router as knowledge_router, init_knowledge_module
 from agent.chat_ui import chat_html
 from agent.dashboard import dashboard_html, dashboard_data
+from agent.ui_data import app_html
 from agent.tools.research import research_tool
 from agent.session_memory import SessionMemory
 from observability.clear_metrics import CLEARPanel
@@ -487,6 +488,12 @@ async def health_check():
         "deploy": deploy_mgr.deploy_status(),
         "alerts": alert_mgr.status(),
     }
+
+
+@app.get("/app", response_class=HTMLResponse)
+async def app_page():
+    """统一 Web App — 导航栏 + 中英切换 + 全部功能"""
+    return app_html()
 
 
 @app.get("/chat", response_class=HTMLResponse)
