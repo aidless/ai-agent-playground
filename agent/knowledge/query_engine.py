@@ -74,7 +74,7 @@ class KnowledgeQueryEngine:
             full_text = ""
             if paper_id and self.collector:
                 full_text = self.collector.get_full_text(paper_id)
-            body = full_text[:1500] if full_text else s.get("abstract", "")[:800]
+            body = full_text[:800] if full_text else s.get("abstract", "")[:800]
             context_parts.append(
                 f"[{i+1}] {s['title']}\nAuthors: {s.get('authors', '')}\n{body}"
             )

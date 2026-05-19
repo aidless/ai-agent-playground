@@ -2813,6 +2813,18 @@
       "created_by": "system",
       "updated_by": "",
       "permission_grants": []
+    },
+    {
+      "id": "id-77f5207dac01",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T11:21:14.076675+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
     }
   ]
 }
