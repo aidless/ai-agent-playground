@@ -20,7 +20,7 @@ class KnowledgeQueryEngine:
         if self.indexer and self.indexer.is_built and self.indexer.collection:
             try:
                 if self.indexer.embed_fn:
-                    q_emb = self.indexer.embed_fn.encode([query]).tolist()
+                    q_emb = self.indexer.embed_fn(query)
                     r = self.indexer.collection.query(query_embeddings=q_emb, n_results=top_k)
                 else:
                     r = self.indexer.collection.query(query_texts=[query], n_results=top_k)

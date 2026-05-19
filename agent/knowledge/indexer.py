@@ -39,20 +39,51 @@ class KnowledgeIndexer:
                     metadata={"description": "AI Agent research papers"},
                 )
 
-            # Load embedding model
+            # Load embedding model — try Ollama first (no install needed), then sentence-transformers
+            self._embed_fn = None
             try:
-                from sentence_transformers import SentenceTransformer
-                self._embed_fn = SentenceTransformer("all-MiniLM-L6-v2")
-                logger.info("Embedding model loaded: all-MiniLM-L6-v2")
-            except ImportError:
-                logger.warning("sentence-transformers not available, using keyword-only search")
-                self._embed_fn = None
+                import urllib.request, json as _json
+                req = urllib.request.Request("http://localhost:11434/api/embeddings",
+                    data=_json.dumps({"model": "nomic-embed-text:latest", "prompt": "test"}).encode(),
+                    headers={"Content-Type": "application/json"})
+                urllib.request.urlopen(req, timeout=5)
+                self._embed_fn = self._ollama_embed
+                self._ollama_model = "qwen2.5:7b"
+                logger.info("Embedding: Ollama qwen2.5:7b")
+            except Exception:
+                try:
+                    from sentence_transformers import SentenceTransformer
+                    self._embed_fn = SentenceTransformer("all-MiniLM-L6-v2").encode
+                    logger.info("Embedding model loaded: all-MiniLM-L6-v2")
+                except ImportError:
+                    logger.warning("No embedding available, using keyword-only search")
+
+    def _ollama_embed(self, texts):
+        """Get embeddings from Ollama API using local model."""
+        import urllib.request, json as _json
+        model = getattr(self, "_ollama_model", "qwen2.5:7b")
+        if isinstance(texts, str):
+            texts = [texts]
+        embeddings = []
+        for text in texts:
+            req = urllib.request.Request("http://localhost:11434/api/embeddings",
+                data=_json.dumps({"model": model, "prompt": text}).encode(),
+                headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                data = _json.loads(resp.read())
+                embeddings.append(data.get("embedding", []))
+        return embeddings
 
             if not self.collector or not self.collector._cache:
                 logger.warning("No papers to index")
                 return {"error": "No papers found. Run collection first."}
 
             papers = list(self.collector._cache.values())
+            # Limit per-run for performance (Ollama embedding is ~13s/paper)
+            max_per_run = 20
+            if len(papers) > max_per_run and self._embed_fn == self._ollama_embed:
+                logger.info("Limiting to %d papers per index run (Ollama embedding)", max_per_run)
+                papers = papers[-max_per_run:]  # Index newest papers first
             batch_size = 20
             for i in range(0, len(papers), batch_size):
                 batch = papers[i:i + batch_size]

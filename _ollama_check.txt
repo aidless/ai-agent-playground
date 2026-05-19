@@ -1,0 +1,1 @@
+Ollama OK, models: ['qwen2.5:7b']
