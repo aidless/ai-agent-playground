@@ -49,6 +49,7 @@ from agent.self_play import SelfPlayEngine
 from agent.eval_gate import EvaluationGate
 from agent.sandbox_meta import SandboxMetaEvolution
 from agent.knowledge.routes import router as knowledge_router, init_knowledge_module
+from agent.chat_ui import chat_html
 from observability.clear_metrics import CLEARPanel
 
 logger = logging.getLogger(__name__)
@@ -473,6 +474,12 @@ async def health_check():
         "deploy": deploy_mgr.deploy_status(),
         "alerts": alert_mgr.status(),
     }
+
+
+@app.get("/chat", response_class=HTMLResponse)
+async def chat_ui_page():
+    """实时聊天界面 — 状态机可视化 + 工具调用 + 反思"""
+    return chat_html()
 
 
 @app.get("/", response_class=HTMLResponse)

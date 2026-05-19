@@ -1725,6 +1725,238 @@
       "created_by": "test",
       "updated_by": "",
       "permission_grants": []
+    },
+    {
+      "id": "id-20b62d025897",
+      "name": "test-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:34.675741+00:00",
+      "last_seen": "2026-05-19T06:37:34.678499+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-8db8e1fc34e8",
+      "name": "test-agent2",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:34.682045+00:00",
+      "last_seen": "2026-05-19T06:37:34.685049+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-6be90e53dbf7",
+      "name": "reset-test",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:34.692553+00:00",
+      "last_seen": "2026-05-19T06:37:34.695556+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-a3e4dc7f37cd",
+      "name": "tracked-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:34.699556+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "admin-user",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-597d1b7d959f",
+      "name": "agent-x",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:34.703191+00:00",
+      "last_seen": "",
+      "active": false,
+      "created_by": "admin",
+      "updated_by": "security-auditor",
+      "permission_grants": []
+    },
+    {
+      "id": "id-3e2b1b4144c8",
+      "name": "default-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:34.709608+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-3d2e1de4253c",
+      "name": "dev",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:34.713335+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-01fd47d90998",
+      "name": "viewer",
+      "role": "viewer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:34.718658+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": [
+        {
+          "permission": "write_files",
+          "resource": "user_files",
+          "conditions": {
+            "ip": "192.168.1.*"
+          }
+        }
+      ]
+    },
+    {
+      "id": "id-1f0f619719e6",
+      "name": "dev2",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:34.724224+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-809d8f82b431",
+      "name": "test-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:49.070095+00:00",
+      "last_seen": "2026-05-19T06:37:49.072246+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-4a83dd4470cd",
+      "name": "test-agent2",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:49.076701+00:00",
+      "last_seen": "2026-05-19T06:37:49.078713+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-17c2cc314ecb",
+      "name": "reset-test",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:49.088302+00:00",
+      "last_seen": "2026-05-19T06:37:49.090316+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-107894e1e7f0",
+      "name": "tracked-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:49.094864+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "admin-user",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-6644efb8c998",
+      "name": "agent-x",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:49.099949+00:00",
+      "last_seen": "",
+      "active": false,
+      "created_by": "admin",
+      "updated_by": "security-auditor",
+      "permission_grants": []
+    },
+    {
+      "id": "id-c939c9491f75",
+      "name": "default-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:49.106586+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-b12caf9bd55b",
+      "name": "dev",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:49.111586+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-7f02dc9ac9fb",
+      "name": "viewer",
+      "role": "viewer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:49.116787+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": [
+        {
+          "permission": "write_files",
+          "resource": "user_files",
+          "conditions": {
+            "ip": "192.168.1.*"
+          }
+        }
+      ]
+    },
+    {
+      "id": "id-f223111962e7",
+      "name": "dev2",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T06:37:49.124350+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
     }
   ]
 }
