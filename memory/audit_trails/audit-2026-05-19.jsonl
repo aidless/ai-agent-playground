@@ -16,3 +16,5 @@
 {"ts": "2026-05-19T19:04:12.918601", "operation": "tool_call", "tool": "calc", "args": {"a": "5", "b": "5"}, "result": "10", "duration_ms": 0.0, "success": true, "error": null, "level": "readonly", "trace_id": "pytest_001"}
 {"ts": "2026-05-19T19:27:49.744112", "operation": "tool_call", "tool": "calc", "args": {"a": "1", "b": "2"}, "result": "3", "duration_ms": 0.0, "success": true, "error": null, "level": "readonly", "trace_id": "pytest_001"}
 {"ts": "2026-05-19T19:27:49.744615", "operation": "tool_call", "tool": "calc", "args": {"a": "5", "b": "5"}, "result": "10", "duration_ms": 0.0, "success": true, "error": null, "level": "readonly", "trace_id": "pytest_001"}
+{"ts": "2026-05-19T19:29:18.457228", "operation": "tool_call", "tool": "calc", "args": {"a": "1", "b": "2"}, "result": "3", "duration_ms": 0.0, "success": true, "error": null, "level": "readonly", "trace_id": "pytest_001"}
+{"ts": "2026-05-19T19:29:18.457228", "operation": "tool_call", "tool": "calc", "args": {"a": "5", "b": "5"}, "result": "10", "duration_ms": 0.0, "success": true, "error": null, "level": "readonly", "trace_id": "pytest_001"}

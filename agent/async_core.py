@@ -450,7 +450,7 @@ class AsyncAgent:
             })
 
     def _inject_episodic_memory(self, ctx: AgentContext):
-        """Inject relevant past reflections as context (Reflexion paper)."""
+        """Inject relevant past reflections + synthesized insights (Generative Agents paper)."""
         if not self.episodic_memory:
             return
         user_msg = ""
@@ -459,7 +459,15 @@ class AsyncAgent:
                 user_msg = m.get("content", "")
                 break
         task_type = self.episodic_memory.classify_task(user_msg) if user_msg else "general"
+
+        # Individual reflections
         context = self.episodic_memory.build_context(task_type)
+
+        # Synthesized higher-level insight (Generative Agents)
+        synthesis = self.episodic_memory.synthesize(task_type)
+        if synthesis:
+            context = f"{context}\n\n## Synthesized Patterns:\n{synthesis}"
+
         if context:
             ctx.messages.insert(0, {"role": "system", "content": context})
 

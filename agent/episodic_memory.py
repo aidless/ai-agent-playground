@@ -148,6 +148,29 @@ class EpisodicMemoryStore:
                 return task_type
         return "general"
 
+    def synthesize(self, task_type: str = "") -> str:
+        """Synthesize multiple reflections into a higher-level insight.
+
+        Generative Agents (Park et al., 2023): "synthesize memories over time
+        into higher-level reflections."
+        """
+        candidates = self.retrieve(task_type, k=10, include_failures=True)
+        if len(candidates) < 5:
+            return ""
+
+        failures = [m for m in candidates if not m.success]
+        successes = [m for m in candidates if m.success]
+
+        parts = []
+        if failures:
+            common_errors = set(m.reflection[:80] for m in failures[:3])
+            parts.append(f"Common failures in '{task_type}': {'; '.join(common_errors)}")
+        if successes:
+            patterns = set(m.reflection[:80] for m in successes[:3])
+            parts.append(f"Successful patterns in '{task_type}': {'; '.join(patterns)}")
+
+        return " | ".join(parts) if parts else ""
+
     def status(self) -> dict:
         by_type = {}
         for m in self._memories:

@@ -30,4 +30,4 @@ tests/test_improvements.py::TestContextCompressor::test_compress_hybrid
   See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-========== 159 passed, 1 skipped, 2 deselected, 2 warnings in 1.79s ===========
+========== 159 passed, 1 skipped, 2 deselected, 2 warnings in 2.00s ===========
