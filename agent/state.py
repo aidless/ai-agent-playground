@@ -43,6 +43,9 @@ class AgentContext:
     # 安全上下文
     identity: Any = None  # Identity object from request, checked by sandbox
 
+    # MemGPT interrupt queue
+    interrupts: list[dict[str, Any]] = field(default_factory=list)
+
     # 反思与学习
     reflections: list[str] = field(default_factory=list)
     lessons: list[str] = field(default_factory=list)

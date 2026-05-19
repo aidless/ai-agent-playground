@@ -1,0 +1,10 @@
+SCALING LAW TEST (More Agents Is All You Need)
+============================================================
+
+1 agents:
+  What is 2+2? Answer in one word.... -> completed=True (agents=1)
+  Explain what a Python decorator is in 1-2 sentence... -> completed=True (agents=1)
+  Is PostgreSQL a SQL or NoSQL database? One word.... -> completed=True (agents=1)
+  Avg: 100.0%
+
+3 agents:

@@ -1,0 +1,202 @@
+[
+  {
+    "id": "2412.05311v1",
+    "title": "DRC-Coder: Automated DRC Checker Code Generation Using LLM Autonomous Agent",
+    "abstract": "In the advanced technology nodes, the integrated design rule checker (DRC) is often utilized in place and route tools for fast optimization loops for power-performance-area. Implementing integrated DRC checkers to meet the standard of commercial DRC tools demands extensive human expertise to interpret foundry specifications, analyze layouts, and debug code iteratively. However, this labor-intensive process, requiring to be repeated by every update of technology nodes, prolongs the turnaround time of designing circuits. In this paper, we present DRC-Coder, a multi-agent framework with vision capabilities for automated DRC code generation. By incorporating vision language models and large language models (LLM), DRC-Coder can effectively process textual, visual, and layout information to perform rule interpretation and coding by two specialized LLMs. We also design an auto-evaluation function for LLMs to enable DRC code debugging. Experimental results show that targeting on a sub-3nm technology node for a state-of-the-art standard cell layout tool, DRC-Coder achieves perfect F1 score 1.000 in generating DRC codes for meeting the standard of a commercial DRC tool, highly outperforming standard prompting techniques (F1=0.631). DRC-Coder can generate code for each design rule within four minutes on average, which significantly accelerates technology advancement and reduces engineering costs.",
+    "authors": "Chen-Chia Chang, Chia-Tung Ho, Yaguang Li, Yiran Chen, Haoxing Ren",
+    "published": "2024-11-28",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2412.01262v2",
+    "title": "Exploring ReAct Prompting for Task-Oriented Dialogue: Insights and Shortcomings",
+    "abstract": "Large language models (LLMs) gained immense popularity due to their impressive capabilities in unstructured conversations. Empowering LLMs with advanced prompting strategies such as reasoning and acting (ReAct) (Yao et al., 2022) has shown promise in solving complex tasks traditionally requiring reinforcement learning. In this work, we apply the ReAct strategy to guide LLMs performing task-oriented dialogue (TOD). We evaluate ReAct-based LLMs (ReAct-LLMs) both in simulation and with real users. While ReAct-LLMs severely underperform state-of-the-art approaches on success rate in simulation, this difference becomes less pronounced in human evaluation. Moreover, compared to the baseline, humans report higher subjective satisfaction with ReAct-LLM despite its lower success rate, most likely thanks to its natural and confidently phrased responses.",
+    "authors": "Michelle Elizabeth, Morgan Veyret, Miguel Couceiro, Ondrej Dusek, Lina M. Rojas-Barahona",
+    "published": "2024-12-02",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2405.13966v1",
+    "title": "On the Brittle Foundations of ReAct Prompting for Agentic Large Language Models",
+    "abstract": "The reasoning abilities of Large Language Models (LLMs) remain a topic of debate. Some methods such as ReAct-based prompting, have gained popularity for claiming to enhance sequential decision-making abilities of agentic LLMs. However, it is unclear what is the source of improvement in LLM reasoning with ReAct based prompting. In this paper we examine these claims of ReAct based prompting in improving agentic LLMs for sequential decision-making. By introducing systematic variations to the input prompt we perform a sensitivity analysis along the claims of ReAct and find that the performance is minimally influenced by the \"interleaving reasoning trace with action execution\" or the content of the generated reasoning traces in ReAct, contrary to original claims and common usage. Instead, the performance of LLMs is driven by the similarity between input example tasks and queries, implicitly forcing the prompt designer to provide instance-specific examples which significantly increases the cognitive burden on the human. Our investigation shows that the perceived reasoning abilities of LLMs stem from the exemplar-query similarity and approximate retrieval rather than any inherent reasoning abilities.",
+    "authors": "Mudit Verma, Siddhant Bhambri, Subbarao Kambhampati",
+    "published": "2024-05-22",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2507.19771v1",
+    "title": "Large Language Model Agent for Structural Drawing Generation Using ReAct Prompt Engineering and Retrieval Augmented Generation",
+    "abstract": "Structural drawings are widely used in many fields, e.g., mechanical engineering, civil engineering, etc. In civil engineering, structural drawings serve as the main communication tool between architects, engineers, and builders to avoid conflicts, act as legal documentation, and provide a reference for future maintenance or evaluation needs. They are often organized using key elements such as title/subtitle blocks, scales, plan views, elevation view, sections, and detailed sections, which are annotated with standardized symbols and line types for interpretation by engineers and contractors. Despite advances in software capabilities, the task of generating a structural drawing remains labor-intensive and time-consuming for structural engineers. Here we introduce a novel generative AI-based method for generating structural drawings employing a large language model (LLM) agent. The method incorporates a retrieval-augmented generation (RAG) technique using externally-sourced facts to enhance the accuracy and reliability of the language model. This method is capable of understanding varied natural language descriptions, processing these to extract necessary information, and generating code to produce the desired structural drawing in AutoCAD. The approach developed, demonstrated and evaluated herein enables the efficient and direct conversion of a structural drawing's natural language description into an AutoCAD drawing, significantly reducing the workload compared to current working process associated with manual drawing production, facilitating the typical iterative process of engineers for expressing design ideas in a simplified way.",
+    "authors": "Xin Zhang, Lissette Iturburu, Juan Nicolas Villamizar, Xiaoyu Liu, Manuel Salmeron, Shirley J. Dyke, Julio Ramirez",
+    "published": "2025-07-26",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2311.11591v1",
+    "title": "DesignGPT: Multi-Agent Collaboration in Design",
+    "abstract": "Generative AI faces many challenges when entering the product design workflow, such as interface usability and interaction patterns. Therefore, based on design thinking and design process, we developed the DesignGPT multi-agent collaboration framework, which uses artificial intelligence agents to simulate the roles of different positions in the design company and allows human designers to collaborate with them in natural language. Experimental results show that compared with separate AI tools, DesignGPT improves the performance of designers, highlighting the potential of applying multi-agent systems that integrate design domain knowledge to product scheme design.",
+    "authors": "Shiying Ding, Xinyi Chen, Yan Fang, Wenrui Liu, Yiwu Qiu, Chunlei Chai",
+    "published": "2023-11-20",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2505.19591v2",
+    "title": "Multi-Agent Collaboration via Evolving Orchestration",
+    "abstract": "Large language models (LLMs) have achieved remarkable results across diverse downstream tasks, but their monolithic nature restricts scalability and efficiency in complex problem-solving. While recent research explores multi-agent collaboration among LLMs, most approaches rely on static organizational structures that struggle to adapt as task complexity and agent numbers grow, resulting in coordination overhead and inefficiencies. To this end, we propose a puppeteer-style paradigm for LLM-based multi-agent collaboration, where a centralized orchestrator (\"puppeteer\") dynamically directs agents (\"puppets\") in response to evolving task states. This orchestrator is trained via reinforcement learning to adaptively sequence and prioritize agents, enabling flexible and evolvable collective reasoning. Experiments on closed- and open-domain scenarios show that this method achieves superior performance with reduced computational costs. Analyses further reveal that the key improvements consistently stem from the emergence of more compact, cyclic reasoning structures under the orchestrator's evolution. Our code is available at https://github.com/OpenBMB/ChatDev/tree/puppeteer.",
+    "authors": "Yufan Dang, Chen Qian, Xueheng Luo, Jingru Fan, Zihao Xie, Ruijie Shi, Weize Chen, Cheng Yang, Xiaoyin Che, Ye Tian, Xuantang Xiong, Lei Han, Zhiyuan Liu, Maosong Sun",
+    "published": "2025-05-26",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2601.20352v3",
+    "title": "AMA: Adaptive Memory via Multi-Agent Collaboration",
+    "abstract": "The rapid evolution of Large Language Model (LLM) agents has necessitated robust memory systems to support cohesive long-term interaction and complex reasoning. Benefiting from the strong capabilities of LLMs, recent research focus has shifted from simple context extension to the development of dedicated agentic memory systems. However, existing approaches typically rely on rigid retrieval granularity, accumulation-heavy maintenance strategies, and coarse-grained update mechanisms. These design choices create a persistent mismatch between stored information and task-specific reasoning demands, while leading to the unchecked accumulation of logical inconsistencies over time. To address these challenges, we propose Adaptive Memory via Multi-Agent Collaboration (AMA), a novel framework that leverages coordinated agents to manage memory across multiple granularities. AMA employs a hierarchical memory design that dynamically aligns retrieval granularity with task complexity. Specifically, the Constructor and Retriever jointly enable multi-granularity memory construction and adaptive query routing. The Judge verifies the relevance and consistency of retrieved content, triggering iterative retrieval when evidence is insufficient or invoking the Refresher upon detecting logical conflicts. The Refresher then enforces memory consistency by performing targeted updates or removing outdated entries. Extensive experiments on challenging long-context benchmarks show that AMA significantly outperforms state-of-the-art baselines while reducing token consumption by approximately 80% compared to full-context methods, demonstrating its effectiveness in maintaining retrieval precision and long-term memory consistency.",
+    "authors": "Weiquan Huang, Zixuan Wang, Hehai Lin, Sudong Wang, Bo Xu, Qian Li, Beier Zhu, Linyi Yang, Chengwei Qin",
+    "published": "2026-01-28",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2010.08531v1",
+    "title": "Multi-Agent Collaboration via Reward Attribution Decomposition",
+    "abstract": "Recent advances in multi-agent reinforcement learning (MARL) have achieved super-human performance in games like Quake 3 and Dota 2. Unfortunately, these techniques require orders-of-magnitude more training rounds than humans and don't generalize to new agent configurations even on the same game. In this work, we propose Collaborative Q-learning (CollaQ) that achieves state-of-the-art performance in the StarCraft multi-agent challenge and supports ad hoc team play. We first formulate multi-agent collaboration as a joint optimization on reward assignment and show that each agent has an approximately optimal policy that decomposes into two parts: one part that only relies on the agent's own state, and the other part that is related to states of nearby agents. Following this novel finding, CollaQ decomposes the Q-function of each agent into a self term and an interactive term, with a Multi-Agent Reward Attribution (MARA) loss that regularizes the training. CollaQ is evaluated on various StarCraft maps and shows that it outperforms existing state-of-the-art techniques (i.e., QMIX, QTRAN, and VDN) by improving the win rate by 40% with the same number of samples. In the more challenging ad hoc team play setting (i.e., reweight/add/remove units without re-training or finetuning), CollaQ outperforms previous SoTA by over 30%.",
+    "authors": "Tianjun Zhang, Huazhe Xu, Xiaolong Wang, Yi Wu, Kurt Keutzer, Joseph E. Gonzalez, Yuandong Tian",
+    "published": "2020-10-16",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2512.04488v2",
+    "title": "Persona-based Multi-Agent Collaboration for Brainstorming",
+    "abstract": "We demonstrate the importance of persona-based multi-agents brainstorming for both diverse topics and subject matter ideation. Prior work has shown that generalized multi-agent collaboration often provides better reasoning than a single agent alone. In this paper, we propose and develop a framework for persona-based agent selection, showing how persona domain curation can improve brainstorming outcomes. Using multiple experimental setups, we evaluate brainstorming outputs across different persona pairings (e.g., Doctor vs VR Engineer) and A2A (agent-to-agent) dynamics (separate, together, separate-then-together). Our results show that (1) persona choice shapes idea domains, (2) collaboration mode shifts diversity of idea generation, and (3) multi-agent persona-driven brainstorming produces idea depth and cross-domain coverage.",
+    "authors": "Nate Straub, Saara Khan, Katharina Jay, Brian Cabral, Oskar Linde",
+    "published": "2025-12-04",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2406.08979v2",
+    "title": "Multi-Agent Collaboration via Cross-Team Orchestration",
+    "abstract": "Large Language Models (LLMs) have significantly impacted various domains, especially through organized LLM-driven autonomous agents. A representative scenario is in software development, where agents can collaborate in a team like humans, following predefined phases to complete sub-tasks sequentially. However, for an agent team, each phase yields only one possible outcome. This results in the completion of only one development chain, thereby losing the opportunity to explore multiple potential decision paths within the solution space. Consequently leading to suboptimal results or extensive trial and error. To address this, we introduce Cross-Team Orchestration (Croto), a scalable multi-team framework that enables orchestrated teams to jointly propose various task-oriented solutions and interact with their insights in a self-independence while cross-team collaboration environment for superior solutions generation. Experiments reveal a notable increase in software quality compared to state-of-the-art baselines. We further tested our framework on story generation tasks, which demonstrated a promising generalization ability of our framework in other domains. The code and data is available at https://github.com/OpenBMB/ChatDev/tree/macnet",
+    "authors": "Zhuoyun Du, Chen Qian, Wei Liu, Zihao Xie, YiFei Wang, Rennai Qiu, Yufan Dang, Weize Chen, Cheng Yang, Ye Tian, Xuantang Xiong, Lei Han",
+    "published": "2024-06-13",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2601.06453v1",
+    "title": "ConSensus: Multi-Agent Collaboration for Multimodal Sensing",
+    "abstract": "Large language models (LLMs) are increasingly grounded in sensor data to perceive and reason about human physiology and the physical world. However, accurately interpreting heterogeneous multimodal sensor data remains a fundamental challenge. We show that a single monolithic LLM often fails to reason coherently across modalities, leading to incomplete interpretations and prior-knowledge bias. We introduce ConSensus, a training-free multi-agent collaboration framework that decomposes multimodal sensing tasks into specialized, modality-aware agents. To aggregate agent-level interpretations, we propose a hybrid fusion mechanism that balances semantic aggregation, which enables cross-modal reasoning and contextual understanding, with statistical consensus, which provides robustness through agreement across modalities. While each approach has complementary failure modes, their combination enables reliable inference under sensor noise and missing data. We evaluate ConSensus on five diverse multimodal sensing benchmarks, demonstrating an average accuracy improvement of 7.1% over the single-agent baseline. Furthermore, ConSensus matches or exceeds the performance of iterative multi-agent debate methods while achieving a 12.7 times reduction in average fusion token cost through a single-round hybrid fusion protocol, yielding a robust and efficient solution for real-world multimodal sensing tasks.",
+    "authors": "Hyungjun Yoon, Mohammad Malekzadeh, Sung-Ju Lee, Fahim Kawsar, Lorena Qendro",
+    "published": "2026-01-10",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2406.07155v3",
+    "title": "Scaling Large Language Model-based Multi-Agent Collaboration",
+    "abstract": "Recent breakthroughs in large language model-driven autonomous agents have revealed that multi-agent collaboration often surpasses each individual through collective reasoning. Inspired by the neural scaling law--increasing neurons enhances performance, this study explores whether the continuous addition of collaborative agents can yield similar benefits. Technically, we utilize directed acyclic graphs to organize agents into a multi-agent collaboration network (MacNet), upon which their interactive reasoning is topologically orchestrated for autonomous task solving. Extensive evaluations reveal that it effectively supports collaboration among over a thousand agents, with irregular topologies outperforming regular ones. We also identify a collaborative scaling law--the overall performance follows a logistic growth pattern as agents scale, with collaborative emergence occurring earlier than traditional neural emergence. We speculate this may be because scaling agents catalyzes their multidimensional considerations during interactive reflection and refinement, thereby producing more comprehensive artifacts. The code is available at https://github.com/OpenBMB/ChatDev/tree/macnet.",
+    "authors": "Chen Qian, Zihao Xie, YiFei Wang, Wei Liu, Kunlun Zhu, Hanchen Xia, Yufan Dang, Zhuoyun Du, Weize Chen, Cheng Yang, Zhiyuan Liu, Maosong Sun",
+    "published": "2024-06-11",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2605.03042v1",
+    "title": "ARIS: Autonomous Research via Adversarial Multi-Agent Collaboration",
+    "abstract": "This report describes ARIS (Auto-Research-in-sleep), an open-source research harness for autonomous research, including its architecture, assurance mechanisms, and early deployment experience. The performance of agent systems built on LLMs depends on both the model weights and the harness around them, which governs what information to store, retrieve, and present to the model. For long-horizon research workflows, the central failure mode is not a visible breakdown but a plausible unsupported success: a long-running agent can produce claims whose evidential support is incomplete, misreported, or silently inherited from the executor's framing. Therefore, we present ARIS as a research harness that coordinates machine-learning research workflows through cross-model adversarial collaboration as a default configuration: an executor model drives forward progress while a reviewer from a different model family is recommended to critique intermediate artifacts and request revisions. ARIS has three architectural layers. The execution layer provides more than 65 reusable Markdown-defined skills, model integrations via MCP, a persistent research wiki for iterative reuse of prior findings, and deterministic figure generation. The orchestration layer coordinates five end-to-end workflows with adjustable effort settings and configurable routing to reviewer models. The assurance layer includes a three-stage process for checking whether experimental claims are supported by evidence: integrity verification, result-to-claim mapping, and claim auditing that cross-checks manuscript statements against the claim ledger and raw evidence, as well as a five-pass scientific-editing pipeline, mathematical-proof checks, and visual inspection of the rendered PDF. A prototype self-improvement loop records research traces and proposes harness improvements that are adopted only after reviewer approval.",
+    "authors": "Ruofeng Yang, Yongcan Li, Shuai Li",
+    "published": "2026-05-04",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2501.06322v1",
+    "title": "Multi-Agent Collaboration Mechanisms: A Survey of LLMs",
+    "abstract": "With recent advances in Large Language Models (LLMs), Agentic AI has become phenomenal in real-world applications, moving toward multiple LLM-based agents to perceive, learn, reason, and act collaboratively. These LLM-based Multi-Agent Systems (MASs) enable groups of intelligent agents to coordinate and solve complex tasks collectively at scale, transitioning from isolated models to collaboration-centric approaches. This work provides an extensive survey of the collaborative aspect of MASs and introduces an extensible framework to guide future research. Our framework characterizes collaboration mechanisms based on key dimensions: actors (agents involved), types (e.g., cooperation, competition, or coopetition), structures (e.g., peer-to-peer, centralized, or distributed), strategies (e.g., role-based or model-based), and coordination protocols. Through a review of existing methodologies, our findings serve as a foundation for demystifying and advancing LLM-based MASs toward more intelligent and collaborative solutions for complex, real-world use cases. In addition, various applications of MASs across diverse domains, including 5G/6G networks, Industry 5.0, question answering, and social and cultural settings, are also investigated, demonstrating their wider adoption and broader impacts. Finally, we identify key lessons learned, open challenges, and potential research directions of MASs towards artificial collective intelligence.",
+    "authors": "Khanh-Tung Tran, Dung Dao, Minh-Duong Nguyen, Quoc-Viet Pham, Barry O'Sullivan, Hoang D. Nguyen",
+    "published": "2025-01-10",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2603.21563v1",
+    "title": "Counterfactual Credit Policy Optimization for Multi-Agent Collaboration",
+    "abstract": "Collaborative multi-agent large language models (LLMs) can solve complex reasoning tasks by decomposing roles and aggregating diverse hypotheses. Yet, reinforcement learning (RL) for such systems is often undermined by credit assignment: a shared global reward obscures individual contributions, inflating update variance and encouraging free-riding. We introduce Counterfactual Credit Policy Optimization (CCPO), a framework that assigns agent-specific learning signals by estimating each agent's marginal contribution through counterfactual trajectories. CCPO builds dynamic counterfactual baselines that simulate outcomes with an agent's contribution removed, yielding role-sensitive advantages for policy optimization. To further improve stability under heterogeneous tasks and data distributions, we propose a global-history-aware normalization scheme that calibrates advantages using global rollout statistics. We evaluate CCPO on two collaboration topologies: a sequential Think--Reason dyad and multi-agent voting. Across mathematical and logical reasoning benchmarks, CCPO mitigates free-riding and outperforms strong multi-agent RL baselines, yielding finer-grained and more effective credit assignment for collaborative LLM training. Our code is available at https://github.com/bhai114/ccpo.",
+    "authors": "Zhongyi Li, Wan Tian, Yikun Ban, Jinju Chen, Huiming Zhang, Yang Liu, Fuzhen Zhuang",
+    "published": "2026-03-23",
+    "source": "ArXiv"
+  },
+  {
+    "id": "1911.12504v3",
+    "title": "Stigmergic Independent Reinforcement Learning for Multi-Agent Collaboration",
+    "abstract": "With the rapid evolution of wireless mobile devices, there emerges an increased need to design effective collaboration mechanisms between intelligent agents, so as to gradually approach the final collective objective through continuously learning from the environment based on their individual observations. In this regard, independent reinforcement learning (IRL) is often deployed in multi-agent collaboration to alleviate the problem of a non-stationary learning environment. However, behavioral strategies of intelligent agents in IRL can only be formulated upon their local individual observations of the global environment, and appropriate communication mechanisms must be introduced to reduce their behavioral localities. In this paper, we address the problem of communication between intelligent agents in IRL by jointly adopting mechanisms with two different scales. For the large scale, we introduce the stigmergy mechanism as an indirect communication bridge between independent learning agents, and carefully design a mathematical method to indicate the impact of digital pheromone. For the small scale, we propose a conflict-avoidance mechanism between adjacent agents by implementing an additionally embedded neural network to provide more opportunities for participants with higher action priorities. In addition, we present a federal training method to effectively optimize the neural network of each agent in a decentralized manner. Finally, we establish a simulation scenario in which a number of mobile agents in a certain area move automatically to form a specified target shape. Extensive simulations demonstrate the effectiveness of our proposed method.",
+    "authors": "Xing Xu, Rongpeng Li, Zhifeng Zhao, Honggang Zhang",
+    "published": "2019-11-28",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2405.14314v4",
+    "title": "Towards Efficient LLM Grounding for Embodied Multi-Agent Collaboration",
+    "abstract": "Grounding the reasoning ability of large language models (LLMs) for embodied tasks is challenging due to the complexity of the physical world. Especially, LLM planning for multi-agent collaboration requires communication of agents or credit assignment as the feedback to re-adjust the proposed plans and achieve effective coordination. However, existing methods that overly rely on physical verification or self-reflection suffer from excessive and inefficient querying of LLMs. In this paper, we propose a novel framework for multi-agent collaboration that introduces Reinforced Advantage feedback (ReAd) for efficient self-refinement of plans. Specifically, we perform critic regression to learn a sequential advantage function from LLM-planned data, and then treat the LLM planner as an optimizer to generate actions that maximize the advantage function. It endows the LLM with the foresight to discern whether the action contributes to accomplishing the final task. We provide theoretical analysis by extending advantage-weighted regression in reinforcement learning to multi-agent systems. Experiments on Overcooked-AI and a difficult variant of RoCoBench show that ReAd surpasses baselines in success rate, and also significantly decreases the interaction steps of agents and query rounds of LLMs, demonstrating its high efficiency for grounding LLMs. More results are given at https://embodied-read.github.io",
+    "authors": "Yang Zhang, Shixin Yang, Chenjia Bai, Fei Wu, Xiu Li, Zhen Wang, Xuelong Li",
+    "published": "2024-05-23",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2604.11523v1",
+    "title": "PAC-BENCH: Evaluating Multi-Agent Collaboration under Privacy Constraints",
+    "abstract": "We are entering an era in which individuals and organizations increasingly deploy dedicated AI agents that interact and collaborate with other agents. However, the dynamics of multi-agent collaboration under privacy constraints remain poorly understood. In this work, we present $PAC\\text{-}Bench$, a benchmark for systematic evaluation of multi-agent collaboration under privacy constraints. Experiments on $PAC\\text{-}Bench$ show that privacy constraints substantially degrade collaboration performance and make outcomes depend more on the initiating agent than the partner. Further analysis reveals that this degradation is driven by recurring coordination breakdowns, including early-stage privacy violations, overly conservative abstraction, and privacy-induced hallucinations. Together, our findings identify privacy-aware multi-agent collaboration as a distinct and unresolved challenge that requires new coordination mechanisms beyond existing agent capabilities.",
+    "authors": "Minjun Park, Donghyun Kim, Hyeonjong Ju, Seungwon Lim, Dongwook Choi, Taeyoon Kwon, Minju Kim, Jinyoung Yeo",
+    "published": "2026-04-13",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2411.04925v2",
+    "title": "StoryAgent: Customized Storytelling Video Generation via Multi-Agent Collaboration",
+    "abstract": "The advent of AI-Generated Content (AIGC) has spurred research into automated video generation to streamline conventional processes. However, automating storytelling video production, particularly for customized narratives, remains challenging due to the complexity of maintaining subject consistency across shots. While existing approaches like Mora and AesopAgent integrate multiple agents for Story-to-Video (S2V) generation, they fall short in preserving protagonist consistency and supporting Customized Storytelling Video Generation (CSVG). To address these limitations, we propose StoryAgent, a multi-agent framework designed for CSVG. StoryAgent decomposes CSVG into distinct subtasks assigned to specialized agents, mirroring the professional production process. Notably, our framework includes agents for story design, storyboard generation, video creation, agent coordination, and result evaluation. Leveraging the strengths of different models, StoryAgent enhances control over the generation process, significantly improving character consistency. Specifically, we introduce a customized Image-to-Video (I2V) method, LoRA-BE, to enhance intra-shot temporal consistency, while a novel storyboard generation pipeline is proposed to maintain subject consistency across shots. Extensive experiments demonstrate the effectiveness of our approach in synthesizing highly consistent storytelling videos, outperforming state-of-the-art methods. Our contributions include the introduction of StoryAgent, a versatile framework for video generation tasks, and novel techniques for preserving protagonist consistency.",
+    "authors": "Panwen Hu, Jin Jiang, Jianqi Chen, Mingfei Han, Shengcai Liao, Xiaojun Chang, Xiaodan Liang",
+    "published": "2024-11-07",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2508.21720v2",
+    "title": "PosterForest: Hierarchical Multi-Agent Collaboration for Scientific Poster Generation",
+    "abstract": "Automating scientific poster generation requires hierarchical document understanding and coherent content-layout planning. Existing methods often rely on flat summarization or optimize content and layout separately. As a result, they often suffer from information loss, weak logical flow, and poor visual balance. We present PosterForest, a training-free framework for scientific poster generation. Our method introduces the Poster Tree, a structured intermediate representation that captures document hierarchy and visual-textual semantics across multiple levels. Building on this representation, content and layout agents perform hierarchical reasoning and recursive refinement, progressively optimizing the poster from global organization to local composition. This joint optimization improves semantic coherence, logical flow, and visual harmony. Experiments show that PosterForest outperforms prior methods in both automatic and human evaluations, without additional training or domain-specific supervision.",
+    "authors": "Jiho Choi, Seojeong Park, Seongjong Song, Hyunjung Shim",
+    "published": "2025-08-29",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2505.15047v4",
+    "title": "PiFlow: Principle-Aware Scientific Discovery with Multi-Agent Collaboration",
+    "abstract": "Large Language Model (LLM)-based multi-agent systems (MAS) demonstrate remarkable potential for scientific discovery. Existing approaches, however, often automate scientific discovery using predefined workflows that lack rationality constraints. This often leads to aimless hypothesizing and a failure to consistently link hypotheses with evidence, thereby hindering the systematic reduction of uncertainty. Overcoming these limitations fundamentally requires a principled approach to exploration. We introduce PiFlow, an information-theoretical framework, treating automated scientific discovery as a structured uncertainty reduction problem guided by principles (e.g., scientific laws). Extensive evaluations across three distinct scientific domains demonstrate that PiFlow (I) improves discovery efficiency by 31.18%~41.73% and solution quality by 12.47%~31.72% against state-of-the-art methods, (II) delivers a 5.6x speedup in time-to-solution while reducing token consumption by up to 27% compared to vanilla agents, and (III) serves as a Plug-and-Play module that generalizes on existing agent architecture. Overall, PiFlow establishes a novel paradigm shift in highly efficient agentic scientific discovery, paving the way for more robust and accelerated AI-driven research.",
+    "authors": "Yingming Pu, Tao Lin, Hongyu Chen",
+    "published": "2025-05-21",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2504.08810v1",
+    "title": "PriM: Principle-Inspired Material Discovery through Multi-Agent Collaboration",
+    "abstract": "Complex chemical space and limited knowledge scope with biases holds immense challenge for human scientists, yet in automated materials discovery. Existing intelligent methods relies more on numerical computation, leading to inefficient exploration and results with hard-interpretability. To bridge this gap, we introduce a principles-guided material discovery system powered by language inferential multi-agent system (MAS), namely PriM. Our framework integrates automated hypothesis generation with experimental validation in a roundtable system of MAS, enabling systematic exploration while maintaining scientific rigor. Based on our framework, the case study of nano helix demonstrates higher materials exploration rate and property value while providing transparent reasoning pathways. This approach develops an automated-and-transparent paradigm for material discovery, with broad implications for rational design of functional materials. Code is publicly available at our \\href{https://github.com/amair-lab/PriM}{GitHub}.",
+    "authors": "Zheyuan Lai, Yingming Pu",
+    "published": "2025-04-09",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2601.04544v1",
+    "title": "TCAndon-Router: Adaptive Reasoning Router for Multi-Agent Collaboration",
+    "abstract": "Multi-Agent Systems(MAS) have become a powerful paradigm for building high performance intelligent applications. Within these systems, the router responsible for determining which expert agents should handle a given query plays a crucial role in overall performance. Existing routing strategies generally fall into two categories: performance routing, which balances latency and cost across models of different sizes, and task routing, which assigns queries to domain-specific experts to improve accuracy. In real-world enterprise applications, task routing is more suitable; however, most existing approaches rely on static single-label decisions, which introduce two major limitations: (i) difficulty in seamlessly integrating new agents as business domains expand, and (ii) routing conflicts caused by overlapping agent capabilities, ultimately degrading accuracy and robustness.To address these challenges, we propose TCAndon-Router(TCAR): an adaptive reasoning router for multi-agent collaboration. Unlike traditional routers, TCAR supports dynamic agent onboarding and first generates a natural-language reasoning chain before predicting a set of candidate agents capable of handling the query. In addition, we design a collaborative execution pipeline in which selected agents independently produce responses, which are then aggregated and refined into a single high-quality response by a dedicated Refining Agent.Experiments on public datasets and real enterprise data demonstrate that TCAR significantly improves routing accuracy, reduces routing conflicts, and remains robust in ambiguous scenarios. We have released TCAR at https://huggingface.co/tencent/TCAndon-Router to support future research on explainable and collaborative multi-agent routing.",
+    "authors": "Jiuzhou Zhao, Chunrong Chen, Chenqi Qiao, Lebin Zheng, Minqi Han, Yanchi Liu Yongzhou Xu Xiaochuan Xu Min Zhang",
+    "published": "2026-01-08",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2509.09215v1",
+    "title": "Enabling Regulatory Multi-Agent Collaboration: Architecture, Challenges, and Solutions",
+    "abstract": "Large language models (LLMs)-empowered autonomous agents are transforming both digital and physical environments by enabling adaptive, multi-agent collaboration. While these agents offer significant opportunities across domains such as finance, healthcare, and smart manufacturing, their unpredictable behaviors and heterogeneous capabilities pose substantial governance and accountability challenges. In this paper, we propose a blockchain-enabled layered architecture for regulatory agent collaboration, comprising an agent layer, a blockchain data layer, and a regulatory application layer. Within this framework, we design three key modules: (i) an agent behavior tracing and arbitration module for automated accountability, (ii) a dynamic reputation evaluation module for trust assessment in collaborative scenarios, and (iii) a malicious behavior forecasting module for early detection of adversarial activities. Our approach establishes a systematic foundation for trustworthy, resilient, and scalable regulatory mechanisms in large-scale agent ecosystems. Finally, we discuss the future research directions for blockchain-enabled regulatory frameworks in multi-agent systems.",
+    "authors": "Qinnan Hu, Yuntao Wang, Yuan Gao, Zhou Su, Linkang Du",
+    "published": "2025-09-11",
+    "source": "ArXiv"
+  },
+  {
+    "id": "2507.07306v1",
+    "title": "ViDove: A Translation Agent System with Multimodal Context and Memory-Augmented Reasoning",
+    "abstract": "LLM-based translation agents have achieved highly human-like translation results and are capable of handling longer and more complex contexts with greater efficiency. However, they are typically limited to text-only inputs. In this paper, we introduce ViDove, a translation agent system designed for multimodal input. Inspired by the workflow of human translators, ViDove leverages visual and contextual background information to enhance the translation process. Additionally, we integrate a multimodal memory system and long-short term memory modules enriched with domain-specific knowledge, enabling the agent to perform more accurately and adaptively in real-world scenarios. As a result, ViDove achieves significantly higher translation quality in both subtitle generation and general translation tasks, with a 28% improvement in BLEU scores and a 15% improvement in SubER compared to previous state-of-the-art baselines. Moreover, we introduce DoveBench, a new benchmark for long-form automatic video subtitling and translation, featuring 17 hours of high-quality, human-annotated data. Our code is available here: https://github.com/pigeonai-org/ViDove",
+    "authors": "Yichen Lu, Wei Dai, Jiaen Liu, Ching Wing Kwok, Zongheng Wu, Xudong Xiao, Ao Sun, Sheng Fu, Jianyuan Zhan, Yian Wang, Takatomo Saito, Sicheng Lai",
+    "published": "2025-07-09",
+    "source": "ArXiv"
+  }
+]

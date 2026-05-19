@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-05-19T11:47:42.643134+00:00",
+  "results": [
+    {
+      "target": "agent/session_memory.py",
+      "passed": 161,
+      "failed": 0,
+      "applied": true,
+      "safety": true,
+      "latency_ms": 22128
+    },
+    {
+      "target": "agent/episodic_memory.py",
+      "passed": 160,
+      "failed": 1,
+      "applied": false,
+      "safety": true,
+      "latency_ms": 23233
+    },
+    {
+      "target": "agent/goal_tracker.py",
+      "passed": 161,
+      "failed": 0,
+      "applied": true,
+      "safety": true,
+      "latency_ms": 23598
+    }
+  ]
+}

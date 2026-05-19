@@ -180,6 +180,17 @@ class AsyncAgent:
         yield {"type": "status", "content": "processing..."}
 
         while ctx.state not in (AgentState.DONE, AgentState.ERROR) and ctx.step < ctx.max_steps:
+            # MemGPT interrupt handling — process async events before each step
+            if ctx.interrupts:
+                interrupt = ctx.interrupts.pop(0)
+                ctx.record_step("interrupt", interrupt)
+                yield {"type": "interrupt", "content": interrupt.get("message", "Interrupt received")}
+                if interrupt.get("priority") == "critical":
+                    ctx.messages.append({
+                        "role": "system",
+                        "content": f"[INTERRUPT] {interrupt.get('message', '')}",
+                    })
+
             ctx.state = AgentState.PLANNING
             ctx.step += 1
             ctx.record_step("planning", {})
