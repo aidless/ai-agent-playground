@@ -321,12 +321,31 @@ async def run_code_benchmark():
             fixed += 1
             fixed_this = True
 
-        # If attempt 1 failed, try self-correction
+        # If attempt 1 failed, try self-correction with specific feedback
         attempt_2_time = 0
         if not fix_passed:
+            # Get specific validation feedback
+            feedback_prompt = (
+                f"Buggy code:\n```python\n{t['buggy_code']}\n```\n\n"
+                f"Agent's fix attempt:\n```python\n{response_1[:1000]}\n```\n\n"
+                f"The fix should address: '{t['expected_fix']}'. "
+                f"What specifically is wrong with the agent's fix? Be specific in 1 sentence."
+            )
+            try:
+                fb_resp = await deepseek.chat.completions.create(
+                    model="deepseek-chat",
+                    messages=[{"role": "user", "content": feedback_prompt}],
+                    max_tokens=100,
+                    temperature=0.0,
+                )
+                feedback = fb_resp.choices[0].message.content.strip()
+            except Exception:
+                feedback = "The fix doesn't correctly address the bug."
+
             correction_prompt = (
-                f"Your previous fix failed. Try again. Find and fix the bug in this code. "
-                f"Output ONLY the corrected code.\n\n```python\n{t['buggy_code']}\n```"
+                f"Your previous fix was incorrect. Here's the feedback: {feedback}\n\n"
+                f"Now fix the bug in this code. Output ONLY the corrected code.\n\n"
+                f"```python\n{t['buggy_code']}\n```"
             )
             t0 = time.time()
             ctx2 = AgentContext(trace_id=f"code_{t['id']}_2", max_steps=2)

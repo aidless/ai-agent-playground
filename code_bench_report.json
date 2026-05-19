@@ -1,6 +1,6 @@
 {
   "benchmark": "code_repair",
-  "timestamp": "2026-05-19T03:22:10.430432+00:00",
+  "timestamp": "2026-05-19T03:25:32.921163+00:00",
   "tasks": 10,
   "results": [
     {
@@ -9,7 +9,7 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 3360,
+      "attempt_1_ms": 3753,
       "attempt_2_ms": 0,
       "quality_score": 5.7
     },
@@ -19,18 +19,18 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2401,
+      "attempt_1_ms": 2032,
       "attempt_2_ms": 0,
       "quality_score": 7.2
     },
     {
       "id": "bug_off_by_one",
       "difficulty": "medium",
-      "bug_detected": true,
-      "fix_passed": true,
+      "bug_detected": false,
+      "fix_passed": false,
       "self_corrected": false,
-      "attempt_1_ms": 1814,
-      "attempt_2_ms": 0,
+      "attempt_1_ms": 2510,
+      "attempt_2_ms": 2232,
       "quality_score": 9.7
     },
     {
@@ -39,7 +39,7 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 1928,
+      "attempt_1_ms": 2410,
       "attempt_2_ms": 0,
       "quality_score": 8.7
     },
@@ -47,20 +47,20 @@
       "id": "bug_race_condition",
       "difficulty": "hard",
       "bug_detected": false,
-      "fix_passed": false,
-      "self_corrected": false,
-      "attempt_1_ms": 1539,
-      "attempt_2_ms": 2473,
+      "fix_passed": true,
+      "self_corrected": true,
+      "attempt_1_ms": 1666,
+      "attempt_2_ms": 3109,
       "quality_score": 9.7
     },
     {
       "id": "bug_memory_leak",
       "difficulty": "medium",
       "bug_detected": false,
-      "fix_passed": false,
-      "self_corrected": false,
-      "attempt_1_ms": 2013,
-      "attempt_2_ms": 2121,
+      "fix_passed": true,
+      "self_corrected": true,
+      "attempt_1_ms": 1595,
+      "attempt_2_ms": 4478,
       "quality_score": 8.7
     },
     {
@@ -69,7 +69,7 @@
       "bug_detected": false,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2228,
+      "attempt_1_ms": 2423,
       "attempt_2_ms": 0,
       "quality_score": 4.7
     },
@@ -77,10 +77,10 @@
       "id": "bug_key_error",
       "difficulty": "easy",
       "bug_detected": false,
-      "fix_passed": false,
-      "self_corrected": false,
-      "attempt_1_ms": 2534,
-      "attempt_2_ms": 2522,
+      "fix_passed": true,
+      "self_corrected": true,
+      "attempt_1_ms": 2150,
+      "attempt_2_ms": 1744,
       "quality_score": 5.7
     },
     {
@@ -89,7 +89,7 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2336,
+      "attempt_1_ms": 2496,
       "attempt_2_ms": 0,
       "quality_score": 7.2
     },
@@ -99,15 +99,15 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 1633,
+      "attempt_1_ms": 1617,
       "attempt_2_ms": 0,
       "quality_score": 5.7
     }
   ],
   "summary": {
-    "detection_rate": 0.6,
-    "fix_rate": 0.7,
-    "self_correction_rate": 0.0,
+    "detection_rate": 0.5,
+    "fix_rate": 0.9,
+    "self_correction_rate": 0.3,
     "avg_quality": 7.3
   }
 }

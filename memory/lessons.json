@@ -1,65 +1,5 @@
 [
   {
-    "lesson": "在中国网络环境下，DuckDuckGo 搜索不可用，应使用 Bing (cn.bing.com) 作为搜索源",
-    "context": "scripts/search_web.py 测试，duckduckgo_search 库返回 None",
-    "success": true,
-    "timestamp": "2026-05-17T23:07:00"
-  },
-  {
-    "lesson": "Python stdout 在 Windows 上默认 GBK 编码，print Unicode 时需要 sys.stdout.reconfigure(encoding='utf-8')",
-    "context": "search_web.py UnicodeEncodeError: 'gbk' codec can't encode character",
-    "success": true,
-    "timestamp": "2026-05-17T23:07:00"
-  },
-  {
-    "lesson": "安装新依赖后必须运行 uv lock 或 uv sync 来同步 uv.lock，否则 CI 和其他环境会使用过期的锁文件",
-    "context": "auto_audit.py 检测到 lock_synced: false",
-    "success": true,
-    "timestamp": "2026-05-17T23:07:00"
-  },
-  {
-    "lesson": "Bash 工具在 CherryStudio 环境中 PATH 受限，需要直接用 'C:/Program Files/Git/bin/bash.exe' 才能找到 uv/python",
-    "context": "多次调试发现直接 bash python 和 uv 都找不到",
-    "success": true,
-    "timestamp": "2026-05-17T23:07:00"
-  },
-  {
-    "lesson": "CC Switch 使用 SQLite 存储 MCP server 配置（mcp_servers 表，server_config 为 JSON），直接 INSERT + enabled_hermes=1 即可部署。hermes.py 缺少 import json 导致运行时 NameError。",
-    "context": "部署 Hermes 到 CC Switch（完整链路：安装 Ollama → 拉 Qwen2.5 7B → 修 hermes.py bug → 创建 MCP 服务 → 写入 CC Switch 数据库）",
-    "success": true,
-    "timestamp": "2026-05-17T23:42:31.610453"
-  },
-  {
-    "lesson": "当前是单Agent架构，缺真正的多Agent协作协议（任务拆解+子Agent通信+动态重组）。未来价值在垂直深耕而非广而不精。安全治理方面有意识无系统，缺执行记录、权限分级和熔断机制。",
-    "context": "对照AI Agent三大发展方向进行系统自我评估",
-    "success": false,
-    "timestamp": "2026-05-17T23:55:10.487139"
-  },
-  {
-    "lesson": "自我推进的实现路径：1)CronCreate定时触发审计指令 2)CLAUDE.md定义AutonomousProtocol每会话自动执行 3)memory持久化跨会话传递状态。核心局限仍是请求-响应模型，真正自主需要常驻进程。",
-    "context": "实现自我推进能力：Cron定时自唤醒 + CLAUDE.md自主协议 + SOUL.md反思行为准则",
-    "success": true,
-    "timestamp": "2026-05-18T01:14:34.649584"
-  },
-  {
-    "lesson": "When the user asks for a single implementation, I can be more efficient by directly providing the best-practice version (iterative O(1) space) rather than listing multiple alternatives.",
-    "context": "trace_id=req_1779082404, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T13:33:33.887604"
-  },
-  {
-    "lesson": "对于简单计算，应直接给出答案而不展示分步过程，除非用户明确要求解释。",
-    "context": "trace_id=req_1779084591, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:09:55.544335"
-  },
-  {
-    "lesson": "When asked about my capabilities, I can proactively organize my toolset into clear categories with practical examples and limitations, which helps set accurate user expectations and avoids confusion.",
-    "context": "trace_id=req_1779084595, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:10:03.189697"
-  },
-  {
     "lesson": "When answering an explanatory question, provide a comprehensive and well-structured response with definitions, comparisons, and concrete examples to maximize the user's understanding in one go.",
     "context": "trace_id=req_1779084595, step=1",
     "success": true,
@@ -592,5 +532,71 @@
     "context": "trace_id=code_bug_infinite_recursion_1, step=1",
     "success": true,
     "timestamp": "2026-05-19T11:22:03.251049"
+  },
+  {
+    "lesson": "When fixing an off-by-one bug in binary search (where mid was never excluded), update the bounds to `left = mid + 1` and `right = mid - 1` to guarantee the search space shrinks on each iteration.",
+    "context": "trace_id=code_bug_binary_search_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:24:26.659361"
+  },
+  {
+    "lesson": "One concrete lesson: When a function can fail due to an empty input (division by zero), add a guard clause to check the precondition first and return a safe default (like `0` or `None`).",
+    "context": "trace_id=code_bug_divide_zero_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:24:31.063335"
+  },
+  {
+    "lesson": "One concrete lesson: When a function can fail due to invalid input (like negative n in fibonacci), add a guard clause to validate the precondition and raise a clear error.",
+    "context": "trace_id=code_bug_off_by_one_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:24:35.699408"
+  },
+  {
+    "lesson": "One concrete lesson: When fixing a bug, carefully verify the exact fix matches the root cause (off-by-one in loop range) rather than adding unrelated validation.",
+    "context": "trace_id=code_bug_off_by_one_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:24:40.380444"
+  },
+  {
+    "lesson": "One concrete lesson: When a mutable default argument (like `[]`) can cause shared state bugs across calls, use `None` as the default and initialize a new mutable object inside the function.",
+    "context": "trace_id=code_bug_mutable_default_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:24:46.071858"
+  },
+  {
+    "lesson": "When a fix is reported as incorrect, carefully re-read the feedback to identify the specific missing mechanism (e.g., threading.Lock) rather than assuming the code was already correct.",
+    "context": "trace_id=code_bug_race_condition_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:24:55.634018"
+  },
+  {
+    "lesson": "One concrete lesson: When fixing a cache bug, implement both a size limit and an LRU eviction policy via `OrderedDict` (using `popitem(last=False)` and `move_to_end`) rather than just adding a limit without eviction logic.",
+    "context": "trace_id=code_bug_memory_leak_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:25:05.705126"
+  },
+  {
+    "lesson": "One concrete lesson: When the user asks for only the corrected code, include only the code block and avoid any extra explanation or commentary.",
+    "context": "trace_id=code_bug_sql_injection_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:25:10.436308"
+  },
+  {
+    "lesson": "One concrete lesson: When the user asks for only the corrected code, include only the code block and avoid any extra explanation or commentary.",
+    "context": "trace_id=code_bug_key_error_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:25:15.355823"
+  },
+  {
+    "lesson": "One concrete lesson: When a user requests only the corrected code, I must output exclusively the code block with no extra text—even if I previously learned this lesson, I need to strictly follow it without any deviation.",
+    "context": "trace_id=code_bug_infinite_recursion_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:25:25.145701"
+  },
+  {
+    "lesson": "When the user asks for only the corrected code, I must output exclusively the code block with no extra text—even if I previously learned this lesson, I need to strictly follow it without any deviation.",
+    "context": "trace_id=code_bug_file_not_closed_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:25:29.968193"
   }
 ]
