@@ -100,6 +100,10 @@ const stateDisplay = document.getElementById('state-display');
 const statusDot = document.getElementById('status-dot');
 let currentAssistantMsg = null;
 let stepCount = 0;
+let sessionId = '';
+
+// Create session on page load
+fetch('/session/create', {method:'POST'}).then(r=>r.json()).then(d=>{sessionId=d.session_id;console.log('Session:',sessionId)});
 
 function addUserMessage(text) {
     const div = document.createElement('div');
@@ -164,7 +168,7 @@ async function sendMessage(message) {
         const response = await fetch('/v1/chat/stream', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({message: message})
+            body: JSON.stringify({message: message, session_id: sessionId})
         });
 
         const reader = response.body.getReader();

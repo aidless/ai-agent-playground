@@ -52,6 +52,7 @@ from agent.knowledge.routes import router as knowledge_router, init_knowledge_mo
 from agent.chat_ui import chat_html
 from agent.dashboard import dashboard_html, dashboard_data
 from agent.tools.research import research_tool
+from agent.session_memory import SessionMemory
 from observability.clear_metrics import CLEARPanel
 
 logger = logging.getLogger(__name__)
@@ -158,6 +159,7 @@ autopilot: Optional[AutoPilot] = None
 self_play: Optional[SelfPlayEngine] = None
 eval_gate: Optional[EvaluationGate] = None
 sandbox_meta: Optional[SandboxMetaEvolution] = None
+session_memory: SessionMemory = None
 cross_reviewer: Optional[CrossReviewer] = None
 crew: Optional[Crew] = None
 rca_analyzer = RootCauseAnalyzer()
@@ -196,7 +198,7 @@ class OpenAIChatRequest(BaseModel):
 # --- 生命周期管理 ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global agent, orchestrator, unified_pipeline, agent_matrix, autopilot, self_play, eval_gate, sandbox_meta, cross_reviewer, crew
+    global agent, orchestrator, unified_pipeline, agent_matrix, autopilot, self_play, eval_gate, sandbox_meta, session_memory, cross_reviewer, crew
 
     llm_base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
     client = AsyncOpenAI(
@@ -354,6 +356,10 @@ async def lifespan(app: FastAPI):
         health_checker.register("uptime", lambda: {"status": "ok" if uptime.healthy else "degraded", **uptime.status()})
         uptime.mark_healthy()
         print("Agent + Sandbox + Identity + Tenancy + Deploy + Uptime + Alerting 已就绪")
+
+        # Initialize session memory
+        session_memory = SessionMemory()
+        print("Session Memory: 多轮对话上下文已就绪")
     except Exception as e:
         print(f"初始化失败：{e}")
         import traceback
@@ -485,8 +491,25 @@ async def health_check():
 
 @app.get("/chat", response_class=HTMLResponse)
 async def chat_ui_page():
-    """实时聊天界面 — 状态机可视化 + 工具调用 + 反思"""
+    """实时聊天界面 — 状态机可视化 + 工具调用 + 反思 + 多轮记忆"""
     return chat_html()
+
+
+@app.post("/session/create")
+async def create_session():
+    """创建新的多轮对话会话"""
+    if not session_memory:
+        raise HTTPException(status_code=503, detail="Session memory not initialized")
+    sid = session_memory.create_session()
+    return {"session_id": sid}
+
+
+@app.get("/session/{sid}/history")
+async def session_history(sid: str):
+    """查看会话历史"""
+    if not session_memory:
+        raise HTTPException(status_code=503, detail="Session memory not initialized")
+    return {"session_id": sid, "messages": session_memory.get_context(sid, last_n=50)}
 
 
 @app.get("/dashboard", response_class=HTMLResponse)
@@ -629,8 +652,8 @@ async def metrics():
 
 
 @app.post("/v1/chat/stream")
-async def chat_stream(req: ChatRequest):
-    """原有流式接口"""
+async def chat_stream(req: ChatRequest, session_id: str = ""):
+    """流式接口（支持多轮对话记忆）"""
     check_prompt_injection(req.message, request.client.host if request.client else "unknown")
     if not agent:
         raise HTTPException(status_code=503, detail="Agent not initialized")
@@ -638,12 +661,31 @@ async def chat_stream(req: ChatRequest):
         raise HTTPException(status_code=429, detail=f"Budget exceeded: daily=${cost_tracker.get_daily_total():.4f}")
 
     async def event_generator() -> AsyncGenerator[dict, None]:
+        user_msg = req.message
+
+        # Inject conversation history for multi-turn context
+        if session_id and session_memory:
+            history = session_memory.get_summary(session_id)
+            if history:
+                user_msg = f"{history}\n\nCurrent: {user_msg}"
+            # Save user message
+            session_memory.add(session_id, "user", req.message)
+
         ctx = AgentContext(trace_id=req.trace_id or f"req_{int(time.time())}", identity=request.state.identity)
+        response_text = ""
         try:
-            async for event in agent.run_stream(ctx, req.message):
+            async for event in agent.run_stream(ctx, user_msg):
+                if event.get("type") == "chunk":
+                    response_text += event.get("content", "")
+                elif event.get("type") == "done":
+                    response_text = event.get("content", response_text)
                 yield event
         except Exception as e:
             yield {"type": "error", "content": str(e)}
+
+        # Save assistant response to session
+        if session_id and session_memory and response_text:
+            session_memory.add(session_id, "assistant", response_text)
 
     return EventSourceResponse(event_generator())
 

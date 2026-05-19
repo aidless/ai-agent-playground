@@ -19,6 +19,22 @@ class KnowledgeIndexer:
         self._embed_fn = None
         self._built = False
 
+    def _ollama_embed(self, texts):
+        """Get embeddings from Ollama API using local model."""
+        import urllib.request, json as _json
+        model = getattr(self, "_ollama_model", "qwen2.5:7b")
+        if isinstance(texts, str):
+            texts = [texts]
+        embeddings = []
+        for text in texts:
+            req = urllib.request.Request("http://localhost:11434/api/embeddings",
+                data=_json.dumps({"model": model, "prompt": text}).encode(),
+                headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                data = _json.loads(resp.read())
+                embeddings.append(data.get("embedding", []))
+        return embeddings
+
     def build_index(self, force_rebuild: bool = False) -> dict:
         try:
             import chromadb
@@ -57,22 +73,6 @@ class KnowledgeIndexer:
                     logger.info("Embedding model loaded: all-MiniLM-L6-v2")
                 except ImportError:
                     logger.warning("No embedding available, using keyword-only search")
-
-    def _ollama_embed(self, texts):
-        """Get embeddings from Ollama API using local model."""
-        import urllib.request, json as _json
-        model = getattr(self, "_ollama_model", "qwen2.5:7b")
-        if isinstance(texts, str):
-            texts = [texts]
-        embeddings = []
-        for text in texts:
-            req = urllib.request.Request("http://localhost:11434/api/embeddings",
-                data=_json.dumps({"model": model, "prompt": text}).encode(),
-                headers={"Content-Type": "application/json"})
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                data = _json.loads(resp.read())
-                embeddings.append(data.get("embedding", []))
-        return embeddings
 
             if not self.collector or not self.collector._cache:
                 logger.warning("No papers to index")
