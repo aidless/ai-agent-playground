@@ -76,6 +76,16 @@ class PromptSanitizer:
         r"(列出|显示|告诉我).*(密钥|密码|令牌|token|key)",
         r"what.*(key|token|password).*(have|access)",
         r"你有.*(什么|哪些).*(key|密钥|密码)",
+        # Sandbox bypass patterns
+        r"(bypass|绕过|绕过).*(sandbox|沙箱|restriction|限制)",
+        r"(educational|教学|学习).*(purpose|目的).*(bypass|绕过|hack)",
+        r"/etc/(passwd|shadow|hosts)",
+        r"reads? /etc",
+        r"bash script.*reads?",
+        # Indirect code injection (asking to write malicious code)
+        r"(write|写|编写).*(code|代码).*(delete|删除|destroy|破坏).*(file|文件)",
+        r"os\.system.*rm",
+        r"deletes? all files",
     ]
 
     @classmethod
