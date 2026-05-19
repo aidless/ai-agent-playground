@@ -19,6 +19,7 @@ from agent.bootstrap import BootstrapEngine
 from agent.evolution import PerformanceTracker, EvolutionEngine
 from agent.meta_agent import MetaAgent
 from agent.episodic_memory import EpisodicMemoryStore
+from agent.ttrl import TTRLEngine
 from observability.tracer import log_trace
 
 logger = logging.getLogger(__name__)
@@ -91,6 +92,7 @@ class AsyncAgent:
         self.evolution = EvolutionEngine(client, self.perf_tracker, registry, model) if enable_super_agent else None
         self.meta_agent = MetaAgent(self, client, registry) if enable_super_agent else None
         self.episodic_memory = EpisodicMemoryStore() if enable_super_agent else None
+        self.ttrl = TTRLEngine() if enable_super_agent else None
         self.debate_engine = (
             DebateEngine(client, challenger_client, arbitrator_client)
             if enable_super_agent and challenger_client
@@ -332,12 +334,31 @@ class AsyncAgent:
             if self.perf_tracker:
                 elapsed_ms = (time.time() - tool_start) * 1000
                 self.perf_tracker.record(tool_name, success=True, latency_ms=elapsed_ms)
+            # TTRL: learn from success
+            if self.ttrl:
+                user_msg = ""
+                for m in ctx.messages:
+                    if m.get("role") == "user":
+                        user_msg = m.get("content", "")
+                        break
+                ctx_key = self.ttrl.make_context("general", user_msg)
+                elapsed_ms = (time.time() - tool_start) * 1000
+                self.ttrl.record(ctx_key, tool_name, self.ttrl.reward_from_result(True, elapsed_ms))
         except Exception as e:
             result = f"Error: {e}"
             ctx.tool_results.append({"tool": tool_name, "result": result, "status": "error"})
             if self.perf_tracker:
                 elapsed_ms = (time.time() - tool_start) * 1000
                 self.perf_tracker.record(tool_name, success=False, latency_ms=elapsed_ms, error=str(e))
+            # TTRL: learn from failure
+            if self.ttrl:
+                user_msg = ""
+                for m in ctx.messages:
+                    if m.get("role") == "user":
+                        user_msg = m.get("content", "")
+                        break
+                ctx_key = self.ttrl.make_context("general", user_msg)
+                self.ttrl.record(ctx_key, tool_name, self.ttrl.reward_from_result(False))
 
         ctx.messages.append({
             "role": "tool",
