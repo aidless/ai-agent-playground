@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-19T03:42:19.277559+00:00",
+  "task": "Design a production-ready URL shortener service. Include:\n1. API design (endpoints, request/response formats)\n2. Database schema (SQL)\n3. Caching strategy\n4. Rate limiting approach\n5. Deployment archi",
+  "single_agent": {
+    "quality": 7.5,
+    "latency_ms": 56059,
+    "chars": 16427
+  },
+  "debate": {
+    "quality": 7.5,
+    "latency_ms": 99001,
+    "rounds": 4,
+    "delta": 0.0
+  },
+  "final_verdict": "Same quality"
+}

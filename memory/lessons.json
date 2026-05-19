@@ -1,11 +1,5 @@
 [
   {
-    "lesson": "When writing example code like a decorator, I should include an actual usage demonstration or test case so the user can immediately see it in action, rather than just providing the implementation and expected output.",
-    "context": "trace_id=req_1779084623, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:10:41.985712"
-  },
-  {
     "lesson": "When asked for a code generation task, I should always include docstrings, type hints, and usage examples to make the solution immediately practical and easy to understand.",
     "context": "trace_id=req_1779084623, step=1",
     "success": true,
@@ -598,5 +592,11 @@
     "context": "trace_id=mab_bl_mab_scale_plan, step=1",
     "success": true,
     "timestamp": "2026-05-19T11:35:45.908783"
+  },
+  {
+    "lesson": "One concrete lesson: When the user asks for a multi-topic design, you can deliver a comprehensive, production-ready answer covering all requested areas in a single response, with detailed code examples, infrastructure diagrams, and cost estimates.",
+    "context": "trace_id=pipeline_demo, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:40:34.778085"
   }
 ]
