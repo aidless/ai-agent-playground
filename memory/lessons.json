@@ -1,53 +1,5 @@
 [
   {
-    "lesson": "When running bash commands on Windows, always use the `cd` + `cygpath` + command pattern (e.g., `cd \"$(cygpath -u 'C:\\path')\" && ls -la`) to ensure the command executes in the correct working directory.",
-    "context": "trace_id=req_1779084665, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:11:08.786982"
-  },
-  {
-    "lesson": "When the user asks for a technical summary from a specific document, immediately extract and present the information in a structured, categorized format without asking clarifying questions.",
-    "context": "trace_id=req_1779084665, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:11:11.886060"
-  },
-  {
-    "lesson": "When asked for a structured summary, immediately provide clear phases with examples and a personalized takeaway to make the answer actionable.",
-    "context": "trace_id=req_1779084665, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:11:12.472749"
-  },
-  {
-    "lesson": "One concrete lesson: when listing files with a glob pattern (like `*.py`), if no files match, the glob itself may not cause an error but the `ls` command fails — so using `|| echo \"No ... found\"` is a smart way to handle that gracefully and avoid a silent failure.",
-    "context": "trace_id=req_1779094626, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T16:57:10.082126"
-  },
-  {
-    "lesson": "One concrete lesson: before reading a file, check the memory or past context for known file/directory structure (e.g., project root path) to avoid guessing and ensure the tool call succeeds on the first try.",
-    "context": "trace_id=req_1779094630, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T16:57:12.808518"
-  },
-  {
-    "lesson": "One concrete lesson: when running Python scripts inline with bash, escape nested quotes carefully or use a heredoc to avoid syntax errors and ensure the command runs smoothly.",
-    "context": "trace_id=req_1779094634, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T16:57:20.481528"
-  },
-  {
-    "lesson": "One concrete lesson: when a simple factual question is asked, answer directly and concisely without overcomplicating or invoking unnecessary tools.",
-    "context": "trace_id=req_1779094640, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T16:57:22.231759"
-  },
-  {
-    "lesson": "When a simple factual question is asked, answer directly and concisely without overcomplicating or invoking unnecessary tools.",
-    "context": "trace_id=req_1779094642, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T16:57:25.119958"
-  },
-  {
     "lesson": "When answering a factual question with specific regulatory content, structure the response with clear headings, direct citations, and a summary table to maximize clarity and usefulness without needing additional tools.",
     "context": "trace_id=req_1779096118, step=1",
     "success": true,
@@ -598,5 +550,53 @@
     "context": "trace_id=swe_swe_fix_sql_injection, step=1",
     "success": true,
     "timestamp": "2026-05-19T19:06:36.613246"
+  },
+  {
+    "lesson": "One concrete lesson: When the user explicitly says \"output ONLY the corrected code\" with a simple bug-fix request, I must provide only the minimal corrected code without any extra explanations, confirmations, or alternative approaches.",
+    "context": "trace_id=code_bug_binary_search_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T20:40:11.717132"
+  },
+  {
+    "lesson": "One concrete lesson: When the user explicitly says \"output ONLY the corrected code\" with a simple bug-fix request, I must respond with exactly that minimal code change without any extra explanations, confirmations, or alternative approaches—just like in the past learnings.",
+    "context": "trace_id=code_bug_divide_zero_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T20:40:17.035928"
+  },
+  {
+    "lesson": "One concrete lesson: When the user explicitly requests \"Output ONLY the corrected code\" for a simple bug fix, I must comply without any extra text—but I should also ensure the fix truly matches the test expectations (changing both the loop range and the return value) rather than only making a partial fix.",
+    "context": "trace_id=code_bug_off_by_one_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T20:40:22.615187"
+  },
+  {
+    "lesson": "One concrete lesson: When the user provides specific test cases that fail, I must carefully analyze the expected behavior for edge cases (like `n=0`) and ensure the fix satisfies all tests, not just the typical cases.",
+    "context": "trace_id=code_bug_off_by_one_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T20:40:27.112662"
+  },
+  {
+    "lesson": "One concrete lesson: When a user asks for a simple bug fix and to output only the corrected code, I should comply succinctly without extra commentary or alternatives.",
+    "context": "trace_id=code_bug_race_condition_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T20:40:37.219300"
+  },
+  {
+    "lesson": "One concrete lesson: When implementing a requirement like `data.get(key, default)`, I must ensure the function signature includes the `default` parameter rather than just using `data.get(key)` with a hardcoded fallback.",
+    "context": "trace_id=code_bug_key_error_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T20:41:01.501741"
+  },
+  {
+    "lesson": "When the user asks for only the corrected code with no extra commentary, I should comply succinctly without adding explanations or alternatives.",
+    "context": "trace_id=code_bug_infinite_recursion_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T20:41:06.240302"
+  },
+  {
+    "lesson": "One concrete lesson: When the user requests a simple fix and to output only corrected code, I should comply succinctly without extra commentary.",
+    "context": "trace_id=code_bug_file_not_closed_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T20:41:11.049024"
   }
 ]

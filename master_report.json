@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-05-19T12:40:05.231940+00:00",
+  "stages": {
+    "security_pentest": {
+      "status": "PASS",
+      "exit_code": 0,
+      "latency_ms": 1835,
+      "output": "sions\n  [PASS] 11. Bootstrap validates safe code\n  [PASS] 12. Evolution blocks subprocess\n  [PASS] 13. API key production enforcement\n  [PASS] 14. Intrusion detection triggers\n\n============================================================\nRESULTS: 14/14 defenses passed\n============================================================\n\n[OK] ALL DEFENSES HOLD - System is penetration-test ready.\nTool degraded: web_search → alternatives: ['web_fetch'] (reason: timeout)\nBootstrap blocked unsafe import: os\n"
+    },
+    "knowledge": {
+      "status": "SKIP",
+      "reason": "Script not found: build_knowledge_base.py --rebuild"
+    },
+    "code_bench": {
+      "status": "PASS",
+      "exit_code": 0,
+      "latency_ms": 66967,
+      "output": "File(mode='w', delete=False, suffix='.txt') as tf:\\n    tf.write('line1\\\\nline2\\\\n')\\n    path = tf.name\\nlines = read_lines(path)\\nassert lines == ['line1\\\\n', 'line2\\\\n']\\nos.unlink(path)\\n\\n```\\nCurrent (buggy) code:\\n```python\\ndef read_lines(path):\\n    f = open(path, 'r')\\n    return f.readlines()\\n\\n```\"}\n{\"trace_id\": \"code_bug_file_not_closed_1\", \"step\": 1, \"event\": \"done\", \"response\": \"```python\\ndef read_lines(path):\\n    with open(path, 'r') as f:\\n        return f.readlines()\\n```\"}\n"
+    },
+    "engines": {
+      "reflect_action": true,
+      "episodic_memory": true,
+      "knowledge_papers": 133,
+      "bootstrap_safety": true,
+      "agent_run": true
+    }
+  },
+  "summary": {
+    "stages": 4,
+    "all_pass": false,
+    "grade": "B"
+  }
+}

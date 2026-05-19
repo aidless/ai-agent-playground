@@ -113,8 +113,17 @@ async def main():
 
     # Stage 2: Knowledge
     print("\n[2/5] Knowledge Base")
-    report["stages"]["knowledge"] = run_script("build_knowledge_base.py --rebuild")
-    print(f"  Knowledge: {report['stages']['knowledge']['status']}")
+    from agent.knowledge.collector import PaperCollector
+    from agent.knowledge.indexer import KnowledgeIndexer
+    kc = PaperCollector()
+    ki = KnowledgeIndexer(collector=kc)
+    kr = ki.build_index()
+    report["stages"]["knowledge"] = {
+        "status": "PASS" if kr.get("chunks", 0) > 0 else "WARN",
+        "papers": kc.cached_count,
+        "chunks": kr.get("chunks", 0),
+    }
+    print(f"  Knowledge: {kc.cached_count} papers, {kr.get('chunks', 0)} chunks")
 
     # Stage 3: Benchmarks
     print("\n[3/5] Benchmarks")

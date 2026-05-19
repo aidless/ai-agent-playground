@@ -1,6 +1,6 @@
 {
   "benchmark": "code_repair",
-  "timestamp": "2026-05-19T03:33:30.658703+00:00",
+  "timestamp": "2026-05-19T12:41:13.791694+00:00",
   "tasks": 10,
   "results": [
     {
@@ -9,7 +9,7 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 3822,
+      "attempt_1_ms": 3453,
       "attempt_2_ms": 0,
       "quality_score": 6.7
     },
@@ -19,7 +19,7 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2112,
+      "attempt_1_ms": 2591,
       "attempt_2_ms": 0,
       "quality_score": 5.7
     },
@@ -28,9 +28,9 @@
       "difficulty": "medium",
       "bug_detected": true,
       "fix_passed": true,
-      "self_corrected": false,
-      "attempt_1_ms": 2871,
-      "attempt_2_ms": 0,
+      "self_corrected": true,
+      "attempt_1_ms": 2858,
+      "attempt_2_ms": 2687,
       "quality_score": 6.7
     },
     {
@@ -39,7 +39,7 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 1983,
+      "attempt_1_ms": 2024,
       "attempt_2_ms": 0,
       "quality_score": 9.7
     },
@@ -49,7 +49,7 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 1826,
+      "attempt_1_ms": 2876,
       "attempt_2_ms": 0,
       "quality_score": 9.7
     },
@@ -59,8 +59,8 @@
       "bug_detected": false,
       "fix_passed": true,
       "self_corrected": true,
-      "attempt_1_ms": 1869,
-      "attempt_2_ms": 3676,
+      "attempt_1_ms": 1901,
+      "attempt_2_ms": 2950,
       "quality_score": 9.7
     },
     {
@@ -69,7 +69,7 @@
       "bug_detected": false,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2715,
+      "attempt_1_ms": 2095,
       "attempt_2_ms": 0,
       "quality_score": 6.7
     },
@@ -77,10 +77,10 @@
       "id": "bug_key_error",
       "difficulty": "easy",
       "bug_detected": false,
-      "fix_passed": false,
-      "self_corrected": false,
-      "attempt_1_ms": 1922,
-      "attempt_2_ms": 2713,
+      "fix_passed": true,
+      "self_corrected": true,
+      "attempt_1_ms": 1894,
+      "attempt_2_ms": 2276,
       "quality_score": 7.2
     },
     {
@@ -89,7 +89,7 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2359,
+      "attempt_1_ms": 2048,
       "attempt_2_ms": 0,
       "quality_score": 9.7
     },
@@ -99,15 +99,15 @@
       "bug_detected": true,
       "fix_passed": true,
       "self_corrected": false,
-      "attempt_1_ms": 2199,
+      "attempt_1_ms": 2083,
       "attempt_2_ms": 0,
       "quality_score": 6.7
     }
   ],
   "summary": {
     "detection_rate": 0.7,
-    "fix_rate": 0.9,
-    "self_correction_rate": 0.1,
+    "fix_rate": 1.0,
+    "self_correction_rate": 0.3,
     "avg_quality": 7.9
   }
 }
