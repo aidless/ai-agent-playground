@@ -3,6 +3,7 @@
 import json
 import time
 import logging
+import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
@@ -210,3 +211,63 @@ class PaperCollector:
     @property
     def cached_count(self) -> int:
         return len(self._cache)
+
+    def download_pdf(self, arxiv_id: str) -> str:
+        """Download PDF and extract full text. Returns extracted text or empty string."""
+        pdf_path = self.data_dir / f"{arxiv_id}.pdf"
+        txt_path = self.data_dir / f"{arxiv_id}.txt"
+
+        # Return cached text if available
+        if txt_path.exists():
+            return txt_path.read_text(encoding="utf-8", errors="replace")
+
+        # Download PDF
+        if not pdf_path.exists():
+            try:
+                url = f"https://arxiv.org/pdf/{arxiv_id}.pdf"
+                req = urllib.request.Request(url, headers={"User-Agent": "AI-Agent-Playground/1.0"})
+                with urllib.request.urlopen(req, timeout=60) as resp:
+                    pdf_path.write_bytes(resp.read())
+                logger.info("Downloaded PDF: %s", arxiv_id)
+            except Exception as e:
+                logger.warning("PDF download failed for %s: %s", arxiv_id, e)
+                return ""
+
+        # Extract text from PDF
+        try:
+            text = ""
+            # Try pypdf first
+            try:
+                from pypdf import PdfReader
+                reader = PdfReader(str(pdf_path))
+                for page in reader.pages:
+                    t = page.extract_text()
+                    if t:
+                        text += t + "\n"
+            except ImportError:
+                pass
+
+            # Fallback: PyPDF2
+            if not text:
+                try:
+                    import PyPDF2
+                    reader = PyPDF2.PdfReader(str(pdf_path))
+                    for page in reader.pages:
+                        t = page.extract_text()
+                        if t:
+                            text += t + "\n"
+                except ImportError:
+                    pass
+
+            if text:
+                txt_path.write_text(text, encoding="utf-8", errors="replace")
+                logger.info("Extracted full text: %s (%d chars)", arxiv_id, len(text))
+                return text
+        except Exception as e:
+            logger.warning("PDF extraction failed for %s: %s", arxiv_id, e)
+
+        return ""
+
+    def get_full_text(self, arxiv_id: str) -> str:
+        """Get full paper text, downloading PDF if needed."""
+        return self.download_pdf(arxiv_id)

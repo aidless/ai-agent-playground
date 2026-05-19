@@ -67,10 +67,18 @@ class KnowledgeQueryEngine:
                 "latency_seconds": round(time.time() - start, 2),
             }
 
-        context = "\n\n".join(
-            f"[{i+1}] {s['title']}\nAuthors: {s.get('authors', '')}\nAbstract: {s.get('abstract', '')[:800]}"
-            for i, s in enumerate(sources)
-        )
+        # Build context: prefer full text, fall back to abstract
+        context_parts = []
+        for i, s in enumerate(sources):
+            paper_id = s.get("id", "")
+            full_text = ""
+            if paper_id and self.collector:
+                full_text = self.collector.get_full_text(paper_id)
+            body = full_text[:1500] if full_text else s.get("abstract", "")[:800]
+            context_parts.append(
+                f"[{i+1}] {s['title']}\nAuthors: {s.get('authors', '')}\n{body}"
+            )
+        context = "\n\n".join(context_parts)
 
         prompt = (
             f"Based on the following research papers, answer this question about AI Agents:\n\n"
