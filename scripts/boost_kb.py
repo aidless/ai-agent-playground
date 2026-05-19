@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-🛡️ 知识库扩容器（修正版）
-特性：每批 20 篇 | 间隔 5 秒 | 遇封锁自动休眠
+🛡️ 知识库扩容器 (最终修复版)
+策略：每批 20 篇 | 间隔 5 秒 | 遇封锁自动休眠
+修复：使用 requests 直连下载，彻底解决库版本冲突导致的报错
 """
 
 import sys
 import json
 import time
+import requests
 from pathlib import Path
 
 # === 配置区 ===
@@ -14,7 +16,7 @@ PROJECT_ROOT = Path(__file__).parent.parent
 DATA_DIR = PROJECT_ROOT / "data" / "papers"
 META_FILE = DATA_DIR / "metadata.json"
 
-# ArXiv 限制设置
+# 核心参数（严格符合你的要求）
 BATCH_SIZE = 20  # 严格遵守单次 20 篇
 REQUEST_INTERVAL = 5  # 严格间隔 5 秒
 
@@ -28,33 +30,52 @@ KEYWORDS = [
 
 
 def load_existing_metadata():
-    """加载已有的元数据"""
+    """加载已有的元数据，防止重复"""
     if META_FILE.exists():
         try:
             with open(META_FILE, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except Exception as e:
-            print(f"⚠️ 读取失败: {e}")
+            print(f"⚠️ 读取元数据失败: {e}")
     return []
 
 
 def save_metadata(meta_list):
-    """保存元数据"""
+    """保存元数据到 JSON"""
     with open(META_FILE, 'w', encoding='utf-8') as f:
         json.dump(meta_list, f, ensure_ascii=False, indent=2)
-    print(f"💾 已保存元数据: {len(meta_list)} 条记录")
+    print(f"💾 已更新本地索引: {len(meta_list)} 条记录")
+
+
+def download_via_requests(url, filepath):
+    """
+    核心修复：使用 requests 直接通过 URL 下载，绕过 arxiv 库的内部 bug
+    """
+    try:
+        print(f"      💻 正在直连下载 PDF...")
+        resp = requests.get(url, timeout=30, stream=True)
+        resp.raise_for_status()  # 检查网络状态
+
+        with open(filepath, 'wb') as f:
+            for chunk in resp.iter_content(chunk_size=8192):
+                f.write(chunk)
+
+        return True
+    except Exception as e:
+        print(f"      ❌ 下载失败: {str(e)[:50]}")
+        return False
 
 
 def fetch_with_retry(query, max_results):
-    """带重试的抓取函数"""
+    """带重试机制的网络抓取"""
     try:
         import arxiv
     except ImportError:
-        print("❌ 缺少 arxiv 库")
+        print("❌ 缺少 arxiv 库，请先运行 pip install arxiv")
         sys.exit(1)
 
-    max_retries = 5
-    delay_start = 30  # 初始等待 30 秒
+    max_retries = 3
+    delay_start = 30  # 遇到 429 自动等待 30 秒起跳
 
     for attempt in range(max_retries):
         try:
@@ -64,46 +85,42 @@ def fetch_with_retry(query, max_results):
                 max_results=max_results,
                 sort_by=arxiv.SortCriterion.Relevance
             )
-            # 执行获取
-            results = list(client.results(search))
-            return results
+            return list(client.results(search))
 
         except arxiv.HTTPError as e:
-            # 遇到 429 封锁
             status = e.args[0] if e.args else "?"
             if attempt < max_retries - 1:
                 sleep_time = delay_start * (2 ** attempt)
-                print(f"   ⚠️ 遭遇封锁 ({status})，休眠 {sleep_time // 60} 分钟自动重试...")
+                print(f"   ⚠️ 遭遇封禁 ({status})，系统休眠 {sleep_time // 60} 分钟后继续...")
                 time.sleep(sleep_time)
             else:
-                print(f"   ❌ 重试多次后仍失败。")
+                print(f"   ❌ 多次尝试均被拒，跳过此主题。")
                 return []
-
-        except Exception as e:
-            print(f"   ⚠️ 其他错误: {e}")
-            time.sleep(5)
 
     return []
 
 
-def download_and_process(paper, seen_ids, meta_list, collected_count):
-    """处理单篇论文"""
+def process_paper(paper, seen_ids, meta_list, count):
+    """处理单篇论文：检查 ID -> 下载 PDF -> 记录信息"""
     pid = paper.entry_id.split('/')[-1]
     if pid in seen_ids:
-        return collected_count
+        return count
 
-    print(f"   📥 [{len(seen_ids) + 1}] {paper.title[:60]}...")
+    print(f"   📥 [{count + 1}] {paper.title[:60]}...")
 
-    # 下载 PDF
-    pdf_filename = f"{pid}.pdf"
-    if not (DATA_DIR / pdf_filename).exists():
-        try:
-            paper.download_pdf(dirpath=str(DATA_DIR), filename=pdf_filename)
-            print(f"      ✅ PDF 下载成功")
-        except Exception as e:
-            print(f"      ⚠️ PDF 下载失败: {e}")
+    # --- 修复点：这里不再调用 paper.download_pdf，而是直接抓 URL ---
+    if hasattr(paper, 'pdf_url'):
+        pdf_path = DATA_DIR / f"{pid}.pdf"
+        if not pdf_path.exists():
+            success = download_via_requests(paper.pdf_url, pdf_path)
+            if success:
+                print(f"      ✅ 完成存储")
+            else:
+                print(f"      ⚠️ PDF 未保存，仅记录标题")
+    else:
+        print(f"      ⚠️ 未找到 PDF 地址")
 
-    # 记录信息
+    # 记录元数据
     entry = {
         "id": pid,
         "title": paper.title,
@@ -114,12 +131,12 @@ def download_and_process(paper, seen_ids, meta_list, collected_count):
     }
     meta_list.append(entry)
     seen_ids.add(pid)
-    return collected_count + 1
+    return count + 1
 
 
 def main():
     print("🛡️ 开始执行安全扩库任务...")
-    print(f"   策略: 每批 20 篇 | 间隔 5 秒 | 遇封锁自动休眠\n")
+    print("   策略：每批 20 篇 | 间隔 5 秒 | 使用直连下载\n")
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -137,26 +154,21 @@ def main():
 
         print(f"\n[{i + 1}] 🔍 搜索主题: '{kw}' (还需约 {needed} 篇)...")
 
-        # 使用带重试逻辑的抓取
-        papers = fetch_with_retry(
-            query=f'cat:"cs.AI" AND ti:"{kw}"',
-            max_results=current_batch_size
-        )
+        # 抓取数据
+        papers = fetch_with_retry(query=f'cat:"cs.AI" AND ti:"{kw}"', max_results=current_batch_size)
 
-        # 遍历处理
+        # 处理每一篇
         for paper in papers:
             if len(seen_ids) >= target_total:
                 break
-            # --- 修复了函数名拼写错误 ---
-            download_and_process(paper, seen_ids, meta_list, len(seen_ids))
-        # -----------------------------------
+            process_paper(paper, seen_ids, meta_list, len(seen_ids))
 
         if papers:
-            print(f"   💤 本批完成，系统休眠 {REQUEST_INTERVAL} 秒...")
+            print(f"   💤 本批完成，系统休眠 5 秒...")
             time.sleep(REQUEST_INTERVAL)
 
     save_metadata(meta_list)
-    print(f"\n🎉 任务结束！最终库容: {len(seen_ids)} 篇")
+    print(f"\n🎉 任务结束！当前知识库总容量: {len(seen_ids)} 篇")
 
 
 if __name__ == "__main__":
