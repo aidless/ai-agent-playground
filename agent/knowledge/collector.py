@@ -59,6 +59,36 @@ class PaperCollector:
                     self._cache[pid] = PaperMetadata(**pdata)
                 except Exception:
                     pass
+        # Load default papers if cache is empty
+        if not self._cache:
+            self._load_default_papers()
+
+    def _load_default_papers(self):
+        """Load bundled default papers when ArXiv is unreachable (China GFW)."""
+        default_file = self.data_dir / "default_papers.json"
+        if not default_file.exists():
+            return
+        try:
+            data = json.loads(default_file.read_text(encoding="utf-8"))
+            for p in data.get("papers", []):
+                pid = p.get("id", "")
+                if pid and pid not in self._cache:
+                    try:
+                        self._cache[pid] = PaperMetadata(
+                            arxiv_id=pid,
+                            title=p.get("title", ""),
+                            abstract=p.get("abstract", ""),
+                            authors=p.get("authors", []),
+                            published=p.get("published", ""),
+                            categories=p.get("categories", []),
+                            pdf_url=f"https://arxiv.org/pdf/{pid}.pdf",
+                        )
+                    except Exception:
+                        pass
+            self._save_cache()
+            logger.info("Loaded %d default papers (ArXiv offline fallback)", len(data.get("papers", [])))
+        except Exception as e:
+            logger.warning("Failed to load default papers: %s", e)
 
     def _save_cache(self):
         data = {pid: p.__dict__ for pid, p in self._cache.items()}

@@ -1,0 +1,17 @@
+sentence-transformers not available, using keyword-only search
+============================================================
+KNOWLEDGE BASE BUILDER
+Rebuild mode: index from cache
+============================================================
+
+Building vector index...
+Indexed: 133 documents
+Chunks: 133
+
+Final status:
+  Papers: 133
+  Index chunks: 133
+  Index size: 6.5 MB
+  Embedding: all-MiniLM-L6-v2
+
+Done.

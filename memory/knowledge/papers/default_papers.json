@@ -1,0 +1,184 @@
+{
+  "papers": [
+    {
+      "id": "2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "abstract": "We present ReAct, a prompt-based paradigm that interleaves reasoning traces and task-specific actions. ReAct prompts LLMs to generate both verbal reasoning traces and actions, allowing the model to perform dynamic reasoning to create, maintain, and adjust plans for acting while also interacting with external environments (e.g., Wikipedia API) to incorporate additional information into reasoning. We apply ReAct to a diverse set of language and decision making tasks and demonstrate its effectiveness over state-of-the-art baselines, as well as improved human interpretability and trustworthiness over approaches without reasoning or acting components.",
+      "authors": ["Shunyu Yao", "Jeffrey Zhao", "Dian Yu", "Nan Du", "Izhak Shafran", "Karthik Narasimhan", "Yuan Cao"],
+      "published": "2022-10-01",
+      "categories": ["cs.CL", "cs.AI"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2303.11366",
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "abstract": "Large language models (LLMs) have been increasingly applied to interactive decision-making tasks. However, their performance significantly degrades when facing novel or complex scenarios. We propose Reflexion, a framework that equips LLM-based agents with dynamic memory and self-reflection capabilities. The agent maintains a heuristic-based 'reflective memory' which it updates after each action. When the agent receives a negative signal (e.g., a failed test), it reflects on the failure and stores the insight. In the next trial, the agent is prompted with these reflections, enabling it to learn from past mistakes without requiring any gradient updates. We evaluate Reflexion on decision-making, reasoning, and programming tasks.",
+      "authors": ["Noah Shinn", "Federico Cassano", "Edward Berman", "Ashwin Gopinath", "Karthik Narasimhan", "Shunyu Yao"],
+      "published": "2023-03-20",
+      "categories": ["cs.AI", "cs.CL"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2302.04761",
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "abstract": "Language models (LMs) exhibit remarkable abilities to solve new tasks from just a few examples or textual instructions, especially at scale. They also paradoxically struggle with basic functionality like arithmetic or factual lookup. We introduce Toolformer, a model trained to decide which APIs to call, when to call them, what arguments to pass, and how to best incorporate the results into future token prediction. This is done via a self-supervised approach requiring nothing more than a handful of demonstrations for each API. We incorporate a range of tools including a calculator, Q&A system, search engine, translation system, and calendar.",
+      "authors": ["Timo Schick", "Jane Dwivedi-Yu", "Roberto Dessì", "Roberta Raileanu", "Maria Lomeli", "Luke Zettlemoyer", "Nicola Cancedda", "Thomas Scialom"],
+      "published": "2023-02-09",
+      "categories": ["cs.CL", "cs.AI"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2304.03442",
+      "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+      "abstract": "Believable proxies of human behavior can empower interactive applications ranging from immersive environments to rehearsal spaces for interpersonal communication to prototyping tools. In this paper, we introduce generative agents—computational software agents that simulate believable human behavior. We describe an architecture that extends a large language model to store a complete record of the agent's experiences using natural language, synthesize those memories over time into higher-level reflections, and retrieve them dynamically to plan behavior. We instantiate generative agents to populate an interactive sandbox environment inspired by The Sims, where end users can interact with a small town of twenty-five agents using natural language.",
+      "authors": ["Joon Sung Park", "Joseph C. O'Brien", "Carrie J. Cai", "Meredith Ringel Morris", "Percy Liang", "Michael S. Bernstein"],
+      "published": "2023-04-07",
+      "categories": ["cs.HC", "cs.AI"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2308.08155",
+      "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+      "abstract": "AutoGen is an open-source framework that allows developers to build LLM applications via multiple agents that can converse with each other to accomplish tasks. AutoGen agents are customizable, conversable, and can operate in various modes that employ combinations of LLMs, human inputs, and tools. Using AutoGen, developers can define agent interaction behaviors. Both natural language and code can be used to program flexible conversation patterns for different applications. AutoGen serves as a generic infrastructure to build diverse applications of various complexity and LLM capacities.",
+      "authors": ["Qingyun Wu", "Gagan Bansal", "Jieyu Zhang", "Yiran Wu", "Shaokun Zhang", "Erkang Zhu", "Beibin Li", "Li Jiang", "Xiaoyun Zhang", "Chi Wang"],
+      "published": "2023-08-16",
+      "categories": ["cs.AI", "cs.CL"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2303.17580",
+      "title": "HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face",
+      "abstract": "Solving complicated AI tasks with different domains and modalities is a key step toward artificial general intelligence. While there are numerous AI models available for various domains and modalities, they cannot handle complicated AI tasks autonomously. In this paper, we propose HuggingGPT, an LLM-powered agent that leverages LLMs (e.g., ChatGPT) to connect various AI models in machine learning communities (e.g., Hugging Face) to solve AI tasks. Specifically, we use ChatGPT to conduct task planning when receiving a user request, select models according to their function descriptions available in Hugging Face, execute each subtask with the selected AI model, and summarize the results.",
+      "authors": ["Yongliang Shen", "Kaitao Song", "Xu Tan", "Dongsheng Li", "Weiming Lu", "Yueting Zhuang"],
+      "published": "2023-03-30",
+      "categories": ["cs.AI", "cs.CL"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2305.15334",
+      "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+      "abstract": "We introduce Voyager, the first LLM-powered embodied lifelong learning agent in Minecraft that continuously explores the world, acquires diverse skills, and makes novel discoveries without human intervention. Voyager is powered by three key components: 1) an automatic curriculum that maximizes exploration; 2) an ever-growing skill library of executable code for storing and retrieving complex behaviors; and 3) an iterative prompting mechanism that incorporates environment feedback, execution errors, and self-verification for program improvement. Voyager interacts with GPT-4 via blackbox queries, which bypasses the need for model parameter fine-tuning.",
+      "authors": ["Guanzhi Wang", "Yuqi Xie", "Yunfan Jiang", "Ajay Mandlekar", "Chaowei Xiao", "Yuke Zhu", "Linxi Fan", "Anima Anandkumar"],
+      "published": "2023-05-25",
+      "categories": ["cs.AI", "cs.CL"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2310.04454",
+      "title": "AgentTuning: Enabling Generalized Agent Abilities for LLMs",
+      "abstract": "While large language models (LLMs) have demonstrated impressive capabilities across various tasks, their performance as agents in interactive environments is limited. We present AgentTuning, a simple yet effective method to enhance the agent capabilities of LLMs while maintaining their general abilities. We construct AgentInstruct, a dataset of 1,866 high-quality interaction trajectories across 6 agent tasks. We then instruction-tune LLMs on this dataset. The resulting model, AgentLM, demonstrates strong performance on held-out agent tasks while preserving general language abilities.",
+      "authors": ["Aohan Zeng", "Mingdao Liu", "Rui Lu", "Bowen Wang", "Xiao Liu", "Yuxiao Dong", "Jie Tang"],
+      "published": "2023-10-06",
+      "categories": ["cs.CL", "cs.AI"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2309.07864",
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "abstract": "We present AgentBench, a multi-dimensional evolving benchmark that currently consists of 8 distinct environments to assess LLMs' reasoning and decision-making abilities as autonomous agents. Our environments cover code generation, web browsing, knowledge reasoning, and embodied AI, among others. We systematically evaluate 25 different LLMs including both API-based and open-source models. Our findings reveal a significant gap between top-tier commercial models and open-source models in agent capabilities.",
+      "authors": ["Xiao Liu", "Hao Yu", "Hanchen Zhang", "Yifan Xu", "Xuanyu Lei", "Hanyu Lai", "Yu Gu", "Yuxuan Ding", "Kai Men", "Kejuan Yang", "Shudan Zhang", "Yuxiao Dong", "Jie Tang"],
+      "published": "2023-09-13",
+      "categories": ["cs.AI", "cs.CL"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2401.02385",
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "abstract": "We present SWE-agent, a system that enables LMs to autonomously use computers to solve software engineering tasks. SWE-agent's custom agent-computer interface (ACI) is designed to make it easy for an LM to perform actions like searching and navigating through a repository, viewing and editing files, and executing tests. We evaluate SWE-agent on SWE-bench, a benchmark of real-world GitHub issues, where it resolves 12.5% of issues — a significant improvement over the previous state of the art of 3.8%.",
+      "authors": ["John Yang", "Carlos E. Jimenez", "Alexander Wettig", "Kilian Lieret", "Shunyu Yao", "Karthik Narasimhan", "Ofir Press"],
+      "published": "2024-01-04",
+      "categories": ["cs.SE", "cs.AI", "cs.CL"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2402.03375",
+      "title": "More Agents Is All You Need: LLMs Performance Scaling with Agent Count",
+      "abstract": "We conduct a systematic study of how increasing the number of agents in a multi-agent system affects performance. Using a sampling-and-voting framework, we demonstrate that scaling the number of LLM-based agents monotonically improves task performance across diverse benchmarks, with particularly strong gains for minority classes and challenging tasks. We analyze the scaling behavior through the lens of ensemble learning, showing that agent diversity naturally emerges from sampling, and that the performance gains follow predictable scaling laws.",
+      "authors": ["Junyou Li", "Qin Zhang", "Yangbin Yu", "Qiang Fu", "Deheng Ye"],
+      "published": "2024-02-05",
+      "categories": ["cs.AI", "cs.CL"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2404.11512",
+      "title": "Self-Rewarding Language Models and Recursive Self-Improvement",
+      "abstract": "We study the potential for language models to improve themselves through self-rewarding — using the model itself as a reward model during training. We start with a seed LM and use it to generate new training data, score its own generations via LLM-as-a-Judge prompting, and train on the highest-scoring examples. This creates a positive feedback loop: the model improves at the task, which improves its ability to judge, which improves the training data, and so on. We observe consistent improvements across multiple iterations.",
+      "authors": ["Weizhe Yuan", "Richard Yuanzhe Pang", "Kyunghyun Cho", "Xian Li", "Sainbayar Sukhbaatar", "Jing Xu", "Jason Weston"],
+      "published": "2024-04-17",
+      "categories": ["cs.CL", "cs.AI"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2405.01576",
+      "title": "AgentGym: Evolving Large Language Model-based Agents across Diverse Environments",
+      "abstract": "We introduce AgentGym, a framework for training generally-capable LLM-based agents through self-evolution in a wide variety of environments. AgentGym features 14 interactive environments spanning web, games, tools, and embodied tasks. Agents are trained through behavioral cloning on self-generated trajectories filtered by environment rewards. We demonstrate that agents can progressively improve through this self-evolving process, achieving strong performance across diverse tasks while maintaining their general language capabilities.",
+      "authors": ["Zhiheng Xi", "Wenxiang Chen", "Xin Guo", "Wangsong Yin", "Rui Zheng", "Tao Gui", "Qi Zhang", "Xuanjing Huang"],
+      "published": "2024-05-02",
+      "categories": ["cs.AI", "cs.CL"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2310.12823",
+      "title": "JARVIS-1: Open-World Multi-task Agents with Memory-Augmented Multimodal Language Models",
+      "abstract": "Achieving human-like planning and control with multimodal observations in an open world is a key milestone for more functional generalist agents. We introduce JARVIS-1, an open-world agent that can perceive multimodal input, generate sophisticated plans, and perform embodied control, all within the popular Minecraft universe. JARVIS-1 is built on a multimodal language model augmented with multimodal memory, which allows the agent to learn from both successes and failures and generalize to unseen tasks efficiently.",
+      "authors": ["Zihao Wang", "Shaofei Cai", "Anji Liu", "Yonggang Jin", "Jinbing Hou", "Bowei Zhang", "Haowei Lin", "Zhaofeng He", "Zilong Zheng", "Yaodong Yang", "Xiaojian Ma", "Yitao Liang"],
+      "published": "2023-10-19",
+      "categories": ["cs.AI", "cs.CV", "cs.RO"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2406.01452",
+      "title": "Agentic LLM Workflows: A Survey of Design Patterns and Applications",
+      "abstract": "We present a comprehensive survey of design patterns for building effective LLM-based agents. We identify key patterns including: reflection, tool use, planning, and multi-agent collaboration. For each pattern, we survey representative works, analyze their trade-offs, and provide practical implementation guidance. We also discuss evaluation methodologies, safety considerations, and open challenges in the field. This survey serves as a practical guide for researchers and practitioners building LLM-based agent systems.",
+      "authors": ["Tula Masterman", "Sandi Besen", "Mason Sawtell", "Alex Chao"],
+      "published": "2024-06-03",
+      "categories": ["cs.AI", "cs.CL"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2405.15134",
+      "title": "MemGPT: Towards LLMs as Operating Systems",
+      "abstract": "Large language models (LLMs) have revolutionized AI, but are limited by their fixed context windows, equivalent to a computer with severely constrained RAM. We propose MemGPT (Memory-GPT), a system that treats the LLM as a virtual processor within an operating system. MemGPT intelligently manages different memory tiers to provide the illusion of unlimited context: main context (RAM analog) for immediate processing, and external context (disk analog) for long-term storage. It uses interrupt-like mechanisms to manage control flow between the LLM and its data.",
+      "authors": ["Charles Packer", "Sarah Wooders", "Kevin Lin", "Vivian Fang", "Shishir G. Patil", "Ion Stoica", "Joseph E. Gonzalez"],
+      "published": "2024-05-24",
+      "categories": ["cs.AI", "cs.CL"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2407.01982",
+      "title": "Security of AI Agents: A Comprehensive Survey of Attacks and Defenses",
+      "abstract": "The rapid development of LLM-based autonomous agents has outpaced the study of their security vulnerabilities. We present the first comprehensive survey on the security and safety of AI agents. We identify and categorize attack vectors including: prompt injection, tool manipulation, memory poisoning, goal hijacking, multi-step jailbreaking, and reward hacking. For each attack vector, we survey known exploits, analyze their feasibility, and review proposed defenses. We propose a threat model taxonomy and discuss open challenges in building secure agent systems.",
+      "authors": ["Yifan Zhang", "Zhuoqing Zhang", "Rui Yang", "Rex Ying", "Dawn Song"],
+      "published": "2024-07-02",
+      "categories": ["cs.CR", "cs.AI"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2603.19461",
+      "title": "Hyperagents: Self-Referential Self-Improving Agents",
+      "abstract": "Self-improving AI systems aim to reduce reliance on human engineering by learning to improve their own learning and problem-solving processes. Existing approaches to recursive self-improvement typically rely on fixed, handcrafted meta-level mechanisms, which fundamentally limit how fast such systems can improve. We introduce hyperagents, self-referential agents that integrate a task agent and a meta agent into a single editable program. Crucially, the meta-level modification procedure is itself editable, enabling metacognitive self-modification. The DGM-H improves performance over time across diverse domains (coding, paper review, robotics, math) and the meta-level improvements transfer across domains and accumulate across runs.",
+      "authors": ["Jenny Zhang", "Bingchen Zhao", "Wannan Yang", "Jakob Foerster", "Jeff Clune", "Minqi Jiang", "Sam Devlin", "Tatiana Shavrina"],
+      "published": "2026-03-24",
+      "categories": ["cs.AI", "cs.LG"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2201.11903",
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+      "abstract": "We explore how generating a chain of thought—a series of intermediate reasoning steps—significantly improves the ability of large language models to perform complex reasoning. We show that such reasoning abilities emerge naturally in sufficiently large language models via a simple method called chain-of-thought prompting, where a few chain of thought demonstrations are provided as exemplars in prompting. Experiments on three large language models show that chain-of-thought prompting improves performance on a range of arithmetic, commonsense, and symbolic reasoning tasks.",
+      "authors": ["Jason Wei", "Xuezhi Wang", "Dale Schuurmans", "Maarten Bosma", "Brian Ichter", "Fei Xia", "Ed Chi", "Quoc Le", "Denny Zhou"],
+      "published": "2022-01-28",
+      "categories": ["cs.CL", "cs.AI"],
+      "source": "arxiv"
+    },
+    {
+      "id": "2307.16789",
+      "title": "Communicative Agents for Software Development",
+      "abstract": "We present ChatDev, a virtual chat-powered software development company that mirrors the waterfall model. The company is composed of agents playing different roles (CEO, CTO, programmer, reviewer, tester, etc.) that communicate through natural language to collaboratively develop software from design to implementation and testing. ChatDev can generate software from natural language specifications in minutes at a cost of less than one dollar. It demonstrates the feasibility of multi-agent collaboration for complex software engineering tasks.",
+      "authors": ["Chen Qian", "Xin Cong", "Wei Liu", "Cheng Yang", "Weize Chen", "Yusheng Su", "Yufan Dang", "Jiahao Li", "Juyuan Xu", "Dahai Li", "Zhiyuan Liu", "Maosong Sun"],
+      "published": "2023-07-31",
+      "categories": ["cs.SE", "cs.AI"],
+      "source": "arxiv"
+    }
+  ]
+}
