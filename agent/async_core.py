@@ -322,9 +322,16 @@ class AsyncAgent:
         })
 
     async def _reflect_step(self, ctx: AgentContext) -> AsyncGenerator[dict, None]:
-        """Self-reflection after tool calls. Triggers Reflect→Action loop."""
+        """Self-reflection after tool calls. Triggers Reflect→Action loop + ReAct correction."""
         ctx.state = AgentState.REFLECT
         ctx.record_step("reflect_start", {})
+
+        # ReAct correction: check if tool results contradict expectations
+        if ctx.tool_results:
+            last_result = ctx.tool_results[-1]
+            if last_result.get("status") == "error":
+                ctx.record_step("react_correction", {"result": str(last_result)})
+                yield {"type": "correction", "content": f"Noticed error: {str(last_result.get('result', ''))[:100]}"}
 
         reflect_msgs = [
             {"role": "system", "content": REFLECT_PROMPT},

@@ -66,6 +66,7 @@ class BootstrapEngine:
         self.client = client
         self.model = model
         self._tools: dict[str, BootstrappedTool] = {}
+        self._utility: dict[str, dict] = {}  # tool_name -> {uses, successes, failures}
         self._load_existing()
 
     def _load_existing(self):
@@ -190,6 +191,7 @@ class BootstrapEngine:
 
         Wraps the generated `func(params: dict)` callable to match
         ToolRegistry's `func(**kwargs)` calling convention.
+        Also tracks tool utility for pruning (Toolformer insight).
         """
         if not tool.validated or not tool.code:
             return False
@@ -234,9 +236,45 @@ class BootstrapEngine:
             logger.error("Failed to register bootstrapped tool %s: %s", tool.name, e)
             return False
 
+    def record_utility(self, tool_name: str, success: bool):
+        """Track whether a bootstrapped tool actually helps (Toolformer insight)."""
+        if tool_name not in self._utility:
+            self._utility[tool_name] = {"uses": 0, "successes": 0, "failures": 0}
+        self._utility[tool_name]["uses"] += 1
+        if success:
+            self._utility[tool_name]["successes"] += 1
+        else:
+            self._utility[tool_name]["failures"] += 1
+
+    def get_low_utility_tools(self, min_uses: int = 5, threshold: float = 0.3) -> list[str]:
+        """Find bootstrapped tools with low success rate for pruning."""
+        to_prune = []
+        for name, stats in self._utility.items():
+            if stats["uses"] >= min_uses:
+                rate = stats["successes"] / max(1, stats["uses"])
+                if rate < threshold:
+                    to_prune.append((name, rate))
+        return [name for name, _ in sorted(to_prune, key=lambda x: x[1])]
+
+    def prune_tool(self, tool_name: str, registry) -> bool:
+        """Remove a low-utility bootstrapped tool from the registry."""
+        if tool_name in self._tools:
+            self._tools[tool_name].registered = False
+            self._save_tool(self._tools[tool_name])
+        if hasattr(registry, "_tools") and tool_name in registry._tools:
+            del registry._tools[tool_name]
+            logger.info("Pruned low-utility tool: %s", tool_name)
+            return True
+        return False
+
     def list_bootstrapped(self) -> list[dict]:
         return [
-            {"name": t.name, "validated": t.validated, "registered": t.registered}
+            {
+                "name": t.name,
+                "validated": t.validated,
+                "registered": t.registered,
+                "utility": self._utility.get(t.name, {}),
+            }
             for t in self._tools.values()
         ]
 
