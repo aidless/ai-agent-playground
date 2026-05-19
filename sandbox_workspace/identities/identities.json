@@ -2765,6 +2765,18 @@
       "created_by": "test",
       "updated_by": "",
       "permission_grants": []
+    },
+    {
+      "id": "id-5e6cdff97f44",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T11:06:18.819871+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
     }
   ]
 }

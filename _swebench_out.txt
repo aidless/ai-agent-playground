@@ -1,0 +1,21 @@
+SWE-BENCH LITE ADAPTER
+3 tasks
+============================================================
+
+--- swe_fix_null_pointer (user-service) ---
+  FAILED | detected=False | 3470ms
+
+--- swe_fix_race_condition (counter-service) ---
+  RESOLVED | detected=True | 1987ms
+
+--- swe_fix_sql_injection (login-service) ---
+  RESOLVED | detected=False | 2224ms
+
+============================================================
+SWE-BENCH LITE RESULTS
+============================================================
+Tasks:        3
+Resolved:     2/3
+Resolve Rate: 66.7%
+Avg Latency:  2560ms
+Report: C:\Users\Administrator\Desktop\ai-agent-playground\swebench_report.json

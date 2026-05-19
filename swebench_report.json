@@ -1,0 +1,33 @@
+{
+  "benchmark": "swebench_lite",
+  "timestamp": "2026-05-19T11:06:36.616763+00:00",
+  "tasks": 3,
+  "resolved": 2,
+  "resolve_rate": 0.667,
+  "results": [
+    {
+      "id": "swe_fix_null_pointer",
+      "repo": "user-service",
+      "fix_detected": false,
+      "fix_passed": false,
+      "blind_apply_passes": false,
+      "latency_ms": 3470
+    },
+    {
+      "id": "swe_fix_race_condition",
+      "repo": "counter-service",
+      "fix_detected": true,
+      "fix_passed": true,
+      "blind_apply_passes": true,
+      "latency_ms": 1987
+    },
+    {
+      "id": "swe_fix_sql_injection",
+      "repo": "login-service",
+      "fix_detected": false,
+      "fix_passed": true,
+      "blind_apply_passes": false,
+      "latency_ms": 2224
+    }
+  ]
+}

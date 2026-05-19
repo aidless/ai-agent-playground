@@ -1,23 +1,5 @@
 [
   {
-    "lesson": "When asked for a concise explanation (like \"in 3 sentences\"), deliver a clear, well-structured answer immediately without extra commentary or follow-up.",
-    "context": "trace_id=req_1779084642, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:10:46.376353"
-  },
-  {
-    "lesson": "When asked a broad conceptual question, immediately provide a structured, multi-category breakdown with concrete examples and a practical code framework to maximize usefulness in a single response.",
-    "context": "trace_id=req_1779084642, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:11:01.567989"
-  },
-  {
-    "lesson": "When asked a comparative/architectural question, provide a structured decision framework with a table, decision tree, and personalized recommendation to be immediately useful without follow-up.",
-    "context": "trace_id=req_1779084642, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T14:11:05.208445"
-  },
-  {
     "lesson": "When running bash commands on Windows, always use the `cd` + `cygpath` + command pattern (e.g., `cd \"$(cygpath -u 'C:\\path')\" && ls -la`) to ensure the command executes in the correct working directory.",
     "context": "trace_id=req_1779084665, step=1",
     "success": true,
@@ -598,5 +580,23 @@
     "context": "trace_id=e2e_test, step=1",
     "success": true,
     "timestamp": "2026-05-19T18:37:05.003466"
+  },
+  {
+    "lesson": "When given a simple bug-fix request, I should focus only on the minimal code change without adding explanation or extra improvements.",
+    "context": "trace_id=swe_swe_fix_null_pointer, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T19:06:32.376498"
+  },
+  {
+    "lesson": "When given a simple bug-fix request with clear \"output only code\" instructions, stick to the minimal corrected code without adding explanation or alternative approaches.",
+    "context": "trace_id=swe_swe_fix_race_condition, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T19:06:34.364636"
+  },
+  {
+    "lesson": "One concrete lesson: When the user explicitly says \"Output ONLY the corrected code\" with a simple bug-fix request, I should respond with exactly that minimal code change without any extra explanations, confirmation, or alternative approaches.",
+    "context": "trace_id=swe_swe_fix_sql_injection, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T19:06:36.613246"
   }
 ]
