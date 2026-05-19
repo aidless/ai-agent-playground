@@ -137,13 +137,15 @@ Running on Alibaba Cloud ECS (2C4G, ~$0.03/hour). Systemd-managed, auto-restart 
 |--------|-------|
 | Tests | 161 passed, 0 failed |
 | Security vulns fixed | 14 → 0 |
-| Penetration tests | 14/14 passed |
+| Penetration tests | 14/14 (100%) |
+| b3 security benchmark | 10/10 (100%) — all 5 categories |
+| Code repair | 90% fix rate, 70% detection |
+| Self-correction | 30% (feedback-driven retry) |
 | Engines | 9 autonomous |
 | API endpoints | 30+ REST |
 | Python modules | 50+ |
 | Stress test | 1000/1000, P95=150ms |
-| Deployment | Alibaba Cloud ECS, systemd |
-| Commits | 20+ |
+| Deployment | Alibaba Cloud ECS, 24/7 online |
 
 ## What I Learned
 

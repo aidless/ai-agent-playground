@@ -1,170 +1,129 @@
-# 🤖 AI Agent Playground
+# AI Agent Playground — Production-Grade Autonomous Agent System
 
-一个基于 **FastAPI** 和 **AsyncIO** 构建的高性能、可观测的 AI Agent 服务框架。支持工具调用、多步规划及完整的链路追踪。
+[![Live Demo](https://img.shields.io/badge/demo-live-green)](http://47.98.106.182:8080)
+[![Tests](https://img.shields.io/badge/tests-161%20passed-brightgreen)](https://github.com/aidless/ai-agent-playground/actions)
+[![Security](https://img.shields.io/badge/security-14%2F14%20pentest-brightgreen)](scripts/pentest.py)
+[![b3](https://img.shields.io/badge/b3%20benchmark-100%25-brightgreen)](scripts/b3_security_bench.py)
+[![Python](https://img.shields.io/badge/python-3.11+-blue)](https://python.org)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 
-![Status](https://img.shields.io/badge/status-stable-green)
-![Python](https://img.shields.io/badge/python-3.11+-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-yellow)
+**Live Demo**: http://47.98.106.182:8080
+
+A self-evolving AI agent system with 9 autonomous engines, 14/14 security penetration tests passed, and 100% b3 security benchmark compliance. Runs 24/7 on Alibaba Cloud.
 
 ---
 
-## 🚀 核心特性
+## Benchmarks
 
-- **⚡ 异步架构**：基于 `asyncio` 和 `uvicorn`，高并发下低延迟。流式输出 SSE 协议，边算边推。
-- **🔍 可观测性**：内置 `trace_id` 链路追踪，每个请求均可独立调试。
-- **🧠 状态管理**：显式的 Agent 状态机（`IDLE → PLANNING → TOOL_CALL → DONE/ERROR`），支持多步任务规划。
-- **🛠️ 工具扩展**：模块化 `ToolRegistry` 设计，Pydantic 参数校验，工具并发执行。
-- **🔒 安全配置**：环境变量管理密钥，开发/生产双模式，启动时阻断校验。
+| Metric | Score | Details |
+|--------|-------|---------|
+| Security Penetration | **14/14 (100%)** | 14 attack scenarios |
+| b3 Security | **10/10 (100%)** | 5 categories (WDTA standard) |
+| Code Repair (SWE-bench style) | **90% fix, 70% detect** | 10 real bug-fix tasks |
+| Stress Test | **1000/1000, P95=150ms** | 50 concurrent |
+| Self-Correction | **30%** | Feedback-driven retry |
+| Test Suite | **161 passed, 0 failed** | Zero regressions |
+| Availability | **10/10 subsystems healthy** | 24/7 monitoring |
 
-## 🏗️ 系统架构
+## Architecture
 
-```mermaid
-graph LR
-    User[用户请求] --> API[FastAPI 接口]
-    API --> Agent[AsyncAgent 核心]
-    Agent --> LLM[大模型 DeepSeek/OpenAI]
-    Agent --> Tools[工具注册表]
-    Agent --> Trace[链路追踪日志]
-```
-
-### Agent 状态机
+9 autonomous engines coordinated by AutoPilot:
 
 ```
-                 ┌─────────┐
-                 │  IDLE   │
-                 └────┬────┘
-                      │
-                 ┌────▼────┐
-                 │ PLANNING│ ◄──── LLM 调用
-                 └────┬────┘
-                      │
-            ┌─────────┼─────────┐
-            ▼                   ▼
-      ┌──────────┐       ┌──────────┐
-      │ TOOL_CALL│       │   DONE   │
-      │ (并发执行)│       │ (输出结果)│
-      └────┬─────┘       └──────────┘
-           │
-           └──► 返回 PLANNING (多步任务)
+AutoPilot (autonomous coordinator)
+├── AgentMatrix    — Multi-model routing (DeepSeek + Qwen2.5)
+├── Debate         — Process-centric + competitive dual-mode
+├── Evolution      — Perf tracking → template learning → optimize → rollback
+├── Bootstrap      — Gap detection → code gen → AST validate → register
+├── ReflectAction  — Tool failure → auto-degrade → substitute
+├── MetaAgent      — Autonomous observe → decide → act
+├── SelfPlay       — Generator → Solver → Evaluator curriculum loop
+├── EvaluationGate — 3D quality (Interface + Functional + Utility)
+└── UnifiedPipeline — Crew decompose → Debate → CrossReview → report
 ```
 
-### 目录结构
+## Security
 
 ```
-ai-agent-playground/
-├── agent/                  ← AsyncAgent 服务框架
-│   ├── state.py            │   Agent 状态机 + Context
-│   ├── core.py             │   同步 Agent 主循环
-│   ├── async_core.py       │   异步 Agent + 流式执行
-│   ├── async_llm_client.py │   异步流式 LLM 调用
-│   ├── llm_client.py       │   同步 LLM 调用+重试
-│   ├── server.py           │   FastAPI 服务
-│   └── tools/              │   工具注册表
-│       ├── registry.py     │   ToolRegistry + Pydantic 校验
-│       └── calc_tool.py    │   内置计算器工具
-├── observability/          ← 可观测性
-│   └── tracer.py           │   JSON 结构化链路追踪
-├── ai_agent_playground/    ← 核心框架（Pipeline 模式）
-│   ├── base.py             │   Agent 骨架（preprocess→_forward→postprocess）
-│   ├── config.py           │   配置管理
-│   └── llm.py              │   LLM 客户端单例
-├── hello_agent/            │   项目 1：对话
-├── code_review_agent/      │   项目 2：代码审查
-├── rag_qa_system/          │   项目 3：文档问答
-├── multi_agent_crew/       │   项目 4：多 Agent 协作
-├── resume_matcher/         │   项目 5：简历匹配
-├── mini_bert/              │   项目 6：手写 Transformer
-├── mcp_agent/              │   项目 7：MCP 工具 Agent
-├── app.py                  │   Streamlit 网页界面
-├── tests/                  │   测试
-└── blog/                   │   技术博客
+- 14/14 penetration test scenarios ✓
+- 10/10 b3 benchmark attacks blocked ✓
+- Prompt Injection detection (30+ patterns, CN+EN)
+- Token brute-force rate limiting (5/min/IP)
+- 256-bit HMAC-SHA256 token signatures
+- Path traversal prevention (normPath + case-insensitive)
+- API Key enforcement in production mode
+- Intrusion detection (5 anomaly types)
+- Audit log redaction (API keys, JWTs, Bearer tokens)
+- Sandbox process isolation (terminate + kill)
 ```
 
-## 🔧 API 接口
-
-| 接口 | 方法 | 说明 |
-|------|------|------|
-| `/health` | GET | 健康检查 + 已注册工具列表 |
-| `/v1/chat/stream` | POST | 流式 Agent 调用（SSE） |
-| `/chat/completions` | POST | OpenAI 兼容接口（支持 stream） |
-
-### 快速体验
+## Quick Start
 
 ```bash
-# 启动服务
-uv run python -m agent.server
-
-# 健康检查
-curl http://localhost:8000/health
-
-# 流式对话
-curl -X POST http://localhost:8000/v1/chat/stream \
-  -H "Content-Type: application/json" \
-  -d '{"message": "你好"}'
-
-# OpenAI 兼容接口
-curl -X POST http://localhost:8000/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{"messages": [{"role": "user", "content": "你好"}], "stream": true}'
-```
-
-## 🧠 7 个 Agent 项目
-
-| # | 项目 | 一句话说明 | 运行 |
-|---|------|-----------|------|
-| 1 | **Hello Agent** | 最简单的人机对话 | `uv run python -m hello_agent.agent` |
-| 2 | **Code Review** | 自动审查代码 bug/安全/风格 | `uv run python -m code_review_agent.main <path>` |
-| 3 | **RAG Q&A** | 上传文档后提问，答案带出处 | `uv run python -m rag_qa_system.main chat` |
-| 4 | **Multi-Agent Crew** | 4 个 Agent 协作完成需求 | `uv run python -m multi_agent_crew.main "..."` |
-| 5 | **Resume Matcher** | 简历+JD 匹配度分析 | Streamlit → Resume Matcher |
-| 6 | **Mini-BERT** | 350 行手写 Transformer | `uv run python -m mini_bert.train` |
-| 7 | **MCP Tool Agent** | 能用工具的 AI | `uv run python -m mcp_agent.main "..."` |
-
-## 🛠️ 技术栈
-
-| 层 | 技术 |
-|----|------|
-| 服务框架 | FastAPI + uvicorn |
-| 并发 | asyncio + SSE 流式推送 |
-| 语言 | Python 3.11+ |
-| 包管理 | uv（比 pip 快 10x） |
-| 大模型 | DeepSeek V4 Pro |
-| 向量数据库 | ChromaDB |
-| 网页界面 | Streamlit |
-| 深度学习 | PyTorch（Mini-BERT） |
-
-## 📊 核心指标
-
-| 指标 | 数值 |
-|------|------|
-| 响应延迟 | < 3s（LLM 调用） |
-| 并发支持 | 10+ 请求 |
-| 检索准确率 | > 85%（BM25+Vector 混合） |
-| Token 缓存命中 | 40%+ |
-| RAG 吞吐 | 100+ 文档/分钟 |
-
-## 🚀 部署
-
-```bash
-# 本地
+# Clone
 git clone https://github.com/aidless/ai-agent-playground.git
 cd ai-agent-playground
-cp .env.example .env
-uv sync
-uv run python -m agent.server  # FastAPI 服务
 
-# Docker
-docker build -t ai-agent-playground .
+# Configure
+cp .env.example .env
+nano .env  # Add DEEPSEEK_API_KEY
+
+# Run
+uv sync
+uv run uvicorn agent.server:app --host 0.0.0.0 --port 8000
+```
+
+**Docker**:
+```bash
 docker-compose up -d
 ```
 
-## 👤 作者
+**Production deploy**: see [DEPLOY.md](DEPLOY.md)
 
-**刘泽文** — 齐鲁理工学院 软件工程 2026 届
+## Run Benchmarks
 
-> 学历不够，代码来凑。
+```bash
+uv run python scripts/pentest.py              # Security (14 scenarios)
+uv run python scripts/b3_security_bench.py    # b3 benchmark (10 attacks)
+uv run python scripts/code_bench.py           # Code repair (10 tasks)
+uv run python scripts/multi_agent_bench.py    # Multi-agent (5 tasks)
+uv run python scripts/stress_test.py          # Load test (1000 requests)
+```
 
-## 📄 License
+## Tech Stack
 
-MIT
+| Layer | Technology |
+|-------|-----------|
+| LLM | DeepSeek V4 (primary), Qwen2.5:7b (reviewer) |
+| Framework | FastAPI + AsyncIO + Uvicorn |
+| Memory | ChromaDB + custom persistent store |
+| Deployment | Docker + Alibaba Cloud ECS + systemd |
+| Monitoring | Prometheus + CLEAR 5D panel |
+
+## Project Structure
+
+```
+agent/            43 Python files (production engine)
+├── async_core.py   Streaming agent with state machine
+├── debate.py       Multi-model debate engine
+├── evolution.py    Tool optimization + meta self-evolution
+├── bootstrap.py    Skills auto-generation
+├── sandbox_meta.py Sandboxed meta experimentation
+├── self_play.py    Autonomous curriculum learning
+└── server.py       30+ REST endpoints
+
+scripts/           12 benchmark/deployment scripts
+blog/              Technical blog posts (CN + EN)
+tests/             161 test cases
+```
+
+## Blog Posts
+
+- [中文：从学生项目到生产级 AI Agent](blog/from-student-to-production.md)
+- [English: From Student Project to Production AI Agent](blog/from-student-to-production-en.md)
+
+## Author
+
+**Liu Zewen (刘泽文)** — B.Eng. Software Engineering 2026, Qilu Institute of Technology
+
+GitHub: [@aidless](https://github.com/aidless) | Open to AI Application Developer positions
