@@ -3485,6 +3485,18 @@
       "created_by": "test",
       "updated_by": "",
       "permission_grants": []
+    },
+    {
+      "id": "id-caf094a0abce",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T12:28:05.099644+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
     }
   ]
 }

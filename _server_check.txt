@@ -1,0 +1,2 @@
+Server: ok | Healthy: 10/10
+Tools: 7 | Alerts: 12
