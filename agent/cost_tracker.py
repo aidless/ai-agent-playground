@@ -103,7 +103,41 @@ class CostTracker:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
         self._current_request = {"input_tokens": 0, "output_tokens": 0}
+
+        # Session tracking
+        if not hasattr(self, "_session_total"):
+            self._session_total = 0.0
+            self._session_calls = 0
+            self._session_by_model: dict[str, float] = {}
+            self._session_start = datetime.now()
+        self._session_total += cost
+        self._session_calls += 1
+        self._session_by_model[self.model] = self._session_by_model.get(self.model, 0.0) + cost
+
+        if self._session_total > 0.50 and self._session_calls % 5 == 0:
+            logger.warning("Cost: session total ¥%.2f (%d calls)", self._session_total, self._session_calls)
+
         logger.info("Cost: +$%.4f (daily total: $%.4f)", cost, data["total_cost_usd"])
+
+    def get_session_report(self) -> dict:
+        """Get real-time session cost report."""
+        if not hasattr(self, "_session_total"):
+            return {"total": 0.0, "calls": 0}
+        elapsed = (datetime.now() - self._session_start).total_seconds() / 3600
+        hourly_rate = self._session_total / max(0.01, elapsed)
+        return {
+            "session_total_usd": round(self._session_total, 4),
+            "session_calls": self._session_calls,
+            "by_model": {m: round(c, 4) for m, c in self._session_by_model.items()},
+            "elapsed_hours": round(elapsed, 1),
+            "hourly_rate_usd": round(hourly_rate, 4),
+            "warning": "HIGH" if self._session_total > 2.0 else "OK",
+        }
+
+    def estimate_full_task_cost(self, estimated_calls: int = 10) -> float:
+        """Estimate cost for remaining task steps."""
+        avg_per_call = self._session_total / max(1, self._session_calls)
+        return round(avg_per_call * estimated_calls, 4)
 
     def summary(self) -> dict:
         daily = self._read_today_file()
