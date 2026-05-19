@@ -22,6 +22,17 @@ from observability.tracer import log_trace
 
 logger = logging.getLogger(__name__)
 
+TOOL_USAGE_GUIDANCE = (
+    "## Available Research Tool\n"
+    "You have a 'research_paper' tool that searches AI research papers on ArXiv. "
+    "Use it when:\n"
+    "1. The user asks about academic concepts, architectures, or theories\n"
+    "2. You need the latest state-of-the-art information on a topic\n"
+    "3. The user requests a literature review or research summary\n"
+    "4. You are unsure about current best practices and want evidence\n"
+    "Usage: research_paper(query='your question')\n"
+)
+
 REFLECT_PROMPT = (
     "You just executed tool calls and got results. Reflect briefly:\n"
     "1. Did the tools return what you expected?\n"
@@ -167,6 +178,7 @@ class AsyncAgent:
 
             if ctx.step == 1:
                 self._inject_memory_context(ctx)
+                self._inject_tool_guidance(ctx)
 
             yield {"type": "status", "content": "thinking...", "step": ctx.step}
 
@@ -386,6 +398,14 @@ class AsyncAgent:
                             yield {"type": "tool_registered", "content": {"name": suggested_name, "success": success}}
         except Exception as e:
             logger.warning("Learn step failed (non-critical): %s", e)
+
+    def _inject_tool_guidance(self, ctx: AgentContext):
+        """Inject tool usage guidance when research tools are available."""
+        if self.registry and "research_paper" in getattr(self.registry, "_tools", {}):
+            ctx.messages.insert(0, {
+                "role": "system",
+                "content": TOOL_USAGE_GUIDANCE,
+            })
 
     def _inject_memory_context(self, ctx: AgentContext):
         """Inject relevant memories as system context."""

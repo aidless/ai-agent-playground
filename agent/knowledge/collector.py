@@ -98,38 +98,59 @@ class PaperCollector:
         }
 
     def _fetch_topic(self, topic: str, max_results: int = 10) -> list[PaperMetadata]:
+        """Fetch papers for a topic with retry + exponential backoff."""
         import urllib.request
         import urllib.parse
+        import urllib.error
+
         query = urllib.parse.quote(topic)
         url = (
             f"http://export.arxiv.org/api/query?"
             f"search_query=all:{query}&start=0&max_results={max_results}"
             f"&sortBy=relevance&sortOrder=descending"
         )
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": "AI-Agent-Playground/1.0"})
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                data = resp.read().decode("utf-8")
 
-            root = ET.fromstring(data)
-            ns = {"atom": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom"}
-            papers = []
-            for entry in root.findall("atom:entry", ns):
-                arxiv_id = entry.find("atom:id", ns).text.split("/")[-1]
-                title = " ".join(entry.find("atom:title", ns).text.split())
-                abstract = " ".join(entry.find("atom:summary", ns).text.split())
-                authors = [a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)
-                          if a.find("atom:name", ns) is not None]
-                published = entry.find("atom:published", ns).text
-                categories = [c.get("term") for c in entry.findall("atom:category", ns)]
-                papers.append(PaperMetadata(
-                    arxiv_id, title, abstract, authors, published, categories,
-                    f"https://arxiv.org/pdf/{arxiv_id}.pdf",
-                ))
-            return papers
-        except Exception as e:
-            logger.warning("ArXiv fetch failed for '%s': %s", topic, e)
-            return []
+        retries = 3
+        for attempt in range(retries):
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "AI-Agent-Playground/1.0"})
+                with urllib.request.urlopen(req, timeout=45) as resp:
+                    data = resp.read().decode("utf-8")
+
+                root = ET.fromstring(data)
+                ns = {"atom": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom"}
+                papers = []
+                for entry in root.findall("atom:entry", ns):
+                    arxiv_id = entry.find("atom:id", ns).text.split("/")[-1]
+                    title = " ".join(entry.find("atom:title", ns).text.split())
+                    abstract = " ".join(entry.find("atom:summary", ns).text.split())
+                    authors = [a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)
+                              if a.find("atom:name", ns) is not None]
+                    published = entry.find("atom:published", ns).text
+                    categories = [c.get("term") for c in entry.findall("atom:category", ns)]
+                    papers.append(PaperMetadata(
+                        arxiv_id, title, abstract, authors, published, categories,
+                        f"https://arxiv.org/pdf/{arxiv_id}.pdf",
+                    ))
+                return papers
+
+            except urllib.error.HTTPError as e:
+                if e.code == 429:
+                    wait = (2 ** attempt) * 5
+                    logger.warning("ArXiv 429 rate limit on '%s' — retry %d/%d after %ds",
+                                 topic, attempt + 1, retries, wait)
+                    time.sleep(wait)
+                else:
+                    logger.warning("ArXiv HTTP %d for '%s': %s", e.code, topic, e)
+                    time.sleep(3)
+            except Exception as e:
+                if attempt < retries - 1:
+                    logger.warning("ArXiv timeout on '%s' — retry %d/%d", topic, attempt + 1, retries)
+                    time.sleep(5)
+                else:
+                    logger.warning("ArXiv fetch failed for '%s' after %d retries: %s", topic, retries, e)
+
+        return []
 
     def search_local(self, keyword: str) -> list[PaperMetadata]:
         k = keyword.lower()
