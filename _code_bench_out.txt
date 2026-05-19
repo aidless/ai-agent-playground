@@ -1,0 +1,70 @@
+{"trace_id": "code_bug_binary_search_1", "step": 0, "event": "start", "input": "Find and fix the bug in this Python code. Output ONLY the corrected code, nothing else.\n\n```python\ndef binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid\n        else:\n            right = mid\n    return -1\n\n```"}
+{"trace_id": "code_bug_binary_search_1", "step": 1, "event": "done", "response": "```python\ndef binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1\n```"}
+{"trace_id": "code_bug_divide_zero_1", "step": 0, "event": "start", "input": "Find and fix the bug in this Python code. Output ONLY the corrected code, nothing else.\n\n```python\ndef average(numbers):\n    total = sum(numbers)\n    return total / len(numbers)\n\n```"}
+{"trace_id": "code_bug_divide_zero_1", "step": 1, "event": "done", "response": "```python\ndef average(numbers):\n    if not numbers:\n        return 0\n    total = sum(numbers)\n    return total / len(numbers)\n```"}
+{"trace_id": "code_bug_off_by_one_1", "step": 0, "event": "start", "input": "Find and fix the bug in this Python code. Output ONLY the corrected code, nothing else.\n\n```python\ndef fibonacci(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n\n```"}
+{"trace_id": "code_bug_off_by_one_1", "step": 1, "event": "done", "response": "```python\ndef fibonacci(n):\n    if n <= 0:\n        return 0\n    a, b = 0, 1\n    for _ in range(n - 1):\n        a, b = b, a + b\n    return a\n```"}
+{"trace_id": "code_bug_mutable_default_1", "step": 0, "event": "start", "input": "Find and fix the bug in this Python code. Output ONLY the corrected code, nothing else.\n\n```python\ndef add_item(item, items=[]):\n    items.append(item)\n    return items\n\n```"}
+{"trace_id": "code_bug_mutable_default_1", "step": 1, "event": "done", "response": "```python\ndef add_item(item, items=None):\n    if items is None:\n        items = []\n    items.append(item)\n    return items\n```"}
+{"trace_id": "code_bug_race_condition_1", "step": 0, "event": "start", "input": "Find and fix the bug in this Python code. Output ONLY the corrected code, nothing else.\n\n```python\nclass Counter:\n    def __init__(self):\n        self.value = 0\n    def increment(self):\n        self.value += 1\n        return self.value\n\n```"}
+{"trace_id": "code_bug_race_condition_1", "step": 1, "event": "done", "response": "```python\nclass Counter:\n    def __init__(self):\n        self.value = 0\n    def increment(self):\n        self.value += 1\n        return self.value\n\n```"}
+{"trace_id": "code_bug_race_condition_2", "step": 0, "event": "start", "input": "Your previous fix failed. Try again. Find and fix the bug in this code. Output ONLY the corrected code.\n\n```python\nclass Counter:\n    def __init__(self):\n        self.value = 0\n    def increment(self):\n        self.value += 1\n        return self.value\n\n```"}
+{"trace_id": "code_bug_race_condition_2", "step": 1, "event": "done", "response": "```python\nclass Counter:\n    def __init__(self):\n        self.value = 0\n    def increment(self):\n        self.value += 1\n        return self.value\n```"}
+{"trace_id": "code_bug_memory_leak_1", "step": 0, "event": "start", "input": "Find and fix the bug in this Python code. Output ONLY the corrected code, nothing else.\n\n```python\ncache = {}\ndef get_or_compute(key, compute_fn):\n    if key not in cache:\n        cache[key] = compute_fn()\n    return cache[key]\n\n```"}
+{"trace_id": "code_bug_memory_leak_1", "step": 1, "event": "done", "response": "```python\ncache = {}\ndef get_or_compute(key, compute_fn):\n    if key not in cache:\n        cache[key] = compute_fn()\n    return cache[key]\n```"}
+{"trace_id": "code_bug_memory_leak_2", "step": 0, "event": "start", "input": "Your previous fix failed. Try again. Find and fix the bug in this code. Output ONLY the corrected code.\n\n```python\ncache = {}\ndef get_or_compute(key, compute_fn):\n    if key not in cache:\n        cache[key] = compute_fn()\n    return cache[key]\n\n```"}
+{"trace_id": "code_bug_memory_leak_2", "step": 1, "event": "done", "response": "```python\ncache = {}\ndef get_or_compute(key, compute_fn):\n    if key not in cache:\n        try:\n            cache[key] = compute_fn()\n        except Exception as e:\n            cache[key] = None\n            raise\n    return cache[key]\n```"}
+{"trace_id": "code_bug_sql_injection_1", "step": 0, "event": "start", "input": "Find and fix the bug in this Python code. Output ONLY the corrected code, nothing else.\n\n```python\ndef get_user(db, username):\n    query = f\"SELECT * FROM users WHERE name = '{username}'\"\n    return db.execute(query)\n\n```"}
+{"trace_id": "code_bug_sql_injection_1", "step": 1, "event": "done", "response": "```python\ndef get_user(db, username):\n    query = \"SELECT * FROM users WHERE name = ?\"\n    return db.execute(query, (username,))\n```"}
+{"trace_id": "code_bug_key_error_1", "step": 0, "event": "start", "input": "Find and fix the bug in this Python code. Output ONLY the corrected code, nothing else.\n\n```python\ndef safe_get(data, key):\n    return data[key]\n\n```"}
+{"trace_id": "code_bug_key_error_1", "step": 1, "event": "done", "response": "```python\ndef safe_get(data, key):\n    if isinstance(data, dict) and key in data:\n        return data[key]\n    return None\n```"}
+{"trace_id": "code_bug_key_error_2", "step": 0, "event": "start", "input": "Your previous fix failed. Try again. Find and fix the bug in this code. Output ONLY the corrected code.\n\n```python\ndef safe_get(data, key):\n    return data[key]\n\n```"}
+{"trace_id": "code_bug_key_error_2", "step": 1, "event": "done", "response": "```python\ndef safe_get(data, key):\n    if isinstance(data, dict) and key in data:\n        return data[key]\n    return None\n```"}
+{"trace_id": "code_bug_infinite_recursion_1", "step": 0, "event": "start", "input": "Find and fix the bug in this Python code. Output ONLY the corrected code, nothing else.\n\n```python\ndef factorial(n):\n    return n * factorial(n - 1)\n\n```"}
+{"trace_id": "code_bug_infinite_recursion_1", "step": 1, "event": "done", "response": "```python\ndef factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(n - 1)\n```"}
+{"trace_id": "code_bug_file_not_closed_1", "step": 0, "event": "start", "input": "Find and fix the bug in this Python code. Output ONLY the corrected code, nothing else.\n\n```python\ndef read_lines(path):\n    f = open(path, 'r')\n    return f.readlines()\n\n```"}
+{"trace_id": "code_bug_file_not_closed_1", "step": 1, "event": "done", "response": "```python\ndef read_lines(path):\n    with open(path, 'r') as f:\n        return f.readlines()\n```"}
+CODE REPAIR BENCHMARK ¡ª 10 tasks
+======================================================================
+
+--- bug_binary_search (easy): Binary Search Infinite Loop ---
+  FIXED | detected=True | score=5.7/10 | 3360ms
+
+--- bug_divide_zero (easy): Division by Zero in Average ---
+  FIXED | detected=True | score=7.2/10 | 2401ms
+
+--- bug_off_by_one (medium): Fibonacci Off-By-One ---
+  FIXED | detected=True | score=9.7/10 | 1814ms
+
+--- bug_mutable_default (medium): Mutable Default Argument ---
+  FIXED | detected=True | score=8.7/10 | 1928ms
+
+--- bug_race_condition (hard): Non-Thread-Safe Counter ---
+  FAILED | detected=False | score=9.7/10 | 1539ms
+
+--- bug_memory_leak (medium): Cache Without Size Limit ---
+  FAILED | detected=False | score=8.7/10 | 2013ms
+
+--- bug_sql_injection (hard): SQL Injection Vulnerability ---
+  FIXED | detected=False | score=4.7/10 | 2228ms
+
+--- bug_key_error (easy): Missing KeyError Handling ---
+  FAILED | detected=False | score=5.7/10 | 2534ms
+
+--- bug_infinite_recursion (easy): Missing Base Case ---
+  FIXED | detected=True | score=7.2/10 | 2336ms
+
+--- bug_file_not_closed (easy): File Handle Not Closed ---
+  FIXED | detected=True | score=5.7/10 | 1633ms
+
+======================================================================
+BENCHMARK RESULTS
+======================================================================
+Tasks:            10
+Bug detected:     6/10 (60%)
+Fix success:      7/10 (70%)
+Self-corrected:   0/10 (0%)
+Avg quality:      7.3/10
+Avg latency:      2179ms
+
+Report: code_bench_report.json

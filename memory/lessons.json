@@ -460,5 +460,137 @@
     "context": "trace_id=deb_even l, step=1",
     "success": true,
     "timestamp": "2026-05-18T22:38:27.764267"
+  },
+  {
+    "lesson": "When fixing a binary search bug, always update `left` to `mid + 1` and `right` to `mid - 1` to avoid infinite loops.",
+    "context": "trace_id=code_bug_binary_search_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:02.416492"
+  },
+  {
+    "lesson": "When fixing a binary search bug, always update `left` to `mid + 1` and `right` to `mid - 1` to avoid infinite loops.",
+    "context": "trace_id=code_bug_binary_search_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:04.638295"
+  },
+  {
+    "lesson": "One concrete lesson: When dividing by a length, always guard against empty input to avoid a ZeroDivisionError.",
+    "context": "trace_id=code_bug_divide_zero_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:10.577122"
+  },
+  {
+    "lesson": "When the user asks to \"find and fix the bug\" without specifying what the bug is, always proactively identify the actual issue (negative input) rather than blindly repeating the code.",
+    "context": "trace_id=code_bug_off_by_one_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:15.098311"
+  },
+  {
+    "lesson": "One concrete lesson: When inferring the \"bug\" from a vague user request (\"fix the bug\"), proactively analyze the code for all possible issues (e.g., negative input) rather than assuming it's only about correctness for positive inputs.",
+    "context": "trace_id=code_bug_off_by_one_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:18.135471"
+  },
+  {
+    "lesson": "One concrete lesson: When a user asks to find and fix a bug in Python code without specifying what it is, I should recognize the mutable default argument pitfall and correct it by using `None` with a conditional initialization.",
+    "context": "trace_id=code_bug_mutable_default_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:22.564519"
+  },
+  {
+    "lesson": "One concrete lesson: When the user says \"Your previous fix failed,\" I should first verify my proposed change actually runs correctly **and** ask for specific error details before blindly repeating the same fix.",
+    "context": "trace_id=code_bug_mutable_default_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:25.283125"
+  },
+  {
+    "lesson": "One concrete lesson: When the user says \"find and fix the bug\" but I see no obvious bug, I should proactively ask clarifying questions or double-check for subtle issues (like race conditions or missing edge cases) rather than just returning the same code unchanged.",
+    "context": "trace_id=code_bug_race_condition_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:29.522929"
+  },
+  {
+    "lesson": "One concrete lesson: When the user says \"Your previous fix failed,\" I should first verify my proposed change actually runs correctly **and** ask for specific error details before blindly repeating the same fix.",
+    "context": "trace_id=code_bug_race_condition_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:31.911683"
+  },
+  {
+    "lesson": "One concrete lesson: When fixing a thread-safety bug, I should also consider whether the compute_fn itself could be slow or blocking and whether holding the lock during computation is acceptable.",
+    "context": "trace_id=code_bug_memory_leak_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:38.721135"
+  },
+  {
+    "lesson": "When the user asks to \"find and fix the bug\" and the bug is obvious (SQL injection via f-string interpolation), I should directly fix it with parameterized queries, as demonstrated.",
+    "context": "trace_id=code_bug_sql_injection_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:43.324637"
+  },
+  {
+    "lesson": "One concrete lesson: When the bug is obvious and well-defined (key error from direct indexing), provide the fix directly without extra commentary.",
+    "context": "trace_id=code_bug_key_error_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:49.064318"
+  },
+  {
+    "lesson": "One concrete lesson: When a bug is obvious (KeyError from direct indexing), I should provide the fix immediately using dict.get() with a default parameter, as demonstrated.",
+    "context": "trace_id=code_bug_key_error_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:51.298094"
+  },
+  {
+    "lesson": "When the bug is an obvious missing base case in a recursive function, fix it immediately with the standard termination condition.",
+    "context": "trace_id=code_bug_infinite_recursion_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:55.661268"
+  },
+  {
+    "lesson": "When the bug is an obvious missing base case in a recursive function, fix it immediately with the standard termination condition.",
+    "context": "trace_id=code_bug_infinite_recursion_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:17:58.378433"
+  },
+  {
+    "lesson": "One concrete lesson: When fixing the mutable default argument pitfall, immediately replace `items=[]` with `items=None` and add the `if items is None: items = []` guard.",
+    "context": "trace_id=code_bug_mutable_default_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:21:28.854153"
+  },
+  {
+    "lesson": "One concrete lesson: When a user says a fix failed, don't just repeat the same code—first ask for the specific error or test output to understand what actually went wrong.",
+    "context": "trace_id=code_bug_race_condition_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:21:36.934333"
+  },
+  {
+    "lesson": "When told a fix failed and asked to try again, first ask what the actual error or test output was before proposing a new fix.",
+    "context": "trace_id=code_bug_memory_leak_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:21:44.846680"
+  },
+  {
+    "lesson": "One concrete lesson: When fixing SQL injection, immediately replace f-string interpolation with parameterized queries using `?` placeholders and pass the values as a tuple.",
+    "context": "trace_id=code_bug_sql_injection_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:21:50.065721"
+  },
+  {
+    "lesson": "One concrete lesson: When fixing a function that can fail (like direct key access), add a guard clause to check preconditions (e.g., `isinstance(data, dict) and key in data`) before attempting the operation, and return a safe default like `None` otherwise.",
+    "context": "trace_id=code_bug_key_error_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:21:55.184233"
+  },
+  {
+    "lesson": "One concrete lesson: When fixing a function that can fail (like direct key access), add a guard clause to check preconditions before attempting the operation, and return a safe default like `None` otherwise.",
+    "context": "trace_id=code_bug_key_error_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:21:58.627725"
+  },
+  {
+    "lesson": "When given a recursive function without a base case, always add a termination condition (like `if n <= 1: return 1`) before the recursive call to prevent infinite recursion and stack overflow.",
+    "context": "trace_id=code_bug_infinite_recursion_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T11:22:03.251049"
   }
 ]

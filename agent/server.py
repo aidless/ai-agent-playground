@@ -69,6 +69,13 @@ class PromptSanitizer:
         r"你.*现在.*是", r"you.*are.*now",
         r"忘记.*之前", r"forget.*previous",
         r"作为.*系统", r"act.*as.*system",
+        # Data exposure patterns
+        r"show.*\.env", r"显示.*\.env", r"查看.*\.env",
+        r"api.?key", r"API.?KEY", r"api.?密钥",
+        r"(list|show|tell).*(key|token|password|secret|credential)",
+        r"(列出|显示|告诉我).*(密钥|密码|令牌|token|key)",
+        r"what.*(key|token|password).*(have|access)",
+        r"你有.*(什么|哪些).*(key|密钥|密码)",
     ]
 
     @classmethod
