@@ -18,6 +18,7 @@ from agent.debate import DebateEngine, DebateResult
 from agent.bootstrap import BootstrapEngine
 from agent.evolution import PerformanceTracker, EvolutionEngine
 from agent.meta_agent import MetaAgent
+from agent.episodic_memory import EpisodicMemoryStore
 from observability.tracer import log_trace
 
 logger = logging.getLogger(__name__)
@@ -83,6 +84,7 @@ class AsyncAgent:
         self.perf_tracker = PerformanceTracker() if enable_super_agent else None
         self.evolution = EvolutionEngine(client, self.perf_tracker, registry, model) if enable_super_agent else None
         self.meta_agent = MetaAgent(self, client, registry) if enable_super_agent else None
+        self.episodic_memory = EpisodicMemoryStore() if enable_super_agent else None
         self.debate_engine = (
             DebateEngine(client, challenger_client, arbitrator_client)
             if enable_super_agent and challenger_client
@@ -179,6 +181,7 @@ class AsyncAgent:
             if ctx.step == 1:
                 self._inject_memory_context(ctx)
                 self._inject_tool_guidance(ctx)
+                self._inject_episodic_memory(ctx)
 
             yield {"type": "status", "content": "thinking...", "step": ctx.step}
 
@@ -342,6 +345,25 @@ class AsyncAgent:
                 ctx.record_step("reflect_result", {"reflection": reflection})
                 yield {"type": "reflection", "content": reflection}
 
+                # Store in episodic memory (Reflexion paper)
+                if self.episodic_memory and hasattr(ctx, "messages"):
+                    user_msg = ""
+                    for m in ctx.messages:
+                        if m.get("role") == "user":
+                            user_msg = m.get("content", "")
+                            break
+                    task_type = self.episodic_memory.classify_task(user_msg) if user_msg else "general"
+                    # Check if last tool call succeeded
+                    last_success = all(
+                        tr.get("status") == "ok"
+                        for tr in ctx.tool_results[-2:]
+                    ) if ctx.tool_results else True
+                    self.episodic_memory.add(
+                        reflection=reflection,
+                        task_type=task_type,
+                        success=last_success,
+                    )
+
                 # Reflect→Action: evaluate and act on reflection
                 if self.reflect_action:
                     actions = self.reflect_action.evaluate(reflection, ctx.tool_results)
@@ -406,6 +428,20 @@ class AsyncAgent:
                 "role": "system",
                 "content": TOOL_USAGE_GUIDANCE,
             })
+
+    def _inject_episodic_memory(self, ctx: AgentContext):
+        """Inject relevant past reflections as context (Reflexion paper)."""
+        if not self.episodic_memory:
+            return
+        user_msg = ""
+        for m in ctx.messages:
+            if m.get("role") == "user":
+                user_msg = m.get("content", "")
+                break
+        task_type = self.episodic_memory.classify_task(user_msg) if user_msg else "general"
+        context = self.episodic_memory.build_context(task_type)
+        if context:
+            ctx.messages.insert(0, {"role": "system", "content": context})
 
     def _inject_memory_context(self, ctx: AgentContext):
         """Inject relevant memories as system context."""

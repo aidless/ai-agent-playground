@@ -2285,6 +2285,194 @@
       "created_by": "system",
       "updated_by": "",
       "permission_grants": []
+    },
+    {
+      "id": "id-81faaab54f68",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:38:07.435369+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-1bcf8b132ba2",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:38:19.515408+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-a809bb6cecbd",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:38:29.495822+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-ef4216711273",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:38:40.535625+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-e08c41e01763",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:38:56.150607+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-74061ba8c8f1",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:39:10.293896+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-886fd412e059",
+      "name": "test-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:39:20.597767+00:00",
+      "last_seen": "2026-05-19T09:39:20.600793+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-781e9a1b6f51",
+      "name": "test-agent2",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:39:20.605316+00:00",
+      "last_seen": "2026-05-19T09:39:20.607348+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-f23ddc1913ac",
+      "name": "reset-test",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:39:20.616741+00:00",
+      "last_seen": "2026-05-19T09:39:20.619163+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-f8fac166d156",
+      "name": "tracked-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:39:20.624207+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "admin-user",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-1c3c354c742f",
+      "name": "agent-x",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:39:20.628574+00:00",
+      "last_seen": "",
+      "active": false,
+      "created_by": "admin",
+      "updated_by": "security-auditor",
+      "permission_grants": []
+    },
+    {
+      "id": "id-98fd49b00fb5",
+      "name": "default-agent",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:39:20.636109+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-50b662735edd",
+      "name": "dev",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:39:20.640548+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-78e2c7ccdeef",
+      "name": "viewer",
+      "role": "viewer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:39:20.645566+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": [
+        {
+          "permission": "write_files",
+          "resource": "user_files",
+          "conditions": {
+            "ip": "192.168.1.*"
+          }
+        }
+      ]
+    },
+    {
+      "id": "id-fd5ad58588c3",
+      "name": "dev2",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T09:39:20.653933+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
     }
   ]
 }
