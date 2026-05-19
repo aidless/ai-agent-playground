@@ -50,6 +50,7 @@ from agent.eval_gate import EvaluationGate
 from agent.sandbox_meta import SandboxMetaEvolution
 from agent.knowledge.routes import router as knowledge_router, init_knowledge_module
 from agent.chat_ui import chat_html
+from agent.dashboard import dashboard_html, dashboard_data
 from agent.tools.research import research_tool
 from observability.clear_metrics import CLEARPanel
 
@@ -486,6 +487,18 @@ async def health_check():
 async def chat_ui_page():
     """实时聊天界面 — 状态机可视化 + 工具调用 + 反思"""
     return chat_html()
+
+
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard_page():
+    """综合仪表盘 — 所有基准+安全+引擎+知识库状态"""
+    return dashboard_html()
+
+
+@app.get("/dashboard/data")
+async def dashboard_data_endpoint():
+    """综合仪表盘数据（JSON）"""
+    return dashboard_data()
 
 
 @app.get("/", response_class=HTMLResponse)
