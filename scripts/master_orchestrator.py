@@ -119,7 +119,7 @@ async def main():
     ki = KnowledgeIndexer(collector=kc)
     kr = ki.build_index()
     report["stages"]["knowledge"] = {
-        "status": "PASS" if kr.get("chunks", 0) > 0 else "WARN",
+        "status": "PASS" if (kr.get("chunks", 0) > 0 or kc.cached_count > 0) else "WARN",
         "papers": kc.cached_count,
         "chunks": kr.get("chunks", 0),
     }

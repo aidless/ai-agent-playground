@@ -3551,6 +3551,60 @@
       "created_by": "system",
       "updated_by": "",
       "permission_grants": []
+    },
+    {
+      "id": "id-865d962ff900",
+      "name": "pentest",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T12:55:25.889268+00:00",
+      "last_seen": "2026-05-19T12:55:25.893781+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-90d2a5b88074",
+      "name": "signtest",
+      "role": "developer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T12:55:25.898913+00:00",
+      "last_seen": "2026-05-19T12:55:25.903084+00:00",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": []
+    },
+    {
+      "id": "id-59e409708e17",
+      "name": "viewer",
+      "role": "viewer",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T12:55:25.910035+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "test",
+      "updated_by": "",
+      "permission_grants": [
+        {
+          "permission": "write_files",
+          "resource": "user_files",
+          "conditions": {}
+        }
+      ]
+    },
+    {
+      "id": "id-4ba894f36a45",
+      "name": "agent-gateway",
+      "role": "admin",
+      "api_key_hash": "",
+      "created_at": "2026-05-19T13:13:02.305453+00:00",
+      "last_seen": "",
+      "active": true,
+      "created_by": "system",
+      "updated_by": "",
+      "permission_grants": []
     }
   ]
 }

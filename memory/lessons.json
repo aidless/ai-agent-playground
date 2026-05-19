@@ -1,101 +1,5 @@
 [
   {
-    "lesson": "When answering a factual question with specific regulatory content, structure the response with clear headings, direct citations, and a summary table to maximize clarity and usefulness without needing additional tools.",
-    "context": "trace_id=req_1779096118, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:22:22.899781"
-  },
-  {
-    "lesson": "When answering a factual question with specific regulatory content, structure the response with clear headings, direct citations, and a summary table to maximize clarity and usefulness without needing additional tools.",
-    "context": "trace_id=req_1779096142, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:22:33.869493"
-  },
-  {
-    "lesson": "When answering a factual technical question, structure the response with clear headings, a summary table, and a formula to maximize clarity and usefulness without needing additional tools.",
-    "context": "trace_id=req_1779096164, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:22:59.100053"
-  },
-  {
-    "lesson": "When answering a factual question about building code requirements, proactively disambiguate which jurisdiction/standard the user intends before diving into specifics, and structure the response with clear tables for quick reference.",
-    "context": "trace_id=req_1779096204, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:23:45.844337"
-  },
-  {
-    "lesson": "When answering a factual question with specific regulatory content, structure the response with clear headings, direct citations, and a summary table to maximize clarity and usefulness without needing additional tools.",
-    "context": "trace_id=req_1779096225, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:24:00.781069"
-  },
-  {
-    "lesson": "当回答涉及具体法规或标准的技术问题时，主动引用相关规范（如GB 50016、GB 50084）能显著增强回答的权威性和可信度。",
-    "context": "trace_id=req_1779096240, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:24:24.042561"
-  },
-  {
-    "lesson": "当回答涉及中国建筑防火规范的法规性问题时，主动引用具体标准编号（如GB 50222-2017、GB 8624-2012）并用表格结构化呈现不同场所的分级要求，能显著提升回答的权威性和实用性。",
-    "context": "trace_id=req_1779096264, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:24:50.489516"
-  },
-  {
-    "lesson": "当回答涉及中国建筑防火规范的法规性技术问题时，主动引用具体标准编号并用表格结构化呈现不同场景的要求，能显著提升回答的权威性和实用性。",
-    "context": "trace_id=req_1779096290, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:25:16.503243"
-  },
-  {
-    "lesson": "当回答涉及具体法规的技术问题时，主动引用标准编号并用表格结构化呈现要求，能显著提升回答的权威性和实用性。",
-    "context": "trace_id=req_1779096341, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:25:57.542163"
-  },
-  {
-    "lesson": "When answering regulatory technical questions about Chinese building codes, proactively citing specific standard numbers (like GB 50016-2014) and using tables to structure requirements by category significantly boosts authority and practicality.",
-    "context": "trace_id=req_1779096357, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:26:13.707708"
-  },
-  {
-    "lesson": "When answering regulatory technical questions about Chinese building codes, proactively citing specific standard numbers and using tables to structure requirements by category significantly boosts authority and practicality.",
-    "context": "trace_id=req_1779096373, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:26:28.078669"
-  },
-  {
-    "lesson": "When answering regulatory technical questions about Chinese building codes, proactively citing specific standard numbers (like GB 50016-2014 and GB 50974-2014) and using tables to structure requirements by category significantly boosts authority and practicality.",
-    "context": "trace_id=req_1779096388, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:26:39.992833"
-  },
-  {
-    "lesson": "When answering regulatory technical questions, proactively citing specific standard numbers and using tables to structure requirements by category significantly boosts authority and practicality.",
-    "context": "trace_id=req_1779096400, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:26:57.937963"
-  },
-  {
-    "lesson": "When answering regulatory technical questions, proactively citing specific standard numbers and using tables to structure requirements by category significantly boosts authority and practicality.",
-    "context": "trace_id=req_1779096417, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:27:24.517438"
-  },
-  {
-    "lesson": "When answering regulatory technical questions, proactively citing specific standard numbers (like GB 50016-2014) and using tables to structure requirements by category significantly boosts authority and practicality.",
-    "context": "trace_id=req_1779096444, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:27:47.528051"
-  },
-  {
-    "lesson": "当回答法规技术类问题时，主动引用具体标准编号并用表格按类别结构化列出要求，能显著提升权威性和实用性。",
-    "context": "trace_id=req_1779096467, step=1",
-    "success": true,
-    "timestamp": "2026-05-18T17:28:17.546029"
-  },
-  {
     "lesson": "When answering technical comparison questions, proactively structuring the response with a clear thesis statement, a detailed comparison table, and actionable takeaways for the user's specific context (e.g., job hunting) significantly enhances clarity and practical value.",
     "context": "trace_id=req_1779096511, step=1",
     "success": true,
@@ -598,5 +502,101 @@
     "context": "trace_id=code_bug_file_not_closed_1, step=1",
     "success": true,
     "timestamp": "2026-05-19T20:41:11.049024"
+  },
+  {
+    "lesson": "One concrete lesson: When the user asks for only the corrected code with no extra commentary, I should comply succinctly without adding explanations or alternatives.",
+    "context": "trace_id=code_bug_binary_search_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:10:41.587666"
+  },
+  {
+    "lesson": "One concrete lesson: When the user asks for only the corrected code with no extra commentary, I should comply succinctly without adding explanations or alternatives.",
+    "context": "trace_id=code_bug_divide_zero_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:10:46.667643"
+  },
+  {
+    "lesson": "One concrete lesson: When the user requests a simple fix and to output only corrected code, I should comply succinctly without extra commentary.",
+    "context": "trace_id=code_bug_off_by_one_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:10:51.142155"
+  },
+  {
+    "lesson": "When the user specifies expected test outputs clearly, I must verify my code logic against each test case mentally before outputting, rather than relying solely on reasoning about the algorithm.",
+    "context": "trace_id=code_bug_off_by_one_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:10:55.120029"
+  },
+  {
+    "lesson": "One concrete lesson: When the user explicitly requests \"Output ONLY the corrected code, nothing else,\" I should not include markdown code fences or any extra formatting—just the raw code.",
+    "context": "trace_id=code_bug_mutable_default_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:00.094875"
+  },
+  {
+    "lesson": "When the user says \"Output ONLY the corrected code, nothing else,\" I must not include markdown code fences or any extra formatting—just the raw code.",
+    "context": "trace_id=code_bug_race_condition_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:05.474895"
+  },
+  {
+    "lesson": "One concrete lesson: When I already have a memory that says \"Output ONLY the corrected code, nothing else\" means no markdown code fences, I should follow that instruction strictly instead of still including the fences.",
+    "context": "trace_id=code_bug_memory_leak_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:10.006710"
+  },
+  {
+    "lesson": "One concrete lesson: When the user explicitly says \"Output ONLY the corrected code, nothing else,\" I must not include markdown code fences — just the raw code.",
+    "context": "trace_id=code_bug_memory_leak_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:14.568080"
+  },
+  {
+    "lesson": "One concrete lesson: When the user explicitly instructs \"Output ONLY the corrected code, nothing else,\" I must not include markdown code fences — just the raw code, as my own memory already records this rule but I violated it in the final response.",
+    "context": "trace_id=code_bug_sql_injection_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:20.144498"
+  },
+  {
+    "lesson": "When the user explicitly instructs \"Output ONLY the corrected code, nothing else,\" I must not include markdown code fences — just the raw code, as my own memory already records this rule but I violated it in the final response.",
+    "context": "trace_id=code_bug_sql_injection_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:24.513931"
+  },
+  {
+    "lesson": "One concrete lesson: When the user explicitly instructs \"Output ONLY the corrected code, nothing else,\" I must not include markdown code fences — just the raw code.",
+    "context": "trace_id=code_bug_key_error_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:29.842094"
+  },
+  {
+    "lesson": "When the user explicitly instructs \"Output ONLY the corrected code, nothing else,\" I must not include markdown code fences — just the raw code.",
+    "context": "trace_id=code_bug_key_error_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:34.380409"
+  },
+  {
+    "lesson": "When the user explicitly instructs \"Output ONLY the corrected code, nothing else,\" I must not include markdown code fences — just the raw code.",
+    "context": "trace_id=code_bug_infinite_recursion_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:39.541329"
+  },
+  {
+    "lesson": "When the user explicitly instructs \"Output ONLY the corrected code, nothing else,\" I must not include markdown code fences — just the raw code.",
+    "context": "trace_id=code_bug_infinite_recursion_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:42.960714"
+  },
+  {
+    "lesson": "When the user explicitly instructs \"Output ONLY the corrected code, nothing else,\" I must not include markdown code fences — just the raw code.",
+    "context": "trace_id=code_bug_file_not_closed_1, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:47.617064"
+  },
+  {
+    "lesson": "One concrete lesson: When the user explicitly says \"Output ONLY the corrected code, nothing else,\" I must not include markdown code fences — just the raw code, as my memory already recorded this rule but I violated it again.",
+    "context": "trace_id=code_bug_file_not_closed_2, step=1",
+    "success": true,
+    "timestamp": "2026-05-19T21:11:52.153552"
   }
 ]
