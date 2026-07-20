@@ -234,10 +234,6 @@ class StateManager:
         If something goes wrong, the agent can rollback to this point.
         """
         if not self._is_git:
-            self.manifest.git_checkpoints.append(
-                f"{datetime.now(timezone.utc).isoformat()} | {label} | [no git]"
-            )
-            self._save()
             self._log(f"[no git] Checkpoint: {label}")
             return
 
