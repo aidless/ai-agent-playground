@@ -1,21 +1,23 @@
 # AI Agent Playground
 
-**A production-grade autonomous AI agent system — built from scratch, deployed 24/7, 161 tests, 0 failures.**
+**A production-grade autonomous AI agent system — built from scratch, 161 tests, 0 failures.**
 
-[![Live Demo](https://img.shields.io/badge/demo-live-green)](http://47.98.106.182:8080)
 [![Tests](https://img.shields.io/badge/tests-161%20passed-brightgreen)](https://github.com/aidless/ai-agent-playground/actions)
 [![Security](https://img.shields.io/badge/security-14%2F14%20pentest-brightgreen)](scripts/pentest.py)
 [![Code Fix](https://img.shields.io/badge/code%20fix-90%25-brightgreen)](scripts/code_bench.py)
 [![Stress Test](https://img.shields.io/badge/stress-1000%2F1000-blue)](scripts/stress_test.py)
 [![Python](https://img.shields.io/badge/python-3.11+-blue)](https://python.org)
 
-> **Live Demo**: http://47.98.106.182:8080 &nbsp;|&nbsp; **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground)
+> **Status note (2026-10):** this system previously ran on an Alibaba Cloud ECS instance
+> under systemd, serving ~100K requests with 0 recorded incidents. **That instance has been
+> released, so there is no live demo URL at present.** Everything below is reproducible
+> locally — see [Quick Start](#quick-start).
 
 ---
 
 ## Why This Project Matters
 
-Most AI Agent tutorials stop at "call an API, write a prompt." This project goes further — it's a **complete autonomous agent system** with 11 self-improving engines, automated security hardening, and production deployment. Built from zero by a 2026 graduate over one semester. 161 tests, 0 failures. Runs 24/7 on Alibaba Cloud.
+Most AI Agent tutorials stop at "call an API, write a prompt." This project goes further — it's a **complete autonomous agent system** with 11 self-improving engines, automated security hardening, and production deployment. Built from zero by a 2026 graduate over one semester. 161 tests, 0 failures. Was deployed 24/7 on Alibaba Cloud ECS.
 
 **Key numbers:**
 
@@ -26,7 +28,7 @@ Most AI Agent tutorials stop at "call an API, write a prompt." This project goes
 | Load Test | 1000/1000 requests, P95=150ms, 50 concurrent |
 | Test Suite | 161 passed, 0 failed — zero regressions |
 | Autonomy | 11 engines: self-evolution, debate, bootstrap, meta-agent |
-| Deployment | Alibaba Cloud ECS, systemd daemon, 24/7 uptime |
+| Deployment | Alibaba Cloud ECS + systemd daemon (instance since released) |
 
 ---
 
@@ -137,7 +139,7 @@ Code Repair (10 real bugs):
 | Framework | FastAPI + AsyncIO + Uvicorn | Standard Python AI serving stack |
 | Vector DB | ChromaDB + all-MiniLM-L6-v2 | Lightweight RAG, easy to deploy |
 | Security | Process sandbox + AST scan + HMAC auth | Defense in depth |
-| Deployment | Docker + Alibaba Cloud ECS + systemd | 24/7 production grade |
+| Deployment | Docker + Alibaba Cloud ECS + systemd | production-grade config
 | Monitoring | Prometheus + CLEAR 5D panel | Cost, Latency, Efficacy, Assurance, Reliability |
 
 ---
@@ -217,7 +219,7 @@ This project demonstrates:
 4. **System-level thinking** — architecture, observability, deployment, not just model calling
 
 **I'm open to AI Application Developer / AI Engineer roles.**  
-GitHub: [@aidless](https://github.com/aidless) &nbsp;|&nbsp; Live Demo: http://47.98.106.182:8080
+GitHub: [@aidless](https://github.com/aidless)
 
 ---
 
