@@ -162,6 +162,38 @@ uv run uvicorn agent.server:app --host 0.0.0.0 --port 8000
 
 ---
 
+## Running the Tests
+
+161 tests, 1 skipped. The suite runs fully offline — no API calls are made.
+
+```bash
+git clone https://github.com/aidless/ai-agent-playground.git
+cd ai-agent-playground
+
+# --group dev is required: pytest lives in the dev dependency group
+uv sync --group dev
+
+# agent/server.py validates the key's format (must start with `sk-`) at import
+# time; the value is never used to reach the network during tests.
+export DEEPSEEK_API_KEY="sk-local-test-dummy"
+
+uv run --group dev pytest tests/ -q
+# 161 passed, 1 skipped
+```
+
+The skipped test is the locust load test (`tests/load_test.py`); add it with
+`uv add --dev locust`.
+
+If `pytest` resolves to a global install instead of the venv, prefix with
+`uv run --group dev` as above — plain `uv run pytest` picks up whatever
+`pytest` is on PATH.
+
+Note for contributors: `prometheus-client`, `sse-starlette`, and `tenacity`
+are imported by the code and the tests but were missing from `dependencies`;
+`pytest` and `pytest-asyncio` were missing entirely (now in `[dependency-groups].dev`).
+
+---
+
 ## API Endpoints (OpenAI-Compatible)
 
 | Endpoint | Method | Description |
