@@ -24,7 +24,7 @@ jobs:
             --ignore=eval_harness \
             --tb=short -v \
             --junitxml=junit.xml
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: test-results
@@ -47,7 +47,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --locked
       - run: uv build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
