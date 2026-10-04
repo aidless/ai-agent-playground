@@ -6,7 +6,7 @@ A production-grade AI agent framework with 5 projects, designed as a job-hunting
 portfolio. Built from scratch with Python, FastAPI, DeepSeek API, and ChromaDB.
 
 ```
-133 tests  |  0 failures  |  Security Score 8.5/10
+161 tests  |  0 failures  |  Security Score 8.5/10
 ```
 
 ## Layer Stack (bottom-up)
@@ -263,5 +263,5 @@ agent/                43 Python files  (production engine)
 ai_agent_playground/  23 Python files  (framework layer)
 observability/         3 Python files  (monitoring)
 scripts/              22 Python files  (ops/tools)
-tests/                11 Python files  (133 test cases)
+tests/                11 Python files  (161 test cases)
 ```
