@@ -1,0 +1,61 @@
+name: Bug report
+description: Report a defect or something that does not work as documented
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. If this is a security issue,
+        please use the private channel in SECURITY.md instead of this form.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Tag, release, or commit SHA you tested against
+      placeholder: "v1.2.3 or abc1234"
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options: [code, CI, documentation, data or evidence, dependencies, other]
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you observed, including the exact error text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: A minimal command or script that shows the problem
+      render: shell
+    validations:
+      required: false
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      description: OS, Python or Node version, GPU if relevant
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues for this.
+          required: true
+        - label: I did not include any secret, key, or personal data in this report.
+          required: true
