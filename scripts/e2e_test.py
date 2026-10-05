@@ -11,6 +11,7 @@ Usage:
   uv run python scripts/e2e_test.py --quick   # Skip API calls
 """
 
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -129,10 +130,22 @@ def test_state_manager():
         assert "✅" in ctx, "Context should contain completed task markers"
         print(f"  OK Context rebuild: {len(ctx)} chars, contains goal + task status")
 
-        # Test checkpoint (no git needed)
-        sm.checkpoint("after_models")
-        assert len(sm.manifest.git_checkpoints) >= 1
-        print(f"  OK Checkpoint: {sm.manifest.git_checkpoints[-1][:60]}...")
+        # Test checkpoint. StateManager.checkpoint() records a git commit and returns
+        # without recording anything when work_dir is not a repository
+        # (state_manager.py:109 sets _is_git from work_dir/.git; :236 returns early).
+        # tempfile.TemporaryDirectory() is not one, so this test has to make it one.
+        subprocess.run(["git", "init", "-q"], cwd=tmp, check=True,
+                       capture_output=True)
+        subprocess.run(["git", "config", "user.email", "test@example.com"], cwd=tmp, check=True)
+        subprocess.run(["git", "config", "user.name", "test"], cwd=tmp, check=True)
+        # A fresh StateManager: _is_git is decided in __init__ (state_manager.py:109),
+        # so the instance built above still has it False. resume() rehydrates the
+        # manifest from disk, which is what makes checkpoint() able to record.
+        sm3 = StateManager(work_dir=tmp)
+        assert sm3.resume() is not None
+        sm3.checkpoint("after_models")
+        assert len(sm3.manifest.git_checkpoints) >= 1
+        print(f"  OK Checkpoint: {sm3.manifest.git_checkpoints[-1][:60]}...")
 
 
 def test_human_loop():
