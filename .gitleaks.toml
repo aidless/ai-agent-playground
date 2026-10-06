@@ -40,3 +40,19 @@ regexes = [
   '''<YOUR_.*?>''',
   '''\\$\\{[A-Z_]+\\}''',
 ]
+
+# Test fixtures for the secret detector itself. tests/test_security.py writes
+# strings like sk-abc123def456ghi789klmnopqrstuvwxyz so that scan_secrets() has
+# something to find; without this the gate is red on the fixtures it is supposed
+# to be validating. Scoped to the test directory and to the two key rules rather
+# than allowlisted globally -- a global pattern would also excuse a real key that
+# happened to look like a test value.
+[[allowlists]]
+description = "secret-detector test fixtures"
+paths = [
+  '''tests/''',
+]
+regexTarget = "match"
+regexes = [
+  '''sk-abc123def456ghi789klmnopqrstuvwxyz''',
+]
