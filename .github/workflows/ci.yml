@@ -22,7 +22,7 @@ jobs:
       DEEPSEEK_BASE_URL: https://api.deepseek.com
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
       - run: uv sync --locked
       - run: |
           uv run python -m pytest \
@@ -44,7 +44,7 @@ jobs:
       DEEPSEEK_BASE_URL: https://api.deepseek.com
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
       - run: uv sync --locked
       # Both scanners used to be `uv run <tool> ... || echo "<tool> done"`.
       # bandit is not in the dependency lock, so `uv run bandit` exits 2 with
@@ -78,7 +78,7 @@ jobs:
       DEEPSEEK_BASE_URL: https://api.deepseek.com
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
       - run: uv sync --locked
       - run: uv build
       - uses: actions/upload-artifact@v4
