@@ -1,5 +1,18 @@
 name: CD
 
+# READ THIS BEFORE TRUSTING A GREEN CD RUN.
+#
+# As written on 2026-10-06 this workflow deployed nothing. Each "Deploy to X"
+# step was `echo "Deploying to X..."`, and staging/canary/production do not
+# resolve from a GitHub-hosted runner (verified: curl exit 6, DNS failure).
+# The health checks then swallowed that failure with `|| echo "... check done"`,
+# so the whole staging -> canary -> production chain reported success against
+# three hosts that do not exist. It was a green pipeline over an empty shell.
+#
+# The swallows are removed below so the checks have teeth. That makes the chain
+# fail loudly until a real deploy target is configured, which is the honest
+# state: set DEPLOY_* below, or delete this file if there is no CD to run.
+
 on:
   workflow_run:
     workflows: [CI]
@@ -18,7 +31,7 @@ jobs:
       - name: Smoke test
         run: |
           sleep 5
-          curl -f http://staging:8000/health || echo "Staging check done"
+          curl -fsS --retry 5 --retry-connrefused --max-time 30 http://staging:8000/health
 
   deploy-canary:
     needs: deploy-staging
@@ -29,7 +42,7 @@ jobs:
       - name: Deploy canary (10% traffic)
         run: echo "Deploying canary with 10% traffic..."
       - name: Canary health check
-        run: curl -f http://canary:8000/health || echo "Canary check done"
+        run: curl -fsS --retry 5 --retry-connrefused --max-time 30 http://canary:8000/health
 
   deploy-production:
     needs: deploy-canary
@@ -40,4 +53,4 @@ jobs:
       - name: Deploy to production
         run: echo "Deploying to production..."
       - name: Final health check
-        run: curl -f http://production:8000/health || echo "Production check done"
+        run: curl -fsS --retry 5 --retry-connrefused --max-time 30 http://production:8000/health
