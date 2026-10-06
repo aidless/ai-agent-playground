@@ -1,0 +1,232 @@
+name: mutation-control
+
+# Proves the `security` job's Bandit step has teeth.
+#
+# That step was `uv run bandit ... || echo "bandit done"`. bandit is not in the
+# dependency lock, so `uv run bandit` exited 2 with "Failed to spawn": the scan
+# never executed once, and the `|| echo` turned that into a green step. Swapping
+# in `uvx bandit ... -b .bandit-baseline.json` made the scan real, but on its own
+# that proves nothing -- a green run is equally consistent with "scanned and
+# clean" and with "silently swallowed". Only a deliberately broken tree
+# distinguishes the two.
+#
+# This workflow therefore asserts the negative: inject a finding that must be
+# reported, and require a non-zero exit. If the gate is ever re-broken by a
+# swallow (`|| echo`, `|| true`, a `continue-on-error`, a broadened baseline),
+# this job goes red.
+#
+# Scope: Bandit only. It does not run `uv build` (that job is known-broken and
+# only fires on workflow_dispatch) and does not run `uvx pip-audit`, which needs
+# the network and moves as advisories are published.
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bandit-gate-has-teeth:
+    name: bandit-gate-has-teeth
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+
+      # The gate under test, verbatim from ci.yml `security`.
+      - id: gate
+        name: Define the gate under test
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/gate.sh" <<'GATE'
+          #!/usr/bin/env bash
+          exec uvx bandit -r agent/ ai_agent_playground/ scripts/ \
+            -ll -b .bandit-baseline.json
+          GATE
+          chmod +x "$RUNNER_TEMP/gate.sh"
+          # The old, toothless form of the same gate, kept verbatim so the
+          # negative control below exercises the real historical bug.
+          cat > "$RUNNER_TEMP/gate_swallow.sh" <<'GATE'
+          #!/usr/bin/env bash
+          uvx bandit -r agent/ ai_agent_playground/ scripts/ \
+            -ll -b .bandit-baseline.json || echo "bandit done"
+          GATE
+          chmod +x "$RUNNER_TEMP/gate_swallow.sh"
+          # The verdict rule, isolated so the mutation step and the negative
+          # control below are provably the same assertion.
+          cat > "$RUNNER_TEMP/verdict.sh" <<'VERDICT'
+          #!/usr/bin/env bash
+          # usage: verdict.sh <gate_exit> <logfile>
+          rc="$1"; log="$2"
+          if [ "$rc" -eq 0 ]; then
+            echo "verdict: NO TEETH -- gate exited 0 on a mutated tree"
+            exit 1
+          fi
+          if ! grep -q 'B602' "$log"; then
+            echo "verdict: WRONG FAILURE -- exited $rc without naming B602"
+            exit 1
+          fi
+          echo "verdict: TEETH -- exited $rc and named B602"
+          exit 0
+          VERDICT
+          chmod +x "$RUNNER_TEMP/verdict.sh"
+          test -x "$RUNNER_TEMP/gate.sh"
+          test -x "$RUNNER_TEMP/gate_swallow.sh"
+          test -x "$RUNNER_TEMP/verdict.sh"
+
+      # Fail closed. If the tree is not pristine, or a probe file survived from
+      # an earlier attempt, the baseline run would be meaningless -- and a
+      # meaningless baseline is how a broken gate looks green.
+      - name: Assert pristine checkout
+        run: |
+          set -euo pipefail
+          dirty="$(git status --porcelain)"
+          if [ -n "$dirty" ]; then
+            echo "::error title=Dirty checkout::mutation-control needs a pristine tree:"
+            printf '%s\n' "$dirty"
+            exit 1
+          fi
+          for probe in agent/mutation_control_probe.py scripts/mutation_control_probe.py \
+                       ai_agent_playground/mutation_control_probe.py; do
+            if [ -e "$probe" ]; then
+              echo "::error title=Stale probe::leftover mutation file $probe"
+              exit 1
+            fi
+          done
+          echo "tree is pristine"
+
+      # bandit reads .bandit-baseline.json fresh on every process start and
+      # writes nothing back, but a control that could silently rewrite its own
+      # reference data would be worth nothing. Record it and compare at the end.
+      - name: Record baseline fingerprint
+        run: |
+          set -euo pipefail
+          sha256sum .bandit-baseline.json | tee "$RUNNER_TEMP/baseline.sha256"
+
+      # Step 1 of 3 -- fail-closed baseline.
+      - name: Baseline (clean tree must pass, else stop)
+        id: baseline
+        run: |
+          set -euo pipefail
+          set +e
+          "$RUNNER_TEMP/gate.sh" 2>&1 | tee "$RUNNER_TEMP/baseline.log"
+          rc=${PIPESTATUS[0]}
+          set -e
+          echo "gate_exit=$rc" >> "$GITHUB_OUTPUT"
+          if [ "$rc" -ne 0 ]; then
+            echo "::error title=Baseline red::the Bandit gate does not pass on a clean tree (exit $rc). Refusing to test the mutation against a gate that is already failing -- fix the baseline first."
+            exit 1
+          fi
+          echo "baseline OK: gate exits 0 on a clean tree"
+
+      # The mutation. Deliberately a variable, not a string literal: bandit
+      # grades shell=True severity by whether the command is a plain literal
+      # (LOW, and therefore invisible under `-ll`) or computed (HIGH). A literal
+      # probe passes this gate silently and would prove nothing.
+      - name: Inject mutation
+        run: |
+          set -euo pipefail
+          cat > agent/mutation_control_probe.py <<'PROBE'
+          import subprocess
+
+
+          def _run(cmd):
+              return subprocess.run(cmd, shell=True, capture_output=True)
+          PROBE
+          test -f agent/mutation_control_probe.py
+          git status --porcelain | tee "$RUNNER_TEMP/mutated_status.txt"
+          if ! grep -q '^?? agent/mutation_control_probe\.py$' "$RUNNER_TEMP/mutated_status.txt"; then
+            echo "::error title=Mutation not visible::the probe file did not show up in git status, so a restore would silently no-op"
+            exit 1
+          fi
+
+      # Step 2 of 3 -- the gate must go red.
+      - name: Mutation (gate must return non-zero)
+        id: mutation
+        run: |
+          set -euo pipefail
+          set +e
+          "$RUNNER_TEMP/gate.sh" 2>&1 | tee "$RUNNER_TEMP/mutation.log"
+          rc=${PIPESTATUS[0]}
+          set -e
+          echo "gate_exit=$rc" >> "$GITHUB_OUTPUT"
+          set +e
+          "$RUNNER_TEMP/verdict.sh" "$rc" "$RUNNER_TEMP/mutation.log"
+          verdict_rc=$?
+          set -e
+          if [ "$verdict_rc" -ne 0 ]; then
+            echo "::error title=Gate has no teeth::the Bandit gate did not demonstrably fail on a tree containing B602 subprocess shell=True at HIGH severity"
+            exit 1
+          fi
+          echo "gate has teeth: exit=$rc and the report names B602"
+
+      # Step 3 of 3 -- negative control. Re-run the mutation against the old
+      # `|| echo` gate. That gate returns 0 on the mutated tree, so step 2's
+      # assertion must reject it. If this step ever succeeds in calling the
+      # swallow version "passing", the assertion logic itself has rotted.
+      - name: Negative control (swallowing gate must be rejected)
+        id: negative
+        run: |
+          set -euo pipefail
+          set +e
+          "$RUNNER_TEMP/gate_swallow.sh" > "$RUNNER_TEMP/negative.log" 2>&1
+          swallow_rc=$?
+          set -e
+          echo "swallow_gate_exit=$swallow_rc" >> "$GITHUB_OUTPUT"
+          echo "swallowing gate exit=$swallow_rc (expected 0 -- that is the bug)"
+          if [ "$swallow_rc" -ne 0 ]; then
+            echo "::error title=Negative control invalid::the `|| echo` gate exited $swallow_rc on the mutated tree. It was expected to exit 0; if it no longer does, this control is not testing the historical bug."
+            exit 1
+          fi
+          # Feed that exit code to the same verdict rule the mutation step used.
+          # It must come back "no teeth" -- otherwise the assertion is vacuous.
+          set +e
+          "$RUNNER_TEMP/verdict.sh" "$swallow_rc" "$RUNNER_TEMP/negative.log"
+          verdict_rc=$?
+          set -e
+          if [ "$verdict_rc" -eq 0 ]; then
+            echo "::error title=Control is vacuous::verdict accepted a gate that exited 0 under mutation -- the assertion cannot fail, so it proves nothing"
+            exit 1
+          fi
+          echo "::notice title=Negative control passed::the `|| echo` gate returned 0 under mutation and the verdict rule rejected it"
+
+      - name: Restore and verify clean
+        if: always()
+        run: |
+          set -euo pipefail
+          rm -f agent/mutation_control_probe.py \
+                scripts/mutation_control_probe.py \
+                ai_agent_playground/mutation_control_probe.py
+          find . -name '__pycache__' -type d -prune -print0 \
+            | xargs -0 -r rm -rf
+          dirty="$(git status --porcelain)"
+          if [ -n "$dirty" ]; then
+            echo "::error title=Restore failed::working tree is dirty after removing the mutation:"
+            printf '%s\n' "$dirty"
+            exit 1
+          fi
+          if [ -f "$RUNNER_TEMP/baseline.sha256" ]; then
+            sha256sum -c "$RUNNER_TEMP/baseline.sha256"
+          fi
+          echo "tree restored and clean"
+
+      - name: Summary
+        if: always()
+        run: |
+          set -euo pipefail
+          {
+            echo "scenario | exit"
+            echo "baseline (clean tree) | ${{ steps.baseline.outputs.gate_exit }}"
+            echo "mutation (B602 injected) | ${{ steps.mutation.outputs.gate_exit }}"
+            echo "negative control (swallow gate) | ${{ steps.negative.outputs.swallow_gate_exit }}"
+          } | tee -a "$GITHUB_STEP_SUMMARY"
