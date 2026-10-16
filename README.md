@@ -258,4 +258,4 @@ GitHub: [@aidless](https://github.com/aidless)
 
 ---
 
-*Alex Chen — B.Eng. Software Engineering, Example University*
+*Liu Zewen (刘泽文) — B.Eng. Software Engineering, Qilu Institute of Technology*

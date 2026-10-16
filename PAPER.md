@@ -1,6 +1,6 @@
 # AI Agent Playground: A Production-Grade Self-Evolving Multi-Engine Agent System
 
-**Alex Chen**
+**Liu Zewen (刘泽文)**
 
 ---
 

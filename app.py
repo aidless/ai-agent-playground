@@ -37,7 +37,7 @@ page = st.sidebar.radio(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.caption("By Alex Chen | [GitHub](https://github.com/aidless)")
+st.sidebar.caption("By Liu Zewen | [GitHub](https://github.com/aidless)")
 
 
 # ============================================================
@@ -524,4 +524,4 @@ elif page == "🔧 MCP Tool Agent":
 # ---- Sidebar footer ----
 st.sidebar.markdown("---")
 st.sidebar.caption("Built with Streamlit + DeepSeek V4")
-st.sidebar.caption("Alex Chen 2026")
+st.sidebar.caption("Liu Zewen 2026")

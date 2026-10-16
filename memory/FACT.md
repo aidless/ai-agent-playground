@@ -27,8 +27,8 @@
 - GitHub 被墙，需用镜像
 - Bash 工具需走 Git Bash: "C:/Program Files/Git/bin/bash.exe"
 
-## 用户（Alex Chen）
-- Example University  软件工程
+## 用户（刘泽文）
+- 齐鲁理工学院  软件工程
 - 求职目标：AI 应用开发岗
 - 决策风格：说干就干
 - 学习方式：读源码

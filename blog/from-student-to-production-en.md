@@ -282,4 +282,4 @@ The project is fully open source. You can:
 
 ---
 
-*Alex Chen | B.Eng. Software Engineering | Example University | Open to AI Application Developer roles*
+*Liu Zewen | B.Eng. Software Engineering | Qilu Institute of Technology | Open to AI Application Developer roles*

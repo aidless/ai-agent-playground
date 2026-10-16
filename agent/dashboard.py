@@ -132,7 +132,7 @@ h1{{font-size:22px;color:#58a6ff;margin-bottom:4px}}
 </div>
 
 <div class="footer">
-    AI Agent Playground | Built by Alex Chen | B.Eng. Software Engineering | Example University
+    AI Agent Playground | Built by Liu Zewen | B.Eng. Software Engineering | Qilu Institute of Technology
 </div>
 
 <script>
