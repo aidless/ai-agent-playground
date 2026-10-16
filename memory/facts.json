@@ -20,7 +20,7 @@
     "updated_at": "2026-05-17T23:07:00"
   },
   "user_name": {
-    "value": "刘泽文（Zewen），齐鲁理工学院软件工程 2026 届",
+    "value": "Alex Chen，Example UniversitySoftware Engineering",
     "source": "USER.md",
     "updated_at": "2026-05-17T23:07:00"
   },
@@ -30,7 +30,7 @@
     "updated_at": "2026-05-17T23:07:00"
   },
   "ollama_installed": {
-    "value": "Ollama 0.24.0 已安装于 C:\\Users\\Administrator\\AppData\\Local\\Programs\\Ollama",
+    "value": "Ollama 0.24.0 已安装于 C:\\Users\\<user>\\AppData\\Local\\Programs\\Ollama",
     "source": "自主安装验证",
     "updated_at": "2026-05-17T23:08:00"
   },
@@ -60,12 +60,12 @@
     "updated_at": "2026-05-19T21:27:26.636236"
   },
   "last_task_developer-1": {
-    "value": "实现用户注册端点：接收username和password，使用bcrypt哈希密码，生成JWT token并返回 -> 我来实现用户注册端点，包含bcrypt密码哈希和JWT token生成。\n\n<｜｜DSML｜｜tool_calls>\n<｜｜DSML｜｜invoke name=\"read\">\n<｜｜DSML｜｜parameter name=\"filePath\" string=\"true\">C:\\Users\\Administrator\\Desktop\\hermes\\main.py</｜｜DSML｜｜paramete",
+    "value": "实现用户注册端点：接收username和password，使用bcrypt哈希密码，生成JWT token并返回 -> 我来实现用户注册端点，包含bcrypt密码哈希和JWT token生成。\n\n<｜｜DSML｜｜tool_calls>\n<｜｜DSML｜｜invoke name=\"read\">\n<｜｜DSML｜｜parameter name=\"filePath\" string=\"true\">C:\\Users\\<user>\\Desktop\\hermes\\main.py</｜｜DSML｜｜paramete",
     "source": "crew_agent.developer-1",
     "updated_at": "2026-05-18T00:51:04.416854"
   },
   "last_task_reviewer-1": {
-    "value": "审查代码安全性（密码存储、JWT签名、输入验证）和API设计规范性 -> 我来审查用户注册API的代码安全性（密码存储、JWT签名、输入验证）和API设计规范性。\n\n<｜｜DSML｜｜tool_calls>\n<｜｜DSML｜｜invoke name=\"read\">\n<｜｜DSML｜｜parameter name=\"filePath\" string=\"true\">C:\\Users\\Administrator\\Desktop\\hermes\\main.py</｜｜DSML｜｜",
+    "value": "审查代码安全性（密码存储、JWT签名、输入验证）和API设计规范性 -> 我来审查用户注册API的代码安全性（密码存储、JWT签名、输入验证）和API设计规范性。\n\n<｜｜DSML｜｜tool_calls>\n<｜｜DSML｜｜invoke name=\"read\">\n<｜｜DSML｜｜parameter name=\"filePath\" string=\"true\">C:\\Users\\<user>\\Desktop\\hermes\\main.py</｜｜DSML｜｜",
     "source": "crew_agent.reviewer-1",
     "updated_at": "2026-05-18T00:51:05.872905"
   }

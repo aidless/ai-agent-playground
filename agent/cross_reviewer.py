@@ -1,6 +1,6 @@
 """Cross-Model Reviewer — 跨模型校对官
 
-Implements the workflow described by Liu Zewen:
+Implements the workflow described by Alex Chen:
   1. A main agent (Claude/DeepSeek) generates a report
   2. A reviewer agent (different model: Qwen/MiniMax) verifies every claim
   3. Disputed items enter a debate loop until consensus or deadlock

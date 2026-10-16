@@ -281,4 +281,4 @@ Prompt 决定 Agent 能做什么，但工程决定 Agent **持续稳定地做对
 
 ---
 
-*刘泽文 | 齐鲁理工学院 2026 届软件工程 | AI 应用开发求职中*
+*Alex Chen | Example University Software Engineering | AI 应用开发求职中*

@@ -1,6 +1,6 @@
 # AI Agent Playground — Final System Report
 
-**Author**: Liu Zewen (刘泽文) | B.Eng. Software Engineering 2026 | Qilu Institute of Technology
+**Author**: Alex Chen | B.Eng. Software Engineering | Example University
 **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground)
 **Live**: http://47.98.106.182:8080 | **Tests**: 161 passed, 0 failed
 
@@ -160,5 +160,5 @@ cd ai-agent-playground
 
 ---
 
-*Built by Liu Zewen, 2026 graduate seeking AI Application Developer roles.*
+*Built by Alex Chen, seeking software roles.*
 *Contact: GitHub [@aidless](https://github.com/aidless)*

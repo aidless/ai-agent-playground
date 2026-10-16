@@ -1,23 +1,20 @@
-# User Profile — 刘泽文
+# User Profile — Alex Chen
 
 ## Name
-- 中文名：刘泽文
+- 中文名：Alex Chen
 - GitHub：aidless
-- 称呼偏好：泽文 / Zewen
+- 称呼偏好：Alex
 
 ## Timezone
 - Asia/Shanghai (UTC+8)
 - 工作日一般白天活跃
 
 ## Background
-- 齐鲁理工学院，软件工程专业
-- 专升本，2026 年毕业
-- 现居山东泰安
+- Example University，Software Engineering
 
 ## Current Goals
-1. **找 AI 应用开发岗位** — 靠 AI Agent 项目作品集弥补学历短板
-2. **准备事业编** — 考虑泰安或上海的技术岗
-3. **做真实项目** — 不刷课，从源代码和实战中学习
+1. **找 AI 应用开发岗位** — 靠 AI Agent 项目作品集证明能力
+2. **做真实项目** — 不刷课，从源代码和实战中学习
 
 ## Tech Stack
 - **精通**：Java / Spring Boot
@@ -36,4 +33,4 @@
 - 使用 DeepSeek API（兼容 Anthropic 接口）
 
 ## Active Project
-- `C:\Users\Administrator\Desktop\ai-agent-playground` — AI Agent 作品集
+- the `ai-agent-playground` repository — AI Agent 作品集

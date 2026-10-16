@@ -151,7 +151,7 @@ def portfolio_html() -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Liu Zewen — AI Agent Portfolio</title>
+<title>Alex Chen — AI Agent Portfolio</title>
 <style>
 * {{ margin:0; padding:0; box-sizing:border-box; }}
 body {{ background:#0a0e14; color:#c9d1d9; font:14px/1.6 -apple-system,BlinkMacSystemFont,"Microsoft YaHei",sans-serif; }}
@@ -222,13 +222,13 @@ body {{ background:#0a0e14; color:#c9d1d9; font:14px/1.6 -apple-system,BlinkMacS
 
 <!-- Hero -->
 <div class="hero">
-    <h1>Liu Zewen 刘泽文</h1>
-    <p class="sub">AI Application Developer | AI Agent Engineer | 2026 Graduate</p>
+    <h1>Alex Chen</h1>
+    <p class="sub">AI Application Developer | AI Agent Engineer</p>
     <div class="badges">
         <span class="badge green">133 Tests Passing</span>
         <span class="badge blue">Python + FastAPI + DeepSeek</span>
         <span class="badge purple">Security Score 8.5/10</span>
-        <span class="badge orange">Qilu Institute of Technology</span>
+        <span class="badge orange">Example University</span>
     </div>
 </div>
 
@@ -255,9 +255,8 @@ body {{ background:#0a0e14; color:#c9d1d9; font:14px/1.6 -apple-system,BlinkMacS
 <!-- Contact -->
 <div class="contact">
     <div class="contact-item"><span>GitHub</span> <strong>aidless</strong></div>
-    <div class="contact-item"><span>Location</span> <strong>Shandong, China</strong></div>
-    <div class="contact-item"><span>School</span> <strong>Qilu Institute of Technology</strong></div>
-    <div class="contact-item"><span>Degree</span> <strong>B.Eng. Software Engineering 2026</strong></div>
+    <div class="contact-item"><span>School</span> <strong>Example University</strong></div>
+    <div class="contact-item"><span>Degree</span> <strong>B.Eng. Software Engineering</strong></div>
 </div>
 
 <div class="footer">
