@@ -1,8 +1,8 @@
 # AI Agent Playground
 
-**A production-grade autonomous AI agent system — built from scratch, 161 tests, 0 failures.**
+**A production-grade autonomous AI agent system — built from scratch, 166 passed, 1 skipped, 0 failed.**
 
-[![Tests](https://img.shields.io/badge/tests-161%20passed-brightgreen)](https://github.com/aidless/ai-agent-playground/actions)
+[![Tests](https://img.shields.io/badge/tests-166%20passed-brightgreen)](https://github.com/aidless/ai-agent-playground/actions)
 [![Security](https://img.shields.io/badge/security-14%2F14%20pentest-brightgreen)](scripts/pentest.py)
 [![Code Fix](https://img.shields.io/badge/code%20fix-90%25-brightgreen)](scripts/code_bench.py)
 [![Stress Test](https://img.shields.io/badge/stress-1000%2F1000-blue)](scripts/stress_test.py)
@@ -17,7 +17,7 @@
 
 ## Why This Project Matters
 
-Most AI Agent tutorials stop at "call an API, write a prompt." This project goes further — it's a **complete autonomous agent system** with 5 self-improvement engines across ~55 modules, automated security hardening, and production deployment. Built from zero by a 2026 graduate over one semester. 161 tests, 0 failures. Was deployed 24/7 on Alibaba Cloud ECS.
+Most AI Agent tutorials stop at "call an API, write a prompt." This project goes further — it's a **complete autonomous agent system** with 5 self-improvement engines across ~55 modules, automated security hardening, and production deployment. Built from zero by a 2026 graduate over one semester. 166 passed, 1 skipped, 0 failed. Was deployed 24/7 on Alibaba Cloud ECS.
 
 **Key numbers:**
 
@@ -26,7 +26,7 @@ Most AI Agent tutorials stop at "call an API, write a prompt." This project goes
 | Security | 14/14 penetration tests passed, 10/10 b3 benchmark attacks blocked |
 | Code Repair | 90% fix rate on real-world Python bugs |
 | Load Test | 1000/1000 requests, P95=150ms, 50 concurrent |
-| Test Suite | 161 passed, 0 failed — zero regressions |
+| Test Suite | 166 passed, 1 skipped, 0 failed — zero regressions |
 | Autonomy | 5 self-improvement engines (evolution, debate, bootstrap, self-play, meta-agent) |
 | Deployment | Alibaba Cloud ECS + systemd daemon (instance since released) |
 
@@ -164,7 +164,7 @@ uv run uvicorn agent.server:app --host 0.0.0.0 --port 8000
 
 ## Running the Tests
 
-161 tests, 1 skipped. The suite runs fully offline — no API calls are made.
+166 passed, 1 skipped. The suite runs fully offline — no API calls are made.
 
 ```bash
 git clone https://github.com/aidless/ai-agent-playground.git
@@ -178,7 +178,7 @@ uv sync --group dev
 export DEEPSEEK_API_KEY="sk-local-test-dummy"
 
 uv run --group dev pytest tests/ -q
-# 161 passed, 1 skipped
+# 166 passed, 1 skipped
 ```
 
 The skipped test is the locust load test (`tests/load_test.py`); add it with
@@ -230,7 +230,7 @@ agent/              43 Python files (production engine)
 └── server.py           30+ REST endpoints
 
 ai_agent_playground/  23 files (framework layer, HuggingFace-inspired)
-tests/                161 test cases (0 failures)
+tests/                167 test cases (166 passed, 1 skipped)
 scripts/              22 benchmark & deployment scripts
 blog/                 Technical blog (CN + EN)
 ```
