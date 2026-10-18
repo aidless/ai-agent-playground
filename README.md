@@ -19,7 +19,7 @@
 
 ## Why This Project Matters
 
-Most AI Agent tutorials stop at "call an API, write a prompt." This project goes further — it's a **complete autonomous agent system** with **12 engines** (5 of them self-improvement) across **55 modules**, automated security hardening, and production deployment. Built from zero by a 2026 graduate over one semester. 166 passed, 1 skipped, 0 failed. Was deployed 24/7 on Alibaba Cloud ECS.
+Most AI Agent tutorials stop at "call an API, write a prompt." This project goes further — it's a **complete autonomous agent system** with **13 engines** (5 of them self-improvement) across **55 modules**, automated security hardening, and production deployment. Built from zero by a 2026 graduate over one semester. 166 passed, 1 skipped, 0 failed. Was deployed 24/7 on Alibaba Cloud ECS.
 
 **Key numbers:**
 
@@ -29,7 +29,7 @@ Most AI Agent tutorials stop at "call an API, write a prompt." This project goes
 | Code Repair | 90% fix rate on real-world Python bugs |
 | Load Test | 1000/1000 requests, P95=150ms, 50 concurrent |
 | Test Suite | 166 passed, 1 skipped, 0 failed — zero regressions |
-| Autonomy | **12 engines**, 5 of them self-improvement (evolution, debate, bootstrap, self-play, meta-agent) |
+| Autonomy | **13 engines**, 5 of them self-improvement (evolution, debate, bootstrap, self-play, meta-agent) |
 | Deployment | Alibaba Cloud ECS + systemd daemon (instance since released) |
 
 ---
@@ -202,7 +202,7 @@ are imported by the code and the tests but were missing from `dependencies`;
 |----------|--------|-------------|
 | `/health` | GET | System health — 10 subsystems |
 | `/chat/completions` | POST | **OpenAI-compatible chat** (drop-in replacement) |
-| `/autopilot/solve` | POST | Full 9-engine autonomous loop |
+| `/autopilot/solve` | POST | Full 13-engine autonomous loop |
 | `/super/debate` | POST | Multi-model debate |
 | `/super/evolve` | POST | Tool evolution (optimize → rollback) |
 | `/super/meta/experiment` | POST | Sandboxed self-evolution |
@@ -216,9 +216,9 @@ are imported by the code and the tests but were missing from `dependencies`;
 ## Project Structure
 
 ```
-agent/              43 Python files (production engine)
+agent/              55 Python files (production engine)
 ├── async_core.py       Streaming agent + state machine
-├── autopilot.py        Full 9-engine autonomous coordinator
+├── autopilot.py        Full 13-engine autonomous coordinator
 ├── debate.py           Multi-model debate
 ├── evolution.py        Tool optimization + template learning
 ├── bootstrap.py        Runtime tool generation + AST safety

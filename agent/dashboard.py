@@ -68,7 +68,7 @@ h1{{font-size:22px;color:#58a6ff;margin-bottom:4px}}
 </head>
 <body>
 <h1>AI Agent Playground</h1>
-<p class="subtitle">System Dashboard | 161 tests | 12 engines | DeepSeek V4 + Qwen2.5 | Alibaba Cloud ECS (instance since released)</p>
+<p class="subtitle">System Dashboard | 166 passed (1 skipped) | 13 engines | DeepSeek V4 + Qwen2.5 | Alibaba Cloud ECS (instance since released)</p>
 
 <div class="grid">
     <div class="card">
@@ -162,7 +162,7 @@ def dashboard_data() -> dict:
         },
         "engines": [
             "ReflectAction", "Debate", "Evolution", "Bootstrap",
-            "MetaAgent", "SelfPlay", "AgentMatrix", "AutoPilot",
+            "MetaAgent", "SelfPlay", "TTRL", "AgentMatrix", "AutoPilot",
             "EvalGate", "EpisodicMemory", "UnifiedPipeline", "Knowledge",
         ],
     }

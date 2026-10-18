@@ -2,13 +2,13 @@
 
 **Author**: Liu Zewen (刘泽文) | B.Eng. Software Engineering | Qilu Institute of Technology
 **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground)
-**Deployed**: Alibaba Cloud ECS (instance since released, no live URL) | **Tests**: 161 passed, 0 failed
+**Deployed**: Alibaba Cloud ECS (instance since released, no live URL) | **Tests**: 166 passed, 1 skipped, 0 failed
 
 ---
 
 ## Executive Summary
 
-A **production-grade autonomous AI agent system** built from scratch. Features **12 engines** (5 of them self-improvement: evolution, debate, bootstrap, self-play, meta-agent), passed 14/14 security penetration tests, achieved 100% on b3 security benchmark, and scored 90% on code repair tasks. Deployed 24/7 on Alibaba Cloud.
+A **production-grade autonomous AI agent system** built from scratch. Features **13 engines** (5 of them self-improvement: evolution, debate, bootstrap, self-play, meta-agent), passed 14/14 security penetration tests, achieved 100% on b3 security benchmark, and scored 90% on code repair tasks. Deployed 24/7 on Alibaba Cloud.
 
 This is NOT a LangChain wrapper or API demo — every engine is custom-built with real LLM verification.
 
@@ -40,7 +40,7 @@ This is NOT a LangChain wrapper or API demo — every engine is custom-built wit
     ┌─────────────┐  ┌───────────────────────┐  ┌───────────────────┐
     │ Knowledge   │  │  Unified Pipeline     │  │ Sandbox Meta      │
     │ 133 papers  │  │ Crew→Debate→Review    │  │ Safe self-evolve  │
-    │ Ollama RAG  │  │                       │  │ 161 test gate     │
+    │ Ollama RAG  │  │                       │  │ 167-test gate     │
     └─────────────┘  └───────────────────────┘  └───────────────────┘
 ```
 
@@ -90,7 +90,7 @@ This is NOT a LangChain wrapper or API demo — every engine is custom-built wit
 | **Auth** | HMAC-SHA256 tokens + API Key middleware |
 | **Deployment** | Docker + systemd + Alibaba Cloud ECS (2C4G) |
 | **Monitoring** | Prometheus + OpenTelemetry + CLEAR panel |
-| **Testing** | pytest (161 tests) + custom pentest + b3 + code bench |
+| **Testing** | pytest (167 tests: 166 passed, 1 skipped) + custom pentest + b3 + code bench |
 | **Docs** | README + ARCHITECTURE.md + DEPLOY.md + CHANGELOG + blog (CN/EN) |
 
 ---
@@ -122,7 +122,7 @@ The Evolution Engine tracks tool performance and automatically optimizes underpe
 When the agent detects a capability gap ("I need X but don't have it"), it generates new tool code, validates syntax + AST safety, and registers the tool for immediate use. **Verified**: DeepSeek generated a 1043-char markdown-to-JSON parser, correctly output structured data.
 
 ### 3. Sandboxed Meta Self-Evolution
-The MetaAgent can safely experiment on copies of its own source code. Changes are applied in an isolated sandbox, the full test suite runs, and only passing proposals are saved for human review. **Verified**: uptime.py successfully evolved, 161/161 tests passed.
+The MetaAgent can safely experiment on copies of its own source code. Changes are applied in an isolated sandbox, the full test suite runs, and only passing proposals are saved for human review. **Verified**: uptime.py successfully evolved, 161/161 tests passed *(that run's suite; the suite is 166 tests — 1 skipped — today)*.
 
 ### 4. Knowledge-Driven Decision Making
 The agent can query 133 indexed AI research papers via semantic search (Ollama embeddings + ChromaDB) to answer questions with research-backed evidence. **Verified**: RAG queries return cited answers referencing specific papers.
@@ -149,9 +149,9 @@ cd ai-agent-playground
 | Metric | Value |
 |--------|-------|
 | Python modules | 65+ |
-| Test cases | 161 |
+| Test cases | 167 |
 | API endpoints | 35+ |
-| Engines | 12 autonomous |
+| Engines | 13 autonomous |
 | Security vulns fixed | 14 → 0 |
 | Lines of code | ~20,000+ |
 | Commits | 25+ |
