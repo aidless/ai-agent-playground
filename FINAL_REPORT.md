@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-A **production-grade autonomous AI agent system** built from scratch. Features 12 self-improving engines, passed 14/14 security penetration tests, achieved 100% on b3 security benchmark, and scored 90% on code repair tasks. Deployed 24/7 on Alibaba Cloud.
+A **production-grade autonomous AI agent system** built from scratch. Features **12 engines** (5 of them self-improvement: evolution, debate, bootstrap, self-play, meta-agent), passed 14/14 security penetration tests, achieved 100% on b3 security benchmark, and scored 90% on code repair tasks. Deployed 24/7 on Alibaba Cloud.
 
 This is NOT a LangChain wrapper or API demo — every engine is custom-built with real LLM verification.
 

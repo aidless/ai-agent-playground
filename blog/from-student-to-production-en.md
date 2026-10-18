@@ -1,6 +1,6 @@
 # From Student Project to Production AI Agent: A Graduate's Technical Retrospective
 
-> **Update (2026-10):** the live demo instance (Alibaba Cloud ECS, `http://47.98.106.182:8080`) has been **released and that URL no longer resolves**. The post below is kept as written.
+> **Update (2026-10):** the live demo instance (Alibaba Cloud ECS, `http://47.98.106.182:8080`) has been **released and that URL no longer resolves**. Also: the counts in the post below ("9 self-improving engines", "161 tests") were the figures as written; **the current, code-backed figures are 12 engines (5 of them self-improvement: evolution / debate / bootstrap / self-play / meta-agent), 55 modules under `agent/`, and 166 passed / 1 skipped**. The post is kept as written.
 
 > **Live Demo (dead since 2026-10)**: ~~http://47.98.106.182:8080~~ &nbsp;|&nbsp; **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **161 tests, 0 failures**
 

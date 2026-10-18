@@ -19,7 +19,7 @@
 
 ## Why This Project Matters
 
-Most AI Agent tutorials stop at "call an API, write a prompt." This project goes further — it's a **complete autonomous agent system** with 5 self-improvement engines across ~55 modules, automated security hardening, and production deployment. Built from zero by a 2026 graduate over one semester. 166 passed, 1 skipped, 0 failed. Was deployed 24/7 on Alibaba Cloud ECS.
+Most AI Agent tutorials stop at "call an API, write a prompt." This project goes further — it's a **complete autonomous agent system** with **12 engines** (5 of them self-improvement) across **55 modules**, automated security hardening, and production deployment. Built from zero by a 2026 graduate over one semester. 166 passed, 1 skipped, 0 failed. Was deployed 24/7 on Alibaba Cloud ECS.
 
 **Key numbers:**
 
@@ -29,7 +29,7 @@ Most AI Agent tutorials stop at "call an API, write a prompt." This project goes
 | Code Repair | 90% fix rate on real-world Python bugs |
 | Load Test | 1000/1000 requests, P95=150ms, 50 concurrent |
 | Test Suite | 166 passed, 1 skipped, 0 failed — zero regressions |
-| Autonomy | 5 self-improvement engines (evolution, debate, bootstrap, self-play, meta-agent) |
+| Autonomy | **12 engines**, 5 of them self-improvement (evolution, debate, bootstrap, self-play, meta-agent) |
 | Deployment | Alibaba Cloud ECS + systemd daemon (instance since released) |
 
 ---
@@ -44,7 +44,7 @@ An autonomous agent system that doesn't just answer questions — it **improves 
 - **Self-play training** → generates curriculum, improves via feedback loop (SelfPlay Engine)
 - **Meta-agent oversight** → observes, decides, acts on system health (MetaAgent)
 
-These 5 are the self-improvement engines; the wider system has ~55 modules under `agent/`
+These 5 are the self-improvement engines; the whole system is **55 modules** under `agent/`
 (memory, cost tracking, governance, sandbox, reliability, and others).
 `scripts/benchmark_engines.py` measures the three that are directly comparable —
 baseline vs Debate vs Matrix.
