@@ -2,7 +2,7 @@
 
 **Author**: Liu Zewen (刘泽文) | B.Eng. Software Engineering | Qilu Institute of Technology
 **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground)
-**Live**: http://47.98.106.182:8080 | **Tests**: 161 passed, 0 failed
+**Deployed**: Alibaba Cloud ECS (instance since released, no live URL) | **Tests**: 161 passed, 0 failed
 
 ---
 

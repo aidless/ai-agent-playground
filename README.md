@@ -10,7 +10,9 @@
 
 > **Status note (2026-10):** this system previously ran on an Alibaba Cloud ECS instance
 > under systemd, serving ~100K requests with 0 recorded incidents. **That instance has been
-> released, so there is no live demo URL at present.** Everything below is reproducible
+> released, so there is no live demo URL at present.** (A few docs written while it was live —
+> `blog/from-student-to-production*.md`, `PAPER.md`, `FINAL_REPORT.md` — still carry that
+> URL; each now says so at the top.) Everything below is reproducible
 > locally — see [Quick Start](#quick-start).
 
 ---

@@ -1,6 +1,8 @@
 # 从学生项目到生产级 AI Agent：一个毕业生的技术复盘
 
-> **在线演示**: http://47.98.106.182:8080 &nbsp;|&nbsp; **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **161 tests, 0 failures**
+> **更新（2026-10）**：本文的在线演示实例（阿里云 ECS，`http://47.98.106.182:8080`）**已释放，该地址已不可访问**。正文为当时记录，保持原貌。
+
+> **在线演示（2026-10 起已失效）**: ~~http://47.98.106.182:8080~~ &nbsp;|&nbsp; **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **161 tests, 0 failures**
 
 ---
 
@@ -277,7 +279,7 @@ Prompt 决定 Agent 能做什么，但工程决定 Agent **持续稳定地做对
 - **看代码**：`agent/` 目录有43个生产级文件，每个引擎都有测试
 - **提 Issue**：发现问题或有想法，直接在 GitHub 提
 
-**GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **Live Demo**: http://47.98.106.182:8080
+**GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **Live Demo**: ~~http://47.98.106.182:8080~~（已失效，见文首说明）
 
 ---
 

@@ -1,6 +1,8 @@
 # From Student Project to Production AI Agent: A Graduate's Technical Retrospective
 
-> **Live Demo**: http://47.98.106.182:8080 &nbsp;|&nbsp; **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **161 tests, 0 failures**
+> **Update (2026-10):** the live demo instance (Alibaba Cloud ECS, `http://47.98.106.182:8080`) has been **released and that URL no longer resolves**. The post below is kept as written.
+
+> **Live Demo (dead since 2026-10)**: ~~http://47.98.106.182:8080~~ &nbsp;|&nbsp; **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **161 tests, 0 failures**
 
 ---
 
@@ -278,7 +280,7 @@ The project is fully open source. You can:
 - **Read the code**: `agent/` has 43 production-grade files. Every engine has tests.
 - **Open an Issue**: Found a bug or have an idea? GitHub Issues welcome.
 
-**GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **Live Demo**: http://47.98.106.182:8080
+**GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **Live Demo**: ~~http://47.98.106.182:8080~~ (dead; see the note at the top)
 
 ---
 
