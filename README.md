@@ -1,6 +1,6 @@
 # AI Agent Playground
 
-**A production-grade autonomous AI agent system — built from scratch, 166 passed, 1 skipped, 0 failed.**
+**A self-improving autonomous AI agent system built from scratch; full CI: 166 passed, 1 skipped, 0 failed.**
 
 [![Tests](https://img.shields.io/badge/tests-166%20passed-brightgreen)](https://github.com/aidless/ai-agent-playground/actions)
 [![Security](https://img.shields.io/badge/security-14%2F14%20pentest-brightgreen)](scripts/pentest.py)
@@ -8,18 +8,22 @@
 [![Stress Test](https://img.shields.io/badge/stress-1000%2F1000-blue)](scripts/stress_test.py)
 [![Python](https://img.shields.io/badge/python-3.11+-blue)](https://python.org)
 
-> **Status note (2026-10):** this system previously ran on an Alibaba Cloud ECS instance
-> under systemd, serving ~100K requests with 0 recorded incidents. **That instance has been
-> released, so there is no live demo URL at present.** (A few docs written while it was live —
-> `blog/from-student-to-production*.md`, `PAPER.md`, `FINAL_REPORT.md` — still carry that
-> URL; each now says so at the top.) Everything below is reproducible
-> locally — see [Quick Start](#quick-start).
+> **Status note (2026-10):** this system previously ran on an Alibaba Cloud ECS
+> instance under systemd. **That instance has been released, so there is no live
+> demo URL and no retained production telemetry.** A few documents written while
+> it was live (`blog/from-student-to-production*.md`, `PAPER.md`,
+> `FINAL_REPORT.md`) carry the former URL and now say so at the top. This README
+> presents reproducible local checks, not current production evidence.
 
 ---
 
 ## Why This Project Matters
 
-Most AI Agent tutorials stop at "call an API, write a prompt." This project goes further — it's a **complete autonomous agent system** with **13 engines** (5 of them self-improvement) across **55 modules**, automated security hardening, and production deployment. Built from zero by a 2026 graduate over one semester. 166 passed, 1 skipped, 0 failed. Was deployed 24/7 on Alibaba Cloud ECS.
+Most AI Agent tutorials stop at "call an API, write a prompt." This project
+goes further: it includes **five self-improvement engines** across **55 agent
+modules**, automated security checks, and a service/orchestration layer. The
+full CI suite reports 166 passed and 1 skipped; the narrower `tests/` command
+reports 161 passed and 1 skipped.
 
 **Key numbers:**
 
@@ -27,10 +31,11 @@ Most AI Agent tutorials stop at "call an API, write a prompt." This project goes
 |--------|--------|
 | Security | 14/14 penetration tests passed, 10/10 b3 benchmark attacks blocked |
 | Code Repair | 90% fix rate on real-world Python bugs |
-| Load Test | 1000/1000 requests, P95=150ms, 50 concurrent |
-| Test Suite | 166 passed, 1 skipped, 0 failed — zero regressions |
-| Autonomy | **13 engines**, 5 of them self-improvement (evolution, debate, bootstrap, self-play, meta-agent) |
-| Deployment | Alibaba Cloud ECS + systemd daemon (instance since released) |
+| Local stress script | 1000/1000 synthetic local requests; see `scripts/stress_test.py` |
+| Full CI suite | 166 passed, 1 skipped, 0 failed |
+| `tests/` only | 161 passed, 1 skipped, 0 failed |
+| Autonomy | 5 self-improvement engines: evolution, debate, bootstrap, self-play, meta-agent |
+| Deployment | Previous Alibaba Cloud ECS + systemd deployment; instance released, no retained telemetry |
 
 ---
 
@@ -115,15 +120,18 @@ Evolution Safety      ███████████████████�
 
 ### Performance
 ```
-Stress Test (50 concurrent):
+Local stress script (50 concurrent, synthetic):
   Total: 1000 | OK: 1000 (100%)
-  Avg: 87ms | P50: 68ms | P95: 150ms | P99: 300ms
 
 Code Repair (10 real bugs):
   Fix Rate:   90% (9/10)
   Detect Rate: 70% (7/10)
   Self-Correction: 30% (feedback-driven retry)
 ```
+
+The historical production throughput and P95 figures are intentionally omitted:
+the deployment instance and its telemetry were not retained, so they cannot be
+verified from this repository.
 
 ### Engine Comparison
 | Engine | Avg Score | Latency |
@@ -166,7 +174,9 @@ uv run uvicorn agent.server:app --host 0.0.0.0 --port 8000
 
 ## Running the Tests
 
-166 passed, 1 skipped. The suite runs fully offline — no API calls are made.
+The full CI suite runs `scripts/e2e_test.py` plus `tests/` and reports
+**166 passed, 1 skipped**. Running only `tests/` reports **161 passed,
+1 skipped**. Both are fully offline - no API calls are made.
 
 ```bash
 git clone https://github.com/aidless/ai-agent-playground.git
@@ -180,6 +190,13 @@ uv sync --group dev
 export DEEPSEEK_API_KEY="sk-local-test-dummy"
 
 uv run --group dev pytest tests/ -q
+# 161 passed, 1 skipped
+```
+
+To reproduce the full CI test count:
+
+```bash
+uv run --group dev pytest scripts/e2e_test.py tests/ -q
 # 166 passed, 1 skipped
 ```
 
@@ -202,7 +219,7 @@ are imported by the code and the tests but were missing from `dependencies`;
 |----------|--------|-------------|
 | `/health` | GET | System health — 10 subsystems |
 | `/chat/completions` | POST | **OpenAI-compatible chat** (drop-in replacement) |
-| `/autopilot/solve` | POST | Full 13-engine autonomous loop |
+| `/autopilot/solve` | POST | Full autonomous loop |
 | `/super/debate` | POST | Multi-model debate |
 | `/super/evolve` | POST | Tool evolution (optimize → rollback) |
 | `/super/meta/experiment` | POST | Sandboxed self-evolution |
@@ -216,9 +233,9 @@ are imported by the code and the tests but were missing from `dependencies`;
 ## Project Structure
 
 ```
-agent/              55 Python files (production engine)
+agent/              55 Python files (agent engine)
 ├── async_core.py       Streaming agent + state machine
-├── autopilot.py        Full 13-engine autonomous coordinator
+├── autopilot.py        Full autonomous coordinator
 ├── debate.py           Multi-model debate
 ├── evolution.py        Tool optimization + template learning
 ├── bootstrap.py        Runtime tool generation + AST safety
@@ -232,7 +249,8 @@ agent/              55 Python files (production engine)
 └── server.py           30+ REST endpoints
 
 ai_agent_playground/  23 files (framework layer, HuggingFace-inspired)
-tests/                167 test cases (166 passed, 1 skipped)
+tests/                162 test cases (161 passed, 1 skipped)
+scripts/e2e_test.py  5 additional tests used by the full CI run
 scripts/              22 benchmark & deployment scripts
 blog/                 Technical blog (CN + EN)
 ```

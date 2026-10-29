@@ -1,7 +1,7 @@
 [project]
 name = "ai-agent-playground"
-version = "0.1.0"
-description = "Building AI agents with Python, LangChain, and Claude API"
+version = "1.3.0"
+description = "Self-improving AI agent system with evaluation, security, and tooling"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
