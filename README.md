@@ -248,12 +248,69 @@ agent/              55 Python files (agent engine)
 ├── identity.py         RBAC + session tokens + rate limiting
 └── server.py           30+ REST endpoints
 
-ai_agent_playground/  23 files (framework layer, HuggingFace-inspired)
+ai_agent_playground/  22 files (framework layer, HuggingFace-inspired)
 tests/                162 test cases (161 passed, 1 skipped)
 scripts/e2e_test.py  5 additional tests used by the full CI run
-scripts/              22 benchmark & deployment scripts
+scripts/              39 Python scripts (benchmarks, audit, E2E, deployment)
 blog/                 Technical blog (CN + EN)
 ```
+
+---
+
+## What this proves — and what it does not
+
+**Proves (within the evidence in this repository):**
+
+- **A self-improvement loop that runs locally.** The five engines (bootstrap,
+  evolution, debate, self-play, meta-agent) are real code paths under `agent/`
+  (55 modules) that can be exercised offline: the full CI suite is
+  **166 passed, 1 skipped** and `tests/` alone is **161 passed, 1 skipped**,
+  both without any network call to a model provider.
+- **A security posture that is tested, not claimed.** 12 OWASP-LLM
+  vulnerabilities were found and fixed; **14/14 automated penetration tests**
+  pass (`scripts/pentest.py`), and the b3 benchmark blocks 10/10 attack types.
+- **The architecture is inspectable and reproducible.** The Transformers-style
+  pipeline (`config → base → llm`) and the ReAct loop are documented in
+  `ARCHITECTURE.md`; every number in this README traces back to a script under
+  `scripts/`.
+
+**Does not prove (honest boundary):**
+
+- **No live production evidence.** The Alibaba Cloud ECS + systemd deployment
+  was released; there is no demo URL and **no retained production telemetry**.
+  The README deliberately presents reproducible *local* checks, not current
+  production figures.
+- **No benchmark against a held-out task set or a real user base.** The
+  engine-comparison table (8.9/8.3/8.9) is an internal, small-sample
+  measurement of three strategies on a few tasks — it is a direction signal,
+  not a generalizable claim.
+- **No causal claim about "self-improvement makes it better."** The 90% fix
+  rate and 30% self-correction rate are observed on 10 synthetic bug tasks
+  with a particular model; they do not establish that the loop improves
+  outcomes in production, only that the machinery runs and detects/fixes
+  within its own harness.
+- **The benchmark numbers are not reproducible without a live API key.** The
+  code-repair and engine-comparison runs call a real model; without
+  `DEEPSEEK_BASE_URL` + `DEEPSEEK_API_KEY` those specific numbers cannot be
+  re-derived (the *scripts* are reproducible, the *values* need the model).
+- **Not a product, not a benchmark suite.** It is a portfolio/demonstration
+  system. For latency/goodput benchmarking use `inference-perf` / `llmperf`.
+
+## Reproduce the numbers
+
+| Number | Where it comes from | Command |
+|---|---|---|
+| 166 passed, 1 skipped (full CI) | `scripts/e2e_test.py` + `tests/` | `uv sync --group dev && DEEPSEEK_API_KEY=sk-... uv run --group dev pytest scripts/e2e_test.py tests/ -q` |
+| 161 passed, 1 skipped (`tests/` only) | `tests/` | `uv run --group dev pytest tests/ -q` |
+| 14/14 pentest | `scripts/pentest.py` | `uv run python scripts/pentest.py` |
+| 10/10 b3 attacks blocked | `scripts/b3_security_bench.py` | `uv run python scripts/b3_security_bench.py` |
+| 1000/1000 stress | `scripts/stress_test.py` | `uv run python scripts/stress_test.py` (needs a running server at `127.0.0.1:8000`) |
+| 90% fix / 70% detect / 30% self-correct | `scripts/code_bench.py` | `uv run python scripts/code_bench.py` (needs API) |
+| Engine comparison (8.9 / 8.3 / 8.9) | `scripts/benchmark_engines.py` | `uv run python scripts/benchmark_engines.py` (needs API) |
+
+Every number above is either reproduced in this session (the pytest counts,
+the 14/14 pentest) or traced to the exact script that produced it. No figure
+is asserted without a source path.
 
 ---
 

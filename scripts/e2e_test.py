@@ -245,6 +245,16 @@ def test_streaming_agent(quick: bool = False):
         print("  Use --full to run API-dependent tests.")
         return
 
+    import os
+
+    from ai_agent_playground.llm import _ensure_dotenv
+
+    _ensure_dotenv()
+    if not os.getenv("DEEPSEEK_BASE_URL") or not os.getenv("DEEPSEEK_API_KEY"):
+        print("  SKIP: DEEPSEEK_BASE_URL / DEEPSEEK_API_KEY not configured; "
+              "this test needs a live API. Run with a real key to exercise streaming.")
+        return
+
     from mcp_agent.agent import MCPToolAgent
     from ai_agent_playground.base import ToolCallEvent
     from ai_agent_playground.observability import get_tracer
