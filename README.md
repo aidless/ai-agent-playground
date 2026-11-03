@@ -2,7 +2,8 @@
 
 **A self-improving autonomous AI agent system built from scratch; full CI: 166 passed, 1 skipped, 0 failed.**
 
-[![Tests](https://img.shields.io/badge/tests-166%20passed-brightgreen)](https://github.com/aidless/ai-agent-playground/actions)
+[![CI](https://github.com/aidless/ai-agent-playground/actions/workflows/ci.yml/badge.svg)](https://github.com/aidless/ai-agent-playground/actions/workflows/ci.yml)
+[![mutation-control](https://github.com/aidless/ai-agent-playground/actions/workflows/mutation-control.yml/badge.svg)](https://github.com/aidless/ai-agent-playground/actions/workflows/mutation-control.yml)
 [![Security](https://img.shields.io/badge/security-14%2F14%20pentest-brightgreen)](scripts/pentest.py)
 [![Code Fix](https://img.shields.io/badge/code%20fix-90%25-brightgreen)](scripts/code_bench.py)
 [![Stress Test](https://img.shields.io/badge/stress-1000%2F1000-blue)](scripts/stress_test.py)
@@ -14,6 +15,19 @@
 > it was live (`blog/from-student-to-production*.md`, `PAPER.md`,
 > `FINAL_REPORT.md`) carry the former URL and now say so at the top. This README
 > presents reproducible local checks, not current production evidence.
+
+## Reproduce in one command
+
+Requires [uv](https://docs.astral.sh/uv/). No API key needed for the test suite
+(CI run 40822050599: **166 passed, 1 skipped**):
+
+```bash
+git clone https://github.com/aidless/ai-agent-playground && cd ai-agent-playground
+uv sync
+# CI uses placeholder credentials; the suite makes no real API calls
+DEEPSEEK_API_KEY=sk-ci-placeholder DEEPSEEK_BASE_URL=https://api.deepseek.com \
+  uv run pytest --ignore=.hermes_test.py --ignore=.run_test.py --ignore=eval_harness -q
+```
 
 ---
 
