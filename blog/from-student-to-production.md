@@ -1,8 +1,8 @@
 # 从学生项目到生产级 AI Agent：一个毕业生的技术复盘
 
-> **更新（2026-10）**：本文的在线演示实例（阿里云 ECS，`http://47.98.106.182:8080`）**已释放，该地址已不可访问**。另：正文中「9 个全自主引擎」「161 tests」为当时说法，**当前口径为 13 个引擎（其中 5 个为自改进引擎：evolution / debate / bootstrap / self-play / meta-agent）、`agent/` 下 55 个模块、166 passed / 1 skipped**，均可在仓库内复核。正文为当时记录，保持原貌。
+> **历史记录。** 本文写的是后来部署到阿里云 ECS 上的学期项目。该实例已释放。仓库不公布演示地址，旧地址已从本文删除。正文里的测试数、渗透通过数、修复率和压测数都是当时的说法，其中有的脚本会在没有真正通过时显示绿色。当前边界见 `README.md` 和 `FAILURE_MODES.md`。正文保持原貌。
 
-> **在线演示（2026-10 起已失效）**: ~~http://47.98.106.182:8080~~ &nbsp;|&nbsp; **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **161 tests, 0 failures**
+> **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground)
 
 ---
 
@@ -199,7 +199,7 @@ cd ai-agent-playground
 ./deploy.sh setup && nano .env && ./deploy.sh start
 ```
 
-现在运行在**阿里云 ECS（2C4G，¥0.23/小时）**，在线地址 http://47.98.106.182:8080
+写作时运行在**阿里云 ECS（2C4G，¥0.23/小时）**。该实例后来已释放，此处不保留地址。
 
 ---
 
@@ -279,7 +279,7 @@ Prompt 决定 Agent 能做什么，但工程决定 Agent **持续稳定地做对
 - **看代码**：`agent/` 目录有43个生产级文件，每个引擎都有测试
 - **提 Issue**：发现问题或有想法，直接在 GitHub 提
 
-**GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **Live Demo**: ~~http://47.98.106.182:8080~~（已失效，见文首说明）
+**GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground)。没有演示地址。
 
 ---
 

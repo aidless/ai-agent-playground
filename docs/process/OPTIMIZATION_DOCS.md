@@ -665,8 +665,8 @@ agent_registry.print_dashboard()
 
 **解决**：
 ```bash
-cd C:\Users\Administrator\Desktop\ai-agent-playground
-.venv\Scripts\python.exe test.py
+# from the repository root
+python test.py
 ```
 
 #### ❌ `NameError: name 'Callable' is not defined`
@@ -770,9 +770,9 @@ cache.set(messages, model, response, ttl=7200)  # 2小时
 
 **解决**：
 ```bash
-cd C:\Users\Administrator\Desktop\ai-agent-playground
+# from the repository root
 python -m venv .venv
-.venv\Scripts\pip install -r requirements.txt
+.venv/bin/pip install -r requirements.txt
 ```
 
 #### ❌ 依赖版本冲突

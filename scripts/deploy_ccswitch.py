@@ -3,8 +3,9 @@ import json
 import os
 import sqlite3
 import uuid
+from pathlib import Path
 
-PROJECT_ROOT = r"C:\Users\Administrator\Desktop\ai-agent-playground"
+PROJECT_ROOT = str(Path(__file__).resolve().parent.parent)
 DB_PATH = os.path.expanduser(r"~/.cc-switch/cc-switch.db")
 
 # MCP server config for stdio

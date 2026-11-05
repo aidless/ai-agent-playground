@@ -68,14 +68,14 @@ h1{{font-size:22px;color:#58a6ff;margin-bottom:4px}}
 </head>
 <body>
 <h1>AI Agent Playground</h1>
-<p class="subtitle">System Dashboard | 166 passed (1 skipped) | 13 engines | DeepSeek V4 + Qwen2.5 | Alibaba Cloud ECS (instance since released)</p>
+<p class="subtitle">Local dashboard. Numbers below come only from report files in the repo. There is no hosted demo. See FAILURE_MODES.md.</p>
 
 <div class="grid">
     <div class="card">
         <h2 style="color:#56d364">Security</h2>
-        <div class="value green">14/14</div>
-        <div class="label">Penetration tests passed</div>
-        <div class="bar"><div class="bar-fill green" style="width:100%"></div></div>
+        <div class="value">n/a</div>
+        <div class="label">No pentest pass rate is stored. scripts/pentest.py is not a CI gate.</div>
+        <div class="bar"><div class="bar-fill" style="width:0%"></div></div>
         <div class="metric-row"><span class="metric-name">b3 Security (WDTA)</span><span class="metric-val green">{int(b3_rate*10)}/10 ({int(b3_rate*100)}%)</span></div>
         <div class="metric-row"><span class="metric-name">Prompt Injection</span><span class="metric-val">30+ patterns (CN+EN)</span></div>
         <div class="metric-row"><span class="metric-name">Intrusion Detection</span><span class="metric-val">5 anomaly types</span></div>
@@ -94,12 +94,12 @@ h1{{font-size:22px;color:#58a6ff;margin-bottom:4px}}
 
     <div class="card">
         <h2 style="color:#d29922">Load Test</h2>
-        <div class="value orange">1000/1000</div>
-        <div class="label">Requests (0 failures)</div>
-        <div class="bar"><div class="bar-fill orange" style="width:100%"></div></div>
-        <div class="metric-row"><span class="metric-name">Avg Latency</span><span class="metric-val">87ms</span></div>
-        <div class="metric-row"><span class="metric-name">P95 Latency</span><span class="metric-val">150ms</span></div>
-        <div class="metric-row"><span class="metric-name">P99 Latency</span><span class="metric-val">300ms</span></div>
+        <div class="value">n/a</div>
+        <div class="label">scripts/stress_test.py talks to 127.0.0.1:8000. No run is stored.</div>
+        <div class="bar"><div class="bar-fill" style="width:0%"></div></div>
+        <div class="metric-row"><span class="metric-name">Avg Latency</span><span class="metric-val">not stored</span></div>
+        <div class="metric-row"><span class="metric-name">P95 Latency</span><span class="metric-val">not stored</span></div>
+        <div class="metric-row"><span class="metric-name">P99 Latency</span><span class="metric-val">not stored</span></div>
     </div>
 
     <div class="card">
@@ -152,7 +152,7 @@ def dashboard_data() -> dict:
 
     return {
         "security": {
-            "pentest": "14/14",
+            "pentest": "not stored",
             "b3": b3.get("summary", {}).get("rate", 0),
         },
         "code_repair": {

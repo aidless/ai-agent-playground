@@ -2,7 +2,7 @@
 
 **Author**: Liu Zewen (刘泽文) | B.Eng. Software Engineering | Qilu Institute of Technology
 **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground)
-**Deployed**: Alibaba Cloud ECS (instance since released, no live URL) | **Tests**: 166 passed, 1 skipped, 0 failed
+**Historical.** The Alibaba Cloud ECS instance described below was released. No demo URL. Test counts and pass rates in this file are period claims, not the current CI result. See `README.md` and `FAILURE_MODES.md`.
 
 ---
 

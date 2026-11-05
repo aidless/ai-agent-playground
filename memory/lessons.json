@@ -598,5 +598,11 @@
     "context": "trace_id=code_bug_file_not_closed_2, step=1",
     "success": true,
     "timestamp": "2026-05-19T21:11:52.153552"
+  },
+  {
+    "lesson": "Do not freeze a pytest pass count or a result shield in the README. Bind the published collection count to the CI command with a test, and treat a missing eval signal as a failure rather than a default pass.",
+    "context": "honesty-bar pass: inflated 14/14, 90%, and 1000/1000 shields; eval harness scored empty input as 1.0",
+    "success": true,
+    "timestamp": "2026-11-05T13:58:59"
   }
 ]

@@ -1,7 +1,8 @@
 """Hermes 加载测试 —— 逐步骤写入文件"""
 import sys, os, time, traceback
+from pathlib import Path
 
-os.chdir(r"C:\Users\Administrator\Desktop\ai-agent-playground")
+os.chdir(Path(__file__).resolve().parent)
 REPORT = ".hermes_test_result.txt"
 
 def log(msg):

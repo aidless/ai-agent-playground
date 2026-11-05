@@ -1,8 +1,8 @@
 # From Student Project to Production AI Agent: A Graduate's Technical Retrospective
 
-> **Update (2026-10):** the live demo instance (Alibaba Cloud ECS, `http://47.98.106.182:8080`) has been **released and that URL no longer resolves**. Also: the counts in the post below ("9 self-improving engines", "161 tests") were the figures as written; **the current, code-backed figures are 13 engines (5 of them self-improvement: evolution / debate / bootstrap / self-play / meta-agent), 55 modules under `agent/`, and 166 passed / 1 skipped**. The post is kept as written.
+> **Historical note.** This post describes work that was later deployed on Alibaba Cloud ECS. That instance has been released. No demo URL is published, and the old address has been removed from this file. Figures in the body (test counts, penetration totals, repair rates, stress totals) are period claims. Some of those harnesses can report green without a real pass. Current limits are in `README.md` and `FAILURE_MODES.md`. The body is kept as written.
 
-> **Live Demo (dead since 2026-10)**: ~~http://47.98.106.182:8080~~ &nbsp;|&nbsp; **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **161 tests, 0 failures**
+> **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground)
 
 ---
 
@@ -200,7 +200,7 @@ cd ai-agent-playground
 ./deploy.sh setup && nano .env && ./deploy.sh start
 ```
 
-Running on **Alibaba Cloud ECS (2C4G, ~$0.03/hour)**. Live at http://47.98.106.182:8080
+Running on **Alibaba Cloud ECS (2C4G, ~$0.03/hour)** at the time of writing. That instance was later released. No address is published.
 
 ---
 
@@ -280,7 +280,7 @@ The project is fully open source. You can:
 - **Read the code**: `agent/` has 43 production-grade files. Every engine has tests.
 - **Open an Issue**: Found a bug or have an idea? GitHub Issues welcome.
 
-**GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground) &nbsp;|&nbsp; **Live Demo**: ~~http://47.98.106.182:8080~~ (dead; see the note at the top)
+**GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground). No demo URL.
 
 ---
 

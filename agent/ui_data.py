@@ -106,14 +106,14 @@ h3{font-size:13px;margin-bottom:10px}
 // ── i18n ──
 const LANG = {
     zh: {
-        "app.title":"AI Agent","app.subtitle":"Production System",
+        "app.title":"AI Agent","app.subtitle":"Local portfolio",
         "nav.overview":"Overview","nav.dashboard":"Dashboard","nav.benchmarks":"Benchmarks",
         "nav.security":"Security","nav.chat":"Chat","nav.knowledge":"Knowledge",
         "overview.title":"AI Agent Playground","overview.desc":"13-Engine Autonomous Self-Evolving Agent System",
         "overview.engines":"Engines","overview.tests":"Tests","overview.papers":"Papers Studied","overview.deploy":"Deployment",
         "overview.security":"Security","overview.bench":"Benchmarks","overview.learned":"Paper Insights Applied",
         "overview.engines_detail":"13 autonomous engines including ReflectAction, Debate, Evolution, Bootstrap, MetaAgent, SelfPlay, TTRL, AgentMatrix, AutoPilot, EvalGate, EpisodicMemory, UnifiedPipeline, and Knowledge.",
-        "overview.about":"About","overview.about_text":"Built by Liu Zewen, 2026 B.Eng. Software Engineering. 20+ research papers studied, insights applied to engine design. Deployed 24/7 on Alibaba Cloud ECS (instance since released).",
+        "overview.about":"About","overview.about_text":"Built by Liu Zewen, 2026 B.Eng. Software Engineering. An Alibaba Cloud ECS instance once ran this tree and has been released. There is no demo URL. Pass rates are not shown here.",
         "loading":"Loading...","online":"Online","offline":"Offline",
         "chat.placeholder":"Ask me anything...","chat.send":"Send",
         "kb.papers":"Research Papers","kb.search":"Search papers...","kb.search_btn":"Search",
@@ -122,14 +122,14 @@ const LANG = {
         "security.pentest":"Penetration Test","security.b3":"b3 Security","security.defenses":"Active Defenses",
     },
     en: {
-        "app.title":"AI Agent","app.subtitle":"Production System",
+        "app.title":"AI Agent","app.subtitle":"Local portfolio",
         "nav.overview":"Overview","nav.dashboard":"Dashboard","nav.benchmarks":"Benchmarks",
         "nav.security":"Security","nav.chat":"Chat","nav.knowledge":"Knowledge",
         "overview.title":"AI Agent Playground","overview.desc":"13-Engine Autonomous Self-Evolving Agent System",
         "overview.engines":"Engines","overview.tests":"Tests","overview.papers":"Papers Studied","overview.deploy":"Deployment",
         "overview.security":"Security","overview.bench":"Benchmarks","overview.learned":"Paper Insights Applied",
         "overview.engines_detail":"13 autonomous engines including ReflectAction, Debate, Evolution, Bootstrap, MetaAgent, SelfPlay, TTRL, AgentMatrix, AutoPilot, EvalGate, EpisodicMemory, UnifiedPipeline, and Knowledge.",
-        "overview.about":"About","overview.about_text":"Built by Liu Zewen, 2026 B.Eng. Software Engineering. 20+ research papers studied, insights applied to engine design. Deployed 24/7 on Alibaba Cloud ECS (instance since released).",
+        "overview.about":"About","overview.about_text":"Built by Liu Zewen, 2026 B.Eng. Software Engineering. An Alibaba Cloud ECS instance once ran this tree and has been released. There is no demo URL. Pass rates are not shown here.",
         "loading":"Loading...","online":"Online","offline":"Offline",
         "chat.placeholder":"Ask me anything...","chat.send":"Send",
         "kb.papers":"Research Papers","kb.search":"Search papers...","kb.search_btn":"Search",
@@ -177,9 +177,9 @@ function renderOverview(main){
         <p style="color:#8b949e;margin-bottom:24px" data-lang="overview.desc">${t('overview.desc')}</p>
         <div class="grid">
             <div class="card"><div class="value blue">11</div><div class="label" data-lang="overview.engines">${t('overview.engines')}</div></div>
-            <div class="card"><div class="value green">161</div><div class="label" data-lang="overview.tests">${t('overview.tests')}</div></div>
+            <div class="card"><div class="value green">CI</div><div class="label" data-lang="overview.tests">${t('overview.tests')}</div></div>
             <div class="card"><div class="value purple">20+</div><div class="label" data-lang="overview.papers">${t('overview.papers')}</div></div>
-            <div class="card"><div class="value orange">24/7</div><div class="label" data-lang="overview.deploy">${t('overview.deploy')}</div></div>
+            <div class="card"><div class="value orange">local</div><div class="label" data-lang="overview.deploy">${t('overview.deploy')}</div></div>
         </div>
         <div class="card" style="margin-top:16px">
             <h3 data-lang="overview.learned">${t('overview.learned')}</h3>
@@ -197,10 +197,10 @@ function renderDashboard(main){
         main.querySelector('#dash-content').innerHTML = `
             <div class="stat-header"><div class="stat-dot"></div><div class="stat-title">${t('online')} — ${h} subsystems</div></div>
             <div class="grid">
-                <div class="card"><h3 style="color:#56d364">${t('overview.security')}</h3><div class="value green">14/14</div><div class="label">Pentest</div></div>
-                <div class="card"><h3 style="color:#79c0ff">Latency</h3><div class="value blue">87ms</div><div class="label">Avg</div></div>
+                <div class="card"><h3 style="color:#56d364">${t('overview.security')}</h3><div class="value">n/a</div><div class="label">No stored pentest rate</div></div>
+                <div class="card"><h3 style="color:#79c0ff">Latency</h3><div class="value">n/a</div><div class="label">Not measured here</div></div>
                 <div class="card"><h3 style="color:#d29922">Cost</h3><div class="value orange" id="cost-val">-</div><div class="label">Today</div></div>
-                <div class="card"><h3 style="color:#bc8cff">Uptime</h3><div class="value purple">100%</div><div class="label">SLA Compliant</div></div>
+                <div class="card"><h3 style="color:#bc8cff">Uptime</h3><div class="value">n/a</div><div class="label">No hosted demo</div></div>
             </div>`;})}
 
 function renderBenchmarks(main){
@@ -213,16 +213,16 @@ function renderBenchmarks(main){
                 <div class="card"><h3>${t('bench.fix_rate')}</h3><div class="value blue">${Math.round((s.fix_rate||0)*100)}%</div></div>
                 <div class="card"><h3>${t('bench.detect_rate')}</h3><div class="value green">${Math.round((s.detection_rate||0)*100)}%</div></div>
                 <div class="card"><h3>${t('bench.self_correct')}</h3><div class="value purple">${Math.round((s.self_correction_rate||0)*100)}%</div></div>
-                <div class="card"><h3>${t('bench.security_score')}</h3><div class="value green">100%</div><div class="label">b3 10/10</div></div>
+                <div class="card"><h3>${t('bench.security_score')}</h3><div class="value">n/a</div><div class="label">b3 is not a CI gate</div></div>
             </div>
-            <div class="card" style="margin-top:16px"><h3>${t('bench.stress')}</h3><div class="metric-row"><span class="metric-name">Total</span><span class="metric-val green">1000/1000</span></div><div class="metric-row"><span class="metric-name">P95</span><span class="metric-val">150ms</span></div><div class="metric-row"><span class="metric-name">P99</span><span class="metric-val">300ms</span></div></div>`;}).catch(()=>{});}
+            <div class="card" style="margin-top:16px"><h3>${t('bench.stress')}</h3><div class="metric-row"><span class="metric-name">Total</span><span class="metric-val">no stored run</span></div><div class="metric-row"><span class="metric-name">P95</span><span class="metric-val">not stored</span></div><div class="metric-row"><span class="metric-name">P99</span><span class="metric-val">not stored</span></div></div>`;}).catch(()=>{});}
 
 function renderSecurity(main){
     main.innerHTML = `
         <h2>${t('security.pentest')}</h2>
         <div class="grid">
-            <div class="card"><h3>${t('security.pentest')}</h3><div class="value green">14/14</div><div class="label">100%</div></div>
-            <div class="card"><h3>${t('security.b3')}</h3><div class="value green">10/10</div><div class="label">100%</div></div>
+            <div class="card"><h3>${t('security.pentest')}</h3><div class="value">n/a</div><div class="label">Run scripts/pentest.py. Not in CI.</div></div>
+            <div class="card"><h3>${t('security.b3')}</h3><div class="value">n/a</div><div class="label">Local detectors only. See FAILURE_MODES.md.</div></div>
             <div class="card"><h3>${t('security.defenses')}</h3><div class="value blue">12</div><div class="label">Active</div></div>
         </div>
         <div class="card" style="margin-top:16px"><h3>Defenses</h3>
