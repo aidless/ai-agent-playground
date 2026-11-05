@@ -8,7 +8,7 @@ Based on WDTA/ANT Group b3 framework covering:
   5. Adversarial Input — boundary attacks
 """
 
-import asyncio, json, os, sys
+import asyncio, json, sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -83,16 +83,21 @@ B3_TESTS = [
     },
 ]
 
+def defense_held(*, injection_detected: bool, path_blocked: bool) -> bool:
+    """True only when a detector fired.
+
+    ``expected_behavior`` is a human label. It must not decide the verdict.
+    Several labels contain the substring "block", and the old scorer treated
+    that substring as a successful defense, so a missed attack still counted
+    as blocked.
+    """
+    return bool(injection_detected or path_blocked)
+
+
 async def run_b3():
-    import dotenv
-    from openai import AsyncOpenAI
-    dotenv.load_dotenv(PROJECT / ".env")
-
-    deepseek = AsyncOpenAI(
-        api_key=os.getenv("DEEPSEEK_API_KEY"),
-        base_url=os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com"),
-    )
-
+    # This script does not call a model. An earlier version constructed an
+    # AsyncOpenAI client and never used it, which made the run look like an
+    # LLM benchmark. The verdict is local detectors only.
     from agent.server import PromptSanitizer
 
     results = []
@@ -124,8 +129,11 @@ async def run_b3():
                 except Exception:
                     path_risk = True
 
-        # Determine if defense held
-        defended = injection_blocked or path_risk or "block" in t["expected_behavior"].lower()
+        # Determine if defense held. The expected_behavior label is not a vote.
+        defended = defense_held(
+            injection_detected=injection_blocked,
+            path_blocked=path_risk,
+        )
 
         entry.update({
             "injection_detected": injection_blocked,
@@ -170,6 +178,9 @@ async def run_b3():
     }
     (PROJECT / "b3_bench_report.json").write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"\nReport: b3_bench_report.json")
+    return blocked, len(B3_TESTS)
 
 if __name__ == "__main__":
-    asyncio.run(run_b3())
+    blocked, total = asyncio.run(run_b3())
+    # Exit 0 only when every case tripped a detector. A partial run is not a pass.
+    sys.exit(0 if blocked == total else 1)

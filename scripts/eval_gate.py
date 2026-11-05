@@ -32,6 +32,15 @@ BASELINE_PATH = REPO_ROOT / "reports" / "baseline.json"
 GATE_REPORT_PATH = REPO_ROOT / "reports" / "gate_report.md"
 
 
+def exit_code_when_baseline_missing(ci: bool) -> int:
+    """Creating the first baseline is bookkeeping, not a passing comparison.
+
+    Without ``--ci`` the process still exits 0 after writing the file, which
+    a wrapper can mistake for a green gate. ``--ci`` fails closed.
+    """
+    return 2 if ci else 0
+
+
 def load_baseline() -> dict:
     """Load baseline scores from disk."""
     if BASELINE_PATH.exists():
@@ -234,7 +243,7 @@ def main():
         save_baseline(current)
         print(f"Baseline saved to {BASELINE_PATH}")
         print("Run eval gate again to compare against baseline.")
-        sys.exit(0)
+        sys.exit(exit_code_when_baseline_missing(args.ci))
 
     passed, issues = gate_check(
         current, baseline,

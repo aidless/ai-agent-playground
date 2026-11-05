@@ -5,9 +5,8 @@
 A production-grade AI agent framework with 5 projects, designed as a job-hunting
 portfolio. Built from scratch with Python, FastAPI, DeepSeek API, and ChromaDB.
 
-```
-166 passed  |  1 skipped  |  0 failures  |  Security Score 8.5/10
-```
+Test collection count and what CI actually runs are in [README.md](README.md).
+This file is the architecture. It does not publish a pass rate or a security score.
 
 ## Layer Stack (bottom-up)
 
@@ -263,5 +262,5 @@ agent/                55 Python files  (production engine)
 ai_agent_playground/  22 Python files  (framework layer)
 observability/         4 Python files  (monitoring)
 scripts/              39 Python files  (ops/tools)
-tests/                15 Python files  (167 test cases — 166 passed, 1 skipped)
+tests/                pytest selection used by CI (count is in README.md)
 ```

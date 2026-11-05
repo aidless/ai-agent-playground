@@ -18,9 +18,11 @@ def score_contains(output: str, expected_keywords: list[str]) -> float:
     """Check what fraction of expected keywords appear in the output.
 
     Returns 1.0 if ALL keywords found, 0.0 if NONE found.
+    An empty list is not a pass: silence used to score 1.0, which let a
+    case with no keywords go green. Callers should omit this scorer then.
     """
     if not expected_keywords:
-        return 1.0
+        return 0.0
 
     output_lower = output.lower()
     found = sum(1 for kw in expected_keywords if kw.lower() in output_lower)
@@ -31,9 +33,10 @@ def score_forbidden(output: str, forbidden_keywords: list[str]) -> float:
     """Check that forbidden keywords do NOT appear.
 
     Returns 1.0 if NO forbidden words found, 0.0 if ANY found.
+    An empty list is not evidence of safety. Callers should omit this scorer.
     """
     if not forbidden_keywords:
-        return 1.0
+        return 0.0
 
     output_lower = output.lower()
     violations = sum(1 for kw in forbidden_keywords if kw.lower() in output_lower)
@@ -60,9 +63,12 @@ def score_llm_judge(
 
     This is the most reliable scoring method for open-ended tasks.
     Returns a score from 0.0 to 1.0.
+    A missing prompt, an unparseable reply, or a judge outage scores 0.0.
+    The previous 0.5 / 1.0 fallbacks counted as partial credit and could
+    push a weighted total over the pass threshold.
     """
     if not judge_prompt:
-        return 1.0
+        return 0.0
 
     client = get_client()
 
@@ -89,9 +95,9 @@ def score_llm_judge(
         match = re.search(r"\d+", raw)
         if match:
             return min(100, max(0, int(match.group()))) / 100.0
-        return 0.5
+        return 0.0
     except Exception:
-        return 0.5
+        return 0.0
 
 
 # ============================================================
@@ -104,11 +110,11 @@ def score_tool_success_rate(agent_meta: dict) -> float:
     """Score based on tool call success rate.
 
     Each failed tool call (error in result) reduces the score.
-    Returns 1.0 if all tools succeeded or no tools were used.
+    Returns the reported success rate. Missing meta is 0.0, not a free pass.
     """
-    if not agent_meta:
-        return 1.0
-    return agent_meta.get("tool_success_rate", 1.0)
+    if not agent_meta or "tool_success_rate" not in agent_meta:
+        return 0.0
+    return float(agent_meta["tool_success_rate"])
 
 
 def score_round_efficiency(agent_meta: dict, max_rounds: int = 5) -> float:
@@ -179,9 +185,12 @@ def compute_total_score(
     meta = agent_meta or {}
 
     if "contains" in enabled_scorers:
-        if expected_keywords is not None or forbidden_keywords is not None:
-            scores["contains"] = score_contains(output, expected_keywords or [])
-            scores["forbidden"] = score_forbidden(output, forbidden_keywords or [])
+        # Empty lists used to become 1.0. Omit them so they cannot mint a pass.
+        if expected_keywords:
+            scores["contains"] = score_contains(output, expected_keywords)
+        if forbidden_keywords:
+            scores["forbidden"] = score_forbidden(output, forbidden_keywords)
+        if min_length > 0 or max_length < 99999:
             scores["length"] = score_length(output, min_length, max_length)
 
     if "llm_judge" in enabled_scorers and judge_prompt:
@@ -198,6 +207,7 @@ def compute_total_score(
     if scores:
         scores["total"] = sum(scores.values()) / len(scores)
     else:
-        scores["total"] = 1.0
+        # No enabled signal is a fail. The old default of 1.0 passed empty cases.
+        scores["total"] = 0.0
 
     return scores

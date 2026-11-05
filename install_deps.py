@@ -1,7 +1,15 @@
 """临时脚本：安装 pyproject.toml 中更新的依赖"""
-import subprocess, sys
+import subprocess
+import sys
+from pathlib import Path
 
-result = subprocess.run([sys.executable, "-m", "uv", "sync"], capture_output=True, text=True, cwd=r"C:\Users\Administrator\Desktop\ai-agent-playground")
+ROOT = Path(__file__).resolve().parent
+result = subprocess.run(
+    [sys.executable, "-m", "uv", "sync"],
+    capture_output=True,
+    text=True,
+    cwd=str(ROOT),
+)
 if result.returncode != 0:
     print("STDOUT:", result.stdout)
     print("STDERR:", result.stderr)

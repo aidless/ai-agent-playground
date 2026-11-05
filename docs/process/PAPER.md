@@ -2,7 +2,7 @@
 
 **Liu Zewen (刘泽文)**
 
-> **Status (2026-10):** the deployment described here ran on an Alibaba Cloud ECS instance; that instance has been **released**, so there is no live URL. Text kept as written.
+> **Historical.** The deployment described here ran on an Alibaba Cloud ECS instance that has been released. No demo URL is published. Pass rates in the abstract (penetration, b3, pytest) are period claims; some harnesses could go green without a real pass. See `README.md` and `FAILURE_MODES.md`. Text below is kept as written.
 
 ---
 

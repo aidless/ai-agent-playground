@@ -156,6 +156,13 @@ def _run_mcp_agent(test_case: TestCase) -> tuple[str, dict]:
 # ---- Evaluation engine ----
 
 
+def is_passing(error: str, total: float, pass_threshold: float) -> bool:
+    """A runner exception is a failure even if the error text scores well."""
+    if error:
+        return False
+    return total >= pass_threshold
+
+
 def run_evaluation(
     agent_filter: str | None = None,
     scorers: list[str] | None = None,
@@ -219,7 +226,7 @@ def run_evaluation(
                 expected_tools=tc.expected_tools,
             )
 
-            passed = scores["total"] >= pass_threshold
+            passed = is_passing(error, scores["total"], pass_threshold)
             status = "PASS" if passed else "FAIL"
 
             # Agent meta summary for console

@@ -90,7 +90,7 @@ class TestPathTraversal:
         result = executor.execute(
             "read_file",
             lambda p: f"read {p}",
-            {"path": "C:\\Users\\Administrator\\Desktop\\test.txt"},
+            {"path": "notes.txt"},
         )
         assert result.success or "Access denied" not in result.error
 

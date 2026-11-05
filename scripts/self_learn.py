@@ -10,7 +10,7 @@ from collections import Counter
 from pathlib import Path
 
 HISTORY_FILE = Path.home() / ".claude" / "history.jsonl"
-MEMORY_DIR = Path.home() / ".claude" / "projects" / "C--Users-Administrator-Desktop" / "memory"
+MEMORY_DIR = Path(__file__).resolve().parent.parent / "memory"
 
 
 def load_history(path: Path, limit: int = 500) -> list[dict]:

@@ -1,6 +1,10 @@
-"""50-concurrent stress test for P1 latency/reliability validation.
+"""50-concurrent client for a server already listening on 127.0.0.1:8000.
 
 Usage: uv run python scripts/stress_test.py
+
+Does not assert success and does not write a report. Each phase sends
+TOTAL_REQUESTS (500) calls, so a full run issues 1000 calls. That is an
+attempt count, not a stored pass rate.
 """
 
 import asyncio

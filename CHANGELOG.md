@@ -2,6 +2,9 @@
 
 All notable changes to AI Agent Playground.
 
+Entries record what that version claimed. They are not current results.
+See README.md and FAILURE_MODES.md.
+
 ## [1.3.0] — 2026-05-19
 
 ### Added

@@ -111,7 +111,7 @@ ENTERPRISE_FEATURES = [
     {"name": "Reflect→Action", "icon": "RA", "desc": "Auto-degrade failing tools"},
     {"name": "Multi-Model Debate", "icon": "DB", "desc": "4-round arbitration consensus"},
     {"name": "Skills Bootstrap", "icon": "SB", "desc": "LLM generates + AST validates tools"},
-    {"name": "133 Tests", "icon": "T", "desc": "0 failures, zero regressions"},
+    {"name": "Tests", "icon": "T", "desc": "See the CI workflow. No frozen pass count here."},
 ]
 
 
@@ -225,7 +225,7 @@ body {{ background:#0a0e14; color:#c9d1d9; font:14px/1.6 -apple-system,BlinkMacS
     <h1>Liu Zewen 刘泽文</h1>
     <p class="sub">AI Application Developer | AI Agent Engineer</p>
     <div class="badges">
-        <span class="badge green">133 Tests Passing</span>
+        <span class="badge green">Tests: see CI</span>
         <span class="badge blue">Python + FastAPI + DeepSeek</span>
         <span class="badge purple">Security Score 8.5/10</span>
         <span class="badge orange">齐鲁理工学院</span>
@@ -236,10 +236,10 @@ body {{ background:#0a0e14; color:#c9d1d9; font:14px/1.6 -apple-system,BlinkMacS
 <div class="metrics" id="metrics">
     <div class="metric"><div class="val green" id="m-status">-</div><div class="lbl">System Status</div></div>
     <div class="metric"><div class="val blue" id="m-uptime">-</div><div class="lbl">Uptime</div></div>
-    <div class="metric"><div class="val green" id="m-tests">133/133</div><div class="lbl">Tests Passing</div></div>
-    <div class="metric"><div class="val orange" id="m-cost">$0.02</div><div class="lbl">Cost Today</div></div>
-    <div class="metric"><div class="val blue" id="m-efficacy">90%</div><div class="lbl">Efficacy</div></div>
-    <div class="metric"><div class="val green" id="m-subsystems">8/8</div><div class="lbl">Subsystems Healthy</div></div>
+    <div class="metric"><div class="val green" id="m-tests">see CI</div><div class="lbl">Tests</div></div>
+    <div class="metric"><div class="val orange" id="m-cost">n/a</div><div class="lbl">Cost Today</div></div>
+    <div class="metric"><div class="val blue" id="m-efficacy">n/a</div><div class="lbl">Efficacy</div></div>
+    <div class="metric"><div class="val green" id="m-subsystems">n/a</div><div class="lbl">Subsystems</div></div>
 </div>
 
 <!-- 5 Projects -->

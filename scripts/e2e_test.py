@@ -235,25 +235,41 @@ def test_observability():
     tracer.print_dashboard()
 
 
-def test_streaming_agent(quick: bool = False):
-    """Test 5: MCP Agent streaming + tool use (requires API)."""
-    print("\n" + "=" * 60)
-    print("  Test 5: MCP Agent — Streaming + Tool Use" + (" (SKIPPED)" if quick else ""))
-    print("=" * 60)
+def live_model_configured() -> bool:
+    """True only for a key that is meant to reach a model.
 
-    if quick:
-        print("  Use --full to run API-dependent tests.")
-        return
-
+    CI sets ``sk-ci-placeholder``. Returning from this test on that key used
+    to be a pytest pass, so the suite reported the streaming check as green
+    without calling a model.
+    """
     import os
 
-    from ai_agent_playground.llm import _ensure_dotenv
+    key = os.getenv("DEEPSEEK_API_KEY", "")
+    base = os.getenv("DEEPSEEK_BASE_URL", "")
+    if not key or not base:
+        return False
+    lowered = key.lower()
+    if lowered.startswith("sk-ci-") or "placeholder" in lowered or "dummy" in lowered:
+        return False
+    return True
 
-    _ensure_dotenv()
-    if not os.getenv("DEEPSEEK_BASE_URL") or not os.getenv("DEEPSEEK_API_KEY"):
-        print("  SKIP: DEEPSEEK_BASE_URL / DEEPSEEK_API_KEY not configured; "
-              "this test needs a live API. Run with a real key to exercise streaming.")
-        return
+
+def test_streaming_agent():
+    """Test 5: MCP Agent streaming + tool use (requires a live API key)."""
+    if not live_model_configured():
+        import pytest
+
+        pytest.skip(
+            "streaming e2e needs a non-placeholder DEEPSEEK_API_KEY and DEEPSEEK_BASE_URL"
+        )
+    _run_streaming_agent()
+
+
+def _run_streaming_agent():
+    """Exercise streaming. Raises on failure. Does not swallow errors."""
+    print("\n" + "=" * 60)
+    print("  Test 5: MCP Agent — Streaming + Tool Use")
+    print("=" * 60)
 
     from mcp_agent.agent import MCPToolAgent
     from ai_agent_playground.base import ToolCallEvent
@@ -279,11 +295,11 @@ def test_streaming_agent(quick: bool = False):
         print(f"  Tool events: {len(tool_events)} (start+end pairs)")
         print(f"  Text chunks: {len(text_chunks)}")
         print(f"  Contains result: {has_result}")
-        print(f"  {'OK' if has_result and tool_called else 'WARN'} "
-              f"Result present={has_result}, tool called={tool_called}")
-
-    except Exception as e:
-        print(f"  SKIP: API call failed ({e})")
+        if not (has_result and tool_called):
+            raise AssertionError(
+                f"streaming result missing: present={has_result}, tool_called={tool_called}"
+            )
+        print("  OK streaming result and tool call")
     finally:
         agent.close()
 
@@ -309,10 +325,13 @@ def main():
         except Exception as e:
             print(f"\n  FAIL: {e}")
 
-    try:
-        test_streaming_agent(quick=quick)
-    except Exception as e:
-        print(f"\n  FAIL: {e}")
+    if quick or not live_model_configured():
+        print("\n  SKIP streaming: no live model key (or --quick).")
+    else:
+        try:
+            _run_streaming_agent()
+        except Exception as e:
+            print(f"\n  FAIL: {e}")
 
     print("\n" + "=" * 60)
     print("  E2E Test Suite Complete")

@@ -18,9 +18,9 @@ html = html.replace(
     """async function loadMetrics() {
     // Static export mode — no live server
     document.getElementById('m-status').textContent = 'offline';
-    document.getElementById('m-uptime').textContent = 'N/A';
-    document.getElementById('m-cost').textContent = '$0.02';
-    document.getElementById('m-efficacy').textContent = '90%';
+    document.getElementById('m-uptime').textContent = 'n/a';
+    document.getElementById('m-cost').textContent = 'n/a';
+    document.getElementById('m-efficacy').textContent = 'n/a';
     return;"""
 )
 
