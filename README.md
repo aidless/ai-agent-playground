@@ -171,6 +171,14 @@ verified from this repository.
 
 ---
 
+## Screenshots
+
+| Overview (`/app`) | System Dashboard (`/dashboard`) |
+|---|---|
+| ![Overview](docs/screenshot-app.png) | ![Dashboard](docs/screenshot-dashboard.png) |
+
+Captured 2026-11-10 with headless Chrome against a locally started `uvicorn agent.server:app` (started with a placeholder `DEEPSEEK_API_KEY`, so the UI renders but no live model calls were made — the Chat page needs a real key). The dashboard counters show a fresh local instance's state (e.g. Code Repair 0%), which is the live page reading its local DB, not the benchmark results in the table below — those come from running `scripts/*.py` per their commands. There is **no hosted demo URL** (see Limits).
+
 ## Quick Start
 
 ```bash
