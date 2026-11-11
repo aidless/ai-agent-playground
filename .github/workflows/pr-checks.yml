@@ -14,7 +14,10 @@ jobs:
           python-version: "3.11"
       - name: Syntax check (compileall)
         run: python -m compileall -q . || true
+      - name: Install dependencies (hash-pinned) and the project itself
+        run: |
+          if [ -f requirements.ci.lock ]; then pip install -q --require-hashes -r requirements.ci.lock; fi
+          if [ -f pyproject.toml ]; then pip install -q -e . --no-deps; fi
       - name: Tests if present
         run: |
-          if [ -f requirements.build.lock ]; then pip install -q --require-hashes -r requirements.build.lock; fi
           if command -v pytest >/dev/null 2>&1; then pytest -q; else echo "no pytest"; fi
