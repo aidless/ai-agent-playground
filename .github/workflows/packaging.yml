@@ -16,7 +16,7 @@ jobs:
       - name: Build distributions
         run: |
           set -euo pipefail
-          python -m pip install --quiet build
+          python -m pip install --quiet --require-hashes -r requirements.build.lock
           if ls pyproject.toml setup.py setup.cfg >/dev/null 2>&1; then
             python -m build --sdist --wheel --outdir dist/
           else
