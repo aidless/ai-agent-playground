@@ -1,16 +1,15 @@
-# User Profile — 刘泽文
+# User Profile
 
 ## Name
-- 中文名：刘泽文
 - GitHub：aidless
-- 称呼偏好：泽文 / Zewen
+- 称呼偏好：用户
 
 ## Timezone
 - Asia/Shanghai (UTC+8)
 - 工作日一般白天活跃
 
 ## Background
-- 齐鲁理工学院，软件工程专业
+- 软件工程专业
 
 ## Current Goals
 1. **找 AI 应用开发岗位** — 靠 AI Agent 项目作品集证明能力

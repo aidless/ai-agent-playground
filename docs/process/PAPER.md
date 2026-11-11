@@ -1,6 +1,6 @@
 # AI Agent Playground: A Production-Grade Self-Evolving Multi-Engine Agent System
 
-**Liu Zewen (刘泽文)**
+**aidless (aidless)**
 
 > **Status (2026-10):** the deployment described here ran on an Alibaba Cloud ECS instance; that instance has been **released**, so there is no live URL. Text kept as written.
 

@@ -357,4 +357,4 @@ GitHub: [@aidless](https://github.com/aidless)
 
 ---
 
-*Liu Zewen (刘泽文) — B.Eng. Software Engineering, Qilu Institute of Technology*
+*aidless (aidless) — B.Eng. Software Engineering, an undergraduate institution*

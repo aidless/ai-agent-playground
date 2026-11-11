@@ -132,7 +132,7 @@ h1{{font-size:22px;color:#58a6ff;margin-bottom:4px}}
 </div>
 
 <div class="footer">
-    AI Agent Playground | Built by Liu Zewen | B.Eng. Software Engineering | Qilu Institute of Technology
+    AI Agent Playground | Built by aidless | B.Eng. Software Engineering | an undergraduate institution
 </div>
 
 <script>

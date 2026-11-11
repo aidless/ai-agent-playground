@@ -1,6 +1,6 @@
 # AI Agent Playground — Final System Report
 
-**Author**: Liu Zewen (刘泽文) | B.Eng. Software Engineering | Qilu Institute of Technology
+**Author**: aidless (aidless) | B.Eng. Software Engineering | an undergraduate institution
 **GitHub**: [aidless/ai-agent-playground](https://github.com/aidless/ai-agent-playground)
 **Deployed**: Alibaba Cloud ECS (instance since released, no live URL) | **Tests**: 166 passed, 1 skipped, 0 failed
 
@@ -160,5 +160,5 @@ cd ai-agent-playground
 
 ---
 
-*Built by Liu Zewen, seeking software roles.*
+*Built by aidless, seeking software roles.*
 *Contact: GitHub [@aidless](https://github.com/aidless)*

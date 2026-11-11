@@ -284,4 +284,4 @@ The project is fully open source. You can:
 
 ---
 
-*Liu Zewen | B.Eng. Software Engineering | Qilu Institute of Technology | Open to AI Application Developer roles*
+*aidless | B.Eng. Software Engineering | an undergraduate institution | Open to AI Application Developer roles*
