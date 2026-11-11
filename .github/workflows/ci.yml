@@ -21,8 +21,8 @@ jobs:
       DEEPSEEK_API_KEY: sk-ci-placeholder
       DEEPSEEK_BASE_URL: https://api.deepseek.com
     steps:
-      - actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86
       - run: uv sync --locked
       - run: |
           uv run python -m pytest \
@@ -31,7 +31,7 @@ jobs:
             --ignore=eval_harness \
             --tb=short -v \
             --junitxml=junit.xml
-      - actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: test-results
@@ -43,8 +43,8 @@ jobs:
       DEEPSEEK_API_KEY: sk-ci-placeholder
       DEEPSEEK_BASE_URL: https://api.deepseek.com
     steps:
-      - actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86
       - run: uv sync --locked
       # Both scanners used to be `uv run <tool> ... || echo "<tool> done"`.
       # bandit is not in the dependency lock, so `uv run bandit` exits 2 with
@@ -77,11 +77,11 @@ jobs:
       DEEPSEEK_API_KEY: sk-ci-placeholder
       DEEPSEEK_BASE_URL: https://api.deepseek.com
     steps:
-      - actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86
       - run: uv sync --locked
       - run: uv build
-      - actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: dist
           path: dist/
@@ -94,7 +94,7 @@ jobs:
     # take effect until the branch is regenerated. Pinned, not latest.
     runs-on: ubuntu-latest
     steps:
-      - actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0
       - name: gitleaks (full history)
