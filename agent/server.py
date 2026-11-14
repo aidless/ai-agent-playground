@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import AsyncGenerator, List, Optional
 
 from dotenv import load_dotenv, find_dotenv
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from openai import AsyncOpenAI
@@ -659,7 +659,7 @@ async def metrics():
 
 
 @app.post("/v1/chat/stream")
-async def chat_stream(req: ChatRequest, session_id: str = ""):
+async def chat_stream(request: Request, req: ChatRequest, session_id: str = ""):
     """流式接口（支持多轮对话记忆）"""
     check_prompt_injection(req.message, request.client.host if request.client else "unknown")
     if not agent:
@@ -698,7 +698,7 @@ async def chat_stream(req: ChatRequest, session_id: str = ""):
 
 
 @app.post("/chat/completions")
-async def chat_completions(req: OpenAIChatRequest):
+async def chat_completions(request: Request, req: OpenAIChatRequest):
     """新增：兼容 OpenAI 标准的接口 (修复 404 问题)"""
     if not agent:
         raise HTTPException(status_code=503, detail="Agent not initialized")
@@ -758,7 +758,7 @@ async def governance_audit(date: str = None, limit: int = 50):
 
 
 @app.post("/orchestrate")
-async def orchestrate_task(req: ChatRequest):
+async def orchestrate_task(request: Request, req: ChatRequest):
     """多 Agent 协作编排（方向一）"""
     check_prompt_injection(req.message, request.client.host if request.client else "unknown")
     if not orchestrator:
@@ -1074,7 +1074,7 @@ class RouteRequest(BaseModel):
 
 
 @app.post("/route/compare")
-async def route_compare(req: RouteRequest):
+async def route_compare(request: Request, req: RouteRequest):
     """对比三种路由模式 (residual vs block vs full)"""
     check_prompt_injection(req.task, request.client.host if request.client else "?")
     for signal in req.signals:
@@ -1091,7 +1091,7 @@ async def route_compare(req: RouteRequest):
 
 
 @app.post("/route/execute")
-async def route_execute(req: RouteRequest, mode: str = "full"):
+async def route_execute(request: Request, req: RouteRequest, mode: str = "full"):
     """执行选择性路由"""
     check_prompt_injection(req.task, request.client.host if request.client else "?")
     for signal in req.signals:
@@ -1115,7 +1115,7 @@ async def route_execute(req: RouteRequest, mode: str = "full"):
 
 
 @app.post("/orchestrate/routing")
-async def orchestrate_with_routing(req: ChatRequest, mode: str = "full"):
+async def orchestrate_with_routing(request: Request, req: ChatRequest, mode: str = "full"):
     """多Agent编排 + AttnRes路由"""
     check_prompt_injection(req.message, request.client.host if request.client else "unknown")
     if not orchestrator or not crew:
@@ -1196,7 +1196,7 @@ class DebateRequest(BaseModel):
 
 
 @app.post("/super/debate")
-async def super_debate(req: DebateRequest):
+async def super_debate(request: Request, req: DebateRequest):
     """多模型辩论 — Primary vs Challenger → Arbitrator 裁决"""
     check_prompt_injection(req.task, request.client.host if request.client else "?")
     if not agent:
@@ -1297,7 +1297,7 @@ class MatrixRequest(BaseModel):
 
 
 @app.post("/matrix/solve")
-async def matrix_solve(req: MatrixRequest):
+async def matrix_solve(request: Request, req: MatrixRequest):
     """多 Agent 矩阵 — 自动路由到最佳专业 Agent 并行求解"""
     check_prompt_injection(req.task, request.client.host if request.client else "?")
     if not agent_matrix:
@@ -1330,7 +1330,7 @@ async def matrix_status():
 
 
 @app.post("/autopilot/solve")
-async def autopilot_solve(req: MatrixRequest):
+async def autopilot_solve(request: Request, req: MatrixRequest):
     """全自主回路 — 路由→执行→验证→反思→改进→重试，零人工干预"""
     check_prompt_injection(req.task, request.client.host if request.client else "?")
     if not autopilot:
@@ -1499,7 +1499,7 @@ class PipelineRequest(BaseModel):
 
 
 @app.post("/super/pipeline")
-async def super_pipeline(req: PipelineRequest):
+async def super_pipeline(request: Request, req: PipelineRequest):
     """统一流水线 — Crew拆解 → 每个子任务Debate → CrossReview校对"""
     check_prompt_injection(req.task, request.client.host if request.client else "?")
     if not unified_pipeline:
